@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: popreklam_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: popreklam
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: popreklam_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── BLOG: WordPress + MySQL ──────────────────────────────────────────────
+  # WordPress runs silently in the background.
+  # Next.js /blog fetches from its REST API: http://localhost:8080/wp-json/wp/v2/
+  # Production: Replace localhost:8080 with your live domain (e.g. blog.popreklam.com)
+  # ──────────────────────────────────────────────────────────────────────────
+  blog_db:
+    image: mysql:8.0
+    container_name: popreklam_blog_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: blogroot
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - blog_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wordpress:
+    image: wordpress:latest
+    container_name: popreklam_wordpress
+    restart: unless-stopped
+    depends_on:
+      blog_db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: blog_db:3306
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppassword
+      WORDPRESS_DB_NAME: wordpress
+      # Enable JWT Auth plugin support
+      WORDPRESS_CONFIG_EXTRA: |
+        define('JWT_AUTH_SECRET_KEY', 'popreklam-jwt-secret-change-in-prod');
+        define('JWT_AUTH_CORS_ENABLE', true);
+    volumes:
+      - wordpress_data:/var/www/html
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  blog_db_data:
+    driver: local
+  wordpress_data:
+    driver: local

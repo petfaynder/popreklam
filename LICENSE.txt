@@ -1,0 +1,45 @@
+Regular License
+
+Copyright © 2026 PopReklam. All rights reserved.
+
+This License Agreement ("Agreement") is between you (the "Licensee") and the author of PopReklam (the "Licensor").
+
+BY PURCHASING THIS SOFTWARE, YOU AGREE TO THE TERMS OF THIS LICENSE.
+
+GRANT OF LICENSE:
+The Licensor grants you a non-exclusive, non-transferable right to use the PopReklam software (the "Software") subject to the following conditions:
+
+PERMITTED USES:
+1. You may use the Software to create a single end product for yourself or for a client
+2. You may modify the source code to suit your needs
+3. You may charge clients for your service of customizing or deploying the Software
+4. You may use the Software on one domain or subdomain
+
+RESTRICTIONS:
+1. You may NOT resell, redistribute, or share the source code
+2. You may NOT use the Software to create a SaaS or hosted application
+3. You may NOT use the Software on multiple domains without purchasing additional licenses
+4. You may NOT claim ownership of the original Software
+5. You may NOT remove or alter any copyright notices in the Software
+
+EXTENDED LICENSE:
+For using the Software on multiple domains or creating a SaaS application, you must purchase an Extended License separately.
+
+NO WARRANTY:
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+LIMITATION OF LIABILITY:
+IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM THE USE OF THE SOFTWARE.
+
+TERMINATION:
+This license is effective until terminated. Your rights under this license will terminate automatically if you fail to comply with any of its terms.
+
+GOVERNING LAW:
+This Agreement shall be governed by and construed in accordance with the laws of the jurisdiction in which the Licensor operates.
+
+ENTIRE AGREEMENT:
+This Agreement constitutes the entire agreement between you and the Licensor regarding the Software.
+
+For Extended License or commercial inquiries, please contact support.
+
+--- END OF LICENSE ---

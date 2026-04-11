@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Server Test</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 600px; }
+        .status { margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 4px; }
+        button { padding: 10px 20px; background: #0070f3; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0051a2; }
+    </style>
+</head>
+<body>
+    <h1>🛠️ Ad Server Integration Test</h1>
+    
+    <div class="card">
+        <h3>Step 1: Publisher Simulation</h3>
+        <p>Enter a Zone ID to simulate an ad request from a publisher site.</p>
+        <input type="text" id="zoneId" placeholder="Enter Zone ID" style="padding: 8px; width: 100%; margin-bottom: 10px;">
+        <button onclick="testAdConnection()">Test Connection</button>
+        
+        <div id="result" class="status" style="display:none;"></div>
+    </div>
+
+    <script>
+        async function testAdConnection() {
+            const zoneId = document.getElementById('zoneId').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!zoneId) {
+                alert('Please enter a Zone ID');
+                return;
+            }
+
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = 'Connecting to Ad Server...';
+
+            try {
+                // Point to backend direct ad serving endpoint
+                const response = await fetch(`http://localhost:5000/api/ads/serve?zoneId=${zoneId}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <strong>✅ Ad Found:</strong><br>
+                        Type: ${data.type}<br>
+                        Target URL: <a href="${data.targetUrl}" target="_blank">${data.targetUrl}</a><br>
+                        Tracking Pixel: ${data.trackUrl}
+                    `;
+                    
+                    // Fire tracking pixel
+                    new Image().src = data.trackUrl;
+                    resultDiv.innerHTML += '<br><small>Analytics pixel fired automatically.</small>';
+                } else {
+                    resultDiv.innerHTML = `❌ Error: ${data.error}`;
+                }
+            } catch (err) {
+                resultDiv.innerHTML = `❌ Connection Failed: ${err.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
