@@ -14,11 +14,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Accept build-time env vars for NEXT_PUBLIC_* variables
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-
-# Build Next.js app
+# Build Next.js app (reads NEXT_PUBLIC_* from .env.production automatically)
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
