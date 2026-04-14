@@ -1,5 +1,5 @@
 # ─── Stage 1: Builder ─────────────────────────────────────────────────────────
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
 
 WORKDIR /app
 
@@ -8,15 +8,20 @@ COPY package*.json ./
 COPY prisma ./prisma/
 
 # Install ALL deps (including devDeps needed for prisma generate)
+# We add openssl just in case, though slim usually has what Prisma needs
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 RUN npm ci
 
 # Generate Prisma client
 RUN npx prisma generate
 
 # ─── Stage 2: Production ──────────────────────────────────────────────────────
-FROM node:20-alpine AS production
+FROM node:20-slim AS production
 
 WORKDIR /app
+
+# Install openssl for Prisma in production
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
 # Install only production deps
 COPY package*.json ./
@@ -31,12 +36,10 @@ COPY prisma ./prisma/
 COPY src ./src/
 COPY public ./public/
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 && \
-    chown -R nodejs:nodejs /app
+# The node image already includes a user named "node"
+RUN chown -R node:node /app
 
-USER nodejs
+USER node
 
 EXPOSE 4000
 
