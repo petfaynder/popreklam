@@ -102,8 +102,5 @@ router.get('/audiences/:id/size', audienceController.getAudienceSize);
 router.put('/audiences/:id', audienceController.updateAudience);
 router.delete('/audiences/:id', audienceController.deleteAudience);
 
-// Legacy routes (keep for backward compatibility)
-router.get('/billing', advertiserController.getBilling);
-router.post('/deposit', advertiserController.addFunds);
 
 export default router;

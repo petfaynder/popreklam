@@ -258,20 +258,29 @@ export const verifyPayment = async (req, res) => {
                     const txStatus = statusRes.data?.data?.status;
                     // 'paid' or 'Paid' = confirmed
                     if (txStatus === 'paid' || txStatus === 'Paid' || txStatus === 'completed') {
-                        await prisma.$transaction([
-                            prisma.payment.update({
+                        // Idempotent: Re-check status INSIDE transaction to prevent double-credit
+                        // (webhook may have already fulfilled this payment)
+                        const result = await prisma.$transaction(async (tx) => {
+                            const freshPayment = await tx.payment.findUnique({ where: { id: paymentId } });
+                            if (!freshPayment || freshPayment.status === 'COMPLETED') {
+                                return { alreadyDone: true };
+                            }
+
+                            await tx.payment.update({
                                 where: { id: paymentId },
                                 data: { status: 'COMPLETED', processedAt: new Date() }
-                            }),
-                            prisma.user.update({
+                            });
+                            await tx.user.update({
                                 where: { id: userId },
-                                data: { balance: { increment: payment.amount } }
-                            }),
-                            prisma.advertiser.update({
+                                data: { balance: { increment: freshPayment.amount } }
+                            });
+                            await tx.advertiser.update({
                                 where: { userId },
-                                data: { totalDeposit: { increment: payment.amount } }
-                            })
-                        ]);
+                                data: { totalDeposit: { increment: freshPayment.amount } }
+                            });
+                            return { alreadyDone: false };
+                        });
+
                         const updated = await prisma.user.findUnique({ where: { id: userId }, select: { balance: true } });
                         return res.json({ status: 'COMPLETED', balance: updated?.balance });
                     }

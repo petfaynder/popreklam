@@ -156,8 +156,42 @@ export const disable2FA = async (req, res) => {
  */
 export const verify2FALogin = async (req, res) => {
     try {
-        const { token, userId } = req.body;
-        if (!token || !userId) return res.status(400).json({ error: 'Token and userId are required' });
+        const { token, challengeToken, userId: legacyUserId } = req.body;
+        if (!token) return res.status(400).json({ error: 'OTP token is required' });
+
+        // Decode challengeToken (new secure method) or fall back to legacy userId
+        let userId;
+        if (challengeToken) {
+            try {
+                const decoded = Buffer.from(challengeToken, 'base64url').toString();
+                const parts = decoded.split(':');
+                if (parts.length < 3) throw new Error('Invalid format');
+
+                const receivedHmac = parts.pop();
+                const payload = parts.join(':'); // userId:timestamp
+                const [uid, timestamp] = [parts.slice(0, -1).join(':'), parts[parts.length - 1]];
+
+                // Verify HMAC signature
+                const expectedHmac = crypto.createHmac('sha256', process.env.JWT_SECRET)
+                    .update(payload).digest('hex');
+                if (receivedHmac !== expectedHmac) {
+                    return res.status(401).json({ error: 'Invalid challenge token' });
+                }
+
+                // Check expiry (5 minutes)
+                if (Date.now() - Number(timestamp) > 5 * 60 * 1000) {
+                    return res.status(401).json({ error: 'Challenge token expired. Please login again.' });
+                }
+
+                userId = uid;
+            } catch {
+                return res.status(401).json({ error: 'Invalid challenge token' });
+            }
+        } else if (legacyUserId) {
+            userId = legacyUserId; // Backward compatibility
+        } else {
+            return res.status(400).json({ error: 'Challenge token is required' });
+        }
 
         const user = await prisma.user.findUnique({
             where: { id: userId },

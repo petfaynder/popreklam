@@ -5,38 +5,44 @@ import prisma from '../lib/prisma.js';
 
 
 // ── Redis Connection ────────────────────────────────────────────────────────
+let redisAvailable = false;
 let pushRedisErrorLogged = false;
+
 const redisConnection = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
     maxRetriesPerRequest: null, // Required by BullMQ
     enableReadyCheck: false,
     lazyConnect: true,
     retryStrategy(times) {
-        if (times > 5) {
+        if (times > 3) {
             if (!pushRedisErrorLogged) {
-                console.warn('⚠️ [PushDelivery] Redis unavailable — push worker disabled.');
+                console.warn('⚠️  [PushDelivery] Redis unavailable — push notifications disabled. Start Redis to enable.');
                 pushRedisErrorLogged = true;
             }
-            return null; // Stop retrying
+            return null; // Stop retrying — no more logs
         }
-        return Math.min(times * 500, 3000);
+        return Math.min(times * 1000, 3000);
     },
 });
 
 redisConnection.on('connect', () => {
+    redisAvailable = true;
     pushRedisErrorLogged = false;
-    console.log('✅ [PushDelivery] Redis connected.');
+    console.log('✅ [PushDelivery] Redis connected — push notifications enabled.');
 });
 
 redisConnection.on('error', (err) => {
+    redisAvailable = false;
+    // Only log once — retryStrategy handles the silence after max retries
     if (!pushRedisErrorLogged && err.code === 'ECONNREFUSED') {
-        console.warn('⚠️ [PushDelivery] Redis not running — push notifications disabled.');
-        pushRedisErrorLogged = true;
+        // Will be logged by retryStrategy after 3 attempts
     } else if (err.code !== 'ECONNREFUSED') {
         console.error('[PushDelivery] Redis error:', err.message);
     }
 });
 
-// ── Queue ───────────────────────────────────────────────────────────────────
+// ── Queue (only created if Redis becomes available) ─────────────────────────
+// We create the Queue object upfront since BullMQ requires it,
+// but all enqueue calls are guarded by redisAvailable check.
 export const pushQueue = new Queue('push-delivery', {
     connection: redisConnection,
     defaultJobOptions: {
@@ -133,6 +139,8 @@ export const startPushWorker = () => {
  * Uses targeting rules: country, device, subscription age.
  */
 export const enqueuePushCampaign = async (campaign) => {
+    if (!redisAvailable) return 0; // Redis not running — skip silently
+
     const targeting = campaign.targeting || {};
     const freqCap = Number(campaign.freqCap || 3);
 

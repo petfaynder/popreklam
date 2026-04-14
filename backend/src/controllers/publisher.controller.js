@@ -1,4 +1,4 @@
-import prisma from '../utils/db.js';
+import prisma from '../lib/prisma.js';
 import crypto from 'crypto';
 import dns from 'dns';
 
@@ -77,7 +77,7 @@ export const getDashboard = async (req, res) => {
                 }
             },
             _sum: {
-                revenue: true
+                publisherRevenue: true
             }
         });
 
@@ -94,7 +94,7 @@ export const getDashboard = async (req, res) => {
                 }
             },
             _sum: {
-                revenue: true
+                publisherRevenue: true
             }
         });
 
@@ -108,7 +108,7 @@ export const getDashboard = async (req, res) => {
                 }
             },
             _sum: {
-                revenue: true
+                publisherRevenue: true
             }
         });
 
@@ -134,8 +134,8 @@ export const getDashboard = async (req, res) => {
         });
 
         // Calculate changes
-        const revenueChange = yesterdayRevenue._sum.revenue > 0
-            ? ((Number(todayRevenue._sum.revenue || 0) - Number(yesterdayRevenue._sum.revenue)) / Number(yesterdayRevenue._sum.revenue) * 100).toFixed(1)
+        const revenueChange = yesterdayRevenue._sum.publisherRevenue > 0
+            ? ((Number(todayRevenue._sum.publisherRevenue || 0) - Number(yesterdayRevenue._sum.publisherRevenue)) / Number(yesterdayRevenue._sum.publisherRevenue) * 100).toFixed(1)
             : 0;
 
         const impressionsChange = yesterdayImpressions > 0
@@ -151,12 +151,12 @@ export const getDashboard = async (req, res) => {
             : '0.00';
 
         const averageECPM = totalImpressions > 0
-            ? (Number(totalEarnings._sum.revenue || 0) / totalImpressions * 1000).toFixed(2)
+            ? (Number(totalEarnings._sum.publisherRevenue || 0) / totalImpressions * 1000).toFixed(2)
             : '0.00';
 
         res.json({
             today: {
-                revenue: Number(todayRevenue._sum.revenue || 0),
+                revenue: Number(todayRevenue._sum.publisherRevenue || 0),
                 revenueChange: Number(revenueChange),
                 impressions: todayImpressions,
                 impressionsChange: Number(impressionsChange),
@@ -168,7 +168,7 @@ export const getDashboard = async (req, res) => {
                 active: publisher.sites.filter(s => s.status === 'ACTIVE').length
             },
             earnings: {
-                total: Number(totalEarnings._sum.revenue || 0)
+                total: Number(totalEarnings._sum.publisherRevenue || 0)
             },
             averageECPM: averageECPM,
             averageCTR: averageCTR
@@ -218,7 +218,7 @@ export const getSites = async (req, res) => {
             site.zones.forEach(zone => {
                 impressions += zone.impressions.length;
                 zone.impressions.forEach(imp => {
-                    revenue += parseFloat(imp.revenue);
+                    revenue += parseFloat(imp.publisherRevenue);
                 });
             });
 
@@ -619,54 +619,62 @@ export const requestWithdrawal = async (req, res) => {
         const userId = req.user.id;
         const { amount, method } = req.body;
 
-        const user = await prisma.user.findUnique({
-            where: { id: userId }
-        });
-
-        const publisher = await prisma.publisher.findUnique({
-            where: { userId }
-        });
-
-        if (!publisher) {
-            return res.status(404).json({ message: 'Publisher not found' });
+        const parsedAmount = parseFloat(amount);
+        if (!parsedAmount || parsedAmount <= 0) {
+            return res.status(400).json({ message: 'Invalid withdrawal amount' });
         }
 
-        // Check if balance is sufficient
-        if (parseFloat(user.balance) < parseFloat(amount)) {
-            return res.status(400).json({ message: 'Insufficient balance' });
-        }
+        // Atomic transaction: balance check + decrement + create record
+        // Bu race condition'ı önler — iki eşzamanlı istek aynı anda çalışamaz
+        const transaction = await prisma.$transaction(async (tx) => {
+            const user = await tx.user.findUnique({ where: { id: userId } });
+            if (!user) throw new Error('USER_NOT_FOUND');
 
-        // Check minimum payout
-        if (parseFloat(amount) < parseFloat(publisher.minPayout)) {
-            return res.status(400).json({
-                message: `Minimum payout is $${publisher.minPayout}`
+            const publisher = await tx.publisher.findUnique({ where: { userId } });
+            if (!publisher) throw new Error('PUBLISHER_NOT_FOUND');
+
+            // Balance check (transaction içinde — race-safe)
+            if (parseFloat(user.balance) < parsedAmount) {
+                throw new Error('INSUFFICIENT_BALANCE');
+            }
+
+            // Minimum payout check
+            if (parsedAmount < parseFloat(publisher.minPayout)) {
+                throw new Error(`MIN_PAYOUT:${publisher.minPayout}`);
+            }
+
+            // Deduct balance FIRST (within same transaction)
+            await tx.user.update({
+                where: { id: userId },
+                data: { balance: { decrement: parsedAmount } }
             });
-        }
 
-        // Create withdrawal transaction
-        const transaction = await prisma.transaction.create({
-            data: {
-                userId,
-                type: 'WITHDRAWAL',
-                status: 'PENDING',
-                amount: parseFloat(amount),
-                description: `Withdrawal via ${method}`,
-                metadata: { method }
-            }
-        });
-
-        // Deduct from balance
-        await prisma.user.update({
-            where: { id: userId },
-            data: {
-                balance: {
-                    decrement: parseFloat(amount)
+            // Create withdrawal record
+            return tx.transaction.create({
+                data: {
+                    userId,
+                    type: 'WITHDRAWAL',
+                    status: 'PENDING',
+                    amount: parsedAmount,
+                    description: `Withdrawal via ${method}`,
+                    metadata: { method }
                 }
-            }
+            });
         });
 
         res.status(201).json(transaction);
     } catch (error) {
+        // Handle known business errors with proper status codes
+        if (error.message === 'USER_NOT_FOUND' || error.message === 'PUBLISHER_NOT_FOUND') {
+            return res.status(404).json({ message: 'Publisher not found' });
+        }
+        if (error.message === 'INSUFFICIENT_BALANCE') {
+            return res.status(400).json({ message: 'Insufficient balance' });
+        }
+        if (error.message?.startsWith('MIN_PAYOUT:')) {
+            const min = error.message.split(':')[1];
+            return res.status(400).json({ message: `Minimum payout is $${min}` });
+        }
         console.error('Error requesting withdrawal:', error);
         res.status(500).json({ message: 'Server error' });
     }
@@ -721,7 +729,7 @@ export const getStats = async (req, res) => {
                 siteImpressions += zone.impressions.length;
                 zone.impressions.forEach(imp => {
                     if (imp.clicked) siteClicks++;
-                    siteRevenue += parseFloat(imp.revenue);
+                    siteRevenue += parseFloat(imp.publisherRevenue);
                 });
             });
 

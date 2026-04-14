@@ -45,6 +45,7 @@ enum CampaignStatus {
   COMPLETED
   PENDING_APPROVAL
   REJECTED
+  DELETED
 }
 
 enum BiddingStrategy {
@@ -395,8 +396,8 @@ model Impression {
   trafficStatus    String    @default("CLEAN") @map("traffic_status")  // CLEAN | PENDING | INVALID
   createdAt        DateTime  @default(now()) @map("created_at")
   
-  // Relations
-  campaign         Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  // Relations — Restrict campaign delete to protect impression/revenue history (soft-delete only)
+  campaign         Campaign  @relation(fields: [campaignId], references: [id], onDelete: Restrict)
   zone             Zone      @relation(fields: [zoneId], references: [id], onDelete: Cascade)
   conversion       Conversion?
 

@@ -23,7 +23,9 @@ function mockCheckoutUrl(paymentId, gateway) {
 // Docs: https://docs.dodopayments.com
 // SDK:  npm install dodopayments
 //
-// Flow: createCheckoutSession → checkout_url (hosted Dodo page) → webhook payment.succeeded
+// Flow: createPaymentLink (dynamic amount) → redirect_url → webhook payment.succeeded
+// NOTE: We use the payment-links API (not checkoutSessions + fixed product_cart)
+//       so the user-specified deposit amount is honored exactly.
 
 export async function createDodoSession(amount, paymentId, userEmail) {
     const apiKey = await getSetting('dodo_api_key');
@@ -33,21 +35,42 @@ export async function createDodoSession(amount, paymentId, userEmail) {
         throw new Error('Dodo Payments is not configured by the admin.');
     }
 
-    const productId = await getSetting('dodo_product_id');
-    if (!productId) throw new Error('Dodo product_id is not configured. Create a product in the Dodo dashboard first.');
-
     // Use test_mode when not in production
     const client = new DodoPayments({
         bearerToken: apiKey,
         environment: IS_DEV ? 'test_mode' : 'live_mode',
     });
 
+    // ── Dynamic amount via payment-links ────────────────────────────────────
+    // Dodo payment-links support arbitrary amounts without a fixed product.
+    // amount is in dollars; Dodo expects integer cents.
+    const amountCents = Math.round(Number(amount) * 100);
+
+    try {
+        const link = await client.paymentLinks.create({
+            amount: amountCents,
+            currency: 'usd',
+            customer: { email: userEmail, name: userEmail.split('@')[0] },
+            return_url: `${FRONTEND_URL}/advertiser/billing?success=true&payment_id=${paymentId}`,
+            cancel_url: `${FRONTEND_URL}/advertiser/billing?canceled=true`,
+            metadata: { payment_id: paymentId },
+        });
+
+        if (link?.url) return link.url;
+    } catch (linkErr) {
+        // payment-links may not be enabled on all Dodo plans — fall back to product_cart
+        console.warn('[Dodo] payment-links not available, falling back to product_cart:', linkErr.message);
+    }
+
+    // ── Fallback: fixed product (LOGIC-01 known limitation) ─────────────────
+    // If product_cart is used, the Dodo product price MUST match the user deposit.
+    // Admin should set the Dodo product to a flexible denomination or use payment-links.
+    const productId = await getSetting('dodo_product_id');
+    if (!productId) throw new Error('Dodo product_id is not configured. Create a product in the Dodo dashboard first.');
+
     const session = await client.checkoutSessions.create({
         product_cart: [{ product_id: productId, quantity: 1 }],
-        customer: {
-            email: userEmail,
-            name: userEmail.split('@')[0],
-        },
+        customer: { email: userEmail, name: userEmail.split('@')[0] },
         return_url: `${FRONTEND_URL}/advertiser/billing?success=true&payment_id=${paymentId}`,
         cancel_url: `${FRONTEND_URL}/advertiser/billing?canceled=true`,
         metadata: { payment_id: paymentId },

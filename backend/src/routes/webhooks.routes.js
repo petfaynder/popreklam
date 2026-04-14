@@ -197,16 +197,14 @@ export async function fulfillDeposit(paymentId, externalTransactionId) {
             data: { totalDeposit: { increment: payment.amount } },
         });
 
-        // Auto-generate invoice
+        // Auto-generate invoice (race-safe: timestamp + random suffix instead of count-based)
         const now = new Date();
         const currentYear = now.getFullYear();
         const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+        const randomSuffix = String(Math.floor(Math.random() * 90000) + 10000); // 5-digit random
+        const timestamp = String(Date.now()).slice(-6); // Last 6 digits of epoch
 
-        const count = await tx.invoice.count({
-            where: { createdAt: { gte: new Date(currentYear, now.getMonth(), 1) } },
-        });
-
-        const invoiceNo = `INV-${currentYear}-${currentMonth}-${String(count + 1).padStart(4, '0')}`;
+        const invoiceNo = `INV-${currentYear}-${currentMonth}-${timestamp}-${randomSuffix}`;
 
         await tx.invoice.create({
             data: {

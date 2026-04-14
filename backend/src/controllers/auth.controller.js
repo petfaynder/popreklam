@@ -2,14 +2,15 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { validationResult } from 'express-validator';
-import prisma from '../utils/db.js';
+import prisma from '../lib/prisma.js';
 import { logger } from '../utils/logger.js';
 import { sendEmail } from '../services/email.service.js';
 
-// Generate JWT token
+// Generate JWT token — always pass a user object with .id
 export const generateToken = (user) => {
+    const userId = typeof user === 'string' ? user : user.id;
     return jwt.sign(
-        { userId: user.id || user },
+        { userId },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
     );
@@ -184,10 +185,15 @@ export const login = async (req, res, next) => {
 
         // ── 2FA Challenge ──────────────────────────────────────
         if (user.twoFactorEnabled) {
-            // Do NOT issue a session token yet — wait for OTP verification
+            // Generate a short-lived challenge token instead of exposing raw userId
+            const challengePayload = `${user.id}:${Date.now()}`;
+            const hmac = crypto.createHmac('sha256', process.env.JWT_SECRET)
+                .update(challengePayload).digest('hex');
+            const challengeToken = Buffer.from(`${challengePayload}:${hmac}`).toString('base64url');
+
             return res.json({
                 requiresTwoFactor: true,
-                userId: user.id,  // Passed to /api/auth/2fa/verify
+                challengeToken,  // Opaque token — userId is hidden
                 message: 'Two-factor authentication required'
             });
         }

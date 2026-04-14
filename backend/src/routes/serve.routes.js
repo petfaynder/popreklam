@@ -7,6 +7,7 @@ import NodeCache from 'node-cache';
 import { conversionPixel } from '../controllers/campaign-analytics.controller.js';
 import { botUaGuard, computeFraudScore, getIpHourlyStats, incrementIpCounters, incrementClickCounter } from '../services/ip-reputation.service.js';
 import { checkAudienceTargeting } from '../services/audience.service.js';
+import { recordCommission } from '../services/referral-commission.service.js';
 
 const router = express.Router();
 
@@ -165,7 +166,8 @@ router.post('/impression', botUaGuard, async (req, res) => {
                     adFormat: zone.type
                 },
                 include: {
-                    creatives: true
+                    creatives: true,
+                    advertiser: { select: { userId: true } }  // Needed for referral commission
                 },
                 orderBy: {
                     bidAmount: 'desc'
@@ -240,15 +242,22 @@ router.post('/impression', botUaGuard, async (req, res) => {
             if (hourlyCount >= 1) continue;
             if (intervalCount >= freqCap) continue;
 
-            // Daily budget check
+            // Daily budget check (cached — avoids N+1 DB queries per impression)
             if (campaign.dailyBudget) {
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                const todaySpent = await prisma.impression.aggregate({
-                    where: { campaignId: campaign.id, createdAt: { gte: today } },
-                    _sum: { revenue: true }
-                });
-                if (Number(todaySpent._sum.revenue || 0) >= Number(campaign.dailyBudget)) continue;
+                const dailyCacheKey = `daily_spend_${campaign.id}`;
+                let cachedSpend = adCache.get(dailyCacheKey);
+                if (cachedSpend === undefined) {
+                    // First check today — seed from DB (happens once per campaign per 10s cache TTL)
+                    const todayStart = new Date();
+                    todayStart.setHours(0, 0, 0, 0);
+                    const todaySpent = await prisma.impression.aggregate({
+                        where: { campaignId: campaign.id, createdAt: { gte: todayStart } },
+                        _sum: { revenue: true }
+                    });
+                    cachedSpend = Number(todaySpent._sum.revenue || 0);
+                    adCache.set(dailyCacheKey, cachedSpend);
+                }
+                if (cachedSpend >= Number(campaign.dailyBudget)) continue;
             }
 
             // Traffic Type filtering
@@ -393,6 +402,25 @@ router.post('/impression', botUaGuard, async (req, res) => {
                 totalSpent: { increment: advertiserCharge }
             }
         });
+
+        // 7a. Update daily spend cache (keeps budget check accurate without DB query)
+        const dailyCacheKey = `daily_spend_${matchedCampaign.id}`;
+        const currentDailySpend = adCache.get(dailyCacheKey) || 0;
+        adCache.set(dailyCacheKey, currentDailySpend + advertiserCharge);
+
+        // 7b. Deduct from advertiser balance (BUG-12 fix — was never decremented)
+        // Fire-and-forget to avoid blocking the ad response
+        if (matchedCampaign.advertiser?.userId) {
+            prisma.user.update({
+                where: { id: matchedCampaign.advertiser.userId },
+                data: { balance: { decrement: advertiserCharge } }
+            }).catch((err) => console.error('[Serve] Balance decrement failed:', err.message));
+        }
+
+        // 7c. Record referral commission (fire-and-forget, non-blocking)
+        if (matchedCampaign.advertiser?.userId) {
+            recordCommission(matchedCampaign.advertiser.userId, advertiserCharge).catch(() => {});
+        }
 
         // 8. Credit publisher — PENDING traffic holds pay in pendingBalance for 24h audit
         if (zone.site?.publisher?.id) {

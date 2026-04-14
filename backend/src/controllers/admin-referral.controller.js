@@ -1,4 +1,4 @@
-import prisma from '../utils/db.js';
+import prisma from '../lib/prisma.js';
 
 // Platform-wide overview stats
 export const getOverviewStats = async (req, res) => {

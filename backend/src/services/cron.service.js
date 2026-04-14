@@ -329,13 +329,8 @@ export const initCronJobs = () => {
                     balance: { gte: globalMinPayout }
                 },
                 include: {
-                    publisher: {
-                        include: {
-                            user: {
-                                include: { paymentMethods: { where: { isDefault: true }, take: 1 } }
-                            }
-                        }
-                    }
+                    publisher: true,
+                    paymentMethods: { where: { isDefault: true }, take: 1 }
                 }
             });
 
@@ -365,7 +360,7 @@ export const initCronJobs = () => {
                 }
 
                 // Determine best payment method
-                const paymentMethod = user.publisher?.user?.paymentMethods?.[0] || null;
+                const paymentMethod = user.paymentMethods?.[0] || null;
 
                 // Create auto withdrawal payment record
                 await prisma.payment.create({

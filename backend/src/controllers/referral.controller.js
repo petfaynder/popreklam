@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto';
-import prisma from '../utils/db.js';
+import prisma from '../lib/prisma.js';
 
 function generateCode() {
     return randomBytes(5).toString('hex').toUpperCase();

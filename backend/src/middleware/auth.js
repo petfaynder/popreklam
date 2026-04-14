@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import prisma from '../utils/db.js';
+import prisma from '../lib/prisma.js';
 import { hasApiAccess, hasDetailedGeoReports } from '../services/priority.service.js';
 
 export const authenticate = async (req, res, next) => {

@@ -85,7 +85,7 @@ export const getDashboard = async (req, res) => {
                 }
             },
             _sum: {
-                cost: true
+                revenue: true
             }
         });
 
@@ -100,7 +100,7 @@ export const getDashboard = async (req, res) => {
                 }
             },
             _sum: {
-                cost: true
+                revenue: true
             }
         });
 
@@ -112,7 +112,7 @@ export const getDashboard = async (req, res) => {
                 }
             },
             _sum: {
-                cost: true
+                revenue: true
             }
         });
 
@@ -134,8 +134,8 @@ export const getDashboard = async (req, res) => {
         });
 
         // Calculate changes
-        const spendChange = yesterdaySpent._sum.cost > 0
-            ? ((Number(todaySpent._sum.cost || 0) - Number(yesterdaySpent._sum.cost)) / Number(yesterdaySpent._sum.cost) * 100).toFixed(1)
+        const spendChange = yesterdaySpent._sum.revenue > 0
+            ? ((Number(todaySpent._sum.revenue || 0) - Number(yesterdaySpent._sum.revenue)) / Number(yesterdaySpent._sum.revenue) * 100).toFixed(1)
             : 0;
 
         const impressionsChange = yesterdayImpressions > 0
@@ -151,11 +151,11 @@ export const getDashboard = async (req, res) => {
             : '0.00';
 
         const averageCPC = totalClicks > 0
-            ? (Number(totalSpending._sum.cost || 0) / totalClicks).toFixed(2)
+            ? (Number(totalSpending._sum.revenue || 0) / totalClicks).toFixed(2)
             : '0.00';
 
         const averageCPM = totalImpressions > 0
-            ? (Number(totalSpending._sum.cost || 0) / totalImpressions * 1000).toFixed(2)
+            ? (Number(totalSpending._sum.revenue || 0) / totalImpressions * 1000).toFixed(2)
             : '0.00';
 
         // Priority tier info
@@ -170,7 +170,7 @@ export const getDashboard = async (req, res) => {
         res.json({
             balance: Number(userRecord?.balance || 0),
             spending: {
-                total: Number(totalSpending._sum.cost || 0),
+                total: Number(totalSpending._sum.revenue || 0),
                 change: Number(spendChange)
             },
             performance: {
@@ -209,6 +209,10 @@ export const getCampaigns = async (req, res) => {
             where: { userId },
             include: {
                 campaigns: {
+                    where: {
+                        status: { in: ['ACTIVE', 'PAUSED', 'PENDING_APPROVAL', 'REJECTED', 'COMPLETED'] },
+                        NOT: { name: { startsWith: '[DELETED] ' } }
+                    },
                     orderBy: {
                         createdAt: 'desc'
                     }
@@ -645,8 +649,10 @@ export const deleteCampaign = async (req, res) => {
             return res.status(404).json({ message: 'Campaign not found' });
         }
 
-        await prisma.campaign.delete({
-            where: { id }
+        // Soft delete � preserve impression history
+        await prisma.campaign.update({
+            where: { id },
+            data: { status: 'DELETED' }
         });
 
         res.json({ message: 'Campaign deleted successfully' });
@@ -811,49 +817,45 @@ export const getStats = async (req, res) => {
         const userId = req.user.id;
         const { startDate, endDate } = req.query;
 
-        const advertiser = await prisma.advertiser.findUnique({
-            where: { userId },
-            include: {
-                campaigns: {
-                    include: {
-                        impressions: {
-                            where: startDate && endDate ? {
-                                createdAt: { gte: new Date(startDate), lte: new Date(endDate) }
-                            } : {}
-                        }
-                    }
-                }
-            }
-        });
-
+        const advertiser = await prisma.advertiser.findUnique({ where: { userId } });
         if (!advertiser) return res.status(404).json({ message: 'Advertiser not found' });
 
-        const stats = { impressions: 0, clicks: 0, spent: 0, byCampaign: [] };
+        const dateFilter = startDate && endDate
+            ? { createdAt: { gte: new Date(startDate), lte: new Date(endDate) } }
+            : {};
 
-        advertiser.campaigns.forEach(campaign => {
-            const campaignImpressions = campaign.impressions.length;
-            let campaignClicks = 0;
-            let campaignSpent = 0;
-            campaign.impressions.forEach(imp => {
-                if (imp.clicked) campaignClicks++;
-                campaignSpent += parseFloat(imp.cost);
-            });
-            stats.impressions += campaignImpressions;
-            stats.clicks += campaignClicks;
-            stats.spent += campaignSpent;
-            stats.byCampaign.push({
-                campaignName: campaign.name,
-                impressions: campaignImpressions,
-                clicks: campaignClicks,
-                spent: campaignSpent.toFixed(2),
-                ctr: campaignImpressions > 0 ? ((campaignClicks / campaignImpressions) * 100).toFixed(2) : 0
-            });
+        const campaigns = await prisma.campaign.findMany({
+            where: { advertiserId: advertiser.id, status: { in: ['ACTIVE', 'PAUSED', 'PENDING_APPROVAL', 'REJECTED', 'COMPLETED'] } },
+            select: { id: true, name: true }
         });
 
+        let totalImpressions = 0, totalClicks = 0, totalSpent = 0;
+        const byCampaign = await Promise.all(campaigns.map(async (campaign) => {
+            const where = { campaignId: campaign.id, ...dateFilter };
+            const [impCount, clickCount, spentSum] = await Promise.all([
+                prisma.impression.count({ where }),
+                prisma.impression.count({ where: { ...where, clicked: true } }),
+                prisma.impression.aggregate({ where, _sum: { revenue: true } })
+            ]);
+            const spent = Number(spentSum._sum.revenue || 0);
+            totalImpressions += impCount;
+            totalClicks += clickCount;
+            totalSpent += spent;
+            return {
+                campaignName: campaign.name,
+                impressions: impCount,
+                clicks: clickCount,
+                spent: spent.toFixed(2),
+                ctr: impCount > 0 ? ((clickCount / impCount) * 100).toFixed(2) : '0.00'
+            };
+        }));
+
         res.json({
-            ...stats,
-            spent: stats.spent.toFixed(2),
-            ctr: stats.impressions > 0 ? ((stats.clicks / stats.impressions) * 100).toFixed(2) : 0
+            impressions: totalImpressions,
+            clicks: totalClicks,
+            spent: totalSpent.toFixed(2),
+            ctr: totalImpressions > 0 ? ((totalClicks / totalImpressions) * 100).toFixed(2) : '0.00',
+            byCampaign
         });
     } catch (error) {
         console.error('Error getting stats:', error);

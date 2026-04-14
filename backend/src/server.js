@@ -68,14 +68,29 @@ app.use(cors({
   credentials: true
 }));
 
-// Rate limiting — strict for auth/admin, relaxed for public ad serve
+// Rate limiting — 3 tiers:
+//   strictLimiter : auth + admin endpoints (login, register, admin actions)
+//   apiLimiter    : authenticated panel routes (publisher, advertiser)
+//   adLimiter     : public ad-serving (very high volume)
 const strictLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
+  windowMs: 15 * 60 * 1000,  // 15 minutes
+  max: 100,                   // 100 req / 15 min — login, register, admin
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
     res.status(429).json({ error: 'Too many requests, please try again in 15 minutes.' });
+  }
+});
+
+// Authenticated dashboard users make ~10 parallel API calls per page navigation
+// 600 / 15 min = 40 req/min — comfortable for power users, still blocks abuse
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,  // 15 minutes
+  max: 600,                   // 600 req / 15 min per IP
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) => {
+    res.status(429).json({ error: 'Too many requests, please try again shortly.' });
   }
 });
 
@@ -115,13 +130,13 @@ app.get('/health', (req, res) => {
 });
 
 // API routes
-app.use('/api/auth', strictLimiter, maintenanceMiddleware, authRoutes);
-app.use('/api/publisher', maintenanceMiddleware, publisherRoutes);
-app.use('/api/advertiser', maintenanceMiddleware, advertiserRoutes);
-app.use('/api/admin', strictLimiter, adminRoutes);
-app.use('/api/ads', adLimiter, adServerRoutes);   // Public ad serving — high limit
-app.use('/api/serve', adLimiter, serveRoutes);    // Public ad serving — high limit
-app.use('/api/push', pushRoutes);                 // Push notification endpoints
+app.use('/api/auth', strictLimiter, maintenanceMiddleware, authRoutes);     // login/register — strict
+app.use('/api/publisher', apiLimiter, maintenanceMiddleware, publisherRoutes);   // dashboard — relaxed
+app.use('/api/advertiser', apiLimiter, maintenanceMiddleware, advertiserRoutes); // dashboard — relaxed
+app.use('/api/admin', strictLimiter, adminRoutes);                          // admin — strict
+app.use('/api/ads', adLimiter, adServerRoutes);    // Public ad serving — high limit
+app.use('/api/serve', adLimiter, serveRoutes);     // Public ad serving — high limit
+app.use('/api/push', apiLimiter, pushRoutes);      // Push notification endpoints
 app.use('/api/postback', adLimiter, postbackRoutes); // S2S Postback — open to all advertiser servers
 
 // Ad serving routes (no /api prefix for performance)
