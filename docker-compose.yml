@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # ─── INFRASTRUCTURE ───────────────────────────────────────────────────────────
 
@@ -12,8 +10,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-popads}
       MYSQL_USER: ${MYSQL_USER:-mrpop}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mrpop_secure_pass}
-    expose:
-      - "3306"
+    networks:
+      - mrpop_internal
     volumes:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password --max-connections=200
@@ -27,8 +25,8 @@ services:
     image: redis:7-alpine
     container_name: mrpop_redis
     restart: unless-stopped
-    expose:
-      - "6379"
+    networks:
+      - mrpop_internal
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes
@@ -58,8 +56,8 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
       REDIS_URL: redis://redis:6379
-      APP_URL: ${APP_URL:-http://localhost:4000}
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      APP_URL: ${APP_URL:-https://api.mrpop.io}
+      CORS_ORIGIN: ${CORS_ORIGIN:-https://mrpop.io}
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
       DODO_API_KEY: ${DODO_API_KEY}
       DODO_WEBHOOK_SECRET: ${DODO_WEBHOOK_SECRET}
@@ -73,8 +71,9 @@ services:
       VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY}
       VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY}
       VAPID_SUBJECT: ${VAPID_SUBJECT}
-    expose:
-      - "4000"
+    networks:
+      - mrpop_internal
+      - dokploy-network
     volumes:
       - backend_uploads:/app/public/uploads
     healthcheck:
@@ -95,12 +94,11 @@ services:
         condition: service_healthy
     environment:
       NODE_ENV: production
-      # Server-side proxy: internal Docker DNS (fast, no public internet hop)
       BACKEND_URL: http://backend:4000
-      # Client-side: public domain (browser uses this)
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://api.mrpop.io}
-    expose:
-      - "3000"
+    networks:
+      - mrpop_internal
+      - dokploy-network
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000"]
       interval: 15s
@@ -109,9 +107,6 @@ services:
       start_period: 20s
 
   # ─── BLOG: WordPress + MySQL ──────────────────────────────────────────────────
-  # Next.js /blog fetches from WP REST API: http://wordpress:80/wp-json/wp/v2/
-  # Public URL: blog.mrpop.io (port 8080 via reverse proxy)
-  # ─────────────────────────────────────────────────────────────────────────────
 
   blog_db:
     image: mysql:8.0
@@ -122,8 +117,8 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: ${BLOG_MYSQL_USER:-wpuser}
       MYSQL_PASSWORD: ${BLOG_MYSQL_PASSWORD:-wppassword}
-    expose:
-      - "3306"
+    networks:
+      - mrpop_internal
     volumes:
       - blog_db_data:/var/lib/mysql
     healthcheck:
@@ -139,8 +134,9 @@ services:
     depends_on:
       blog_db:
         condition: service_healthy
-    expose:
-      - "80"
+    networks:
+      - mrpop_internal
+      - dokploy-network
     environment:
       WORDPRESS_DB_HOST: blog_db:3306
       WORDPRESS_DB_USER: ${BLOG_MYSQL_USER:-wpuser}
@@ -156,6 +152,12 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+networks:
+  mrpop_internal:
+    driver: bridge
+  dokploy-network:
+    external: true
 
 volumes:
   mysql_data:
