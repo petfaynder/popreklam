@@ -32,7 +32,7 @@ export default function BrutalistRegister() {
                 <div className="max-w-md mx-auto w-full">
                     <div className="mb-8">
                         <Link href="/" className="inline-block border-2 border-foreground px-4 py-1 font-black text-xl uppercase tracking-tighter hover:bg-primary hover:text-white transition-colors shadow-[4px_4px_0px_0px_var(--color-foreground)]">
-                            PopReklam
+                            MrPop.io
                         </Link>
                     </div>
 

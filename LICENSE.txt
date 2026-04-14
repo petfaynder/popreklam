@@ -1,13 +1,13 @@
 Regular License
 
-Copyright © 2026 PopReklam. All rights reserved.
+Copyright © 2026 MrPop.io. All rights reserved.
 
-This License Agreement ("Agreement") is between you (the "Licensee") and the author of PopReklam (the "Licensor").
+This License Agreement ("Agreement") is between you (the "Licensee") and the author of MrPop.io (the "Licensor").
 
 BY PURCHASING THIS SOFTWARE, YOU AGREE TO THE TERMS OF THIS LICENSE.
 
 GRANT OF LICENSE:
-The Licensor grants you a non-exclusive, non-transferable right to use the PopReklam software (the "Software") subject to the following conditions:
+The Licensor grants you a non-exclusive, non-transferable right to use the MrPop.io software (the "Software") subject to the following conditions:
 
 PERMITTED USES:
 1. You may use the Software to create a single end product for yourself or for a client

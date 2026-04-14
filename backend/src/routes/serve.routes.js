@@ -531,7 +531,7 @@ router.get('/script/:zoneId', async (req, res) => {
         const API_URL = process.env.APP_URL || 'http://localhost:5000';
 
         // NOTE: Template literal with variables baked in — no runtime env lookup on client
-        const script = `/* PopReklam Ad Tag | Zone: ${zoneId} */
+        const script = `/* MrPop.io Ad Tag | Zone: ${zoneId} */
 (function() {
     'use strict';
     var _pr = {
@@ -564,7 +564,7 @@ router.get('/script/:zoneId', async (req, res) => {
         // ── BACKFILL (Adsterra SmartLink) ─────────────────────
         // No internal campaign matched — open SmartLink as popunder.
         // SmartLink works on ANY domain, no registration needed.
-        // Publisher never sees this URL — it's served from PopReklam's JS.
+        // Publisher never sees this URL — it's served from MrPop.io's JS.
         if (ad.smartLinkUrl) {
             document.addEventListener('click', function _bf() {
                 document.removeEventListener('click', _bf);
@@ -671,7 +671,7 @@ router.get('/pixel/:clickId', conversionPixel);
 /**
  * GET /api/serve/push.js?z=ZONE_ID
  * Push notification subscription script.
- * Publisher adds: <script src="https://app.popreklam.com/api/serve/push.js?z=ZONE_ID"></script>
+ * Publisher adds: <script src="https://app.mrpop.io/api/serve/push.js?z=ZONE_ID"></script>
  * This script loads on the publisher site, asks for notification permission, and registers the subscriber.
  */
 router.get('/push.js', async (req, res) => {
@@ -760,7 +760,7 @@ router.get('/pr-sw.js', (req, res) => {
     const backendUrl = process.env.APP_URL || 'http://localhost:5000';
 
     const sw = `
-// PopReklam Push Notification Service Worker
+// MrPop.io Push Notification Service Worker
 // Place this file at your domain root: https://yoursite.com/pr-sw.js
 // Do NOT modify this file.
 

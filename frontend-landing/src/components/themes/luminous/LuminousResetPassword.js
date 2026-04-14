@@ -12,7 +12,7 @@ export default function LuminousResetPassword() {
             <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-lime-400/10 rounded-full blur-[120px] animate-pulse"></div>
             <div className="w-full max-w-md relative z-10 px-4">
                 <div className="flex justify-center mb-8">
-                    <Link href="/" className="flex items-center gap-2"><div className="w-10 h-10 bg-lime-400 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(163,255,51,0.3)]"><Zap className="w-6 h-6 text-slate-900 fill-current" /></div><span className="text-2xl font-bold tracking-tight">PopReklam</span></Link>
+                    <Link href="/" className="flex items-center gap-2"><div className="w-10 h-10 bg-lime-400 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(163,255,51,0.3)]"><Zap className="w-6 h-6 text-slate-900 fill-current" /></div><span className="text-2xl font-bold tracking-tight">MrPop.io</span></Link>
                 </div>
                 <div className="p-8 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-xl bg-white/[0.03]">
                     {!success ? (

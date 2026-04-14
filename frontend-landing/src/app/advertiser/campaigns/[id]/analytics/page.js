@@ -263,7 +263,7 @@ export default function CampaignAnalyticsPage() {
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="font-bold text-sky-400 flex-shrink-0">3.</span>
-                                            "Teşekkürler" sayfanıza koyduğunuz pixel → click_id'yi okur → PopReklam'a conversion bildirir
+                                            "Teşekkürler" sayfanıza koyduğunuz pixel → click_id'yi okur → MrPop.io'ya conversion bildirir
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="font-bold text-sky-400 flex-shrink-0">4.</span>

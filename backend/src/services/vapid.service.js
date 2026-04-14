@@ -45,7 +45,7 @@ export const getVapidKeys = async () => {
 export const initWebPush = async () => {
     try {
         const { publicKey, privateKey } = await getVapidKeys();
-        const email = process.env.VAPID_EMAIL || 'mailto:admin@popreklam.com';
+        const email = process.env.VAPID_EMAIL || 'mailto:admin@mrpop.io';
 
         webpush.setVapidDetails(email, publicKey, privateKey);
         console.log('🔔 Web Push initialized with VAPID keys.');

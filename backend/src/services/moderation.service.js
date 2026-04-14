@@ -56,7 +56,7 @@ class ModerationService {
             const apiUrl = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${this.apiKey}`;
             const reqBody = {
                 client: {
-                    clientId: "popreklam-ad-network",
+                    clientId: "mrpop-ad-network",
                     clientVersion: "1.0.0"
                 },
                 threatInfo: {

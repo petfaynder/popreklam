@@ -3,6 +3,7 @@ import prisma from '../lib/prisma.js';
 import { sendEmail } from './email.service.js';
 import { syncAdsterraRevenue } from './adsterra-sync.service.js';
 import { recalculateAllTiers } from './priority.service.js';
+import { flushCommissions, getBufferSize } from './referral-commission.service.js';
 
 // Push delivery (lazy import to handle Redis unavailability gracefully)
 let enqueuePushCampaign = null;
@@ -144,7 +145,7 @@ export const initCronJobs = () => {
                 const html = `
                     <h2>Low Balance Alert</h2>
                     <p>Hi ${user.email},</p>
-                    <p>Your PopReklam advertising balance is running low ($${Number(user.balance).toFixed(2)}).</p>
+                    <p>Your MrPop.io advertising balance is running low ($${Number(user.balance).toFixed(2)}).</p>
                     <p>Please log in and add funds to avoid campaign interruption.</p>
                 `;
                 await sendEmail(user.email, 'Action Required: Low Ad Balance', html);
@@ -210,7 +211,7 @@ export const initCronJobs = () => {
                     <p>Current Balance: <b>$${Number(pub.balance).toFixed(2)}</b></p>
                     <p>Please review their account and process the withdrawal.</p>
                 `;
-                await sendEmail('admin@popreklam.com', `Payout Alert: ${pub.email}`, adminHtml);
+                await sendEmail('admin@mrpop.io', `Payout Alert: ${pub.email}`, adminHtml);
             }
         } catch (error) {
             console.error('❌ Payout Checker Failed:', error);
@@ -632,6 +633,27 @@ export const initCronJobs = () => {
             console.log(`✅ Fraud Audit complete. Resolved: ${resolved} | Clean: ${cleaned} | Fraud: ${fraudFound}`);
         } catch (error) {
             console.error('❌ Fraud Audit Cron Failed:', error);
+        }
+    });
+
+    // ============================================
+    // JOB 11: Referral Commission Flush (Every 5 Minutes)
+    // Drains the in-memory commission buffer to the database.
+    // Commissions are accumulated per-impression in memory and
+    // written here in batch to avoid per-row DB writes at ad-serve time.
+    // ============================================
+    cron.schedule('2-59/5 * * * *', async () => {
+        try {
+            const { pendingReferrals, bufferedImpressions } = getBufferSize();
+            if (pendingReferrals === 0) return; // Nothing to flush
+
+            console.log(`💸 [ReferralFlush] Flushing ${pendingReferrals} referrals (${bufferedImpressions} buffered impressions)...`);
+            const { flushed, totalEarned } = await flushCommissions();
+            if (flushed > 0) {
+                console.log(`✅ [ReferralFlush] Done — ${flushed} referrals credited $${totalEarned.toFixed(6)} total.`);
+            }
+        } catch (err) {
+            console.error('❌ [ReferralFlush] Cron Failed:', err.message);
         }
     });
 

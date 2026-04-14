@@ -14,7 +14,7 @@ export default function SaaSRegister() {
                     <div className="mb-8">
                         <Link href="/" className="inline-flex items-center gap-2">
                             <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center"><div className="w-3.5 h-3.5 bg-[#09090B] rounded-sm"></div></div>
-                            <span className="text-[15px] font-semibold tracking-tight">PopReklam</span>
+                            <span className="text-[15px] font-semibold tracking-tight">MrPop.io</span>
                         </Link>
                     </div>
 

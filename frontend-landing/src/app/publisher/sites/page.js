@@ -423,9 +423,9 @@ export default function PublisherSitesPage() {
                                         </div>
                                         <div className={`relative rounded-lg border p-4 ${d.isDark ? 'bg-[#0a0a0a] border-gray-800' : 'bg-gray-50 border-gray-200'}`}>
                                             <pre className={`text-[13px] font-mono whitespace-pre-wrap break-all ${d.isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                                &lt;meta name="popreklam-verification" content="{verifyingSite.verificationToken || 'generating...'}" /&gt;
+                                                &lt;meta name="mrpop-verification" content="{verifyingSite.verificationToken || 'generating...'}" /&gt;
                                             </pre>
-                                            <button type="button" onClick={() => handleCopy(`<meta name="popreklam-verification" content="${verifyingSite.verificationToken}" />`, 'meta')} className={`absolute top-3 right-3 p-1.5 rounded-md transition-colors ${copiedStates['meta'] ? 'text-emerald-500' : (d.isDark ? 'text-gray-400 hover:text-white hover:bg-gray-800' : 'text-gray-400 hover:text-black hover:bg-white border border-transparent hover:border-gray-200 shadow-sm')}`}>
+                                            <button type="button" onClick={() => handleCopy(`<meta name="mrpop-verification" content="${verifyingSite.verificationToken}" />`, 'meta')} className={`absolute top-3 right-3 p-1.5 rounded-md transition-colors ${copiedStates['meta'] ? 'text-emerald-500' : (d.isDark ? 'text-gray-400 hover:text-white hover:bg-gray-800' : 'text-gray-400 hover:text-black hover:bg-white border border-transparent hover:border-gray-200 shadow-sm')}`}>
                                                 {copiedStates['meta'] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                                             </button>
                                         </div>
@@ -485,8 +485,8 @@ export default function PublisherSitesPage() {
                                                         <td className="px-4 py-4 border-r border-inherit">TXT</td>
                                                         <td className="px-4 py-4 border-r border-inherit">@</td>
                                                         <td className="px-4 py-3 flex items-center justify-between">
-                                                            <span className="truncate mr-4">popreklam-site-verification={verifyingSite.verificationToken || 'generating...'}</span>
-                                                            <button onClick={() => handleCopy(`popreklam-site-verification=${verifyingSite.verificationToken}`, 'dnsTxt')} className={`p-1.5 rounded-md flex-shrink-0 transition-colors ${copiedStates['dnsTxt'] ? 'text-emerald-500' : (d.isDark ? 'text-gray-500 hover:text-white hover:bg-gray-800' : 'text-gray-400 hover:text-black hover:bg-white shadow-sm border border-gray-200')}`}>
+                                                            <span className="truncate mr-4">mrpop-site-verification={verifyingSite.verificationToken || 'generating...'}</span>
+                                                            <button onClick={() => handleCopy(`mrpop-site-verification=${verifyingSite.verificationToken}`, 'dnsTxt')} className={`p-1.5 rounded-md flex-shrink-0 transition-colors ${copiedStates['dnsTxt'] ? 'text-emerald-500' : (d.isDark ? 'text-gray-500 hover:text-white hover:bg-gray-800' : 'text-gray-400 hover:text-black hover:bg-white shadow-sm border border-gray-200')}`}>
                                                                 {copiedStates['dnsTxt'] ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                                                             </button>
                                                         </td>
@@ -507,9 +507,9 @@ export default function PublisherSitesPage() {
                                         </div>
                                         <div className={`relative rounded-lg border p-4 ${d.isDark ? 'bg-[#0a0a0a] border-gray-800' : 'bg-gray-50 border-gray-200'}`}>
                                             <pre className={`text-[13px] font-mono whitespace-pre-wrap break-all ${d.isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                                popreklam.com, {verifyingSite.publisherId || '{your_publisher_id}'}, DIRECT, f08e4c7b2a3d6e1f
+                                                mrpop.io, {verifyingSite.publisherId || '{your_publisher_id}'}, DIRECT, f08e4c7b2a3d6e1f
                                             </pre>
-                                            <button type="button" onClick={() => handleCopy(`popreklam.com, ${verifyingSite.publisherId || '{your_publisher_id}'}, DIRECT, f08e4c7b2a3d6e1f`, 'adstxt')} className={`absolute top-3 right-3 p-1.5 rounded-md transition-colors ${copiedStates['adstxt'] ? 'text-emerald-500' : (d.isDark ? 'text-gray-400 hover:text-white hover:bg-gray-800' : 'text-gray-400 hover:text-black hover:bg-white border border-transparent hover:border-gray-200 shadow-sm')}`}>
+                                            <button type="button" onClick={() => handleCopy(`mrpop.io, ${verifyingSite.publisherId || '{your_publisher_id}'}, DIRECT, f08e4c7b2a3d6e1f`, 'adstxt')} className={`absolute top-3 right-3 p-1.5 rounded-md transition-colors ${copiedStates['adstxt'] ? 'text-emerald-500' : (d.isDark ? 'text-gray-400 hover:text-white hover:bg-gray-800' : 'text-gray-400 hover:text-black hover:bg-white border border-transparent hover:border-gray-200 shadow-sm')}`}>
                                                 {copiedStates['adstxt'] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                                             </button>
                                         </div>

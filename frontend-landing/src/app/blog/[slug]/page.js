@@ -356,9 +356,9 @@ export default function BlogPostPage() {
                                     <div>
                                         <div className="text-[10px] font-black uppercase tracking-widest text-primary mb-0.5">Written by</div>
                                         <div className="text-lg font-black uppercase tracking-tight">{article.author}</div>
-                                        <div className="text-xs font-bold text-muted-foreground mb-3">PopReklam Editorial Team</div>
+                                        <div className="text-xs font-bold text-muted-foreground mb-3">MrPop.io Editorial Team</div>
                                         <p className="text-sm text-muted-foreground font-medium leading-relaxed">
-                                            The PopReklam team brings years of expertise in digital advertising, publisher monetization, and performance marketing — helping publishers and advertisers grow with data-driven strategies.
+                                            The MrPop.io team brings years of expertise in digital advertising, publisher monetization, and performance marketing — helping publishers and advertisers grow with data-driven strategies.
                                         </p>
                                     </div>
                                 </div>
@@ -389,7 +389,7 @@ export default function BlogPostPage() {
                                             Maximize Your Ad Revenue
                                         </h3>
                                         <p className="text-xs text-background/50 mb-4 leading-relaxed font-medium">
-                                            10,000+ publishers trust PopReklam for premium monetization.
+                                            10,000+ publishers trust MrPop.io for premium monetization.
                                         </p>
                                         <Link href="/register" className="block w-full py-2.5 bg-primary text-white text-xs font-black uppercase tracking-widest text-center hover:bg-accent transition-colors">
                                             Get Started Free →

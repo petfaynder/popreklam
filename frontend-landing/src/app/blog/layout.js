@@ -1,19 +1,19 @@
-﻿export const metadata = {
-    title: 'Blog  Ad Network Insights & Guides | PopReklam',
-    description: 'Publisher monetization tips, advertiser campaign guides, and industry insights from the PopReklam team.',
+export const metadata = {
+    title: 'Blog  Ad Network Insights & Guides | MrPop.io',
+    description: 'Publisher monetization tips, advertiser campaign guides, and industry insights from the MrPop.io team.',
     openGraph: {
-        title: 'Blog  Ad Network Insights & Guides | PopReklam',
-        description: 'Publisher monetization tips, advertiser campaign guides, and industry insights from the PopReklam team.',
-        siteName: 'PopReklam',
+        title: 'Blog  Ad Network Insights & Guides | MrPop.io',
+        description: 'Publisher monetization tips, advertiser campaign guides, and industry insights from the MrPop.io team.',
+        siteName: 'MrPop.io',
         type: 'website',
     },
     twitter: {
         card: 'summary',
-        title: 'Blog  Ad Network Insights & Guides | PopReklam',
-        description: 'Publisher monetization tips, advertiser campaign guides, and industry insights from the PopReklam team.',
+        title: 'Blog  Ad Network Insights & Guides | MrPop.io',
+        description: 'Publisher monetization tips, advertiser campaign guides, and industry insights from the MrPop.io team.',
     },
     alternates: {
-        canonical: 'https://popreklam.com/blog',
+        canonical: 'https://mrpop.io/blog',
     },
 };
 

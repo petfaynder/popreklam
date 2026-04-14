@@ -1,19 +1,19 @@
-﻿export const metadata = {
-    title: 'FAQ  Frequently Asked Questions | PopReklam',
-    description: 'Answers to common questions about PopReklam's ad network, publisher payments, campaign setup, and account management.',
+export const metadata = {
+    title: 'FAQ  Frequently Asked Questions | MrPop.io',
+    description: 'Answers to common questions about MrPop.io's ad network, publisher payments, campaign setup, and account management.',
     openGraph: {
-        title: 'FAQ  Frequently Asked Questions | PopReklam',
-        description: 'Answers to common questions about PopReklam's ad network, publisher payments, campaign setup, and account management.',
-        siteName: 'PopReklam',
+        title: 'FAQ  Frequently Asked Questions | MrPop.io',
+        description: 'Answers to common questions about MrPop.io's ad network, publisher payments, campaign setup, and account management.',
+        siteName: 'MrPop.io',
         type: 'website',
     },
     twitter: {
         card: 'summary',
-        title: 'FAQ  Frequently Asked Questions | PopReklam',
-        description: 'Answers to common questions about PopReklam's ad network, publisher payments, campaign setup, and account management.',
+        title: 'FAQ  Frequently Asked Questions | MrPop.io',
+        description: 'Answers to common questions about MrPop.io's ad network, publisher payments, campaign setup, and account management.',
     },
     alternates: {
-        canonical: 'https://popreklam.com/faq',
+        canonical: 'https://mrpop.io/faq',
     },
 };
 

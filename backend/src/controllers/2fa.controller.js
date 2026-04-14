@@ -2,7 +2,7 @@ import speakeasy from 'speakeasy';
 import QRCode from 'qrcode';
 import prisma from '../lib/prisma.js'
 import crypto from 'crypto';
-const APP_NAME = 'PopReklam';
+const APP_NAME = 'MrPop.io';
 
 /**
  * POST /api/auth/2fa/setup

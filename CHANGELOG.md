@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to PopReklam will be documented in this file.
+All notable changes to MrPop.io will be documented in this file.
 
 ## [1.0.0] - 2026-02-08
 

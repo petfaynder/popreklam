@@ -1,6 +1,7 @@
 import prisma from '../lib/prisma.js';
 import { getSetting } from './admin-settings.controller.js';
 import { getDeliveryWeight } from '../services/priority.service.js';
+import { recordCommission } from '../services/referral-commission.service.js';
 
 // ================ AD SERVING LOGIC ================
 
@@ -198,12 +199,15 @@ export const trackImpression = async (req, res) => {
         });
 
         // 5. Update Advertiser Spent
-        await prisma.advertiser.update({
+        const updatedAdvertiser = await prisma.advertiser.update({
             where: { id: campaign.advertiserId },
-            data: {
-                totalSpent: { increment: cost }
-            }
+            data: { totalSpent: { increment: cost } },
+            select: { userId: true },
         });
+
+        // 5b. Referral Commission (buffered — non-blocking)
+        // Fire-and-forget: never let a commission error break ad serving
+        recordCommission(updatedAdvertiser.userId, cost).catch(() => { });
 
         // 6. Update Publisher Revenue
         // First find publisher via zone -> site
@@ -254,12 +258,12 @@ export const getAdScript = (req, res) => {
     const script = `
 (function() {
     var zoneId = "${zoneId}";
-    var apiUrl = "${process.env.API_URL || 'https://api.popreklam.com'}";
+    var apiUrl = "${process.env.API_URL || 'https://api.mrpop.io'}";
     
     // Popunder Logic
     document.addEventListener('click', function(e) {
-        if (window.popreklam_clicked) return;
-        window.popreklam_clicked = true;
+        if (window.mrpop_clicked) return;
+        window.mrpop_clicked = true;
 
         fetch(apiUrl + '/ads/serve?zoneId=' + zoneId)
             .then(res => res.json())

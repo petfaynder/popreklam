@@ -33,7 +33,7 @@ export default function PublisherLayout() {
                         <div className="w-10 h-10 bg-lime-400 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(163,255,51,0.3)] group-hover:shadow-[0_0_30px_rgba(163,255,51,0.5)] transition-all">
                             <Zap className="w-6 h-6 text-slate-900 fill-current" />
                         </div>
-                        <span className="text-2xl font-bold tracking-tight">PopReklam</span>
+                        <span className="text-2xl font-bold tracking-tight">MrPop.io</span>
                     </div>
                     <div className="hidden md:flex gap-6 text-sm font-medium text-gray-400">
                         <Link href="/for-publishers" className="hover:text-lime-400 transition-colors">Publishers</Link>
@@ -291,7 +291,7 @@ export default function PublisherLayout() {
                 <div className="max-w-3xl mx-auto text-center">
                     <div className="bg-gradient-to-br from-lime-400/10 to-transparent border border-lime-400/20 rounded-3xl p-12">
                         <h2 className="text-4xl md:text-5xl font-bold mb-4">Ready to Maximize Revenue?</h2>
-                        <p className="text-xl text-gray-400 mb-8">Join 10,000+ publishers earning daily with PopReklam</p>
+                        <p className="text-xl text-gray-400 mb-8">Join 10,000+ publishers earning daily with MrPop.io</p>
                         <Link href="/register?role=publisher" className="inline-flex items-center gap-2 px-10 py-5 bg-lime-400 text-slate-900 rounded-xl font-bold text-lg hover:bg-lime-300 shadow-[0_0_40px_rgba(163,255,51,0.4)] hover:shadow-[0_0_50px_rgba(163,255,51,0.6)] transition-all">
                             Create Publisher Account <ArrowRight className="w-5 h-5" />
                         </Link>
@@ -306,7 +306,7 @@ export default function PublisherLayout() {
                         <div>
                             <div className="flex items-center gap-2 mb-4">
                                 <div className="w-8 h-8 bg-lime-400 rounded-xl flex items-center justify-center"><Zap className="w-4 h-4 text-slate-900 fill-current" /></div>
-                                <span className="text-lg font-bold">PopReklam</span>
+                                <span className="text-lg font-bold">MrPop.io</span>
                             </div>
                             <p className="text-xs text-gray-500 leading-relaxed">The highest-paying ad network for serious publishers.</p>
                         </div>
@@ -350,7 +350,7 @@ export default function PublisherLayout() {
                         ))}
                     </div>
                     <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between text-xs text-gray-600">
-                        <p>© 2026 PopReklam. All rights reserved.</p>
+                        <p>© 2026 MrPop.io. All rights reserved.</p>
                         <p>Design Language: Luminous v2.0</p>
                     </div>
                 </div>

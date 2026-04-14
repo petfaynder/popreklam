@@ -29,7 +29,7 @@ const API_KEY = "your_api_key_here";
 
 // Fetch earnings for last 7 days  
 const response = await fetch(
-  "https://api.popreklam.com/v1/stats?period=7d",
+  "https://api.mrpop.io/v1/stats?period=7d",
   {
     headers: {
       "Authorization": \`Bearer \${API_KEY}\`,
@@ -74,7 +74,7 @@ export default function ApiDocsPage() {
                                     Programmatically manage campaigns, retrieve stats, and automate your ad operations with our RESTful API.
                                 </p>
                                 <div className={`inline-flex items-center gap-3 px-6 py-3 font-mono text-sm ${codeBg}`}>
-                                    <Server className="w-4 h-4" /> Base URL: https://api.popreklam.com/v1
+                                    <Server className="w-4 h-4" /> Base URL: https://api.mrpop.io/v1
                                 </div>
                             </div>
                         </section>

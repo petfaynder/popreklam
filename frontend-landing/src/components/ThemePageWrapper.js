@@ -50,7 +50,7 @@ function BrutalistNav({ pathname, mobileOpen, setMobileOpen }) {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <Link href="/" className="flex items-center gap-2 group">
                     <div className="w-10 h-10 bg-foreground text-background flex items-center justify-center font-bold transform -rotate-3 group-hover:rotate-0 transition-transform"><Zap className="w-6 h-6 fill-current" /></div>
-                    <span className="text-2xl font-black tracking-tighter uppercase">PopReklam</span>
+                    <span className="text-2xl font-black tracking-tighter uppercase">MrPop.io</span>
                 </Link>
                 <div className="hidden lg:flex items-center space-x-6">
                     {navLinks.map(l => <Link key={l.name} href={l.href} className={`text-sm font-bold uppercase tracking-wider hover:bg-primary hover:text-white px-2 py-1 transition-colors ${pathname === l.href ? 'bg-primary text-white' : 'text-foreground'}`}>{l.name}</Link>)}
@@ -76,7 +76,7 @@ function BrutalistFooter() {
             <div className="max-w-7xl mx-auto">
                 <div className="grid md:grid-cols-5 gap-12 mb-12">
                     <div className="space-y-4">
-                        <div className="flex items-center gap-2"><div className="w-10 h-10 bg-foreground text-background flex items-center justify-center"><Zap className="w-6 h-6 fill-current" /></div><span className="text-2xl font-black uppercase tracking-tighter">PopReklam</span></div>
+                        <div className="flex items-center gap-2"><div className="w-10 h-10 bg-foreground text-background flex items-center justify-center"><Zap className="w-6 h-6 fill-current" /></div><span className="text-2xl font-black uppercase tracking-tighter">MrPop.io</span></div>
                         <p className="font-medium text-sm leading-relaxed border-l-2 border-primary pl-4">The high-performance ad network for serious publishers and advertisers.</p>
                     </div>
                     {[['Platform', footerLinks.platform], ['Resources', footerLinks.resources], ['Company', footerLinks.company], ['Legal', footerLinks.legal]].map(([t, links]) => (
@@ -85,7 +85,7 @@ function BrutalistFooter() {
                     ))}
                 </div>
                 <div className="pt-8 border-t-2 border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-bold uppercase">
-                    <div>© {new Date().getFullYear()} POPREKLAM.</div>
+                    <div>© {new Date().getFullYear()} MRPOP.IO</div>
                     <div className="flex gap-4">{[Twitter, Linkedin, Facebook].map((Icon, i) => <Link key={i} href="#" className="border-2 border-foreground p-2 hover:bg-foreground hover:text-background transition-colors"><Icon className="w-5 h-5" /></Link>)}</div>
                 </div>
             </div>
@@ -98,7 +98,7 @@ function SaaSNav({ pathname, mobileOpen, setMobileOpen }) {
     return (
         <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#09090B]/80 backdrop-blur-xl">
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2"><div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center"><div className="w-3.5 h-3.5 bg-[#09090B] rounded-sm"></div></div><span className="text-[15px] font-semibold tracking-tight text-white">PopReklam</span></Link>
+                <Link href="/" className="flex items-center gap-2"><div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center"><div className="w-3.5 h-3.5 bg-[#09090B] rounded-sm"></div></div><span className="text-[15px] font-semibold tracking-tight text-white">MrPop.io</span></Link>
                 <div className="hidden lg:flex items-center gap-6">
                     {navLinks.map(l => <Link key={l.name} href={l.href} className={`text-sm transition-colors ${pathname === l.href ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}>{l.name}</Link>)}
                     <Link href="/login" className="text-gray-400 hover:text-white text-sm transition-colors">Login</Link>
@@ -122,7 +122,7 @@ function SaaSFooter() {
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <div className="grid md:grid-cols-5 gap-10 mb-10">
                     <div className="space-y-3">
-                        <div className="flex items-center gap-2"><div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center"><div className="w-3.5 h-3.5 bg-[#09090B] rounded-sm"></div></div><span className="text-sm font-semibold text-white">PopReklam</span></div>
+                        <div className="flex items-center gap-2"><div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center"><div className="w-3.5 h-3.5 bg-[#09090B] rounded-sm"></div></div><span className="text-sm font-semibold text-white">MrPop.io</span></div>
                         <p className="text-sm text-gray-500 leading-relaxed">The modern ad network for publishers and advertisers.</p>
                     </div>
                     {[['Platform', footerLinks.platform], ['Resources', footerLinks.resources], ['Company', footerLinks.company], ['Legal', footerLinks.legal]].map(([t, links]) => (
@@ -131,7 +131,7 @@ function SaaSFooter() {
                     ))}
                 </div>
                 <div className="pt-8 border-t border-white/5 flex justify-between items-center text-xs text-gray-600">
-                    <span>© {new Date().getFullYear()} PopReklam</span>
+                    <span>© {new Date().getFullYear()} MrPop.io</span>
                     <div className="flex gap-4">{[Twitter, Linkedin, Facebook].map((Icon, i) => <Link key={i} href="#" className="text-gray-600 hover:text-white transition-colors"><Icon className="w-4 h-4" /></Link>)}</div>
                 </div>
             </div>
@@ -193,7 +193,7 @@ function LuminousNav({ pathname, mobileOpen, setMobileOpen }) {
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2 group">
                     <div className="w-10 h-10 bg-lime-400 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(163,255,51,0.3)]"><Zap className="w-6 h-6 text-slate-900 fill-current" /></div>
-                    <span className="text-2xl font-bold text-white">PopReklam</span>
+                    <span className="text-2xl font-bold text-white">MrPop.io</span>
                 </Link>
                 <div className="hidden lg:flex items-center gap-6">
                     {navLinks.map(l => <Link key={l.name} href={l.href} className={`text-sm transition-colors ${pathname === l.href ? 'text-lime-400 font-semibold' : 'text-gray-400 hover:text-white'}`}>{l.name}</Link>)}
@@ -218,7 +218,7 @@ function LuminousFooter() {
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <div className="grid md:grid-cols-5 gap-10 mb-10">
                     <div className="space-y-3">
-                        <div className="flex items-center gap-2"><div className="w-8 h-8 bg-lime-400 rounded-lg flex items-center justify-center"><Zap className="w-5 h-5 text-slate-900 fill-current" /></div><span className="text-lg font-bold text-white">PopReklam</span></div>
+                        <div className="flex items-center gap-2"><div className="w-8 h-8 bg-lime-400 rounded-lg flex items-center justify-center"><Zap className="w-5 h-5 text-slate-900 fill-current" /></div><span className="text-lg font-bold text-white">MrPop.io</span></div>
                         <p className="text-sm text-gray-500 leading-relaxed">Monetize smarter with the next-gen publisher network.</p>
                     </div>
                     {[['Platform', footerLinks.platform], ['Resources', footerLinks.resources], ['Company', footerLinks.company], ['Legal', footerLinks.legal]].map(([t, links]) => (
@@ -227,7 +227,7 @@ function LuminousFooter() {
                     ))}
                 </div>
                 <div className="pt-8 border-t border-white/5 flex justify-between items-center text-xs text-gray-600">
-                    <span>© {new Date().getFullYear()} PopReklam</span>
+                    <span>© {new Date().getFullYear()} MrPop.io</span>
                     <div className="flex gap-4">{[Twitter, Linkedin, Facebook].map((Icon, i) => <Link key={i} href="#" className="text-gray-600 hover:text-lime-400 transition-colors"><Icon className="w-4 h-4" /></Link>)}</div>
                 </div>
             </div>
@@ -242,7 +242,7 @@ function AzureNav({ pathname, mobileOpen, setMobileOpen }) {
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2 group">
                     <div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(14,165,233,0.3)]"><Zap className="w-6 h-6 text-white fill-current" /></div>
-                    <span className="text-2xl font-bold text-white">PopReklam</span>
+                    <span className="text-2xl font-bold text-white">MrPop.io</span>
                 </Link>
                 <div className="hidden lg:flex items-center gap-6">
                     {navLinks.map(l => <Link key={l.name} href={l.href} className={`text-sm transition-colors ${pathname === l.href ? 'text-sky-400 font-semibold' : 'text-gray-400 hover:text-white'}`}>{l.name}</Link>)}
@@ -267,7 +267,7 @@ function AzureFooter() {
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <div className="grid md:grid-cols-5 gap-10 mb-10">
                     <div className="space-y-3">
-                        <div className="flex items-center gap-2"><div className="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center"><Zap className="w-5 h-5 text-white fill-current" /></div><span className="text-lg font-bold text-white">PopReklam</span></div>
+                        <div className="flex items-center gap-2"><div className="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center"><Zap className="w-5 h-5 text-white fill-current" /></div><span className="text-lg font-bold text-white">MrPop.io</span></div>
                         <p className="text-sm text-gray-500 leading-relaxed">Reach your audience with precision targeting.</p>
                     </div>
                     {[['Platform', footerLinks.platform], ['Resources', footerLinks.resources], ['Company', footerLinks.company], ['Legal', footerLinks.legal]].map(([t, links]) => (
@@ -276,7 +276,7 @@ function AzureFooter() {
                     ))}
                 </div>
                 <div className="pt-8 border-t border-white/5 flex justify-between items-center text-xs text-gray-600">
-                    <span>© {new Date().getFullYear()} PopReklam</span>
+                    <span>© {new Date().getFullYear()} MrPop.io</span>
                     <div className="flex gap-4">{[Twitter, Linkedin, Facebook].map((Icon, i) => <Link key={i} href="#" className="text-gray-600 hover:text-sky-400 transition-colors"><Icon className="w-4 h-4" /></Link>)}</div>
                 </div>
             </div>

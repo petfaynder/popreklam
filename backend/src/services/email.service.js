@@ -43,8 +43,8 @@ export const sendEmail = async (to, subject, html) => {
         const transporter = await createTransporter();
         if (!transporter) return false;
 
-        const fromEmail = await getSetting('smtp_from_email', 'noreply@popreklam.com');
-        const fromName = await getSetting('smtp_from_name', 'PopReklam');
+        const fromEmail = await getSetting('smtp_from_email', 'noreply@mrpop.io');
+        const fromName = await getSetting('smtp_from_name', 'MrPop.io');
 
         const mailOptions = {
             from: `"${fromName}" <${fromEmail}>`,

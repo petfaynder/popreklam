@@ -1,12 +1,11 @@
-// Server Component — no 'use client'
-// Fetches real posts from WordPress REST API when available,
-// falls back to MOCK_POSTS during local development without WordPress.
+'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Clock, ChevronRight } from 'lucide-react';
 import ThemePageWrapper from '@/components/ThemePageWrapper';
 import { getPosts, getCategories, MOCK_POSTS, MOCK_CATEGORIES } from '@/lib/wordpress';
-import BlogSearch from '@/components/blog/BlogSearch'; // client island for search/filter
+import BlogSearch from '@/components/blog/BlogSearch';
 
 /* ── Helpers ──────────────────────────────────────────────────────────── */
 const CAT = {
@@ -184,30 +183,25 @@ function CatSection({ catData, posts }) {
    PAGE — Server Component
    Fetches from WordPress if available, falls back to mock data
    ══════════════════════════════════════════════════════════════════════ */
-export const metadata = {
-    title: 'Blog — Ad Network Insights & Guides | PopReklam',
-    description: 'Publisher monetization tips, advertiser guides, case studies, and industry insights from the PopReklam ad network team.',
-};
+export default function BlogPage() {
+    const [posts, setPosts] = useState(MOCK_POSTS);
+    const [categories, setCategories] = useState(MOCK_CATEGORIES);
 
-export default async function BlogPage({ searchParams }) {
-    // ── Fetch from WordPress (or fall back to mock) ──────────────────
-    let posts = [];
-    let categories = [];
-
-    try {
-        const wpResult = await getPosts({ perPage: 20 });
-        if (wpResult.posts?.length > 0) {
-            // ✅ WordPress is live — use real data + ISR cache
-            posts = wpResult.posts;
-            categories = await getCategories().catch(() => MOCK_CATEGORIES);
-        } else {
-            throw new Error('no posts');
+    useEffect(() => {
+        async function load() {
+            try {
+                const wpResult = await getPosts({ perPage: 20 });
+                if (wpResult.posts?.length > 0) {
+                    setPosts(wpResult.posts);
+                    const cats = await getCategories().catch(() => MOCK_CATEGORIES);
+                    setCategories(cats);
+                }
+            } catch {
+                // WordPress not available — already using mock data
+            }
         }
-    } catch {
-        // 🔄 WordPress not available — use mock data for local dev
-        posts = MOCK_POSTS;
-        categories = MOCK_CATEGORIES;
-    }
+        load();
+    }, []);
 
     const grouped = categories
         .map(c => ({ ...c, posts: posts.filter(p => p.primaryCategorySlug === c.slug) }))
@@ -216,45 +210,45 @@ export default async function BlogPage({ searchParams }) {
     return (
         <ThemePageWrapper>
             {() => (
-                <div className="bg-background min-h-screen">
-                    {/* ── BlogSearch: client island for tabs/search ───── */}
-                    <BlogSearch allPosts={posts} categories={categories} />
+        <div className="bg-background min-h-screen">
+            {/* ── BlogSearch: client island for tabs/search ───── */}
+            <BlogSearch allPosts={posts} categories={categories} />
 
-                    {/* ── Static content (Server-rendered) ───────────── */}
-                    <main className="max-w-[1220px] mx-auto px-8 py-12">
-                        <TopStories posts={posts} />
-                        <div className="border-t border-foreground/10 pt-10">
-                            {grouped.map(g => (
-                                <CatSection key={g.id} catData={g} posts={g.posts} />
-                            ))}
-                        </div>
-                    </main>
-
-                    {/* ── Newsletter ──────────────────────────────────── */}
-                    <section className="bg-foreground text-background mt-4">
-                        <div className="max-w-[1220px] mx-auto px-8 py-14 grid md:grid-cols-2 gap-14 items-center">
-                            <div>
-                                <p className="text-[11px] font-black uppercase tracking-[0.25em] text-primary mb-3">Newsletter</p>
-                                <h2 className="text-[36px] font-bold leading-tight mb-3">
-                                    Stay Ahead.<br />Stay Profitable.
-                                </h2>
-                                <p className="text-[15px] text-background/50 leading-relaxed">
-                                    Publisher tips and industry insights — weekly, no spam.
-                                </p>
-                            </div>
-                            <div className="flex flex-col gap-3">
-                                <input type="email" placeholder="your@email.com"
-                                    className="w-full px-5 py-4 bg-white/10 rounded-lg border border-white/10 text-background text-[15px] outline-none focus:border-primary placeholder:text-background/30" />
-                                <button className="w-full py-4 bg-primary text-white font-bold rounded-lg text-[15px] hover:opacity-90 transition-opacity">
-                                    Subscribe Free →
-                                </button>
-                                <p className="text-[12px] text-background/30 text-center">
-                                    1,200+ subscribers · No spam · Unsubscribe anytime
-                                </p>
-                            </div>
-                        </div>
-                    </section>
+            {/* ── Static content (Server-rendered) ───────────── */}
+            <main className="max-w-[1220px] mx-auto px-8 py-12">
+                <TopStories posts={posts} />
+                <div className="border-t border-foreground/10 pt-10">
+                    {grouped.map(g => (
+                        <CatSection key={g.id} catData={g} posts={g.posts} />
+                    ))}
                 </div>
+            </main>
+
+            {/* ── Newsletter ──────────────────────────────────── */}
+            <section className="bg-foreground text-background mt-4">
+                <div className="max-w-[1220px] mx-auto px-8 py-14 grid md:grid-cols-2 gap-14 items-center">
+                    <div>
+                        <p className="text-[11px] font-black uppercase tracking-[0.25em] text-primary mb-3">Newsletter</p>
+                        <h2 className="text-[36px] font-bold leading-tight mb-3">
+                            Stay Ahead.<br />Stay Profitable.
+                        </h2>
+                        <p className="text-[15px] text-background/50 leading-relaxed">
+                            Publisher tips and industry insights — weekly, no spam.
+                        </p>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <input type="email" placeholder="your@email.com"
+                            className="w-full px-5 py-4 bg-white/10 rounded-lg border border-white/10 text-background text-[15px] outline-none focus:border-primary placeholder:text-background/30" />
+                        <button className="w-full py-4 bg-primary text-white font-bold rounded-lg text-[15px] hover:opacity-90 transition-opacity">
+                            Subscribe Free →
+                        </button>
+                        <p className="text-[12px] text-background/30 text-center">
+                            1,200+ subscribers · No spam · Unsubscribe anytime
+                        </p>
+                    </div>
+                </div>
+                </section>
+            </div>
             )}
         </ThemePageWrapper>
     );

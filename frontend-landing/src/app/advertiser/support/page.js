@@ -63,7 +63,7 @@ function TicketPanel({ ticket, onClose, onReplySuccess, isDark }) {
             setReply('');
             onReplySuccess?.();
         } catch {
-            setError('Reply could not be sent. Please email us at support@popreklam.com');
+            setError('Reply could not be sent. Please email us at support@mrpop.io');
         } finally {
             setSending(false);
         }
@@ -217,7 +217,7 @@ export default function AdvertiserSupport() {
             {/* Quick links */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                    { icon: Mail, label: 'Email Support', href: 'mailto:support@popreklam.com', desc: 'Avg. response <4h' },
+                    { icon: Mail, label: 'Email Support', href: 'mailto:support@mrpop.io', desc: 'Avg. response <4h' },
                     { icon: BookOpen, label: 'Advertiser Guide', href: '#', desc: 'Campaign best practices' },
                     { icon: Globe, label: 'Status Page', href: '#', desc: 'Live system status' },
                     { icon: Shield, label: 'Privacy Policy', href: '#', desc: 'Our commitments' },
@@ -415,7 +415,7 @@ export default function AdvertiserSupport() {
                         <Mail className={`w-10 h-10 mx-auto mb-3 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
                         <p className={`font-bold ${headText} mb-1`}>Still need help?</p>
                         <p className={`text-xs ${subText} mb-4`}>Our team is online 9am–6pm CET</p>
-                        <a href="mailto:support@popreklam.com"
+                        <a href="mailto:support@mrpop.io"
                             className={`${d.btnPrimary} w-full flex items-center justify-center gap-2`}>
                             <Mail className="w-4 h-4" /> Email Us
                         </a>

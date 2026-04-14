@@ -1,19 +1,19 @@
-﻿export const metadata = {
-    title: 'How It Works  PopReklam Ad Network',
-    description: 'Discover how PopReklam connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
+export const metadata = {
+    title: 'How It Works  MrPop.io Ad Network',
+    description: 'Discover how MrPop.io connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
     openGraph: {
-        title: 'How It Works  PopReklam Ad Network',
-        description: 'Discover how PopReklam connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
-        siteName: 'PopReklam',
+        title: 'How It Works  MrPop.io Ad Network',
+        description: 'Discover how MrPop.io connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
+        siteName: 'MrPop.io',
         type: 'website',
     },
     twitter: {
         card: 'summary',
-        title: 'How It Works  PopReklam Ad Network',
-        description: 'Discover how PopReklam connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
+        title: 'How It Works  MrPop.io Ad Network',
+        description: 'Discover how MrPop.io connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
     },
     alternates: {
-        canonical: 'https://popreklam.com/how-it-works',
+        canonical: 'https://mrpop.io/how-it-works',
     },
 };
 

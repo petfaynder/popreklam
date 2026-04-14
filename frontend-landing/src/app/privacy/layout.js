@@ -1,19 +1,19 @@
-﻿export const metadata = {
-    title: 'Privacy Policy  PopReklam',
-    description: 'Learn how PopReklam collects, uses, and protects your personal data in compliance with GDPR and global privacy regulations.',
+export const metadata = {
+    title: 'Privacy Policy  MrPop.io',
+    description: 'Learn how MrPop.io collects, uses, and protects your personal data in compliance with GDPR and global privacy regulations.',
     openGraph: {
-        title: 'Privacy Policy  PopReklam',
-        description: 'Learn how PopReklam collects, uses, and protects your personal data in compliance with GDPR and global privacy regulations.',
-        siteName: 'PopReklam',
+        title: 'Privacy Policy  MrPop.io',
+        description: 'Learn how MrPop.io collects, uses, and protects your personal data in compliance with GDPR and global privacy regulations.',
+        siteName: 'MrPop.io',
         type: 'website',
     },
     twitter: {
         card: 'summary',
-        title: 'Privacy Policy  PopReklam',
-        description: 'Learn how PopReklam collects, uses, and protects your personal data in compliance with GDPR and global privacy regulations.',
+        title: 'Privacy Policy  MrPop.io',
+        description: 'Learn how MrPop.io collects, uses, and protects your personal data in compliance with GDPR and global privacy regulations.',
     },
     alternates: {
-        canonical: 'https://popreklam.com/privacy',
+        canonical: 'https://mrpop.io/privacy',
     },
 };
 

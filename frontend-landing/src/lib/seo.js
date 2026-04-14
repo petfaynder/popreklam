@@ -1,5 +1,5 @@
 /**
- * Centralized SEO metadata generator for PopReklam public pages.
+ * Centralized SEO metadata generator for MrPop.io public pages.
  *
  * Usage — in any page.js (server component or at top-level):
  *   import { generatePageMetadata } from '@/lib/seo';
@@ -10,8 +10,8 @@
  *   });
  */
 
-const SITE_NAME = 'PopReklam';
-const BASE_URL = 'https://popreklam.com';
+const SITE_NAME = 'MrPop.io';
+const BASE_URL = 'https://mrpop.io';
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
 
 /**
@@ -31,7 +31,7 @@ export function generatePageMetadata({
 
     return {
         title: fullTitle,
-        description: description || 'PopReklam is a premium ad network connecting publishers with high-quality advertisers. Maximize revenue with popunder, push, native, and display ads.',
+        description: description || 'MrPop.io is a premium ad network connecting publishers with high-quality advertisers. Maximize revenue with popunder, push, native, and display ads.',
         keywords: [
             'ad network', 'popunder ads', 'publisher monetization', 'advertiser traffic',
             'CPM', 'CPA', 'push notification ads', 'native ads', ...keywords,

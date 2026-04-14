@@ -8,10 +8,10 @@ const settingsCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 // Default platform settings
 const DEFAULT_SETTINGS = [
     // General
-    { key: 'platform_name', value: 'PopReklam', type: 'string', group: 'general', label: 'Platform Name' },
-    { key: 'site_title', value: 'PopReklam - Premium Ad Network', type: 'string', group: 'general', label: 'Site Title (SEO)' },
+    { key: 'platform_name', value: 'MrPop.io', type: 'string', group: 'general', label: 'Platform Name' },
+    { key: 'site_title', value: 'MrPop.io - Premium Ad Network', type: 'string', group: 'general', label: 'Site Title (SEO)' },
     { key: 'site_description', value: 'The leading premium ad network for publishers and advertisers.', type: 'text', group: 'general', label: 'Site Description (SEO)' },
-    { key: 'platform_email', value: 'admin@popreklam.com', type: 'string', group: 'general', label: 'Contact Email' },
+    { key: 'platform_email', value: 'admin@mrpop.io', type: 'string', group: 'general', label: 'Contact Email' },
     { key: 'maintenance_mode', value: 'false', type: 'boolean', group: 'general', label: 'Maintenance Mode' },
     { key: 'maintenance_message', value: 'We are currently undergoing scheduled maintenance. Please check back soon.', type: 'text', group: 'general', label: 'Maintenance Message' },
     { key: 'global_theme', value: 'theme-brutalist', type: 'string', group: 'general', label: 'Global Platform Theme (e.g. theme-brutalist, theme-saas, theme-editorial)' },
@@ -43,14 +43,14 @@ const DEFAULT_SETTINGS = [
     // Notifications
     { key: 'smtp_host', value: 'smtp.mailgun.org', type: 'string', group: 'notifications', label: 'SMTP Host' },
     { key: 'smtp_port', value: '587', type: 'number', group: 'notifications', label: 'SMTP Port' },
-    { key: 'smtp_user', value: 'postmaster@popreklam.com', type: 'string', group: 'notifications', label: 'SMTP Username' },
+    { key: 'smtp_user', value: 'postmaster@mrpop.io', type: 'string', group: 'notifications', label: 'SMTP Username' },
     { key: 'smtp_pass', value: '', type: 'password', group: 'notifications', label: 'SMTP Password' },
-    { key: 'smtp_from_email', value: 'noreply@popreklam.com', type: 'string', group: 'notifications', label: 'SMTP From Email' },
-    { key: 'smtp_from_name', value: 'PopReklam System', type: 'string', group: 'notifications', label: 'SMTP From Name' },
+    { key: 'smtp_from_email', value: 'noreply@mrpop.io', type: 'string', group: 'notifications', label: 'SMTP From Email' },
+    { key: 'smtp_from_name', value: 'MrPop.io System', type: 'string', group: 'notifications', label: 'SMTP From Name' },
     { key: 'notify_new_user', value: 'true', type: 'boolean', group: 'notifications', label: 'Notify on New User Registration' },
     { key: 'notify_new_campaign', value: 'true', type: 'boolean', group: 'notifications', label: 'Notify on New Campaign' },
     { key: 'notify_withdrawal', value: 'true', type: 'boolean', group: 'notifications', label: 'Notify on Withdrawal Request' },
-    { key: 'notification_email', value: 'admin@popreklam.com', type: 'string', group: 'notifications', label: 'Admin Notification Email' },
+    { key: 'notification_email', value: 'admin@mrpop.io', type: 'string', group: 'notifications', label: 'Admin Notification Email' },
 
     // Security
     { key: 'session_timeout', value: '60', type: 'number', group: 'security', label: 'Session Timeout (minutes)' },
@@ -74,8 +74,8 @@ const DEFAULT_SETTINGS = [
     { key: 'adsterra_traffic_split_percent', value: '0', type: 'number', group: 'ad_networks', label: 'Traffic Split → Adsterra (%)', description: 'Force X% of impressions to Adsterra even when internal campaigns exist. 0 = backfill only.' },
 
     // Invoice & Branding
-    { key: 'invoice_company_name', value: 'PopReklam Ltd.', type: 'string', group: 'invoice', label: 'Company Name' },
-    { key: 'invoice_company_email', value: 'billing@popreklam.com', type: 'string', group: 'invoice', label: 'Billing Contact Email' },
+    { key: 'invoice_company_name', value: 'MrPop.io Ltd.', type: 'string', group: 'invoice', label: 'Company Name' },
+    { key: 'invoice_company_email', value: 'billing@mrpop.io', type: 'string', group: 'invoice', label: 'Billing Contact Email' },
     { key: 'invoice_company_reg_no', value: '', type: 'string', group: 'invoice', label: 'Business Registration Number' },
     { key: 'invoice_address_line1', value: '', type: 'string', group: 'invoice', label: 'Address Line 1 (Street)' },
     { key: 'invoice_address_line2', value: '', type: 'string', group: 'invoice', label: 'Address Line 2 (City, ZIP)' },

@@ -14,7 +14,7 @@ const MAX_PER_IP_PER_MIN = 100;
  * Compatible with: Keitaro, Voluum, Binom, BeMob, RedTrack, FunnelFlux, etc.
  *
  * Parameters:
- *   click_id  — PopReklam impression ID (required)
+ *   click_id  — MrPop.io impression ID (required)
  *   payout    — Advertiser-reported conversion value in USD (optional)
  *   goal      — Conversion goal label, e.g. "purchase", "signup" (optional)
  *   status    — 1=confirmed conversion, 0=rejected/cancelled (optional, default 1)

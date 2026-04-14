@@ -37,7 +37,7 @@ function ThemeLogo({ theme, d }) {
                 <div className="w-9 h-9 bg-[#1A1A1A] text-white flex items-center justify-center transform -rotate-3 group-hover:rotate-0 transition-transform">
                     <Zap className="w-5 h-5 fill-current" />
                 </div>
-                <span className="text-lg font-black tracking-tighter uppercase">PopReklam</span>
+                <span className="text-lg font-black tracking-tighter uppercase">MrPop.io</span>
                 <span className="text-[9px] font-black bg-[#F5F5F0] border-2 border-[#1A1A1A] px-1 py-0.5 uppercase tracking-widest">ADV</span>
             </Link>
         );
@@ -56,7 +56,7 @@ function ThemeLogo({ theme, d }) {
                 <div className="w-7 h-7 bg-white rounded-md flex items-center justify-center">
                     <div className="w-3.5 h-3.5 bg-[#09090B] rounded-sm"></div>
                 </div>
-                <span className="text-base font-semibold text-white tracking-tight">PopReklam</span>
+                <span className="text-base font-semibold text-white tracking-tight">MrPop.io</span>
                 <span className="text-[10px] font-medium bg-white/[0.06] text-gray-400 px-1.5 py-0.5 rounded border border-white/[0.08]">ADV</span>
             </Link>
         );
@@ -71,7 +71,7 @@ function ThemeLogo({ theme, d }) {
             <div className={`w-8 h-8 ${accentColor} rounded-lg flex items-center justify-center ${glowColor}`}>
                 <Zap className={`w-5 h-5 ${isAzure ? 'text-white' : 'text-slate-900'} fill-current`} />
             </div>
-            <span className="text-xl font-bold tracking-tight text-white">PopReklam</span>
+            <span className="text-xl font-bold tracking-tight text-white">MrPop.io</span>
             <span className={`text-[10px] font-bold ${badgeBg} px-1.5 py-0.5 rounded border ml-auto`}>ADV</span>
         </Link>
     );

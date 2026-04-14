@@ -1,5 +1,5 @@
 /**
- * PopReklam - Ad Network Platform
+ * MrPop.io - Ad Network Platform
  * 
  * @file enhanced-seed.js
  * @description Comprehensive database seeding script for demo/development
@@ -64,10 +64,10 @@ async function main() {
     });
 
     const publisher2 = await prisma.user.upsert({
-        where: { email: 'publisher01@popreklam.com' },
+        where: { email: 'publisher01@mrpop.io' },
         update: {},
         create: {
-            email: 'publisher02@popreklam.com',
+            email: 'publisher02@mrpop.io',
             passwordHash: hashedPassword,
             role: 'PUBLISHER',
             status: 'ACTIVE',
@@ -158,10 +158,10 @@ async function main() {
     });
 
     const advertiser2 = await prisma.user.upsert({
-        where: { email: 'advertiser02@popreklam.com' },
+        where: { email: 'advertiser02@mrpop.io' },
         update: {},
         create: {
-            email: 'advertiser02@popreklam.com',
+            email: 'advertiser02@mrpop.io',
             passwordHash: hashedPassword,
             role: 'ADVERTISER',
             status: 'ACTIVE',

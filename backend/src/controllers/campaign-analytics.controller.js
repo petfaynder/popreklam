@@ -264,7 +264,7 @@ export const getConversionTag = async (req, res) => {
         const apiUrl = process.env.APP_URL || 'http://localhost:5000';
 
         // The {CLICK_ID} placeholder will be replaced by our ad tag via URL parameter
-        const tag = `<!-- PopReklam Conversion Pixel | Campaign: ${campaign.name} -->
+        const tag = `<!-- MrPop.io Conversion Pixel | Campaign: ${campaign.name} -->
 <img src="${apiUrl}/api/serve/pixel/{CLICK_ID}" width="1" height="1" style="display:none;" alt="" />`;
 
         res.json({ tag, note: 'Place this pixel on your "Thank You" or conversion confirmation page. The {CLICK_ID} placeholder is automatically filled by our ad tag.' });

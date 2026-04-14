@@ -221,7 +221,7 @@ export async function fulfillDeposit(paymentId, externalTransactionId) {
                 paidAt: now,
                 items: [
                     {
-                        description: 'PopReklam Ad Balance Deposit',
+                        description: 'MrPop.io Ad Balance Deposit',
                         quantity: 1,
                         price: Number(payment.amount),
                         amount: Number(payment.amount),

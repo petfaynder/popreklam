@@ -1,6 +1,6 @@
 # User Guide
 
-Welcome to PopReklam! This guide will help you understand how to use the platform effectively, whether you're a Publisher monetizing your website traffic or an Advertiser running campaigns.
+Welcome to MrPop.io! This guide will help you understand how to use the platform effectively, whether you're a Publisher monetizing your website traffic or an Advertiser running campaigns.
 
 ---
 
@@ -407,7 +407,7 @@ Need help?
 
 ---
 
-**Thank you for using PopReklam!** 🚀
+**Thank you for using MrPop.io!** 🚀
 
 For technical questions, see `INSTALLATION.md`  
 For feature requests and updates, check `CHANGELOG.md`

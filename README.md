@@ -1,4 +1,4 @@
-# PopReklam - Premium Ad Network Platform
+# MrPop.io - Premium Ad Network Platform
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue) ![License](https://img.shields.io/badge/license-Commercial-green) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![Node.js](https://img.shields.io/badge/Node.js-18+-green)
 
@@ -77,7 +77,7 @@ Password: Ta170104894*
 ## 📁 Project Structure
 
 ```
-popreklam/
+mrpop/
 ├── backend/                   # Node.js/Express backend
 │   ├── prisma/               # Database schema & seeds
 │   ├── src/                  # Source code

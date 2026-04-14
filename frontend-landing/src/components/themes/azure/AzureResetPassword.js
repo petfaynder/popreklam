@@ -13,7 +13,7 @@ export default function AzureResetPassword() {
             <div style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)' }} className="absolute inset-0 bg-[size:60px_60px]"></div>
             <div className="w-full max-w-md relative z-10 px-4">
                 <div className="flex justify-center mb-8">
-                    <Link href="/" className="flex items-center gap-2"><div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(14,165,233,0.3)]"><Zap className="w-6 h-6 text-white fill-current" /></div><span className="text-2xl font-bold tracking-tight">PopReklam</span></Link>
+                    <Link href="/" className="flex items-center gap-2"><div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(14,165,233,0.3)]"><Zap className="w-6 h-6 text-white fill-current" /></div><span className="text-2xl font-bold tracking-tight">MrPop.io</span></Link>
                 </div>
                 <div className="p-8 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-xl bg-white/[0.03]">
                     {!success ? (

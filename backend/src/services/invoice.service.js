@@ -19,7 +19,7 @@ export const generateInvoiceHTML = (invoice, user, type, settings = {}) => {
         : (user.advertiser?.companyName || user.name || user.email);
 
     // Platform / "From" info from admin settings
-    const companyName    = settings.invoice_company_name    || 'PopReklam Ltd.';
+    const companyName    = settings.invoice_company_name    || 'MrPop.io Ltd.';
     const companyEmail   = settings.invoice_company_email   || '';
     const companyRegNo   = settings.invoice_company_reg_no  || '';
     const addressLine1   = settings.invoice_address_line1   || '';

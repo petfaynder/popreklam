@@ -66,7 +66,7 @@ export default function ContactPage() {
                             {/* Contact Info */}
                             <div className="space-y-8">
                                 {[
-                                    { icon: Mail, title: 'Email Us', lines: ['support@popreklam.com', 'sales@popreklam.com'] },
+                                    { icon: Mail, title: 'Email Us', lines: ['support@mrpop.io', 'sales@mrpop.io'] },
                                     { icon: Phone, title: 'Call Us', lines: ['+1 (555) 123-4567', 'Mon-Fri, 9am - 6pm EST'] },
                                     { icon: MapPin, title: 'Visit HQ', lines: ['123 AdTech Blvd, Suite 404', 'San Francisco, CA 94107'] },
                                 ].map(({ icon: Icon, title, lines }) => (

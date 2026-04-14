@@ -29,7 +29,7 @@ export default function BrutalistForgotPassword() {
         <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-4">
             <div className="w-full max-w-md">
                 <div className="text-center mb-8">
-                    <Link href="/" className="inline-block border-2 border-foreground px-6 py-2 font-black text-3xl uppercase tracking-tighter hover:bg-primary hover:text-white transition-colors shadow-[4px_4px_0px_0px_var(--color-foreground)]">PopReklam</Link>
+                    <Link href="/" className="inline-block border-2 border-foreground px-6 py-2 font-black text-3xl uppercase tracking-tighter hover:bg-primary hover:text-white transition-colors shadow-[4px_4px_0px_0px_var(--color-foreground)]">MrPop.io</Link>
                 </div>
 
                 <div className="border-2 border-foreground bg-card shadow-[8px_8px_0px_0px_var(--color-foreground)]">

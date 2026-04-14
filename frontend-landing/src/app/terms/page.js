@@ -23,9 +23,9 @@ export default function TermsPage() {
                         <p className={`mb-8 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Last updated: February 7, 2026</p>
 
                         <div className="space-y-8">
-                            <section><h2 className={h2Cls}>1. Acceptance of Terms</h2><p className={pCls}>By accessing and using PopReklam ("Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p></section>
+                            <section><h2 className={h2Cls}>1. Acceptance of Terms</h2><p className={pCls}>By accessing and using MrPop.io ("Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p></section>
 
-                            <section><h2 className={h2Cls}>2. Service Description</h2><p className={pCls}>PopReklam is an advertising network that connects Publishers (website owners) with Advertisers (campaign owners). The platform facilitates the display of advertisements on Publisher websites and manages payments between parties.</p></section>
+                            <section><h2 className={h2Cls}>2. Service Description</h2><p className={pCls}>MrPop.io is an advertising network that connects Publishers (website owners) with Advertisers (campaign owners). The platform facilitates the display of advertisements on Publisher websites and manages payments between parties.</p></section>
 
                             <section>
                                 <h2 className={h2Cls}>3. Publisher Terms</h2>
@@ -67,15 +67,15 @@ export default function TermsPage() {
                                 <p className={pCls}>- Refunds: Available for unused balance upon account closure</p>
                             </section>
 
-                            <section><h2 className={h2Cls}>5. Account Termination</h2><p className={pCls}>PopReklam reserves the right to suspend or terminate accounts that violate these terms. Violations include, but are not limited to:</p>
+                            <section><h2 className={h2Cls}>5. Account Termination</h2><p className={pCls}>MrPop.io reserves the right to suspend or terminate accounts that violate these terms. Violations include, but are not limited to:</p>
                                 <ul className={`list-disc list-inside space-y-2 ml-4 mb-4 ${liCls}`}><li>Fraudulent activity or click fraud</li><li>Violation of content policies</li><li>Chargebacks or payment disputes</li><li>Abuse of the platform or other users</li></ul>
                             </section>
 
-                            <section><h2 className={h2Cls}>6. Limitation of Liability</h2><p className={pCls}>PopReklam is provided "as is" without warranties of any kind. We are not liable for any damages arising from the use of the service, including but not limited to loss of revenue, data loss, or service interruptions.</p></section>
+                            <section><h2 className={h2Cls}>6. Limitation of Liability</h2><p className={pCls}>MrPop.io is provided "as is" without warranties of any kind. We are not liable for any damages arising from the use of the service, including but not limited to loss of revenue, data loss, or service interruptions.</p></section>
 
                             <section><h2 className={h2Cls}>7. Modifications to Terms</h2><p className={pCls}>We reserve the right to modify these terms at any time. Continued use of the service after changes constitutes acceptance of the new terms.</p></section>
 
-                            <section><h2 className={h2Cls}>8. Contact Information</h2><p className={pCls}>For questions about these Terms, please contact us at: <a href="mailto:legal@popreklam.com" className={linkCls}>legal@popreklam.com</a></p></section>
+                            <section><h2 className={h2Cls}>8. Contact Information</h2><p className={pCls}>For questions about these Terms, please contact us at: <a href="mailto:legal@mrpop.io" className={linkCls}>legal@mrpop.io</a></p></section>
                         </div>
                     </div>
                 );

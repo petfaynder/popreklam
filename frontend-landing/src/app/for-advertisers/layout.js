@@ -1,19 +1,19 @@
-﻿export const metadata = {
-    title: 'For Advertisers  PopReklam',
-    description: 'Launch high-performance popunder and push ad campaigns on PopReklam. Target by GEO, device, and OS. Minimum  deposit.',
+export const metadata = {
+    title: 'For Advertisers  MrPop.io',
+    description: 'Launch high-performance popunder and push ad campaigns on MrPop.io. Target by GEO, device, and OS. Minimum  deposit.',
     openGraph: {
-        title: 'For Advertisers  PopReklam',
-        description: 'Launch high-performance popunder and push ad campaigns on PopReklam. Target by GEO, device, and OS. Minimum  deposit.',
-        siteName: 'PopReklam',
+        title: 'For Advertisers  MrPop.io',
+        description: 'Launch high-performance popunder and push ad campaigns on MrPop.io. Target by GEO, device, and OS. Minimum  deposit.',
+        siteName: 'MrPop.io',
         type: 'website',
     },
     twitter: {
         card: 'summary',
-        title: 'For Advertisers  PopReklam',
-        description: 'Launch high-performance popunder and push ad campaigns on PopReklam. Target by GEO, device, and OS. Minimum  deposit.',
+        title: 'For Advertisers  MrPop.io',
+        description: 'Launch high-performance popunder and push ad campaigns on MrPop.io. Target by GEO, device, and OS. Minimum  deposit.',
     },
     alternates: {
-        canonical: 'https://popreklam.com/for-advertisers',
+        canonical: 'https://mrpop.io/for-advertisers',
     },
 };
 

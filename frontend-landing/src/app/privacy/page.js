@@ -24,7 +24,7 @@ export default function PrivacyPage() {
                         <p className={`mb-8 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Last updated: February 7, 2026</p>
 
                         <div className="space-y-8">
-                            <section><h2 className={h2Cls}>1. Introduction</h2><p className={pCls}>PopReklam ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our advertising network platform.</p></section>
+                            <section><h2 className={h2Cls}>1. Introduction</h2><p className={pCls}>MrPop.io ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our advertising network platform.</p></section>
 
                             <section>
                                 <h2 className={h2Cls}>2. Information We Collect</h2>
@@ -84,7 +84,7 @@ export default function PrivacyPage() {
                                     <li><span className={boldCls}>Objection:</span> Opt-out of certain data processing activities</li>
                                     <li><span className={boldCls}>Withdraw Consent:</span> Revoke previously given consents</li>
                                 </ul>
-                                <p className={pCls}>To exercise these rights, contact us at <a href="mailto:privacy@popreklam.com" className={linkCls}>privacy@popreklam.com</a></p>
+                                <p className={pCls}>To exercise these rights, contact us at <a href="mailto:privacy@mrpop.io" className={linkCls}>privacy@mrpop.io</a></p>
                             </section>
 
                             <section>
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
 
                             <section><h2 className={h2Cls}>7. Data Retention</h2><p className={pCls}>We retain your information for as long as your account is active or as needed to provide services. After account deletion, we may retain certain data for legal and compliance purposes (typically 7 years for financial records).</p></section>
 
-                            <section><h2 className={h2Cls}>8. Children's Privacy</h2><p className={pCls}>PopReklam is not intended for users under 18 years of age. We do not knowingly collect information from children.</p></section>
+                            <section><h2 className={h2Cls}>8. Children's Privacy</h2><p className={pCls}>MrPop.io is not intended for users under 18 years of age. We do not knowingly collect information from children.</p></section>
 
                             <section><h2 className={h2Cls}>9. International Data Transfers</h2><p className={pCls}>Your data may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers.</p></section>
 
@@ -106,8 +106,8 @@ export default function PrivacyPage() {
                                 <h2 className={h2Cls}>11. Contact Us</h2>
                                 <p className={pCls}>For privacy-related questions or to exercise your rights, contact us at:</p>
                                 <ul className={`list-none space-y-2 ml-4 mt-3 ${liCls}`}>
-                                    <li><span className={boldCls}>Email:</span> <a href="mailto:privacy@popreklam.com" className={linkCls}>privacy@popreklam.com</a></li>
-                                    <li><span className={boldCls}>Data Protection Officer:</span> <a href="mailto:dpo@popreklam.com" className={linkCls}>dpo@popreklam.com</a></li>
+                                    <li><span className={boldCls}>Email:</span> <a href="mailto:privacy@mrpop.io" className={linkCls}>privacy@mrpop.io</a></li>
+                                    <li><span className={boldCls}>Data Protection Officer:</span> <a href="mailto:dpo@mrpop.io" className={linkCls}>dpo@mrpop.io</a></li>
                                 </ul>
                             </section>
                         </div>

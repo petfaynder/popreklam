@@ -5,7 +5,7 @@ import { Book, ArrowRight, CheckCircle, Code, Copy, Terminal, Zap, Globe, Shield
 import ThemePageWrapper from '@/components/ThemePageWrapper';
 
 const quickStart = [
-    { num: '01', title: 'Sign Up', desc: 'Create your publisher account at PopReklam and get approved.' },
+    { num: '01', title: 'Sign Up', desc: 'Create your publisher account at MrPop.io and get approved.' },
     { num: '02', title: 'Get Your Code', desc: 'Navigate to Ad Codes section and copy your unique integration script.' },
     { num: '03', title: 'Add to Site', desc: 'Paste the script tag before the closing </head> tag of your website.' },
     { num: '04', title: 'Go Live', desc: 'Ads will start serving immediately. Monitor earnings in real-time.' },
@@ -16,7 +16,7 @@ const codeExamples = [
         title: 'Basic Integration',
         language: 'html',
         desc: 'Add this single script to your website\'s <head> section',
-        code: `<script async src="https://cdn.popreklam.com/sdk.js"></script>
+        code: `<script async src="https://cdn.mrpop.io/sdk.js"></script>
 <script>
   PopAd.init({
     pubId: "PUB-XXXXXX",
@@ -98,7 +98,7 @@ export default function DocsPage() {
                                     Integration <span className={accentText}>Guide</span>
                                 </h1>
                                 <p className={`text-xl mb-8 max-w-2xl mx-auto ${isDark ? 'text-gray-400' : isEditorial ? 'text-gray-500' : 'text-muted-foreground'}`}>
-                                    Get up and running with PopReklam in minutes. Two lines of code is all you need to start monetizing.
+                                    Get up and running with MrPop.io in minutes. Two lines of code is all you need to start monetizing.
                                 </p>
                             </div>
                         </section>

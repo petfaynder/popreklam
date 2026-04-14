@@ -1,6 +1,6 @@
 # Installation Guide
 
-This document provides step-by-step instructions for installing and configuring PopReklam on your server.
+This document provides step-by-step instructions for installing and configuring MrPop.io on your server.
 
 ---
 
@@ -58,10 +58,10 @@ Before you begin, ensure you have:
 
 ```bash
 # Extract the downloaded archive
-unzip popreklam.zip
+unzip mrpop.zip
 
 # Navigate to project directory
-cd popreklam
+cd mrpop
 ```
 
 ### Step 2: Install Backend Dependencies
@@ -293,7 +293,7 @@ NODE_ENV=production
 
 # Start with PM2 (recommended)
 npm install -g pm2
-pm2 start src/server.js --name "popreklam-api"
+pm2 start src/server.js --name "mrpop-api"
 pm2 save
 pm2 startup
 ```
@@ -310,7 +310,7 @@ npm run build
 npm start
 
 # Or use PM2
-pm2 start npm --name "popreklam-web" -- start
+pm2 start npm --name "mrpop-web" -- start
 ```
 
 ### Recommended Hosting Providers

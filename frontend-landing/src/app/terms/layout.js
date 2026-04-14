@@ -1,19 +1,19 @@
-﻿export const metadata = {
-    title: 'Terms of Service  PopReklam',
-    description: 'Read PopReklam's terms of service covering publisher and advertiser obligations, prohibited content, and payment terms.',
+export const metadata = {
+    title: 'Terms of Service  MrPop.io',
+    description: 'Read MrPop.io's terms of service covering publisher and advertiser obligations, prohibited content, and payment terms.',
     openGraph: {
-        title: 'Terms of Service  PopReklam',
-        description: 'Read PopReklam's terms of service covering publisher and advertiser obligations, prohibited content, and payment terms.',
-        siteName: 'PopReklam',
+        title: 'Terms of Service  MrPop.io',
+        description: 'Read MrPop.io's terms of service covering publisher and advertiser obligations, prohibited content, and payment terms.',
+        siteName: 'MrPop.io',
         type: 'website',
     },
     twitter: {
         card: 'summary',
-        title: 'Terms of Service  PopReklam',
-        description: 'Read PopReklam's terms of service covering publisher and advertiser obligations, prohibited content, and payment terms.',
+        title: 'Terms of Service  MrPop.io',
+        description: 'Read MrPop.io's terms of service covering publisher and advertiser obligations, prohibited content, and payment terms.',
     },
     alternates: {
-        canonical: 'https://popreklam.com/terms',
+        canonical: 'https://mrpop.io/terms',
     },
 };
 

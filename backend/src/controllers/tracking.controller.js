@@ -1,7 +1,7 @@
 import prisma from '../lib/prisma.js';
 import crypto from 'crypto';
 
-const APP_URL = process.env.APP_URL || 'https://api.popreklam.com';
+const APP_URL = process.env.APP_URL || 'https://api.mrpop.io';
 
 // Tracker-specific postback URL templates
 // Each tracker uses different macro names for click_id and payout
@@ -66,7 +66,7 @@ export const getTrackingInfo = async (req, res) => {
             return acc;
         }, {});
 
-        const pixelTag = `<!-- PopReklam Conversion Pixel | Campaign: ${campaign.name} -->\n<img src="${pixelBase}/{CLICK_ID}" width="1" height="1" style="display:none;" alt="" />`;
+        const pixelTag = `<!-- MrPop.io Conversion Pixel | Campaign: ${campaign.name} -->\n<img src="${pixelBase}/{CLICK_ID}" width="1" height="1" style="display:none;" alt="" />`;
 
         res.json({
             campaign: { id: campaign.id, name: campaign.name, adFormat: campaign.adFormat },

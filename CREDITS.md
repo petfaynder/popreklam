@@ -1,6 +1,6 @@
 # Third-Party Credits & Attributions
 
-PopReklam is built using various open-source libraries and tools. We thank the developers and communities behind these projects.
+MrPop.io is built using various open-source libraries and tools. We thank the developers and communities behind these projects.
 
 ---
 

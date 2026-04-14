@@ -55,20 +55,20 @@ export default function PublisherAdCodesPage() {
         if (selectedFormat === 'push-notification') {
             // Push needs a special zone ID — for now use site ID as zone placeholder
             const zoneId = selectedSiteData.pushZoneId || selectedSiteData.id;
-            return `<!-- PopReklam Web Push Notification -->
+            return `<!-- MrPop.io Web Push Notification -->
 <!-- Step 1: Download pr-sw.js and upload to your site root -->
 <!-- Step 2: Add this script to every page <head> -->
 <script src="${BACKEND_URL}/api/serve/push.js?z=${zoneId}" async></script>`;
         }
 
         const formatName = AD_FORMATS.find(f => f.id === selectedFormat)?.name || selectedFormat;
-        return `<!-- PopReklam ${formatName} Ad Code -->
+        return `<!-- MrPop.io ${formatName} Ad Code -->
 <script>
   (function() {
     var s = document.createElement('script');
     s.type = 'text/javascript';
     s.async = true;
-    s.src = 'https://cdn.popreklam.com/ad.js';
+    s.src = 'https://cdn.mrpop.io/ad.js';
     s.setAttribute('data-site-id', '${selectedSiteData.id}');
     s.setAttribute('data-format', '${selectedFormat}');
     var x = document.getElementsByTagName('script')[0];

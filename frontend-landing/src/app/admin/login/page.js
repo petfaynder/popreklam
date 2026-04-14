@@ -86,7 +86,7 @@ export default function AdminLoginPage() {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    placeholder="admin@popreklam.com"
+                                    placeholder="admin@mrpop.io"
                                     required
                                     className="w-full pl-10 pr-4 py-3 bg-slate-800/60 border border-white/10 rounded-xl text-white placeholder-gray-600 text-sm focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-all"
                                 />

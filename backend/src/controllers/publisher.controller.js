@@ -332,13 +332,13 @@ export const verifySite = async (req, res) => {
                 const response = await fetch(targetUrl, {
                     method: 'GET',
                     signal: controller.signal,
-                    headers: { 'User-Agent': 'PopReklam-Verifier/1.0' }
+                    headers: { 'User-Agent': 'MrPop.io-Verifier/1.0' }
                 });
                 clearTimeout(timeoutId);
 
                 const html = await response.text();
                 // Check multiple variations just in case of formatting differencess
-                if (html.includes(token) && html.includes('popreklam-verification')) {
+                if (html.includes(token) && html.includes('mrpop-verification')) {
                     isVerified = true;
                 }
             } else if (method === 'FILE') {
@@ -351,7 +351,7 @@ export const verifySite = async (req, res) => {
                 const response = await fetch(fileUrl, {
                     method: 'GET',
                     signal: controller.signal,
-                    headers: { 'User-Agent': 'PopReklam-Verifier/1.0' }
+                    headers: { 'User-Agent': 'MrPop.io-Verifier/1.0' }
                 });
                 clearTimeout(timeoutId);
 
@@ -365,7 +365,7 @@ export const verifySite = async (req, res) => {
                 const records = await dns.promises.resolveTxt(domain);
                 for (const chunk of records) {
                     const recordStr = chunk.join('');
-                    if (recordStr === `popreklam-site-verification=${token}`) {
+                    if (recordStr === `mrpop-site-verification=${token}`) {
                         isVerified = true;
                         break;
                     }
@@ -420,7 +420,7 @@ export const verifyAdsTxt = async (req, res) => {
 
         const urlObj = new URL(targetUrl);
         const adsTxtUrl = `${urlObj.protocol}//${urlObj.host}/ads.txt`;
-        const expectedLine = `popreklam.com, ${publisher.id}, DIRECT, 1a2b3c4d5e6f7g8h`; // Using a dummy cert ID for now
+        const expectedLine = `mrpop.io, ${publisher.id}, DIRECT, 1a2b3c4d5e6f7g8h`; // Using a dummy cert ID for now
 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000);
@@ -429,7 +429,7 @@ export const verifyAdsTxt = async (req, res) => {
             const response = await fetch(adsTxtUrl, {
                 method: 'GET',
                 signal: controller.signal,
-                headers: { 'User-Agent': 'PopReklam-Bot/1.0' }
+                headers: { 'User-Agent': 'MrPop.io-Bot/1.0' }
             });
             clearTimeout(timeoutId);
 

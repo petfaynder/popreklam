@@ -9,7 +9,7 @@ const faqs = [
     { id: 1, category: 'publishers', question: 'How much can I earn as a publisher?', answer: 'Publisher earnings vary based on traffic quality, geography, and ad formats. Our publishers earn between $0.50 to $8.00 CPM depending on these factors. Top publishers with Tier 1 traffic (US, UK, CA) earn $3-8 CPM. With 100,000 daily visitors, you could earn $3,000-$24,000 monthly. We offer up to 70% revenue share, one of the highest in the industry.' },
     { id: 2, category: 'publishers', question: 'What are the minimum requirements to join?', answer: 'To join as a publisher, you need: (1) Minimum 1,000 daily visitors, (2) Original, legal content with no copyright violations, (3) No adult, illegal, or malicious content, (4) Quality traffic (no bots or incentivized traffic), (5) English or major language content. We review all applications within 24 hours.' },
     { id: 3, category: 'publishers', question: 'How do I install the ad code?', answer: 'After your site is approved, log in to your dashboard and navigate to "Sites" → "Ad Code". Copy the JavaScript snippet provided and paste it before the closing </body> tag on your website. The code is lightweight (under 10KB) and won\'t affect your site speed.' },
-    { id: 4, category: 'publishers', question: 'Can I use PopReklam with Google AdSense?', answer: 'Yes! PopReklam is 100% compatible with Google AdSense and other ad networks. Our pop ad formats don\'t compete with display ads, so you can maximize revenue by using both simultaneously.' },
+    { id: 4, category: 'publishers', question: 'Can I use MrPop.io with Google AdSense?', answer: 'Yes! MrPop.io is 100% compatible with Google AdSense and other ad networks. Our pop ad formats don\'t compete with display ads, so you can maximize revenue by using both simultaneously.' },
     { id: 5, category: 'advertisers', question: 'What is the minimum deposit for advertisers?', answer: 'The minimum deposit is $100 USD. You can add funds via PayPal, credit card (Visa, MasterCard, Amex), Bitcoin, or USDT. There are no hidden fees, and unused funds are fully refundable anytime.' },
     { id: 6, category: 'advertisers', question: 'What targeting options are available?', answer: 'We offer comprehensive targeting: Geographic (Country, City, State/Region), Device (Desktop, Mobile, Tablet), Technology (Browser, OS, Language), Connection Type (Wi-Fi, Mobile), and Time-based targeting.' },
     { id: 7, category: 'advertisers', question: 'How quickly do campaigns go live?', answer: 'Most campaigns are approved and go live within 1-2 hours during business hours. We manually review all campaigns to ensure quality and compliance.' },
@@ -20,7 +20,7 @@ const faqs = [
     { id: 12, category: 'technical', question: 'Will ads slow down my website?', answer: 'No. Our ad code is asynchronously loaded (under 10KB) and doesn\'t block your page rendering. Google PageSpeed score typically remains unchanged.' },
     { id: 13, category: 'technical', question: 'Do you have an API for integration?', answer: 'Yes! We offer a RESTful API for both publishers and advertisers. Retrieve statistics, manage sites, create campaigns, and manage funds. Contact support for API access.' },
     { id: 14, category: 'technical', question: 'How do you prevent click fraud?', answer: 'We use multi-layer fraud detection: real-time bot detection, IP filtering, click pattern analysis, manual review, and third-party fraud database integration.' },
-    { id: 15, category: 'publishers', question: 'Can I use PopReklam on mobile apps?', answer: 'Currently, PopReklam is designed for websites only. However, our ads work perfectly on mobile-optimized websites and PWAs.' },
+    { id: 15, category: 'publishers', question: 'Can I use MrPop.io on mobile apps?', answer: 'Currently, MrPop.io is designed for websites only. However, our ads work perfectly on mobile-optimized websites and PWAs.' },
     { id: 16, category: 'advertisers', question: 'Can I track conversions?', answer: 'Yes! We support conversion tracking via S2S postback URLs or JavaScript pixel. Track CPA, ROAS, and conversion rates directly in your dashboard.' },
 ];
 
@@ -78,7 +78,7 @@ export default function FAQPage() {
                             <h1 className={`text-5xl md:text-6xl font-bold mb-6 ${isBrutalist ? 'uppercase tracking-tighter font-black' : isEditorial ? 'tracking-tight' : ''}`}>
                                 {isBrutalist ? 'F.A.Q.' : 'Frequently Asked Questions'}
                             </h1>
-                            <p className={`text-xl mb-8 ${isDark ? 'text-gray-400' : isEditorial ? 'text-gray-500' : 'text-muted-foreground'}`}>Find answers to common questions about PopReklam</p>
+                            <p className={`text-xl mb-8 ${isDark ? 'text-gray-400' : isEditorial ? 'text-gray-500' : 'text-muted-foreground'}`}>Find answers to common questions about MrPop.io</p>
                             <div className="relative max-w-2xl mx-auto">
                                 <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${isDark ? 'text-gray-400' : 'text-gray-400'}`} />
                                 <input type="text" placeholder="Search for answers..." value={search} onChange={(e) => setSearch(e.target.value)} className={searchCls} />

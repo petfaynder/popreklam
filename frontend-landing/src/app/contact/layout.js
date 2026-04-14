@@ -1,19 +1,19 @@
-﻿export const metadata = {
-    title: 'Contact Us  PopReklam Support',
-    description: 'Get in touch with the PopReklam team for publisher, advertiser, or technical support. Average response time under 4 hours.',
+export const metadata = {
+    title: 'Contact Us  MrPop.io Support',
+    description: 'Get in touch with the MrPop.io team for publisher, advertiser, or technical support. Average response time under 4 hours.',
     openGraph: {
-        title: 'Contact Us  PopReklam Support',
-        description: 'Get in touch with the PopReklam team for publisher, advertiser, or technical support. Average response time under 4 hours.',
-        siteName: 'PopReklam',
+        title: 'Contact Us  MrPop.io Support',
+        description: 'Get in touch with the MrPop.io team for publisher, advertiser, or technical support. Average response time under 4 hours.',
+        siteName: 'MrPop.io',
         type: 'website',
     },
     twitter: {
         card: 'summary',
-        title: 'Contact Us  PopReklam Support',
-        description: 'Get in touch with the PopReklam team for publisher, advertiser, or technical support. Average response time under 4 hours.',
+        title: 'Contact Us  MrPop.io Support',
+        description: 'Get in touch with the MrPop.io team for publisher, advertiser, or technical support. Average response time under 4 hours.',
     },
     alternates: {
-        canonical: 'https://popreklam.com/contact',
+        canonical: 'https://mrpop.io/contact',
     },
 };
 

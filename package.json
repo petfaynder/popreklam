@@ -1,7 +1,7 @@
 {
-  "name": "popreklam",
+  "name": "mrpop",
   "version": "1.0.0",
-  "description": "PopReklam Monorepo Root",
+  "description": "MrPop.io Monorepo Root",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"blue,magenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend-landing\"",

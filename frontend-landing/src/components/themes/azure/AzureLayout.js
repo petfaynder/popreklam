@@ -33,7 +33,7 @@ export default function AdvertiserLayout() {
                         <div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(14,165,233,0.3)] group-hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all">
                             <Zap className="w-6 h-6 text-white fill-current" />
                         </div>
-                        <span className="text-2xl font-bold">PopReklam</span>
+                        <span className="text-2xl font-bold">MrPop.io</span>
                     </div>
                     <div className="hidden md:flex gap-6 text-sm font-bold text-gray-400">
                         <Link href="/for-publishers" className="hover:text-sky-400 transition-colors">Publishers</Link>
@@ -142,7 +142,7 @@ export default function AdvertiserLayout() {
             <section className="relative z-10 py-24 px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold mb-4">Who Benefits From PopReklam</h2>
+                        <h2 className="text-4xl font-bold mb-4">Who Benefits From MrPop.io</h2>
                         <p className="text-gray-400 max-w-lg mx-auto">Whether you're a brand, agency, or affiliate — we have the traffic and tools you need.</p>
                     </div>
                     <div className="grid md:grid-cols-4 gap-6">
@@ -309,7 +309,7 @@ export default function AdvertiserLayout() {
                         {[
                             { name: "Sarah K.", role: "Media Buyer · E-Commerce", quote: "CPA Goal is a game-changer. We set a target and the system auto-optimizes. ROAS improved by 140% in six weeks.", stars: 5 },
                             { name: "Marco L.", role: "Agency · iGaming", quote: "Traffic Estimator saved us from burning budget on bad GEOs. We now plan every campaign with hard data.", stars: 5 },
-                            { name: "Laura W.", role: "Affiliate · VPN Offers", quote: "Smart CPM finds the sweet spot between volume and quality. Our conversion rate doubled after switching to PopReklam.", stars: 5 },
+                            { name: "Laura W.", role: "Affiliate · VPN Offers", quote: "Smart CPM finds the sweet spot between volume and quality. Our conversion rate doubled after switching to MrPop.io.", stars: 5 },
                         ].map((t, i) => (
                             <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-sky-500/30 transition-colors">
                                 <div className="flex gap-0.5 mb-4">{[...Array(t.stars)].map((_, j) => <Star key={j} className="w-4 h-4 text-sky-400 fill-current" />)}</div>
@@ -357,7 +357,7 @@ export default function AdvertiserLayout() {
                         <div>
                             <div className="flex items-center gap-2 mb-4">
                                 <div className="w-8 h-8 bg-sky-500 rounded-xl flex items-center justify-center"><Zap className="w-4 h-4 text-white fill-current" /></div>
-                                <span className="text-lg font-bold">PopReklam</span>
+                                <span className="text-lg font-bold">MrPop.io</span>
                             </div>
                             <p className="text-xs text-gray-500 leading-relaxed">Premium ad network for performance-driven advertisers.</p>
                         </div>
@@ -401,7 +401,7 @@ export default function AdvertiserLayout() {
                         ))}
                     </div>
                     <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between text-xs text-gray-600">
-                        <p>© 2026 PopReklam. All rights reserved.</p>
+                        <p>© 2026 MrPop.io. All rights reserved.</p>
                         <p>Design Language: Azure v2.0</p>
                     </div>
                 </div>

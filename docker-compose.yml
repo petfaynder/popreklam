@@ -4,12 +4,12 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: popreklam_postgres
+    container_name: mrpop_postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: popreklam
+      POSTGRES_DB: mrpop
     ports:
       - "5432:5432"
     volumes:
@@ -23,7 +23,7 @@ services:
   # Redis Cache
   redis:
     image: redis:7-alpine
-    container_name: popreklam_redis
+    container_name: mrpop_redis
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -39,11 +39,11 @@ services:
   # ─── BLOG: WordPress + MySQL ──────────────────────────────────────────────
   # WordPress runs silently in the background.
   # Next.js /blog fetches from its REST API: http://localhost:8080/wp-json/wp/v2/
-  # Production: Replace localhost:8080 with your live domain (e.g. blog.popreklam.com)
+  # Production: Replace localhost:8080 with your live domain (e.g. blog.mrpop.io)
   # ──────────────────────────────────────────────────────────────────────────
   blog_db:
     image: mysql:8.0
-    container_name: popreklam_blog_db
+    container_name: mrpop_blog_db
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: blogroot
@@ -62,7 +62,7 @@ services:
 
   wordpress:
     image: wordpress:latest
-    container_name: popreklam_wordpress
+    container_name: mrpop_wordpress
     restart: unless-stopped
     depends_on:
       blog_db:
@@ -76,7 +76,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
       # Enable JWT Auth plugin support
       WORDPRESS_CONFIG_EXTRA: |
-        define('JWT_AUTH_SECRET_KEY', 'popreklam-jwt-secret-change-in-prod');
+        define('JWT_AUTH_SECRET_KEY', 'mrpop-jwt-secret-change-in-prod');
         define('JWT_AUTH_CORS_ENABLE', true);
     volumes:
       - wordpress_data:/var/www/html

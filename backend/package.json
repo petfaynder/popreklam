@@ -1,5 +1,5 @@
 {
-    "name": "popreklam-backend",
+    "name": "mrpop-backend",
     "version": "1.0.0",
     "description": "Pop Ads Platform - Backend API",
     "main": "src/server.js",

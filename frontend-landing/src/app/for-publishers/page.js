@@ -84,7 +84,7 @@ export default function ForPublishersPage() {
 
                         {/* Features */}
                         <section className="max-w-7xl mx-auto px-6 py-20">
-                            <h2 className={`text-3xl md:text-4xl font-bold text-center mb-16 ${isBrutalist ? 'uppercase tracking-tighter' : ''}`}>Why Choose PopReklam?</h2>
+                            <h2 className={`text-3xl md:text-4xl font-bold text-center mb-16 ${isBrutalist ? 'uppercase tracking-tighter' : ''}`}>Why Choose MrPop.io?</h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {features.map((f, i) => (
                                     <div key={i} className={`${cardCls} group`}>
@@ -142,7 +142,7 @@ export default function ForPublishersPage() {
                         <section className="max-w-7xl mx-auto px-6 py-20">
                             <div className={`${sectionCls} text-center`}>
                                 <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isBrutalist ? 'uppercase tracking-tighter' : ''}`}>Ready to Start Earning?</h2>
-                                <p className={`text-xl mb-8 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Join thousands of publishers earning daily with PopReklam</p>
+                                <p className={`text-xl mb-8 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Join thousands of publishers earning daily with MrPop.io</p>
                                 <Link href="/register?role=publisher" className={`inline-flex items-center gap-2 px-10 py-5 text-lg transition-all ${btnPrimary}`}>Create Publisher Account <ChevronRight className="w-5 h-5" /></Link>
                             </div>
                         </section>

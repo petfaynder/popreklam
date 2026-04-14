@@ -110,8 +110,8 @@ export default function EditorialLayout() {
                             driven by machine learning algorithms that match advertisers with high-intent audiences in real-time.
                         </p>
                         <p>
-                            PopReklam, a rapidly growing ad network serving <strong>2 billion monthly impressions</strong> across 248 GEOs,
-                            represents this new wave. Unlike legacy networks relying on contextual matching, PopReklam's proprietary AI
+                            MrPop.io, a rapidly growing ad network serving <strong>2 billion monthly impressions</strong> across 248 GEOs,
+                            represents this new wave. Unlike legacy networks relying on contextual matching, MrPop.io's proprietary AI
                             analyzes 20+ user signals to deliver premium CPM rates — with publishers reporting an average <strong>3X revenue increase</strong> within their first 90 days.
                         </p>
                         <p>
@@ -167,7 +167,7 @@ export default function EditorialLayout() {
                         </div>
                     </div>
 
-                    {/* Why PopReklam */}
+                    {/* Why MrPop.io */}
                     <div className="p-8 border-b border-[#1A1A1A]">
                         <h3 className="text-xs font-black uppercase tracking-widest mb-4" style={{ fontFamily: 'var(--font-sans)' }}>Why Publishers Choose Us</h3>
                         <div className="space-y-3" style={{ fontFamily: 'var(--font-sans)' }}>
@@ -327,7 +327,7 @@ export default function EditorialLayout() {
             {/* ═══ CTA ═══ */}
             <section className="max-w-[1400px] mx-auto border-x border-b border-[#1A1A1A] bg-[#1A1A1A] text-white p-8 md:p-16 text-center">
                 <h2 className="text-4xl md:text-5xl font-bold mb-4">Join the Network. Start Today.</h2>
-                <p className="text-gray-400 mb-8 max-w-xl mx-auto" style={{ fontFamily: 'var(--font-sans)' }}>10,000+ publishers and advertisers are already scaling with PopReklam. Your competition is here.</p>
+                <p className="text-gray-400 mb-8 max-w-xl mx-auto" style={{ fontFamily: 'var(--font-sans)' }}>10,000+ publishers and advertisers are already scaling with MrPop.io. Your competition is here.</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center" style={{ fontFamily: 'var(--font-sans)' }}>
                     <Link href="/register?role=publisher" className="px-8 py-4 bg-white text-[#1A1A1A] text-xs font-bold uppercase tracking-widest hover:bg-red-600 hover:text-white transition-colors">
                         Publisher Signup
@@ -343,7 +343,7 @@ export default function EditorialLayout() {
                 <div className="grid md:grid-cols-5 gap-8 mb-8" style={{ fontFamily: 'var(--font-sans)' }}>
                     <div>
                         <div className="text-xl font-bold mb-2" style={{ fontFamily: 'var(--font-serif)' }}>The PR Journal</div>
-                        <p className="text-xs text-gray-500 leading-relaxed">Market intelligence for digital publishers and advertisers. Powered by PopReklam.</p>
+                        <p className="text-xs text-gray-500 leading-relaxed">Market intelligence for digital publishers and advertisers. Powered by MrPop.io.</p>
                     </div>
                     {[
                         {
@@ -385,7 +385,7 @@ export default function EditorialLayout() {
                     ))}
                 </div>
                 <div className="border-t border-gray-300 pt-6 flex flex-col md:flex-row justify-between text-[10px] text-gray-400" style={{ fontFamily: 'var(--font-sans)' }}>
-                    <p>© 2026 The PR Journal / PopReklam. All rights reserved.</p>
+                    <p>© 2026 The PR Journal / MrPop.io. All rights reserved.</p>
                     <p>Design Language: Editorial v2.0</p>
                 </div>
             </footer>

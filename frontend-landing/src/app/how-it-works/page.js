@@ -82,7 +82,7 @@ export default function HowItWorksPage() {
                                 <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Simple & Transparent Process</span>
                             </div>
                             <h1 className={`text-5xl md:text-6xl font-bold mb-6 ${isBrutalist ? 'uppercase tracking-tighter font-black' : 'tracking-tight'}`}>
-                                How <span className={accentText}>PopReklam</span> Works
+                                How <span className={accentText}>MrPop.io</span> Works
                             </h1>
                             <p className={`text-xl max-w-3xl mx-auto leading-relaxed ${isDark ? 'text-gray-400' : isEditorial ? 'text-gray-500' : 'text-muted-foreground'}`}>
                                 Whether you're a publisher looking to monetize or an advertiser seeking high-quality traffic, our platform makes it easy to succeed.

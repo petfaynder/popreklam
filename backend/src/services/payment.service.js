@@ -91,7 +91,7 @@ export async function createOxaPayInvoice(amount, paymentId) {
             callback_url: `${BACKEND_URL}/api/webhooks/oxapay`,
             return_url: `${FRONTEND_URL}/advertiser/billing?success=true&payment_id=${paymentId}`,
             order_id: paymentId,
-            description: `PopReklam Ad Balance Deposit #${paymentId}`,
+            description: `MrPop.io Ad Balance Deposit #${paymentId}`,
             sandbox: IS_DEV,                             // ← test mode when developing
         },
         {

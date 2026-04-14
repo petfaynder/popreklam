@@ -39,13 +39,13 @@ async function main() {
 
     // For advertiser, we'll create a separate account
     const advertiserUser = await prisma.user.upsert({
-        where: { email: 'advertiser@popreklam.com' },
+        where: { email: 'advertiser@mrpop.io' },
         update: {
             passwordHash: hashedPassword,
             status: 'ACTIVE'
         },
         create: {
-            email: 'advertiser@popreklam.com',
+            email: 'advertiser@mrpop.io',
             passwordHash: hashedPassword,
             role: 'ADVERTISER',
             status: 'ACTIVE',
@@ -61,13 +61,13 @@ async function main() {
 
     // Create Admin user
     const adminUser = await prisma.user.upsert({
-        where: { email: 'admin@popreklam.com' },
+        where: { email: 'admin@mrpop.io' },
         update: {
             passwordHash: hashedPassword,
             status: 'ACTIVE'
         },
         create: {
-            email: 'admin@popreklam.com',
+            email: 'admin@mrpop.io',
             passwordHash: hashedPassword,
             role: 'ADMIN',
             status: 'ACTIVE'
@@ -87,13 +87,13 @@ async function main() {
 ║  🔗 Login: http://localhost:3000/publisher-login         ║
 ║                                                           ║
 ║  Advertiser Account:                                      ║
-║  📧 Email: advertiser@popreklam.com                      ║
+║  📧 Email: advertiser@mrpop.io                      ║
 ║  🔑 Password: Ta170104894*                               ║
 ║  👤 Role: ADVERTISER                                      ║
 ║  🔗 Login: http://localhost:3000/advertiser-login        ║
 ║                                                           ║
 ║  Admin Account:                                           ║
-║  📧 Email: admin@popreklam.com                           ║
+║  📧 Email: admin@mrpop.io                           ║
 ║  🔑 Password: Ta170104894*                               ║
 ║  👤 Role: ADMIN                                           ║
 ║  🔗 Login: http://localhost:3000/admin-login             ║

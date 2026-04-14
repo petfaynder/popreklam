@@ -37,7 +37,7 @@ export default function AzureLogin() {
                         <div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(14,165,233,0.3)] group-hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all">
                             <Zap className="w-6 h-6 text-white fill-current" />
                         </div>
-                        <span className="text-2xl font-bold tracking-tight">PopReklam</span>
+                        <span className="text-2xl font-bold tracking-tight">MrPop.io</span>
                     </Link>
                 </div>
 

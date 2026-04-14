@@ -56,7 +56,7 @@ export default function StatusPage() {
                                     System <span className={accentText}>Status</span>
                                 </h1>
                                 <p className={`text-xl max-w-2xl mx-auto ${isDark ? 'text-gray-400' : isEditorial ? 'text-gray-500' : 'text-muted-foreground'}`}>
-                                    Real-time monitoring of all PopReklam services and infrastructure.
+                                    Real-time monitoring of all MrPop.io services and infrastructure.
                                 </p>
                             </div>
                         </section>

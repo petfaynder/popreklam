@@ -36,7 +36,7 @@ export default function LuminousLogin() {
                         <div className="w-10 h-10 bg-lime-400 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(163,255,51,0.3)] group-hover:shadow-[0_0_30px_rgba(163,255,51,0.5)] transition-all">
                             <Zap className="w-6 h-6 text-slate-900 fill-current" />
                         </div>
-                        <span className="text-2xl font-bold tracking-tight">PopReklam</span>
+                        <span className="text-2xl font-bold tracking-tight">MrPop.io</span>
                     </Link>
                 </div>
 

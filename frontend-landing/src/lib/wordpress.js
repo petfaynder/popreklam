@@ -2,7 +2,7 @@
  * WordPress REST API Client
  *
  * Local:      http://localhost:8080/wp-json/wp/v2
- * Production: https://blog.popreklam.com/wp-json/wp/v2
+ * Production: https://blog.mrpop.io/wp-json/wp/v2
  *
  * Set NEXT_PUBLIC_WP_API_URL in .env.local to override
  */
@@ -73,7 +73,7 @@ function normalizePost(post) {
         content: post.content?.rendered || '',
         coverImage: featuredMedia?.source_url || null,
         coverImageAlt: featuredMedia?.alt_text || '',
-        author: author?.name || 'PopReklam Team',
+        author: author?.name || 'MrPop.io Team',
         authorAvatar: author?.avatar_urls?.['96'] || null,
         date: post.date,
         dateFormatted: new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
@@ -124,7 +124,7 @@ export const MOCK_POSTS = [
 <h2>5. Monitor and Iterate Daily</h2>
 <p>Use your Statistics dashboard to track performance daily. Identify underperforming ad zones and make data-driven decisions. Small optimizations compound over time into significant revenue increases.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-02-12T00:00:00',
         dateFormatted: 'Feb 12, 2026',
@@ -195,7 +195,7 @@ export const MOCK_POSTS = [
 <h2>Measuring True Performance</h2>
 <p>The key metric is revenue per thousand visitors (RPM), not CPM alone. A network with $5 CPM and 70% fill rate outperforms one with $8 CPM and 40% fill. Calculate your effective RPM across networks to make accurate comparisons.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-01-28T00:00:00',
         dateFormatted: 'Jan 28, 2026',
@@ -215,7 +215,7 @@ export const MOCK_POSTS = [
         excerpt: 'Deep dive into how Smart CPM works, why it outperforms manual bidding, and how advertisers can leverage AI to reduce costs while increasing conversions.',
         coverImage: '/blog-images/smart-cpm.png',
         content: `
-<p>Smart CPM is PopReklam's AI-powered bidding strategy that automatically adjusts your bids in real-time to win impressions at the optimal price point. Advertisers using Smart CPM see an average 23% reduction in cost per conversion.</p>
+<p>Smart CPM is MrPop.io's AI-powered bidding strategy that automatically adjusts your bids in real-time to win impressions at the optimal price point. Advertisers using Smart CPM see an average 23% reduction in cost per conversion.</p>
 
 <h2>How Smart CPM Works</h2>
 <p>When your campaign is live, our algorithm analyzes hundreds of signals for each impression opportunity: user device, browser, OS, geographic location, time of day, day of week, and historical conversion data from similar campaigns. In milliseconds, it calculates the optimal bid to win that impression profitably.</p>
@@ -252,7 +252,7 @@ export const MOCK_POSTS = [
         excerpt: 'Step-by-step guide to setting up CPA Goal campaigns that automatically optimize for conversions. Scale your affiliate offers while keeping costs under control.',
         coverImage: '/blog-images/cpa-goal.png',
         content: `
-<p>CPA Goal campaigns represent the most sophisticated form of performance-based advertising available on PopReklam. You set the price you're willing to pay per conversion, and our AI does the rest.</p>
+<p>CPA Goal campaigns represent the most sophisticated form of performance-based advertising available on MrPop.io. You set the price you're willing to pay per conversion, and our AI does the rest.</p>
 
 <h2>What Makes CPA Goal Different</h2>
 <p>Unlike CPM or CPC campaigns where you pay per impression or click, CPA Goal campaigns only succeed when your defined conversion event occurs. This fundamentally changes the risk profile — the algorithm is incentivized to find traffic that actually converts.</p>
@@ -266,7 +266,7 @@ export const MOCK_POSTS = [
 <h2>Scaling What Works</h2>
 <p>Once your campaign consistently hits your target CPA, increase your daily budget by 20-30% every 3-5 days. Larger jumps reset the learning phase. Use blacklists to exclude traffic sources with high click volume but zero conversions.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-01-20T00:00:00',
         dateFormatted: 'Jan 20, 2026',
@@ -318,7 +318,7 @@ export const MOCK_POSTS = [
         id: 7,
         slug: 'anti-adblock-recovering-lost-revenue',
         title: 'Anti-Adblock Technology: Recovering Lost Revenue',
-        excerpt: 'With 42% of users running adblockers, publishers lose billions annually. Here is how PopReklam\'s anti-adblock solution works and what you can realistically recover.',
+        excerpt: 'With 42% of users running adblockers, publishers lose billions annually. Here is how MrPop.io\'s anti-adblock solution works and what you can realistically recover.',
         coverImage: '/blog-images/antiadblock.png',
         content: `
 <p>Ad blockers have become one of the biggest challenges facing digital publishers. With global adoption rates exceeding 42% — and over 60% in tech-focused, gaming, and young-adult demographics — the revenue impact is substantial and growing.</p>
@@ -326,7 +326,7 @@ export const MOCK_POSTS = [
 <h2>The True Cost of Ad Blocking</h2>
 <p>For a publisher earning $10,000/month, ad blockers could mean $4,200 in lost revenue. Over a year, that's $50,400. Over five years, that's a quarter million dollars in preventable losses.</p>
 
-<h2>How PopReklam's Anti-Adblock Works</h2>
+<h2>How MrPop.io's Anti-Adblock Works</h2>
 <p>Our solution uses three complementary techniques:</p>
 <ol>
 <li><strong>First-party delivery</strong> — ads served from your own domain avoid most blocklist patterns</li>
@@ -340,7 +340,7 @@ export const MOCK_POSTS = [
 <h2>Implementation: 5-Minute Setup</h2>
 <p>Anti-adblock is a single toggle in your Site Settings dashboard. No code changes required. Our system automatically begins serving compliant ads to previously-blocked users within 24 hours of activation.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-02-03T00:00:00',
         dateFormatted: 'Feb 3, 2026',
@@ -358,7 +358,7 @@ export const MOCK_POSTS = [
         excerpt: 'Interactive ads are the next evolution of digital advertising. With engagement rates 3-7x higher than static creatives, they represent a major opportunity for forward-thinking advertisers.',
         coverImage: '/blog-images/interactive-ads.png',
         content: `
-<p>PopReklam is proud to announce the launch of Interactive Ads — a revolutionary ad format that turns passive viewers into active participants. Early beta testers are reporting CTRs of 8-15%, compared to the 0.5-2% typical of static display ads.</p>
+<p>MrPop.io is proud to announce the launch of Interactive Ads — a revolutionary ad format that turns passive viewers into active participants. Early beta testers are reporting CTRs of 8-15%, compared to the 0.5-2% typical of static display ads.</p>
 
 <h2>What Are Interactive Ads?</h2>
 <p>Interactive ads invite users to engage with the creative before clicking through to the landing page. Types include:</p>
@@ -375,7 +375,7 @@ export const MOCK_POSTS = [
 <h2>Getting Access</h2>
 <p>Interactive Ads are currently available to all advertisers with an account balance of $200+. Contact your account manager to enable the format on your existing campaigns.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-02-15T00:00:00',
         dateFormatted: 'Feb 15, 2026',
@@ -446,7 +446,7 @@ export const MOCK_POSTS = [
 <h2>The Numbers</h2>
 <p>In case studies across our iGaming advertiser pool, the pre-funnel approach reduced cost per first deposit (CPFD) by 35-60% compared to cold traffic campaigns. The additional overhead of influencer content was offset within the first month in 8 out of 10 campaigns.</p>
 
-<h2>Implementing This on PopReklam</h2>
+<h2>Implementing This on MrPop.io</h2>
 <p>Use our audience segmentation tool to create custom segments based on traffic source and engagement level. Create separate campaigns for your warmed audience with higher daily caps, as their conversion probability justifies premium bid prices.</p>
         `,
         author: 'David Park',
@@ -483,7 +483,7 @@ export const MOCK_POSTS = [
 <h2>Scaling from $100/day to $1,000/day</h2>
 <p>Once you find a profitable GEO/offer combination, scale by: (1) increasing daily budget by 25% every 48 hours, (2) duplicating the campaign to test new GEOs, and (3) creating landing page variations to improve conversion rates. Never scale and change creatives simultaneously — isolate variables.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-01-15T00:00:00',
         dateFormatted: 'Jan 15, 2026',
@@ -500,10 +500,10 @@ export const MOCK_POSTS = [
         id: 12,
         slug: 'publisher-success-story-gaming-niche',
         title: 'Case Study: Gaming Site Goes from $2K to $15K/Month',
-        excerpt: "How Alex M. transformed his gaming review site's revenue by implementing a multi-format ad stack, enabling anti-adblock, and following PopReklam's optimization playbook.",
+        excerpt: "How Alex M. transformed his gaming review site's revenue by implementing a multi-format ad stack, enabling anti-adblock, and following MrPop.io's optimization playbook.",
         coverImage: '/blog-images/success-story.png',
         content: `
-<p>When Alex M. joined PopReklam in early 2025, his gaming review site was generating approximately $2,000/month from a competing ad network. 800,000 monthly pageviews, but CPMs stuck at $0.80. Nine months later, the same site generates $15,200/month. Here's exactly how.</p>
+<p>When Alex M. joined MrPop.io in early 2025, his gaming review site was generating approximately $2,000/month from a competing ad network. 800,000 monthly pageviews, but CPMs stuck at $0.80. Nine months later, the same site generates $15,200/month. Here's exactly how.</p>
 
 <h2>The Starting Situation</h2>
 <p>Alex's site profile: primarily US and UK traffic (73%), desktop-heavy (68%), with a 26-34 male demographic. The audience was ideal. The monetization strategy was not.</p>
@@ -522,7 +522,7 @@ export const MOCK_POSTS = [
 <h2>Month 7-9: Scaling</h2>
 <p>With Smart CPM enabled on his push notification list, revenue per subscriber increased by 34%. Adding a native ad widget in the related articles section completed the stack. Final result: $15,200/month, sustained for 3+ months.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-01-15T00:00:00',
         dateFormatted: 'Jan 15, 2026',
@@ -557,7 +557,7 @@ export const MOCK_POSTS = [
 <h2>What Made It Work</h2>
 <p>The VP offer's landing page was localized (German copy, German payment options). This single factor — landing page language matching — accounted for roughly half of the conversion rate difference. Always test localized LPs before scaling international VPN campaigns.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-01-08T00:00:00',
         dateFormatted: 'Jan 8, 2026',
@@ -595,7 +595,7 @@ export const MOCK_POSTS = [
 <h2>Your First Profitable Day</h2>
 <p>Most beginners see their first profitable day during week 3-4 of testing. Don't expect it earlier. The learning curve is real, but it's finite. Every data point makes your next campaign 10% smarter than your last.</p>
         `,
-        author: 'PopReklam Team',
+        author: 'MrPop.io Team',
         authorAvatar: null,
         date: '2026-01-03T00:00:00',
         dateFormatted: 'Jan 3, 2026',

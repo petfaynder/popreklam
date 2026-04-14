@@ -12,17 +12,17 @@ import { getDashboardTheme } from '@/lib/themeUtils';
 
 // ─── Tracker catalog ───────────────────────────────────────────────────────────
 const TRACKER_CATALOG = [
-  { id: 'keitaro',      name: 'Keitaro',               color: '#e74c3c', bg: '#e74c3c18', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'keitaro.io',       url: 'https://keitaro.io/?utm_source=popreklam',    offer: true,  logoText: 'K',   tip: 'Campaign → Traffic Sources → Add PopReklam → paste Postback URL in the "Postback" field.' },
-  { id: 'voluum',       name: 'Voluum',                 color: '#7c3aed', bg: '#7c3aed18', clickMacro: '{cid}',      payoutMacro: '{revenue}',  logoDomain: 'voluum.com',        url: 'https://voluum.com/?ref=popreklam',           offer: true,  logoText: 'V',   tip: 'Traffic Sources → PopReklam → S2S Postback URL field. Note: Voluum uses {cid} as click_id.' },
-  { id: 'binom',        name: 'Binom',                  color: '#16a34a', bg: '#16a34a18', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'binom.org',        url: 'https://binom.org/?ref=popreklam',           offer: true,  logoText: 'B',   tip: 'Traffic Sources → Add Source → Postback URL field.' },
-  { id: 'thrivetracker',name: 'ThriveTracker',          color: '#0891b2', bg: '#0891b218', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'thrivetracker.com',url: 'https://thrivetracker.com/',                 offer: false, logoText: 'TT',  tip: 'Traffic Sources → PopReklam → S2S Global Postback.' },
-  { id: 'bemob',        name: 'BeMob',                  color: '#2563eb', bg: '#2563eb18', clickMacro: '{externalid}',payoutMacro: '{payout}',  logoDomain: 'bemob.com',         url: 'https://bemob.com/?ref=popreklam',           offer: true,  logoText: 'Be',  tip: 'Traffic Sources → Add → paste URL. Note: BeMob uses {externalid} for click_id.' },
-  { id: 'redtrack',     name: 'RedTrack',               color: '#db2777', bg: '#db277718', clickMacro: '{clickid}',  payoutMacro: '{payout}',   logoDomain: 'redtrack.io',       url: 'https://redtrack.io/?ref=popreklam',         offer: true,  logoText: 'RT',  tip: 'Traffic Channels → PopReklam → S2S Postback.' },
-  { id: 'funnelflux',   name: 'FunnelFlux',             color: '#d97706', bg: '#d9770618', clickMacro: '{hitid}',    payoutMacro: '{revenue}',  logoDomain: 'funnelflux.com',   url: 'https://funnelflux.com/?ref=popreklam',     offer: true,  logoText: 'FF',  tip: 'Traffic Sources → Add PopReklam → Postback URL. Note: uses {hitid} for click tracking.' },
-  { id: 'peerclick',    name: 'Peerclick',              color: '#0d9488', bg: '#0d948818', clickMacro: '{clickid}',  payoutMacro: '{payout}',   logoDomain: 'peerclick.com',    url: 'https://peerclick.com/?ref=popreklam',      offer: false, logoText: 'PC',  tip: 'Traffic Sources → New → Postback URL field.' },
+  { id: 'keitaro',      name: 'Keitaro',               color: '#e74c3c', bg: '#e74c3c18', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'keitaro.io',       url: 'https://keitaro.io/?utm_source=mrpop',    offer: true,  logoText: 'K',   tip: 'Campaign → Traffic Sources → Add MrPop.io → paste Postback URL in the "Postback" field.' },
+  { id: 'voluum',       name: 'Voluum',                 color: '#7c3aed', bg: '#7c3aed18', clickMacro: '{cid}',      payoutMacro: '{revenue}',  logoDomain: 'voluum.com',        url: 'https://voluum.com/?ref=mrpop',           offer: true,  logoText: 'V',   tip: 'Traffic Sources → MrPop.io → S2S Postback URL field. Note: Voluum uses {cid} as click_id.' },
+  { id: 'binom',        name: 'Binom',                  color: '#16a34a', bg: '#16a34a18', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'binom.org',        url: 'https://binom.org/?ref=mrpop',           offer: true,  logoText: 'B',   tip: 'Traffic Sources → Add Source → Postback URL field.' },
+  { id: 'thrivetracker',name: 'ThriveTracker',          color: '#0891b2', bg: '#0891b218', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'thrivetracker.com',url: 'https://thrivetracker.com/',                 offer: false, logoText: 'TT',  tip: 'Traffic Sources → MrPop.io → S2S Global Postback.' },
+  { id: 'bemob',        name: 'BeMob',                  color: '#2563eb', bg: '#2563eb18', clickMacro: '{externalid}',payoutMacro: '{payout}',  logoDomain: 'bemob.com',         url: 'https://bemob.com/?ref=mrpop',           offer: true,  logoText: 'Be',  tip: 'Traffic Sources → Add → paste URL. Note: BeMob uses {externalid} for click_id.' },
+  { id: 'redtrack',     name: 'RedTrack',               color: '#db2777', bg: '#db277718', clickMacro: '{clickid}',  payoutMacro: '{payout}',   logoDomain: 'redtrack.io',       url: 'https://redtrack.io/?ref=mrpop',         offer: true,  logoText: 'RT',  tip: 'Traffic Channels → MrPop.io → S2S Postback.' },
+  { id: 'funnelflux',   name: 'FunnelFlux',             color: '#d97706', bg: '#d9770618', clickMacro: '{hitid}',    payoutMacro: '{revenue}',  logoDomain: 'funnelflux.com',   url: 'https://funnelflux.com/?ref=mrpop',     offer: true,  logoText: 'FF',  tip: 'Traffic Sources → Add MrPop.io → Postback URL. Note: uses {hitid} for click tracking.' },
+  { id: 'peerclick',    name: 'Peerclick',              color: '#0d9488', bg: '#0d948818', clickMacro: '{clickid}',  payoutMacro: '{payout}',   logoDomain: 'peerclick.com',    url: 'https://peerclick.com/?ref=mrpop',      offer: false, logoText: 'PC',  tip: 'Traffic Sources → New → Postback URL field.' },
   { id: 'landingtrack', name: 'LandingTrack',           color: '#059669', bg: '#05966918', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'landingtrack.com', url: 'https://landingtrack.com/',                 offer: false, logoText: 'LT',  tip: 'Sources → Add → Postback URL.' },
-  { id: 'trackingdesk', name: 'TrackingDesk',           color: '#1d4ed8', bg: '#1d4ed818', clickMacro: '{s1}',       payoutMacro: '{payout}',   logoDomain: 'trackingdesk.com', url: 'https://trackingdesk.com/?ref=popreklam',   offer: false, logoText: 'TD',  tip: 'Uses {s1} as click_id token. Map it in your PopReklam postback URL.' },
-  { id: 'kintura',      name: 'KINTURA',                color: '#7c3aed', bg: '#7c3aed18', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'kintura.io',       url: 'https://kintura.io/',                       offer: false, logoText: 'KI',  tip: 'Traffic Sources → PopReklam → Conversion URL.' },
+  { id: 'trackingdesk', name: 'TrackingDesk',           color: '#1d4ed8', bg: '#1d4ed818', clickMacro: '{s1}',       payoutMacro: '{payout}',   logoDomain: 'trackingdesk.com', url: 'https://trackingdesk.com/?ref=mrpop',   offer: false, logoText: 'TD',  tip: 'Uses {s1} as click_id token. Map it in your MrPop.io postback URL.' },
+  { id: 'kintura',      name: 'KINTURA',                color: '#7c3aed', bg: '#7c3aed18', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'kintura.io',       url: 'https://kintura.io/',                       offer: false, logoText: 'KI',  tip: 'Traffic Sources → MrPop.io → Conversion URL.' },
   { id: 'appsflyer',   name: 'AppsFlyer',               color: '#0284c7', bg: '#0284c718', clickMacro: '{clickid}',  payoutMacro: '{payout}',   logoDomain: 'appsflyer.com',    url: 'https://www.appsflyer.com/',               offer: false, logoText: 'AF',  tip: 'Best for mobile app campaigns. Use their S2S In-App Events API.' },
   { id: 'cplab',        name: 'CPLab',                  color: '#6d28d9', bg: '#6d28d918', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'cpl.io',           url: 'https://cpl.io/',                           offer: false, logoText: 'CP',  tip: 'Campaign → Postback → Global S2S URL field.' },
   { id: 'maxconv',      name: 'MaxConv',                color: '#b91c1c', bg: '#b91c1c18', clickMacro: '{click_id}', payoutMacro: '{payout}',   logoDomain: 'maxconv.com',      url: 'https://maxconv.com/',                      offer: true,  logoText: 'MC',  tip: 'Traffic Sources → Add → Postback URL.' },
@@ -41,19 +41,19 @@ const STATUS_META = {
   ERROR:            { text: 'text-red-500',     bg: 'bg-red-500/10' },
 };
 
-const buildGtmSnippet = (gtmId, campaignId) => `<!-- PopReklam Conversion Tracking via GTM -->
+const buildGtmSnippet = (gtmId, campaignId) => `<!-- MrPop.io Conversion Tracking via GTM -->
 <!-- Add this tag to your "Thank You" page trigger in GTM -->
 <script>
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
-    'event': 'popreklam_conversion',
+    'event': 'mrpop_conversion',
     'campaign_id': '${campaignId || 'YOUR_CAMPAIGN_ID'}',
     'click_id': (new URLSearchParams(window.location.search)).get('click_id') || ''
   });
 </script>
 
 <!-- Custom HTML tag in GTM, fired on the above event: -->
-<img src="https://api.popreklam.com/api/postback?click_id={{DL - click_id}}&goal=purchase"
+<img src="https://api.mrpop.io/api/postback?click_id={{DL - click_id}}&goal=purchase"
      width="1" height="1" style="display:none" alt="" />`;
 
 // ─── TrackerLogo component ─────────────────────────────────────────────────────
@@ -209,7 +209,7 @@ export default function TrackingPage() {
   };
 
   const tracker   = TRACKER_CATALOG.find(t => t.id === selectedTracker) || TRACKER_CATALOG[0];
-  const baseUrl   = 'https://api.popreklam.com/api/postback';
+  const baseUrl   = 'https://api.mrpop.io/api/postback';
   const basicUrl  = `${baseUrl}?click_id=${tracker.clickMacro}&payout=${tracker.payoutMacro}`;
   const secureUrl = trackingInfo?.secretToken
     ? `${baseUrl}?click_id=${tracker.clickMacro}&payout=${tracker.payoutMacro}&token=${trackingInfo.secretToken}`
@@ -219,7 +219,7 @@ export default function TrackingPage() {
     ? activeUrl.replace(trackingInfo.secretToken, '●'.repeat(12))
     : activeUrl;
 
-  const pixelTag = `<img src="https://api.popreklam.com/api/serve/pixel/{CLICK_ID}" width="1" height="1" style="display:none" alt="" />`;
+  const pixelTag = `<img src="https://api.mrpop.io/api/serve/pixel/{CLICK_ID}" width="1" height="1" style="display:none" alt="" />`;
 
   const timeAgo = (d) => {
     const diff = Date.now() - new Date(d).getTime();
@@ -437,7 +437,7 @@ export default function TrackingPage() {
                 </thead>
                 <tbody>
                   {[
-                    { param: 'click_id', value: tracker.clickMacro,   req: true,  desc: 'PopReklam click identifier (injected by us on click)' },
+                    { param: 'click_id', value: tracker.clickMacro,   req: true,  desc: 'MrPop.io click identifier (injected by us on click)' },
                     { param: 'payout',   value: tracker.payoutMacro,  req: false, desc: 'Conversion value in USD reported by your tracker' },
                     { param: 'goal',     value: 'purchase / signup',  req: false, desc: 'Label for the conversion event type' },
                     { param: 'status',   value: '1 or 0',             req: false, desc: '1=confirmed conversion, 0=cancelled/rejected' },

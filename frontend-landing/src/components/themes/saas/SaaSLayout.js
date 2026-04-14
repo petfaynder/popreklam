@@ -36,7 +36,7 @@ export default function SaaSLayout() {
                             <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center">
                                 <div className="w-3.5 h-3.5 bg-[#09090B] rounded-sm"></div>
                             </div>
-                            <span className="text-[15px] font-semibold tracking-tight">PopReklam</span>
+                            <span className="text-[15px] font-semibold tracking-tight">MrPop.io</span>
                         </div>
                         <div className="hidden md:flex gap-6 text-[13px] text-gray-500 font-medium">
                             <Link href="/for-publishers" className="hover:text-white transition-colors">Publishers</Link>
@@ -118,7 +118,7 @@ export default function SaaSLayout() {
                         </div>
                         <div className="p-6 font-mono text-[13px] leading-relaxed text-gray-400">
                             <div><span className="text-gray-600">1</span> <span className="text-gray-500">{'// Add to your <head> — that\'s it.'}</span></div>
-                            <div><span className="text-gray-600">2</span> <span className="text-blue-400">{'<script'}</span> <span className="text-green-400">async</span> <span className="text-purple-300">src</span><span className="text-gray-500">={'\"'}</span><span className="text-orange-300">https://cdn.popreklam.com/sdk.js</span><span className="text-gray-500">{'\"'}</span><span className="text-blue-400">{'>'}</span><span className="text-blue-400">{'</script>'}</span></div>
+                            <div><span className="text-gray-600">2</span> <span className="text-blue-400">{'<script'}</span> <span className="text-green-400">async</span> <span className="text-purple-300">src</span><span className="text-gray-500">={'\"'}</span><span className="text-orange-300">https://cdn.mrpop.io/sdk.js</span><span className="text-gray-500">{'\"'}</span><span className="text-blue-400">{'>'}</span><span className="text-blue-400">{'</script>'}</span></div>
                             <div><span className="text-gray-600">3</span> <span className="text-blue-400">{'<script>'}</span></div>
                             <div><span className="text-gray-600">4</span>   <span className="text-yellow-200">PopAd</span><span className="text-gray-500">.</span><span className="text-blue-300">init</span><span className="text-gray-500">{'({'}</span></div>
                             <div><span className="text-gray-600">5</span>     <span className="text-blue-300">pubId</span><span className="text-gray-500">:</span> <span className="text-orange-300">"PUB-XXXXXX"</span><span className="text-gray-500">,</span></div>
@@ -272,7 +272,7 @@ export default function SaaSLayout() {
             {/* ═══ TRUST SECTION ═══ */}
             <section className="py-24 px-6 border-y border-white/5 bg-white/[0.01]">
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-4xl font-bold tracking-tight text-center mb-16">Why teams choose PopReklam</h2>
+                    <h2 className="text-4xl font-bold tracking-tight text-center mb-16">Why teams choose MrPop.io</h2>
                     <div className="grid md:grid-cols-3 gap-8">
                         {[
                             { icon: Shield, title: "Ad Safety", desc: "In-house 3-level security prevents malware, fraud, and bot traffic. Only clean, verified impressions count." },
@@ -336,7 +336,7 @@ export default function SaaSLayout() {
             <section className="py-24 px-6 border-t border-white/5">
                 <div className="max-w-3xl mx-auto text-center">
                     <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Start scaling today</h2>
-                    <p className="text-gray-400 mb-8">Join 10,000+ publishers and advertisers already growing with PopReklam.</p>
+                    <p className="text-gray-400 mb-8">Join 10,000+ publishers and advertisers already growing with MrPop.io.</p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <Link href="/register?role=publisher" className="px-8 py-4 bg-white text-black rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                             Publisher Signup
@@ -355,7 +355,7 @@ export default function SaaSLayout() {
                         <div>
                             <div className="flex items-center gap-2 mb-3">
                                 <div className="w-7 h-7 bg-white rounded-lg flex items-center justify-center"><Zap className="w-4 h-4 text-[#0A0A0F] fill-current" /></div>
-                                <span className="text-sm font-semibold">PopReklam</span>
+                                <span className="text-sm font-semibold">MrPop.io</span>
                             </div>
                             <p className="text-xs text-gray-500 leading-relaxed">The highest-paying ad network for publishers. AI-driven targeting for advertisers.</p>
                         </div>
@@ -399,7 +399,7 @@ export default function SaaSLayout() {
                         ))}
                     </div>
                     <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-                        <p>© 2026 PopReklam. All rights reserved.</p>
+                        <p>© 2026 MrPop.io. All rights reserved.</p>
                         <p>Design Language: Ethereal SaaS v2.0</p>
                     </div>
                 </div>

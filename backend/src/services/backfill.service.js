@@ -1,7 +1,7 @@
 /**
  * Backfill Ad Service
  *
- * When PopReklam has no matching internal campaign for a zone impression,
+ * When MrPop.io has no matching internal campaign for a zone impression,
  * this service provides a fallback ad via Adsterra SmartLink.
  *
  * ─── HOW THIS WORKS ──────────────────────────────────────────────────────────
@@ -12,7 +12,7 @@
  *   3. Supports sub-parameters for tracking (sub1, sub2, sub3...)
  *
  * Flow:
- *   Publisher site → PopReklam ad tag → no internal campaign →
+ *   Publisher site → MrPop.io ad tag → no internal campaign →
  *   backfill fires → browser opens SmartLink with ?sub1=zoneId →
  *   Adsterra redirects user to best CPA/CPM offer
  *
@@ -46,7 +46,7 @@ import { getSetting } from '../controllers/admin-settings.controller.js';
  * Adsterra supports sub1..sub5 — we use sub1 for zone tracking.
  *
  * @param {string} baseUrl - The SmartLink URL from Adsterra
- * @param {string} zoneId  - PopReklam zone ID (for stats reconciliation)
+ * @param {string} zoneId  - MrPop.io zone ID (for stats reconciliation)
  * @returns {string} - URL with sub parameters appended
  */
 function buildSmartLinkUrl(baseUrl, zoneId) {
@@ -77,7 +77,7 @@ function buildSmartLinkUrl(baseUrl, zoneId) {
  * @param {string} format  - 'POPUNDER' | 'IN_PAGE_PUSH' | 'NATIVE'
  * @param {string} country - ISO country code (informational)
  * @param {string} device  - 'mobile' | 'desktop' | 'tablet'
- * @param {string} zoneId  - PopReklam zone ID (for sub-tracking)
+ * @param {string} zoneId  - MrPop.io zone ID (for sub-tracking)
  * @returns {object|null}
  */
 export async function getBackfillAd(format, country, device, zoneId = '') {
