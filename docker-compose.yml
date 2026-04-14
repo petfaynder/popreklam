@@ -28,7 +28,7 @@ services:
     container_name: mrpop_redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes
@@ -74,7 +74,7 @@ services:
       VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY}
       VAPID_SUBJECT: ${VAPID_SUBJECT}
     ports:
-      - "4000:4000"
+      - "4005:4000"
     volumes:
       - backend_uploads:/app/public/uploads
     healthcheck:
@@ -100,7 +100,7 @@ services:
       # Client-side: public domain (browser uses this)
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://api.mrpop.io}
     ports:
-      - "3000:3000"
+      - "3005:3000"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000"]
       interval: 15s
