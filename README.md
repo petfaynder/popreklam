@@ -62,14 +62,12 @@ See `INSTALLATION.md` for detailed setup instructions.
 
 **Publisher Account:**
 ```
-Email: akartolga0@gmail.com
-Password: Ta170104894*
+
 ```
 
 **Advertiser Account:**
 ```
 Email: akartolga0+advertiser@gmail.com
-Password: Ta170104894*
 ```
 
 ---
