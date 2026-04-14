@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import ThemeRouter from '@/components/ThemeRouter';
 import BrutalistRegister from '@/components/themes/brutalist/BrutalistRegister';
 import SaaSRegister from '@/components/themes/saas/SaaSRegister';
@@ -9,14 +10,16 @@ import AzureRegister from '@/components/themes/azure/AzureRegister';
 
 export default function RegisterPage() {
     return (
-        <ThemeRouter
-            themes={{
-                brutalist: <BrutalistRegister />,
-                saas: <SaaSRegister />,
-                editorial: <EditorialRegister />,
-                luminous: <LuminousRegister />,
-                azure: <AzureRegister />,
-            }}
-        />
+        <Suspense fallback={null}>
+            <ThemeRouter
+                themes={{
+                    brutalist: <BrutalistRegister />,
+                    saas: <SaaSRegister />,
+                    editorial: <EditorialRegister />,
+                    luminous: <LuminousRegister />,
+                    azure: <AzureRegister />,
+                }}
+            />
+        </Suspense>
     );
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import ThemeRouter from '@/components/ThemeRouter';
 import BrutalistLogin from '@/components/themes/brutalist/BrutalistLogin';
 import SaaSLogin from '@/components/themes/saas/SaaSLogin';
@@ -9,14 +10,16 @@ import AzureLogin from '@/components/themes/azure/AzureLogin';
 
 export default function LoginPage() {
     return (
-        <ThemeRouter
-            themes={{
-                brutalist: <BrutalistLogin />,
-                saas: <SaaSLogin />,
-                editorial: <EditorialLogin />,
-                luminous: <LuminousLogin />,
-                azure: <AzureLogin />,
-            }}
-        />
+        <Suspense fallback={null}>
+            <ThemeRouter
+                themes={{
+                    brutalist: <BrutalistLogin />,
+                    saas: <SaaSLogin />,
+                    editorial: <EditorialLogin />,
+                    luminous: <LuminousLogin />,
+                    azure: <AzureLogin />,
+                }}
+            />
+        </Suspense>
     );
 }
