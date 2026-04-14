@@ -26,7 +26,7 @@ export default function useTheme() {
 
     useEffect(() => {
         // Fetch global theme from admin settings
-        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/public-settings`)
+        fetch('/api/auth/public-settings')
             .then(res => res.json())
             .then(data => {
                 if (data.theme && data.theme !== theme) {

@@ -13,7 +13,7 @@ export default function AzureLogin() {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/public-settings`);
+                const response = await fetch('/api/auth/public-settings');
                 const data = await response.json();
                 if (data.recaptcha_site_key) {
                     setSiteKey(data.recaptcha_site_key);

@@ -80,7 +80,7 @@ export default function CampaignsPage() {
         setActionLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/campaigns/export/csv`, {
+            const res = await fetch(`/api/admin/campaigns/export/csv`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!res.ok) throw new Error('Export failed');

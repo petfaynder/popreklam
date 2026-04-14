@@ -6,7 +6,7 @@ import { publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:5000';
+const BACKEND_URL = '';
 
 const AD_FORMATS = [
     { id: 'popunder', name: 'Popunder', icon: MousePointer2, description: 'Opens in new tab behind main window. Highest CPM, 100% viewability.', cpm: '$2–8 CPM' },
