@@ -37,6 +37,7 @@
         "node-cache": "^5.1.2",
         "node-cron": "^4.2.1",
         "nodemailer": "^8.0.1",
+        "prisma": "^5.7.0",
         "qrcode": "^1.5.4",
         "speakeasy": "^2.0.0",
         "stripe": "^20.4.0",
@@ -45,7 +46,6 @@
         "winston": "^3.11.0"
     },
     "devDependencies": {
-        "nodemon": "^3.0.2",
-        "prisma": "^5.7.0"
+        "nodemon": "^3.0.2"
     }
 }
