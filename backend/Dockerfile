@@ -44,4 +44,4 @@ USER node
 EXPOSE 4000
 
 # Run migrations then start server
-CMD ["sh", "-c", "npx prisma migrate deploy && node src/server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy || echo 'WARNING: Prisma migration failed' ; node src/server.js"]

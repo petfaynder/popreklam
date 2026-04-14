@@ -1,6 +1,15 @@
 import winston from 'winston';
 
+import fs from 'fs';
+import path from 'path';
+
 const { combine, timestamp, printf, colorize, errors } = winston.format;
+
+// Ensure logs directory exists to prevent Winston crash
+const logDir = 'logs';
+if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+}
 
 // Custom log format
 const logFormat = printf(({ level, message, timestamp, stack }) => {
