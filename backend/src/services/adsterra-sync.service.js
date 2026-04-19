@@ -1,34 +1,34 @@
 /**
  * Adsterra Revenue Sync Service — Country-Proportional Attribution
  *
- * ─── MANTIK ──────────────────────────────────────────────────────────────────
+ * ─── LOGIC ───────────────────────────────────────────────────────────────────
  *
- * Adsterra bize ülke bazlı toplam geliri söyler:
+ * Adsterra gives us country-based total revenue:
  *   TR → $20.00
  *   US → $40.00
  *   DE → $15.00
  *
- * Bizim BackfillImpression tablosu o günkü backfill hit'lerinin ülkesini bilir:
+ * Our BackfillImpression table knows the country of that day's backfill hits:
  *   Publisher 1 (Zone A) → TR: 300 hit, US: 100 hit
  *   Publisher 2 (Zone B) → TR: 200 hit, US: 400 hit
  *
- * Attribution (her ülkedeki haşımın oranına göre):
- *   TR havuzu ($20):
+ * Attribution (based on volume ratio in each country):
+ *   TR pool ($20):
  *     Publisher 1: 300/500 × $20 × %70 = $8.40
  *     Publisher 2: 200/500 × $20 × %70 = $5.60
- *   US havuzu ($40):
+ *   US pool ($40):
  *     Publisher 1: 100/500 × $40 × %70 = $5.60
  *     Publisher 2: 400/500 × $40 × %70 = $22.40
  *
- * DOUBLE-PAY ENGELLEMESİ:
- *   Her (publisher + tarih) için ne kadar ödendiği SystemSetting'de log olarak saklanır.
- *   Saatlik sync çalışınca yalnızca "yeni" kazanç farkı ödenir.
- *   Aynı veri iki kez eklenmez.
+ * PREVENT DOUBLE-PAY:
+ *   How much was paid for each (publisher + date) is logged in SystemSetting.
+ *   When hourly sync runs, only the "new" earnings difference is paid.
+ *   The same data is not added twice.
  *
  * ─── API ─────────────────────────────────────────────────────────────────────
  * URL:  GET https://api3.adsterratools.com/publisher/stats.json
  * Auth: X-API-Key header
- * Param: group_by=country → ülke bazlı gelir
+ * Param: group_by=country → country-based revenue
  */
 
 import prisma from '../lib/prisma.js';

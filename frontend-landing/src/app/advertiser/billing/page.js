@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Wallet, ArrowUpRight, ArrowDownLeft, Loader2, Plus, FileText, CheckCircle2, ShieldCheck, Bitcoin, CreditCard, Globe, X } from 'lucide-react';
+import { Wallet, ArrowUpRight, ArrowDownLeft, Loader2, Plus, FileText, CheckCircle2, AlertCircle, ShieldCheck, Bitcoin, CreditCard, Globe, X } from 'lucide-react';
 import { advertiserAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
@@ -58,9 +58,19 @@ export default function AdvertiserBilling() {
     const [selectedMethod, setSelectedMethod] = useState('DODO');
     const [depositing, setDepositing] = useState(false);
 
+    const [couponCode, setCouponCode] = useState('');
+    const [couponResult, setCouponResult] = useState(null); // { valid, bonusAmount, code, error }
+    const [couponChecking, setCouponChecking] = useState(false);
+
     const [invoices, setInvoices] = useState([]);
     const [loadingInvoices, setLoadingInvoices] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [billingToast, setBillingToast] = useState({ type: '', msg: '' });
+
+    const showBillingToast = (type, msg) => {
+        setBillingToast({ type, msg });
+        setTimeout(() => setBillingToast({ type: '', msg: '' }), 5000);
+    };
 
     useEffect(() => {
         fetchData();
@@ -131,8 +141,38 @@ export default function AdvertiserBilling() {
             if (win) win.addEventListener('load', () => URL.revokeObjectURL(url), { once: true });
         } catch (err) {
             console.error('Invoice download error:', err);
-            alert('Failed to open invoice. Please try again.');
+            showBillingToast('error', 'Failed to open invoice. Please try again.');
         }
+    };
+
+    const handleCouponApply = async () => {
+        if (!couponCode.trim()) return;
+        setCouponChecking(true);
+        setCouponResult(null);
+        try {
+            const token = localStorage.getItem('token');
+            const r = await fetch('/api/advertiser/billing/validate-coupon', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ code: couponCode, amount: depositAmount }),
+            });
+            const data = await r.json();
+            if (!r.ok) {
+                setCouponResult({ valid: false, error: data.error || 'Invalid code' });
+            } else {
+                setCouponResult({ valid: true, ...data });
+            }
+        } catch (err) {
+            setCouponResult({ valid: false, error: 'Network error' });
+        } finally {
+            setCouponChecking(false);
+        }
+    };
+
+    const closeDepositModal = () => {
+        setDepositModal(false);
+        setCouponCode('');
+        setCouponResult(null);
     };
 
     const handleCheckout = async (e) => {
@@ -145,7 +185,11 @@ export default function AdvertiserBilling() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
-                body: JSON.stringify({ amount: depositAmount, methodType: selectedMethod }),
+                body: JSON.stringify({
+                    amount: depositAmount,
+                    methodType: selectedMethod,
+                    ...(couponResult?.valid && { couponCode: couponResult.code }),
+                }),
             });
             const result = await response.json();
             if (!response.ok) throw new Error(result.error || 'Failed to initiate checkout');
@@ -153,7 +197,7 @@ export default function AdvertiserBilling() {
             if (result.checkoutUrl) {
                 // Dodo Payments: inline checkout via SDK
                 if (selectedMethod === 'DODO') {
-                    setDepositModal(false);
+                    closeDepositModal();
                     setShowDodoInline(true);
                     setDodoCheckoutUrl(result.checkoutUrl);
                 } else {
@@ -161,12 +205,12 @@ export default function AdvertiserBilling() {
                     window.location.href = result.checkoutUrl;
                 }
             } else {
-                alert('Success: ' + result.message);
-                setDepositModal(false);
+                showBillingToast('success', result.message || 'Deposit successful!');
+                closeDepositModal();
                 fetchData();
             }
         } catch (err) {
-            alert('Checkout failed: ' + err.message);
+            showBillingToast('error', 'Checkout failed: ' + err.message);
         } finally {
             setDepositing(false);
         }
@@ -222,6 +266,24 @@ export default function AdvertiserBilling() {
             {showSuccess && (
                 <div className="absolute top-0 right-0 z-50 animate-slide-in-right bg-lime-500 text-black px-6 py-4 rounded-xl flex items-center gap-3 shadow-2xl font-bold">
                     <CheckCircle2 className="w-6 h-6" /> Payment Successful! Your balance has been updated.
+                </div>
+            )}
+
+            {/* Billing Action Toast */}
+            {billingToast.msg && (
+                <div className={`flex items-center gap-3 px-5 py-4 rounded-xl border text-sm animate-fade-in ${
+                    billingToast.type === 'success'
+                        ? 'bg-green-500/10 border-green-500/20 text-green-400'
+                        : 'bg-red-500/10 border-red-500/20 text-red-400'
+                }`}>
+                    {billingToast.type === 'success'
+                        ? <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                        : <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                    }
+                    <p className="flex-1">{billingToast.msg}</p>
+                    <button onClick={() => setBillingToast({ type: '', msg: '' })}>
+                        <X className="w-4 h-4 opacity-60 hover:opacity-100" />
+                    </button>
                 </div>
             )}
 
@@ -359,20 +421,39 @@ export default function AdvertiserBilling() {
 
             {/* ── Deposit Modal ─────────────────────────────────────────────── */}
             {depositModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
-                    <div className={`w-full max-w-lg overflow-hidden transform transition-all border shadow-2xl ${d.isDark ? 'bg-[#0A0A1A] border-white/10 rounded-3xl' : 'bg-white border-gray-200 rounded-3xl'}`}>
-                        <div className="p-8">
-                            <div className="flex justify-between items-center mb-8">
-                                <h2 className={`text-2xl font-black uppercase tracking-wider ${headText}`}>Fund Account</h2>
-                                <button
-                                    onClick={() => setDepositModal(false)}
-                                    className={`${subText} hover:text-red-400 transition-colors p-2 rounded-full hover:bg-red-400/10`}
-                                >
-                                    <X className="w-5 h-5" />
-                                </button>
-                            </div>
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    {/* Backdrop */}
+                    <div
+                        className={`absolute inset-0 backdrop-blur-md ${d.isDark ? 'bg-black/70' : 'bg-black/40'}`}
+                        onClick={closeDepositModal}
+                    />
 
-                            <form onSubmit={handleCheckout} className="space-y-8">
+                    <div className={`relative w-full max-w-lg overflow-hidden shadow-2xl ${
+                        d.isDark
+                            ? 'bg-slate-900 border border-white/10 rounded-2xl'
+                            : 'bg-white border border-gray-200 rounded-2xl'
+                    }`}>
+                        {/* Header */}
+                        <div className={`flex items-center justify-between px-8 pt-7 pb-5 border-b ${
+                            d.isDark ? 'border-white/10' : 'border-gray-200'
+                        }`}>
+                            <h2 className={`text-xl font-bold tracking-tight ${headText}`}>Fund Account</h2>
+                            <button
+                                onClick={closeDepositModal}
+                                className={`p-1.5 rounded-lg transition-all ${
+                                    d.isDark
+                                        ? 'hover:bg-white/10 text-gray-400'
+                                        : 'hover:bg-gray-100 text-gray-500'
+                                }`}
+                                aria-label="Close"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        {/* Body */}
+                        <div className="px-8 py-6">
+                            <form onSubmit={handleCheckout} className="space-y-6">
                                 {/* Amount Input */}
                                 <div className="text-center relative">
                                     <span className={`absolute left-0 top-6 text-2xl font-bold ${subText}`}>$</span>
@@ -392,7 +473,7 @@ export default function AdvertiserBilling() {
 
                                 {/* Gateway Selection */}
                                 <div className="space-y-3">
-                                    <div className={`text-xs font-bold uppercase tracking-widest ${subText}`}>Select Gateway</div>
+                                    <div className={`text-xs font-semibold uppercase tracking-widest ${subText}`}>Select Gateway</div>
                                     <div className="grid grid-cols-3 gap-3">
                                         {GATEWAYS.map((gw) => {
                                             const isSelected = selectedMethod === gw.id;
@@ -401,7 +482,13 @@ export default function AdvertiserBilling() {
                                                     key={gw.id}
                                                     type="button"
                                                     onClick={() => setSelectedMethod(gw.id)}
-                                                    className={`p-4 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all ${isSelected ? gw.accent : d.isDark ? 'border-white/5 hover:border-white/20' : 'border-gray-200 hover:border-gray-300'}`}
+                                                    className={`p-4 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all ${
+                                                        isSelected
+                                                            ? gw.accent
+                                                            : d.isDark
+                                                                ? 'border-white/10 hover:border-white/20'
+                                                                : 'border-gray-200 hover:border-gray-300'
+                                                    }`}
                                                 >
                                                     <gw.icon className={`w-7 h-7 ${isSelected ? gw.color : subText}`} />
                                                     <span className={`font-bold text-xs text-center leading-tight ${isSelected ? headText : subText}`}>
@@ -416,8 +503,51 @@ export default function AdvertiserBilling() {
                                     </div>
                                 </div>
 
+                                {/* Promo Code */}
+                                <div>
+                                    <div className={`text-xs font-semibold uppercase tracking-widest mb-2 ${subText}`}>Promo Code (Optional)</div>
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="text"
+                                            value={couponCode}
+                                            onChange={e => { setCouponCode(e.target.value.toUpperCase()); setCouponResult(null); }}
+                                            placeholder="Enter code..."
+                                            className={`flex-1 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none border transition-all ${
+                                                couponResult?.valid
+                                                    ? 'border-lime-400 bg-lime-400/5 text-lime-300'
+                                                    : couponResult?.error
+                                                        ? 'border-red-400 bg-red-400/5 text-red-300'
+                                                        : d.isDark
+                                                            ? 'border-white/10 bg-white/5 text-white'
+                                                            : 'border-gray-200 bg-gray-50 text-gray-800'
+                                            }`}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={handleCouponApply}
+                                            disabled={couponChecking || !couponCode.trim()}
+                                            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-all disabled:opacity-50 ${
+                                                d.isDark ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
+                                            }`}
+                                        >
+                                            {couponChecking ? '...' : 'Apply'}
+                                        </button>
+                                    </div>
+                                    {couponResult?.valid && (
+                                        <div className="mt-2 flex items-center gap-2 text-xs text-lime-400 font-semibold">
+                                            <span>🎁</span>
+                                            <span>Valid! You will receive <strong>${couponResult.bonusAmount.toFixed(2)}</strong> bonus balance.</span>
+                                        </div>
+                                    )}
+                                    {couponResult?.error && (
+                                        <div className="mt-2 text-xs text-red-400">{couponResult.error}</div>
+                                    )}
+                                </div>
+
                                 {/* Gateway info pill */}
-                                <div className={`text-xs text-center py-2 px-4 rounded-full ${d.isDark ? 'bg-white/5 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
+                                <div className={`text-xs text-center py-2 px-4 rounded-xl ${
+                                    d.isDark ? 'bg-white/5 text-gray-400' : 'bg-gray-50 border border-gray-200 text-gray-500'
+                                }`}>
                                     {selectedMethod === 'DODO' && '💳 Card checkout opens inline — no redirect'}
                                     {selectedMethod === 'OXAPAY' && '₿ Supports BTC, ETH, USDT (TRC20/ERC20), LTC, and 20+ coins'}
                                     {selectedMethod === 'VOLET' && '🌐 Pay via Volet wallet — supports fiat & crypto'}
@@ -426,17 +556,23 @@ export default function AdvertiserBilling() {
                                 <button
                                     type="submit"
                                     disabled={depositing}
-                                    className={`w-full py-4 rounded-xl font-black text-lg uppercase tracking-wider transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 ${depositing ? 'bg-gray-600 text-gray-400 cursor-not-allowed' : 'bg-lime-400 text-black hover:bg-lime-300 shadow-[0_0_20px_rgba(163,230,53,0.3)]'}`}
+                                    className={`w-full py-3.5 rounded-xl font-bold text-base uppercase tracking-wider transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed ${
+                                        d.btnPrimary
+                                    }`}
                                 >
                                     {depositing ? (
-                                        <Loader2 className="animate-spin w-6 h-6" />
+                                        <Loader2 className="animate-spin w-5 h-5" />
                                     ) : (
-                                        <><ShieldCheck className="w-6 h-6" /> Proceed to Secure Checkout</>
+                                        <><ShieldCheck className="w-5 h-5" /> Proceed to Checkout</>
                                     )}
                                 </button>
                             </form>
                         </div>
-                        <div className={`py-3 text-center text-xs font-medium uppercase tracking-widest ${d.isDark ? 'bg-white/5 text-gray-500' : 'bg-gray-50 text-gray-400'}`}>
+
+                        {/* Footer */}
+                        <div className={`py-3 text-center text-xs font-medium uppercase tracking-widest border-t ${
+                            d.isDark ? 'border-white/10 text-gray-600' : 'border-gray-100 text-gray-400'
+                        }`}>
                             SSL Secured · 256-bit Encryption · PCI Compliant
                         </div>
                     </div>
@@ -445,16 +581,34 @@ export default function AdvertiserBilling() {
 
             {/* ── Dodo Inline Checkout Overlay ──────────────────────────────── */}
             {showDodoInline && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
-                    <div className={`w-full max-w-xl overflow-hidden rounded-3xl border shadow-2xl ${d.isDark ? 'bg-[#0A0A1A] border-white/10' : 'bg-white border-gray-200'}`}>
-                        <div className={`flex items-center justify-between px-6 py-4 border-b ${d.isDark ? 'border-white/10' : 'border-gray-200'}`}>
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    {/* Backdrop */}
+                    <div
+                        className={`absolute inset-0 backdrop-blur-md ${d.isDark ? 'bg-black/70' : 'bg-black/40'}`}
+                        onClick={() => setShowDodoInline(false)}
+                    />
+
+                    <div className={`relative w-full max-w-xl overflow-hidden shadow-2xl ${
+                        d.isDark
+                            ? 'bg-slate-900 border border-white/10 rounded-2xl'
+                            : 'bg-white border border-gray-200 rounded-2xl'
+                    }`}>
+                        {/* Header */}
+                        <div className={`flex items-center justify-between px-6 py-4 border-b ${
+                            d.isDark ? 'border-white/10' : 'border-gray-200'
+                        }`}>
                             <div className="flex items-center gap-2">
                                 <CreditCard className="w-5 h-5 text-violet-400" />
                                 <span className={`font-bold text-sm ${headText}`}>Secure Card Payment</span>
                             </div>
                             <button
                                 onClick={() => setShowDodoInline(false)}
-                                className={`${subText} hover:text-red-400 transition-colors p-1.5 rounded-full hover:bg-red-400/10`}
+                                className={`p-1.5 rounded-lg transition-all ${
+                                    d.isDark
+                                        ? 'hover:bg-white/10 text-gray-400'
+                                        : 'hover:bg-gray-100 text-gray-500'
+                                }`}
+                                aria-label="Close"
                             >
                                 <X className="w-4 h-4" />
                             </button>
@@ -467,7 +621,10 @@ export default function AdvertiserBilling() {
                             </div>
                         </div>
 
-                        <div className={`py-3 text-center text-xs font-medium uppercase tracking-widest ${d.isDark ? 'bg-white/5 text-gray-500' : 'bg-gray-50 text-gray-400'}`}>
+                        {/* Footer */}
+                        <div className={`py-3 text-center text-xs font-medium uppercase tracking-widest border-t ${
+                            d.isDark ? 'border-white/10 text-gray-600' : 'border-gray-100 text-gray-400'
+                        }`}>
                             Powered by Dodo Payments · PCI DSS Compliant
                         </div>
                     </div>

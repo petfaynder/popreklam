@@ -1,0 +1,16 @@
+[
+  "\\backend\\src\\controllers\\admin-support.controller.js",
+  "\\backend\\src\\controllers\\publisher.controller.js",
+  "\\backend\\src\\lib\\prisma.js",
+  "\\backend\\src\\services\\adsterra-sync.service.js",
+  "\\backend\\src\\utils\\db.js",
+  "\\find_files.js",
+  "\\find_turkish.js",
+  "\\frontend-landing\\src\\app\\admin\\conversions\\page.js",
+  "\\frontend-landing\\src\\app\\admin\\payments\\page.js",
+  "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\countryData.js",
+  "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\CountrySelect.js",
+  "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\TargetingSection.js",
+  "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+  "\\frontend-landing\\src\\components\\AuthNavButtons.js"
+]

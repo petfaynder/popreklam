@@ -8,7 +8,7 @@ import {
     HelpCircle, Bell, LogOut, Zap, Code2,
     Menu, X, Settings, Gift
 } from 'lucide-react';
-import { authAPI } from '@/lib/api';
+import { authAPI, publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
 
@@ -79,13 +79,39 @@ export default function PublisherLayout({ children }) {
     const d = getDashboardTheme(theme);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const [notifications, setNotifications] = useState([]);
+    const [bellOpen, setBellOpen] = useState(false);
 
     useEffect(() => {
         try {
             const stored = localStorage.getItem('user');
             if (stored) setUser(JSON.parse(stored));
         } catch { }
+
+        fetchNotifications();
+        const interval = setInterval(fetchNotifications, 60000);
+        return () => clearInterval(interval);
     }, []);
+
+    const fetchNotifications = async () => {
+        try {
+            const data = await publisherAPI.getNotifications();
+            setNotifications(data);
+        } catch (e) {
+            console.error('Failed to fetch notifications');
+        }
+    };
+
+    const handleNotificationClick = async (notif) => {
+        if (!notif.isRead) {
+            try {
+                await publisherAPI.markNotificationAsRead(notif.id);
+                setNotifications(prev => prev.map(n => n.id === notif.id ? { ...n, isRead: true } : n));
+            } catch (e) {
+                console.error('Failed to mark as read');
+            }
+        }
+    };
 
     const handleLogout = () => {
         authAPI.logout();
@@ -205,10 +231,62 @@ export default function PublisherLayout({ children }) {
                         </div>
 
                         {/* Notifications */}
-                        <button className={d.notifBtn}>
-                            <Bell className="w-6 h-6" />
-                            <span className={d.notifDot}></span>
-                        </button>
+                        <div className="relative">
+                            <button 
+                                className={d.notifBtn} 
+                                onClick={() => setBellOpen(!bellOpen)}
+                            >
+                                <Bell className="w-6 h-6" />
+                                {notifications.some(n => !n.isRead) && (
+                                    <span className={d.notifDot}></span>
+                                )}
+                            </button>
+
+                            {bellOpen && (
+                                <div className="absolute top-12 right-0 w-80 bg-white dark:bg-[#0f0f24] border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl z-50 overflow-hidden">
+                                    <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-black/20">
+                                        <h3 className="font-semibold text-gray-900 dark:text-white">Notifications</h3>
+                                    </div>
+                                    <div className="max-h-[400px] overflow-y-auto">
+                                        {notifications.length === 0 ? (
+                                            <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+                                                <Bell className="w-8 h-8 mx-auto mb-3 opacity-20" />
+                                                <p className="text-sm">No notifications yet</p>
+                                            </div>
+                                        ) : (
+                                            <div className="divide-y divide-gray-100 dark:divide-gray-800">
+                                                {notifications.map(notif => (
+                                                    <div 
+                                                        key={notif.id} 
+                                                        onClick={() => handleNotificationClick(notif)}
+                                                        className={`p-4 cursor-pointer transition-colors hover:bg-gray-50 dark:hover:bg-white/5 ${!notif.isRead ? 'bg-lime-50 dark:bg-lime-500/10' : ''}`}
+                                                    >
+                                                        <div className="flex gap-3">
+                                                            <div className="mt-1">
+                                                                {notif.type === 'INFO' && <div className="w-2 h-2 rounded-full bg-sky-500"></div>}
+                                                                {notif.type === 'SUCCESS' && <div className="w-2 h-2 rounded-full bg-green-500"></div>}
+                                                                {notif.type === 'WARNING' && <div className="w-2 h-2 rounded-full bg-amber-500"></div>}
+                                                            </div>
+                                                            <div>
+                                                                <div className={`text-sm font-semibold mb-1 ${!notif.isRead ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}>
+                                                                    {notif.title}
+                                                                </div>
+                                                                <div className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-2">
+                                                                    {notif.message}
+                                                                </div>
+                                                                <div className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">
+                                                                    {new Date(notif.createdAt).toLocaleDateString()}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </header>
 

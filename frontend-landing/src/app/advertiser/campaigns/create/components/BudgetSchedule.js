@@ -63,6 +63,16 @@ export default function BudgetSchedule({ formData, updateField }) {
         return () => clearTimeout(timeout);
     }, [countriesKey, formData.adFormat]);
 
+    // Sync schedule to parent AFTER render (avoids setState-during-render error).
+    // Only fires when dayparting is enabled so we don't clobber null unexpectedly.
+    useEffect(() => {
+        if (isDaypartingEnabled) {
+            updateField('schedule', serializeSchedule(schedule));
+        } else {
+            updateField('schedule', null);
+        }
+    }, [schedule, isDaypartingEnabled]);
+
     const toggleHour = (day, hour, action) => {
         setSchedule(prev => {
             const next = { ...prev };
@@ -73,7 +83,6 @@ export default function BudgetSchedule({ formData, updateField }) {
                 daySet.add(hour);
             }
             next[day] = daySet;
-            updateField('schedule', serializeSchedule(next));
             return next;
         });
     };
@@ -101,7 +110,6 @@ export default function BudgetSchedule({ formData, updateField }) {
             const next = { ...prev };
             const allSelected = next[day].size === 24;
             next[day] = allSelected ? new Set() : new Set(HOURS);
-            updateField('schedule', serializeSchedule(next));
             return next;
         });
     };
@@ -115,7 +123,6 @@ export default function BudgetSchedule({ formData, updateField }) {
                 if (allSelected) daySet.delete(hour); else daySet.add(hour);
                 next[day] = daySet;
             });
-            updateField('schedule', serializeSchedule(next));
             return next;
         });
     };
@@ -488,8 +495,6 @@ export default function BudgetSchedule({ formData, updateField }) {
                             checked={isDaypartingEnabled}
                             onChange={(e) => {
                                 setIsDaypartingEnabled(e.target.checked);
-                                if (!e.target.checked) updateField('schedule', null);
-                                else updateField('schedule', serializeSchedule(schedule));
                             }}
                             className="sr-only peer"
                         />
@@ -584,13 +589,11 @@ export default function BudgetSchedule({ formData, updateField }) {
                                             : new Set([9,10,11,12,13,14,15,16,17,18]);
                                     });
                                     setSchedule(s);
-                                    updateField('schedule', serializeSchedule(s));
                                 }},
                                 { label: 'Evening Peak', fn: () => {
                                     const s = {};
                                     DAYS.forEach(day => { s[day] = new Set([18,19,20,21,22,23]); });
                                     setSchedule(s);
-                                    updateField('schedule', serializeSchedule(s));
                                 }},
                                 { label: 'Weekends Only', fn: () => {
                                     const s = {};
@@ -598,12 +601,9 @@ export default function BudgetSchedule({ formData, updateField }) {
                                         s[day] = ['Sat', 'Sun'].includes(day) ? new Set(HOURS) : new Set();
                                     });
                                     setSchedule(s);
-                                    updateField('schedule', serializeSchedule(s));
                                 }},
                                 { label: 'Reset All', fn: () => {
-                                    const s = createDefaultSchedule();
-                                    setSchedule(s);
-                                    updateField('schedule', serializeSchedule(s));
+                                    setSchedule(createDefaultSchedule());
                                 }},
                             ].map(preset => (
                                 <button

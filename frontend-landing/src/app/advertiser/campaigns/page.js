@@ -5,12 +5,13 @@ import {
     Megaphone, Play, Pause, Trash2, Eye, MousePointerClick,
     DollarSign, Loader2, Plus, TrendingUp, Search, Filter,
     CheckCircle2, AlertCircle, X, ChevronDown, SlidersHorizontal,
-    ArrowUpDown, RefreshCw, BarChart2, Pencil, TestTube2, Copy, Crosshair
+    ArrowUpDown, RefreshCw, BarChart2, Pencil, Copy, Crosshair
 } from 'lucide-react';
 import Link from 'next/link';
 import { advertiserAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
+import ConfirmModal from '@/components/ConfirmModal';
 
 const STATUS_TABS = ['ALL', 'ACTIVE', 'PAUSED', 'PENDING', 'REJECTED'];
 
@@ -37,28 +38,7 @@ function Toast({ type, message, onClose }) {
     );
 }
 
-// Confirm dialog (inline, no browser confirm())
-function ConfirmModal({ message, onConfirm, onCancel, d }) {
-    const headText = d.isDark ? 'text-white' : 'text-[#1A1A1A]';
-    const subText = d.isDark ? 'text-gray-400' : 'text-gray-500';
-    return (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
-            <div className={`${d.card} max-w-sm w-full`}>
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-red-500/10`}>
-                    <Trash2 className="w-6 h-6 text-red-400" />
-                </div>
-                <h3 className={`text-lg font-bold ${headText} mb-2`}>Delete Campaign?</h3>
-                <p className={`text-sm ${subText} mb-6`}>{message}</p>
-                <div className="flex gap-3">
-                    <button onClick={onCancel} className={`flex-1 ${d.btnSecondary}`}>Cancel</button>
-                    <button onClick={onConfirm} className="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl font-semibold text-sm transition-all">
-                        Delete
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-}
+
 
 export default function CampaignsPage() {
     const theme = useTheme();
@@ -156,11 +136,11 @@ export default function CampaignsPage() {
         }
         switch (sortBy) {
             case 'oldest': list.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); break;
-            case 'impressions': list.sort((a, b) => (b.totalImpressions || 0) - (a.totalImpressions || 0)); break;
-            case 'clicks': list.sort((a, b) => (b.totalClicks || 0) - (a.totalClicks || 0)); break;
-            case 'spent': list.sort((a, b) => (b.totalSpent || 0) - (a.totalSpent || 0)); break;
+            case 'impressions': list.sort((a, b) => Number(b.totalImpressions || 0) - Number(a.totalImpressions || 0)); break;
+            case 'clicks': list.sort((a, b) => Number(b.totalClicks || 0) - Number(a.totalClicks || 0)); break;
+            case 'spent': list.sort((a, b) => Number(b.totalSpent || 0) - Number(a.totalSpent || 0)); break;
             case 'ctr': {
-                const ctr = c => c.totalImpressions > 0 ? c.totalClicks / c.totalImpressions : 0;
+                const ctr = c => Number(c.totalImpressions) > 0 ? Number(c.totalClicks) / Number(c.totalImpressions) : 0;
                 list.sort((a, b) => ctr(b) - ctr(a)); break;
             }
             default: list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -219,14 +199,17 @@ export default function CampaignsPage() {
     return (
         <div className="space-y-6">
             {/* Confirm modal */}
-            {confirmDelete && (
-                <ConfirmModal
-                    message="This action cannot be undone. All campaign data will be permanently deleted."
-                    onConfirm={() => handleAction('delete', confirmDelete)}
-                    onCancel={() => setConfirmDelete(null)}
-                    d={d}
-                />
-            )}
+            <ConfirmModal
+                isOpen={!!confirmDelete}
+                onClose={() => setConfirmDelete(null)}
+                onConfirm={() => handleAction('delete', confirmDelete)}
+                title="Delete Campaign?"
+                message="This action cannot be undone. All campaign data will be permanently deleted."
+                confirmText="Delete"
+                cancelText="Cancel"
+                type="danger"
+                d={d}
+            />
 
             {/* Header */}
             <div className="flex items-center justify-between">
@@ -331,11 +314,15 @@ export default function CampaignsPage() {
             ) : (
                 <div className="space-y-4">
                     {filtered.map((camp) => {
-                        const ctr = camp.totalImpressions > 0
-                            ? ((camp.totalClicks / camp.totalImpressions) * 100).toFixed(2)
+                        const totalSpent = Number(camp.totalSpent || 0);
+                        const totalBudget = Number(camp.totalBudget || 0);
+                        const totalClicks = Number(camp.totalClicks || 0);
+                        const totalImpressions = Number(camp.totalImpressions || 0);
+                        const ctr = totalImpressions > 0
+                            ? ((totalClicks / totalImpressions) * 100).toFixed(2)
                             : '0.00';
-                        const budgetUsed = camp.totalBudget > 0
-                            ? (camp.totalSpent / camp.totalBudget) * 100
+                        const budgetUsed = totalBudget > 0
+                            ? (totalSpent / totalBudget) * 100
                             : 0;
                         const isLoading = actionLoading === camp.id;
 
@@ -374,12 +361,7 @@ export default function CampaignsPage() {
                                                 <Pencil className="w-4 h-4" />
                                             </button>
                                         </Link>
-                                        {/* A/B Creatives button */}
-                                        <Link href={`/advertiser/campaigns/${camp.id}/creatives`}>
-                                            <button title="A/B Creatives" className={`p-2 rounded-lg transition-all ${d.isDark ? 'bg-white/5 text-gray-300 hover:bg-white/15 hover:text-purple-400' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
-                                                <TestTube2 className="w-4 h-4" />
-                                            </button>
-                                        </Link>
+
                                         {/* Duplicate button */}
                                         <button onClick={() => handleDuplicate(camp)} disabled={isLoading}
                                             title="Duplicate Campaign" className={`p-2 rounded-lg transition-all ${d.isDark ? 'bg-white/5 text-gray-300 hover:bg-white/15 hover:text-cyan-400' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
@@ -415,10 +397,10 @@ export default function CampaignsPage() {
                                 {/* Stats grid */}
                                 <div className={`grid grid-cols-4 gap-3 p-4 rounded-xl mb-4 ${d.isDark ? 'bg-white/5' : 'bg-gray-50'}`}>
                                     {[
-                                        { icon: Eye, label: 'Impressions', value: (camp.totalImpressions || 0).toLocaleString(), color: 'text-sky-400' },
-                                        { icon: MousePointerClick, label: 'Clicks', value: (camp.totalClicks || 0).toLocaleString(), color: 'text-orange-400' },
+                                        { icon: Eye, label: 'Impressions', value: totalImpressions.toLocaleString(), color: 'text-sky-400' },
+                                        { icon: MousePointerClick, label: 'Clicks', value: totalClicks.toLocaleString(), color: 'text-orange-400' },
                                         { icon: TrendingUp, label: 'CTR', value: `${ctr}%`, color: 'text-purple-400' },
-                                        { icon: DollarSign, label: 'Spent', value: `$${(camp.totalSpent || 0).toFixed(2)}`, color: `${accentText}` },
+                                        { icon: DollarSign, label: 'Spent', value: `$${totalSpent.toFixed(2)}`, color: `${accentText}` },
                                     ].map((stat, i) => (
                                         <div key={i} className="text-center">
                                             <div className={`flex items-center justify-center gap-1 mb-1 ${d.isDark ? stat.color : stat.color.replace('400', '600')}`}>
@@ -435,7 +417,7 @@ export default function CampaignsPage() {
                                     <div className="flex items-center justify-between text-xs mb-1.5">
                                         <span className={subText}>Budget</span>
                                         <span className={`font-medium ${headText}`}>
-                                            ${(camp.totalSpent || 0).toFixed(2)} / ${(camp.totalBudget || 0).toFixed(2)}
+                                            ${totalSpent.toFixed(2)} / ${totalBudget.toFixed(2)}
                                             <span className={`ml-2 ${subText}`}>({budgetUsed.toFixed(0)}%)</span>
                                         </span>
                                     </div>

@@ -251,23 +251,23 @@ export default function CampaignAnalyticsPage() {
                             <div className="flex items-start gap-3">
                                 <Info className="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5" />
                                 <div>
-                                    <p className={`text-sm font-semibold ${d.isDark ? 'text-sky-300' : 'text-sky-700'} mb-2`}>Nasıl Çalışır? (How it works)</p>
+                                    <p className={`text-sm font-semibold ${d.isDark ? 'text-sky-300' : 'text-sky-700'} mb-2`}>How it works</p>
                                     <ol className={`text-xs space-y-1.5 ${d.isDark ? 'text-sky-200/70' : 'text-sky-800/70'}`}>
                                         <li className="flex items-start gap-2">
                                             <span className="font-bold text-sky-400 flex-shrink-0">1.</span>
-                                            Kullanıcı reklamınıza tıklar → URL'nize <code className="bg-sky-400/10 px-1 rounded font-mono">?click_id=abc123</code> eklenir
+                                            User clicks your ad → <code className="bg-sky-400/10 px-1 rounded font-mono">?click_id=abc123</code> is appended to your URL
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="font-bold text-sky-400 flex-shrink-0">2.</span>
-                                            Kullanıcı sitenizde satın alma / kayıt işlemini tamamlar
+                                            User completes purchase / signup on your site
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="font-bold text-sky-400 flex-shrink-0">3.</span>
-                                            "Teşekkürler" sayfanıza koyduğunuz pixel → click_id'yi okur → MrPop.io'ya conversion bildirir
+                                            The pixel placed on your "Thank You" page → reads click_id → reports conversion to MrPop.io
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="font-bold text-sky-400 flex-shrink-0">4.</span>
-                                            Dashboardunuzda conversion sayısı ve CPA güncellenir ✓
+                                            Conversion count and CPA are updated in your dashboard ✓
                                         </li>
                                     </ol>
                                 </div>
@@ -279,10 +279,10 @@ export default function CampaignAnalyticsPage() {
                             <p className={`text-[11px] font-bold uppercase tracking-wider ${subText} mb-2`}>Step 1 — Read click_id in your backend</p>
                             <div className={`relative rounded-xl border ${borderColor} overflow-hidden`}>
                                 <pre className={`text-xs p-4 overflow-x-auto font-mono ${d.isDark ? 'bg-black/40 text-gray-300' : 'bg-gray-950 text-gray-300'}`}>
-{`// PHP örneği:
+{`// PHP example:
 $click_id = $_GET['click_id'] ?? '';
 
-// Node.js örneği:
+// Node.js example:
 const clickId = req.query.click_id || '';
 
 // Python (Flask):
@@ -315,8 +315,8 @@ click_id = request.args.get('click_id', '')`}
                             <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
                             <span>
                                 <code className={`px-1.5 py-0.5 rounded font-mono text-yellow-400 ${d.isDark ? 'bg-yellow-400/10' : 'bg-yellow-50 border border-yellow-200'}`}>{'{CLICK_ID}'}</code>
-                                {' '}yerine kendi backend'inizden okuduğunuz <code className="font-mono">click_id</code> değerini koyun.
-                                Örnek: <code className={`px-1 rounded font-mono ${d.isDark ? 'text-gray-300' : 'text-gray-600'}`}>{`src="/api/serve/pixel/<?php echo $click_id; ?>"`}</code>
+                                {' '}with the <code className="font-mono">click_id</code> value you read from your backend.
+                                Example: <code className={`px-1 rounded font-mono ${d.isDark ? 'text-gray-300' : 'text-gray-600'}`}>{`src="/api/serve/pixel/<?php echo $click_id; ?>"`}</code>
                             </span>
                         </div>
                     </div>

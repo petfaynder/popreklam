@@ -556,23 +556,24 @@ export const updateCampaign = async (req, res) => {
 
 
         // â”€â”€ AI CAMPAIGN MODERATION ON UPDATE â”€â”€
+        // AI CAMPAIGN MODERATION ON UPDATE
         let newStatus = status; // Keep user requested status by default
         let rejectionReason = campaign.rejectionReason;
 
-        // If targetUrl changed, we need to re-verify it
+        // If targetUrl changed, always re-moderate and force admin re-review.
+        // This prevents advertisers from silently changing the destination of an approved campaign.
         if (targetUrl && targetUrl !== campaign.targetUrl) {
             const moderationResult = await moderationService.analyzeCampaign(targetUrl, campaign.name, '');
             if (moderationResult.action === 'REJECT') {
-                newStatus = 'REJECTED'; // Force rejection
+                // AI flagged the new URL - reject immediately
+                newStatus = 'REJECTED';
                 rejectionReason = moderationResult.reason;
-            } else if (newStatus === 'REJECTED') {
-                // If it was rejected before but the new URL is fine, put it back to PENDING_APPROVAL
-                // unless the user explicitly sent a different status. Usually, users can't un-reject directly.
+            } else {
+                // URL is clean but must go back to manual admin review regardless of current status
                 newStatus = 'PENDING_APPROVAL';
                 rejectionReason = null;
             }
         }
-
         // Build merged targeting
         const baseTargeting = targeting || campaign.targeting || {};
         const finalTargeting = {

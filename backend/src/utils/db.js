@@ -1,11 +1,11 @@
 /**
- * ⚠️  DEPRECATED — Bu dosya artık kullanılmamalıdır.
+ * ⚠️  DEPRECATED — This file should no longer be used.
  *
- * Tüm yeni import'lar şuradan yapılmalı:
+ * All new imports should be done from:
  *   import prisma from '../lib/prisma.js';
  *
- * Bu dosya sadece geriye uyumluluk için proxy görevi görüyor.
- * Mevcut import'lar kademeli olarak taşınacak.
+ * This file acts as a proxy only for backwards compatibility.
+ * Existing imports will be gradually migrated.
  */
 import prisma from '../lib/prisma.js';
 export default prisma;

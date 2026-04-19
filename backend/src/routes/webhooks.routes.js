@@ -228,6 +228,85 @@ export async function fulfillDeposit(paymentId, externalTransactionId) {
             },
         });
 
+        // ─── Coupon Bonus Awarding ────────────────────────────────────────────
+        if (payment.couponId) {
+            try {
+                const coupon = await tx.coupon.findUnique({ where: { id: payment.couponId } });
+
+                if (coupon && coupon.isActive) {
+                    // Re-verify per-user limit inside the transaction (avoid races)
+                    const userUsageCount = await tx.couponUsage.count({
+                        where: { couponId: coupon.id, userId: payment.userId }
+                    });
+
+                    const limitOk = userUsageCount < coupon.maxUsesPerUser;
+                    const globalLimitOk = coupon.maxUses === null || coupon.currentUses < coupon.maxUses;
+
+                    if (limitOk && globalLimitOk) {
+                        // Calculate bonus
+                        let bonusAmount = 0;
+                        if (coupon.type === 'PERCENTAGE') {
+                            bonusAmount = (Number(payment.amount) * Number(coupon.value)) / 100;
+                            if (coupon.maxBonus !== null) {
+                                bonusAmount = Math.min(bonusAmount, Number(coupon.maxBonus));
+                            }
+                        } else {
+                            bonusAmount = Number(coupon.value);
+                        }
+                        bonusAmount = Math.round(bonusAmount * 100) / 100;
+
+                        if (bonusAmount > 0) {
+                            // Credit bonus to user balance
+                            await tx.user.update({
+                                where: { id: payment.userId },
+                                data: { balance: { increment: bonusAmount } },
+                            });
+
+                            // Log as BONUS transaction
+                            await tx.transaction.create({
+                                data: {
+                                    userId: payment.userId,
+                                    type: 'BONUS',
+                                    status: 'COMPLETED',
+                                    amount: bonusAmount,
+                                    description: `Promo bonus from coupon "${coupon.code}"`,
+                                    metadata: {
+                                        couponId: coupon.id,
+                                        couponCode: coupon.code,
+                                        depositPaymentId: paymentId,
+                                        depositAmount: Number(payment.amount),
+                                    },
+                                    completedAt: now,
+                                }
+                            });
+
+                            // Track usage
+                            await tx.couponUsage.create({
+                                data: {
+                                    couponId: coupon.id,
+                                    userId: payment.userId,
+                                    paymentId: payment.id,
+                                    depositAmount: Number(payment.amount),
+                                    bonusAmount,
+                                }
+                            });
+
+                            // Increment coupon usage counter
+                            await tx.coupon.update({
+                                where: { id: coupon.id },
+                                data: { currentUses: { increment: 1 } }
+                            });
+
+                            console.log(`🎁 Bonus awarded: $${bonusAmount} for coupon "${coupon.code}" → user ${payment.userId}`);
+                        }
+                    }
+                }
+            } catch (couponErr) {
+                // Non-fatal: log but don't fail the deposit
+                console.error('[fulfillDeposit] Coupon bonus error:', couponErr);
+            }
+        }
+
         console.log(`✅ Deposit fulfilled: ${paymentId} | $${payment.amount} | tx: ${externalTransactionId}`);
     });
 }

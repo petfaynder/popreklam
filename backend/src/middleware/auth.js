@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+const JWT_ERRORS = new Set(['JsonWebTokenError', 'TokenExpiredError', 'NotBeforeError']);
 import prisma from '../lib/prisma.js';
 import { hasApiAccess, hasDetailedGeoReports } from '../services/priority.service.js';
 
@@ -32,6 +33,15 @@ export const authenticate = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
+        // JWT-specific errors should be 401, not 500
+        if (JWT_ERRORS.has(error.name)) {
+            return res.status(401).json({
+                error: 'Invalid token',
+                message: error.name === 'TokenExpiredError'
+                    ? 'Session expired. Please log in again.'
+                    : 'Authentication token is invalid. Please log in again.',
+            });
+        }
         next(error);
     }
 };

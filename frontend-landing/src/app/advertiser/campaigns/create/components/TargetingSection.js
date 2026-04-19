@@ -462,7 +462,7 @@ export default function TargetingSection({ formData, toggleArrayField, setFormDa
                     <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto">
                         {[
                             'Vodafone', 'T-Mobile', 'AT&T', 'Verizon', 'Orange',
-                            'Turkcell', 'Türk Telekom', 'Avea', 'O2', 'Three',
+                            'Turkcell', 'Turk Telekom', 'Avea', 'O2', 'Three',
                             'Sprint', 'EE', 'Movistar', 'Claro', 'TIM',
                             'Airtel', 'Jio', 'BSNL', 'China Mobile', 'China Unicom',
                             'SoftBank', 'NTT Docomo', 'SK Telecom', 'KT Corporation',

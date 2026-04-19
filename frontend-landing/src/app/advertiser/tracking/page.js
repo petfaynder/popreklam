@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
+import ConfirmModal from '@/components/ConfirmModal';
 
 // ─── Tracker catalog ───────────────────────────────────────────────────────────
 const TRACKER_CATALOG = [
@@ -129,6 +130,7 @@ export default function TrackingPage() {
   const [useToken, setUseToken] = useState(true);
   const [copied, setCopied] = useState('');
   const [regenerating, setRegenerating] = useState(false);
+  const [confirmRegen, setConfirmRegen] = useState(false);
 
   const [testLoading, setTestLoading] = useState(false);
   const [testResult, setTestResult] = useState(null);
@@ -194,7 +196,6 @@ export default function TrackingPage() {
   };
 
   const regenerateToken = async () => {
-    if (!confirm('Bu işlem mevcut secret token\'ı geçersiz kılar. Devam?')) return;
     setRegenerating(true);
     try {
       const res = await fetch(`/api/advertiser/campaigns/${selectedCampaignId}/tracking/regenerate-token`, { method: 'POST', headers: authHdrs() });
@@ -246,6 +247,19 @@ export default function TrackingPage() {
 
   return (
     <div className="space-y-6">
+
+      {/* Regenerate Token Confirm Modal */}
+      <ConfirmModal
+        isOpen={confirmRegen}
+        onClose={() => setConfirmRegen(false)}
+        onConfirm={regenerateToken}
+        title="Regenerate Secret Token?"
+        message="This will invalidate your current secret token. Any postback URLs using the old token will stop working immediately."
+        confirmText="Regenerate"
+        cancelText="Cancel"
+        type="warning"
+        d={d}
+      />
 
       {/* Header */}
       <div>
@@ -398,7 +412,7 @@ export default function TrackingPage() {
                   </code>
                 </p>
                 <button
-                  onClick={regenerateToken}
+                  onClick={() => setConfirmRegen(true)}
                   disabled={regenerating}
                   className={`flex items-center gap-1.5 text-xs ${subText} hover:text-red-400 transition-colors`}
                 >

@@ -3,15 +3,15 @@
 /**
  * AuthNavButtons
  * 
- * Tüm theme layoutlarında kullanılan akıllı navbar bileşeni.
- * Kullanıcı giriş yapmışsa "Dashboard" butonu, yoksa Login/CTA butonları gösterir.
+ * Smart navbar component used in all theme layouts.
+ * Shows "Dashboard" button if user is logged in, otherwise Login/CTA buttons.
  * 
  * Props:
- *   - accentClass: aktif/hover rengi (örn. "hover:text-lime-400")
- *   - hrefCTA: kayıt/CTA linki (örn. "/register?role=publisher")
- *   - labelCTA: CTA butonu yazısı (örn. "Start Earning")
- *   - btnClass: CTA butonu class'ı
- *   - loginClass: Login linki class'ı (opsiyonel)
+ *   - accentClass: active/hover color (e.g. "hover:text-lime-400")
+ *   - hrefCTA: register/CTA link (e.g. "/register?role=publisher")
+ *   - labelCTA: CTA button text (e.g. "Start Earning")
+ *   - btnClass: CTA button class
+ *   - loginClass: Login link class (optional)
  */
 
 import { useEffect, useState } from 'react';

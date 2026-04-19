@@ -625,7 +625,7 @@ export const requestWithdrawal = async (req, res) => {
         }
 
         // Atomic transaction: balance check + decrement + create record
-        // Bu race condition'ı önler — iki eşzamanlı istek aynı anda çalışamaz
+        // This prevents race condition - two concurrent requests cannot run at the same time
         const transaction = await prisma.$transaction(async (tx) => {
             const user = await tx.user.findUnique({ where: { id: userId } });
             if (!user) throw new Error('USER_NOT_FOUND');
@@ -633,7 +633,7 @@ export const requestWithdrawal = async (req, res) => {
             const publisher = await tx.publisher.findUnique({ where: { userId } });
             if (!publisher) throw new Error('PUBLISHER_NOT_FOUND');
 
-            // Balance check (transaction içinde — race-safe)
+            // Balance check (inside transaction - race-safe)
             if (parseFloat(user.balance) < parsedAmount) {
                 throw new Error('INSUFFICIENT_BALANCE');
             }

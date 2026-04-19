@@ -254,7 +254,7 @@ export const createTicket = async (req, res) => {
 };
 
 /**
- * GET /api/support/my-tickets — Publisher/Advertiser kendi ticket'larını görür
+ * GET /api/support/my-tickets — Publisher/Advertiser sees their own tickets
  */
 export const getMyTickets = async (req, res) => {
     try {

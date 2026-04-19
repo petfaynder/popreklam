@@ -10,6 +10,7 @@ import * as creativesController from '../controllers/advertiser-creatives.contro
 import * as priorityController from '../controllers/advertiser-priority.controller.js';
 import * as audienceController from '../controllers/audience.controller.js';
 import * as trackingController from '../controllers/tracking.controller.js';
+import * as notificationController from '../controllers/notification.controller.js';
 
 const router = express.Router();
 
@@ -19,6 +20,10 @@ router.use(authorize('ADVERTISER'));
 
 // Dashboard stats
 router.get('/dashboard', advertiserController.getDashboard);
+
+// Notifications
+router.get('/notifications', notificationController.getNotifications);
+router.post('/notifications/:id/read', notificationController.markAsRead);
 
 // Campaigns management
 router.get('/campaigns', advertiserController.getCampaigns);
@@ -61,6 +66,7 @@ router.post('/billing/verify/:paymentId', advertiserBillingController.verifyPaym
 router.post('/billing/auto-recharge', advertiserBillingController.configureAutoRecharge);
 router.get('/billing/invoices/:id/download', advertiserBillingController.downloadInvoice);
 router.get('/billing/invoices', advertiserBillingController.getInvoices);
+router.post('/billing/validate-coupon', advertiserBillingController.validateCoupon);
 
 // Payment Methods
 router.post('/billing/payment-methods', advertiserBillingController.addPaymentMethod);

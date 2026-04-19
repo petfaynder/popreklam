@@ -2,6 +2,7 @@ import "./globals.css";
 
 import { Space_Grotesk, Outfit, Rajdhani, Playfair_Display, Inter } from "next/font/google"; // Added Fonts
 import { ToastProvider } from "@/components/Toast";
+import CookieConsent from "@/components/CookieConsent";
 
 
 // Font Configuration
@@ -48,6 +49,7 @@ export default function RootLayout({ children }) {
       <body className={`${spaceGrotesk.variable} ${outfit.variable} ${rajdhani.variable} ${playfair.variable} ${inter.variable} antialiased selection:bg-primary selection:text-white transition-colors duration-500`}>
         <ToastProvider>
           {children}
+          <CookieConsent />
         </ToastProvider>
 
       </body>

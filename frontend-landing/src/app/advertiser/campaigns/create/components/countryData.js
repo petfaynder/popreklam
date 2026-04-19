@@ -266,7 +266,7 @@ export const COUNTRIES = [
     { code: 'VU', name: 'Vanuatu', flag: '🇻🇺', continent: 'OCEANIA' },
 ];
 
-// Helper: tüm ülkeleri kıtaya göre grupla
+// Helper: group all countries by continent
 export const getCountriesByContinent = () => {
     const groups = {};
     for (const continent of Object.keys(CONTINENTS)) {
@@ -275,12 +275,12 @@ export const getCountriesByContinent = () => {
     return groups;
 };
 
-// Helper: kıtadaki tüm kodları döndür
+// Helper: return all codes in the continent
 export const getCountryCodesByContinent = (continentKey) => {
     return COUNTRIES.filter(c => c.continent === continentKey).map(c => c.code);
 };
 
-// Helper: ülke kodundan ülke bilgisi
+// Helper: get country info from country code
 export const getCountryByCode = (code) => {
     return COUNTRIES.find(c => c.code === code);
 };

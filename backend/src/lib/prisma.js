@@ -1,22 +1,22 @@
 import { PrismaClient } from '@prisma/client';
 
 /**
- * Singleton Prisma Client — TEK KAYNAK
+ * Singleton Prisma Client — SINGLE SOURCE
  *
- * Tüm dosyalar bu modülü import etmeli: import prisma from '../lib/prisma.js'
+ * All files must import this module: import prisma from '../lib/prisma.js'
  *
- * Özellikler:
- *  - globalThis ile deduplicate → hot-reload'da (nodemon) bağlantı sızıntısı önlenir
- *  - connection_limit=30 → yoğun reklam trafiğinde yeterli havuz
- *  - pool_timeout=10 → 10 saniye bağlantı bekle, sonra hata ver (uzun kuyruk önlenir)
- *  - Development'ta query + error log, production'da sadece error
+ * Features:
+ *  - deduplicate with globalThis -> prevents connection leaks on hot-reload (nodemon)
+ *  - connection_limit=30 -> sufficient pool for heavy ad traffic
+ *  - pool_timeout=10 -> wait 10 seconds for connection, then throw error (prevents long queues)
+ *  - query + error log in development, only error in production
  */
 
 const CONNECTION_LIMIT = parseInt(process.env.PRISMA_CONNECTION_LIMIT || '30', 10);
 const POOL_TIMEOUT = parseInt(process.env.PRISMA_POOL_TIMEOUT || '10', 10);
 
 function createPrismaClient() {
-    // DATABASE_URL'e connection_limit ve pool_timeout ekle (eğer yoksa)
+    // Add connection_limit and pool_timeout to DATABASE_URL (if not exists)
     let dbUrl = process.env.DATABASE_URL || '';
     const separator = dbUrl.includes('?') ? '&' : '?';
 
@@ -32,12 +32,12 @@ function createPrismaClient() {
             db: { url: dbUrl },
         },
         log: process.env.NODE_ENV === 'development'
-            ? ['error', 'warn']       // query logları development'ta bile çok gürültülü, kapalı
+            ? ['error', 'warn']       // query logs are too noisy even in development, disabled
             : ['error'],
     });
 }
 
-// Singleton: globalThis ile aynı process'te tekrar tekrar oluşturulmasını engelle
+// Singleton: prevent recreating multiple times in the same process with globalThis
 const globalForPrisma = globalThis;
 const prisma = globalForPrisma.__prisma ?? createPrismaClient();
 

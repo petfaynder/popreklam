@@ -1,8 +1,23 @@
 'use client';
 
-import { useState } from 'react';
-import { X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { X, AlertTriangle, Trash2, Info, AlertCircle } from 'lucide-react';
 
+/**
+ * ConfirmModal — System-native confirmation dialog.
+ * Fully integrated with getDashboardTheme(d) tokens.
+ *
+ * Props:
+ *   isOpen      - boolean
+ *   onClose     - () => void
+ *   onConfirm   - () => void | Promise<void>
+ *   title       - string
+ *   message     - string | ReactNode
+ *   confirmText - string (default: 'Confirm')
+ *   cancelText  - string (default: 'Cancel')
+ *   type        - 'danger' | 'warning' | 'info'
+ *   d           - getDashboardTheme result (optional, falls back to dark defaults)
+ */
 export default function ConfirmModal({
     isOpen,
     onClose,
@@ -11,9 +26,16 @@ export default function ConfirmModal({
     message,
     confirmText = 'Confirm',
     cancelText = 'Cancel',
-    type = 'danger' // danger, warning, info
+    type = 'danger',
+    d,
 }) {
     const [loading, setLoading] = useState(false);
+
+    // Lock body scroll
+    useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -22,78 +44,126 @@ export default function ConfirmModal({
         try {
             await onConfirm();
             onClose();
-        } catch (error) {
-            console.error('Confirmation error:', error);
+        } catch (err) {
+            console.error('ConfirmModal error:', err);
         } finally {
             setLoading(false);
         }
     };
 
+    // ── Type config ──────────────────────────────────────────────────────────
+    const isDark = d?.isDark ?? true;
+
     const typeConfig = {
         danger: {
-            buttonBg: 'bg-red-500 hover:bg-red-600',
-            borderColor: 'border-red-500/20'
+            Icon: Trash2,
+            iconBg: isDark ? 'bg-red-500/10' : 'bg-red-50 border border-red-200',
+            iconColor: isDark ? 'text-red-400' : 'text-red-600',
+            confirmBtn: isDark
+                ? 'bg-red-500 hover:bg-red-600 text-white'
+                : 'bg-red-600 hover:bg-red-700 text-white',
         },
         warning: {
-            buttonBg: 'bg-orange-500 hover:bg-orange-600',
-            borderColor: 'border-orange-500/20'
+            Icon: AlertTriangle,
+            iconBg: isDark ? 'bg-orange-500/10' : 'bg-orange-50 border border-orange-200',
+            iconColor: isDark ? 'text-orange-400' : 'text-orange-600',
+            confirmBtn: isDark
+                ? 'bg-orange-500 hover:bg-orange-600 text-white'
+                : 'bg-orange-600 hover:bg-orange-700 text-white',
         },
         info: {
-            buttonBg: 'bg-blue-500 hover:bg-blue-600',
-            borderColor: 'border-blue-500/20'
-        }
+            Icon: Info,
+            iconBg: isDark ? 'bg-blue-500/10' : 'bg-blue-50 border border-blue-200',
+            iconColor: isDark ? 'text-blue-400' : 'text-blue-600',
+            confirmBtn: isDark
+                ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                : 'bg-blue-600 hover:bg-blue-700 text-white',
+        },
     };
 
-    const config = typeConfig[type] || typeConfig.danger;
+    const cfg = typeConfig[type] || typeConfig.danger;
+    const { Icon } = cfg;
+
+    // ── Theme-aware classes ──────────────────────────────────────────────────
+    // If `d` is provided, use its tokens; otherwise fall back to safe defaults.
+    const backdropCls = isDark ? 'bg-black/70' : 'bg-black/30';
+    const modalCls = d?.card
+        ? `${d.card} max-w-sm w-full`
+        : isDark
+            ? 'bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-sm w-full shadow-2xl'
+            : 'bg-white border border-gray-200 rounded-xl p-6 max-w-sm w-full shadow-xl';
+
+    const headTextCls = isDark ? 'text-white' : 'text-[#1A1A1A]';
+    const subTextCls  = isDark ? 'text-gray-400' : 'text-gray-500';
+    const cancelCls   = d?.btnSecondary
+        ? d.btnSecondary
+        : isDark
+            ? 'px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all text-sm font-medium'
+            : 'px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-200 transition-all text-sm font-medium';
+
+    const spinnerBorder = isDark ? 'border-white/30' : 'border-gray-300';
+    const spinnerTop    = type === 'danger'
+        ? (isDark ? 'border-t-red-400' : 'border-t-red-600')
+        : type === 'warning'
+            ? (isDark ? 'border-t-orange-400' : 'border-t-orange-600')
+            : (isDark ? 'border-t-blue-400' : 'border-t-blue-600');
 
     return (
         <>
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 animate-fade-in"
+                className={`fixed inset-0 z-50 ${backdropCls} backdrop-blur-sm animate-fade-in`}
                 onClick={onClose}
+                aria-hidden="true"
             />
 
-            {/* Modal */}
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            {/* Dialog */}
+            <div
+                role="dialog"
+                aria-modal="true"
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+            >
                 <div
-                    className={`glass-premium border ${config.borderColor} p-6 rounded-3xl max-w-md w-full pointer-events-auto animate-scale-in`}
-                    onClick={(e) => e.stopPropagation()}
+                    className={`${modalCls} pointer-events-auto animate-scale-in`}
+                    onClick={e => e.stopPropagation()}
                 >
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                        <h3 className="text-xl font-bold text-white">{title}</h3>
+                    {/* Close X */}
+                    <div className="flex justify-end mb-2">
                         <button
                             onClick={onClose}
-                            className="p-1 hover:bg-white/10 rounded-lg transition-colors"
+                            className={`p-1.5 rounded-lg transition-all ${isDark ? 'hover:bg-white/10 text-gray-500' : 'hover:bg-gray-100 text-gray-400'}`}
+                            aria-label="Close"
                         >
-                            <X className="w-5 h-5 text-gray-400" />
+                            <X className="w-4 h-4" />
                         </button>
                     </div>
 
-                    {/* Message */}
-                    <p className="text-gray-300 mb-6">{message}</p>
+                    {/* Icon */}
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${cfg.iconBg}`}>
+                        <Icon className={`w-6 h-6 ${cfg.iconColor}`} />
+                    </div>
+
+                    {/* Content */}
+                    <h3 className={`text-base font-bold ${headTextCls} mb-2`}>{title}</h3>
+                    <p className={`text-sm ${subTextCls} mb-6 leading-relaxed`}>{message}</p>
 
                     {/* Actions */}
-                    <div className="flex gap-3 justify-end">
+                    <div className="flex gap-3">
                         <button
                             onClick={onClose}
                             disabled={loading}
-                            className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-white font-medium transition-all disabled:opacity-50"
+                            className={`flex-1 ${cancelCls} disabled:opacity-50`}
                         >
                             {cancelText}
                         </button>
                         <button
                             onClick={handleConfirm}
                             disabled={loading}
-                            className={`px-4 py-2 ${config.buttonBg} rounded-xl text-white font-medium transition-all disabled:opacity-50 flex items-center gap-2`}
+                            className={`flex-1 px-4 py-2 rounded-xl font-semibold text-sm transition-all disabled:opacity-50 flex items-center justify-center gap-2 ${cfg.confirmBtn}`}
                         >
-                            {loading && (
-                                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                                </svg>
-                            )}
+                            {loading ? (
+                                <span className={`w-4 h-4 border-2 ${spinnerBorder} ${spinnerTop} rounded-full animate-spin`} />
+                            ) : null}
                             {confirmText}
                         </button>
                     </div>

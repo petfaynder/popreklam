@@ -31,6 +31,7 @@ const NAV_GROUPS = [
         label: 'Finance',
         items: [
             { name: 'Payments', href: '/admin/payments', icon: CreditCard },
+            { name: 'Coupons', href: '/admin/coupons', icon: Gift },
             { name: 'Reports', href: '/admin/reports', icon: BarChart2 },
             { name: 'Adsterra Backfill', href: '/admin/adsterra', icon: Zap },
         ]
@@ -39,6 +40,7 @@ const NAV_GROUPS = [
         label: 'Operations',
         items: [
             { name: 'Support', href: '/admin/support', icon: MessageSquare, badge: 'tickets' },
+            { name: 'Announcements', href: '/admin/notifications', icon: Megaphone },
             { name: 'Conversions', href: '/admin/conversions', icon: ShoppingCart },
             { name: 'Ad Quality', href: '/admin/ad-quality', icon: Zap },
             { name: 'Geo Floors', href: '/admin/geo-floors', icon: Globe },

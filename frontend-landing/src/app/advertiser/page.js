@@ -88,7 +88,7 @@ export default function AdvertiserDashboard() {
     };
 
     const exportData = () => {
-        alert('Export feature coming soon!');
+        console.log('Export feature coming soon');
     };
 
     if (loading) {

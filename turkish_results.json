@@ -1,0 +1,262 @@
+[
+  {
+    "file": "\\backend\\src\\controllers\\admin-support.controller.js",
+    "line": 257,
+    "text": "* GET /api/support/my-tickets — Publisher/Advertiser kendi ticket'larını görür"
+  },
+  {
+    "file": "\\backend\\src\\controllers\\publisher.controller.js",
+    "line": 628,
+    "text": "// Bu race condition'ı önler — iki eşzamanlı istek aynı anda çalışamaz"
+  },
+  {
+    "file": "\\backend\\src\\controllers\\publisher.controller.js",
+    "line": 636,
+    "text": "// Balance check (transaction içinde — race-safe)"
+  },
+  {
+    "file": "\\backend\\src\\lib\\prisma.js",
+    "line": 6,
+    "text": "* Tüm dosyalar bu modülü import etmeli: import prisma from '../lib/prisma.js'"
+  },
+  {
+    "file": "\\backend\\src\\lib\\prisma.js",
+    "line": 8,
+    "text": "* Özellikler:"
+  },
+  {
+    "file": "\\backend\\src\\lib\\prisma.js",
+    "line": 9,
+    "text": "*  - globalThis ile deduplicate → hot-reload'da (nodemon) bağlantı sızıntısı önlenir"
+  },
+  {
+    "file": "\\backend\\src\\lib\\prisma.js",
+    "line": 10,
+    "text": "*  - connection_limit=30 → yoğun reklam trafiğinde yeterli havuz"
+  },
+  {
+    "file": "\\backend\\src\\lib\\prisma.js",
+    "line": 11,
+    "text": "*  - pool_timeout=10 → 10 saniye bağlantı bekle, sonra hata ver (uzun kuyruk önlenir)"
+  },
+  {
+    "file": "\\backend\\src\\lib\\prisma.js",
+    "line": 19,
+    "text": "// DATABASE_URL'e connection_limit ve pool_timeout ekle (eğer yoksa)"
+  },
+  {
+    "file": "\\backend\\src\\lib\\prisma.js",
+    "line": 35,
+    "text": "? ['error', 'warn']       // query logları development'ta bile çok gürültülü, kapalı"
+  },
+  {
+    "file": "\\backend\\src\\lib\\prisma.js",
+    "line": 40,
+    "text": "// Singleton: globalThis ile aynı process'te tekrar tekrar oluşturulmasını engelle"
+  },
+  {
+    "file": "\\backend\\src\\services\\adsterra-sync.service.js",
+    "line": 6,
+    "text": "* Adsterra bize ülke bazlı toplam geliri söyler:"
+  },
+  {
+    "file": "\\backend\\src\\services\\adsterra-sync.service.js",
+    "line": 11,
+    "text": "* Bizim BackfillImpression tablosu o günkü backfill hit'lerinin ülkesini bilir:"
+  },
+  {
+    "file": "\\backend\\src\\services\\adsterra-sync.service.js",
+    "line": 15,
+    "text": "* Attribution (her ülkedeki haşımın oranına göre):"
+  },
+  {
+    "file": "\\backend\\src\\services\\adsterra-sync.service.js",
+    "line": 23,
+    "text": "* DOUBLE-PAY ENGELLEMESİ:"
+  },
+  {
+    "file": "\\backend\\src\\services\\adsterra-sync.service.js",
+    "line": 24,
+    "text": "*   Her (publisher + tarih) için ne kadar ödendiği SystemSetting'de log olarak saklanır."
+  },
+  {
+    "file": "\\backend\\src\\services\\adsterra-sync.service.js",
+    "line": 25,
+    "text": "*   Saatlik sync çalışınca yalnızca \"yeni\" kazanç farkı ödenir."
+  },
+  {
+    "file": "\\backend\\src\\services\\adsterra-sync.service.js",
+    "line": 26,
+    "text": "*   Aynı veri iki kez eklenmez."
+  },
+  {
+    "file": "\\backend\\src\\services\\adsterra-sync.service.js",
+    "line": 31,
+    "text": "* Param: group_by=country → ülke bazlı gelir"
+  },
+  {
+    "file": "\\backend\\src\\utils\\db.js",
+    "line": 2,
+    "text": "* ⚠️  DEPRECATED — Bu dosya artık kullanılmamalıdır."
+  },
+  {
+    "file": "\\backend\\src\\utils\\db.js",
+    "line": 4,
+    "text": "* Tüm yeni import'lar şuradan yapılmalı:"
+  },
+  {
+    "file": "\\backend\\src\\utils\\db.js",
+    "line": 7,
+    "text": "* Bu dosya sadece geriye uyumluluk için proxy görevi görüyor."
+  },
+  {
+    "file": "\\backend\\src\\utils\\db.js",
+    "line": 8,
+    "text": "* Mevcut import'lar kademeli olarak taşınacak."
+  },
+  {
+    "file": "\\find_turkish.js",
+    "line": 7,
+    "text": "const turkishRegex = /[ğüşıöçĞÜŞİÖÇ]/;"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\admin\\conversions\\page.js",
+    "line": 78,
+    "text": "if (!confirm('Tüm TEST conversion kayıtları silinecek. Onaylıyor musunuz?')) return;"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\admin\\payments\\page.js",
+    "line": 18,
+    "text": "const STATUSES = ['All', 'PENDING', 'COMPLETED', 'FAILED'];  // PaymentStatus enum'a göre"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\countryData.js",
+    "line": 269,
+    "text": "// Helper: tüm ülkeleri kıtaya göre grupla"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\countryData.js",
+    "line": 278,
+    "text": "// Helper: kıtadaki tüm kodları döndür"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\countryData.js",
+    "line": 283,
+    "text": "// Helper: ülke kodundan ülke bilgisi"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\CountrySelect.js",
+    "line": 91,
+    "text": "// Kıtadaki seçili ülke sayısını hesapla"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\CountrySelect.js",
+    "line": 97,
+    "text": "// Kıta seçimi toggle"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\CountrySelect.js",
+    "line": 102,
+    "text": "// Hepsini kaldır"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\CountrySelect.js",
+    "line": 111,
+    "text": "// Tek ülke toggle"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\CountrySelect.js",
+    "line": 120,
+    "text": "// Hepsini seç / temizle"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\CountrySelect.js",
+    "line": 128,
+    "text": "// Kıtanın tüm ülkeleri seçili mi?"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\create\\components\\TargetingSection.js",
+    "line": 465,
+    "text": "'Turkcell', 'Türk Telekom', 'Avea', 'O2', 'Three',"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 254,
+    "text": "<p className={`text-sm font-semibold ${d.isDark ? 'text-sky-300' : 'text-sky-700'} mb-2`}>Nasıl Çalışır? (How it works)</p>"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 258,
+    "text": "Kullanıcı reklamınıza tıklar → URL'nize <code className=\"bg-sky-400/10 px-1 rounded font-mono\">?click_id=abc123</code> eklenir"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 262,
+    "text": "Kullanıcı sitenizde satın alma / kayıt işlemini tamamlar"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 266,
+    "text": "\"Teşekkürler\" sayfanıza koyduğunuz pixel → click_id'yi okur → MrPop.io'ya conversion bildirir"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 270,
+    "text": "Dashboardunuzda conversion sayısı ve CPA güncellenir ✓"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 282,
+    "text": "{`// PHP örneği:"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 285,
+    "text": "// Node.js örneği:"
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 318,
+    "text": "{' '}yerine kendi backend'inizden okuduğunuz <code className=\"font-mono\">click_id</code> değerini koyun."
+  },
+  {
+    "file": "\\frontend-landing\\src\\app\\advertiser\\campaigns\\[id]\\analytics\\page.js",
+    "line": 319,
+    "text": "Örnek: <code className={`px-1 rounded font-mono ${d.isDark ? 'text-gray-300' : 'text-gray-600'}`}>{`src=\"/api/serve/pixel/<?php echo $click_id; ?>\"`}</code>"
+  },
+  {
+    "file": "\\frontend-landing\\src\\components\\AuthNavButtons.js",
+    "line": 6,
+    "text": "* Tüm theme layoutlarında kullanılan akıllı navbar bileşeni."
+  },
+  {
+    "file": "\\frontend-landing\\src\\components\\AuthNavButtons.js",
+    "line": 7,
+    "text": "* Kullanıcı giriş yapmışsa \"Dashboard\" butonu, yoksa Login/CTA butonları gösterir."
+  },
+  {
+    "file": "\\frontend-landing\\src\\components\\AuthNavButtons.js",
+    "line": 10,
+    "text": "*   - accentClass: aktif/hover rengi (örn. \"hover:text-lime-400\")"
+  },
+  {
+    "file": "\\frontend-landing\\src\\components\\AuthNavButtons.js",
+    "line": 11,
+    "text": "*   - hrefCTA: kayıt/CTA linki (örn. \"/register?role=publisher\")"
+  },
+  {
+    "file": "\\frontend-landing\\src\\components\\AuthNavButtons.js",
+    "line": 12,
+    "text": "*   - labelCTA: CTA butonu yazısı (örn. \"Start Earning\")"
+  },
+  {
+    "file": "\\frontend-landing\\src\\components\\AuthNavButtons.js",
+    "line": 13,
+    "text": "*   - btnClass: CTA butonu class'ı"
+  },
+  {
+    "file": "\\frontend-landing\\src\\components\\AuthNavButtons.js",
+    "line": 14,
+    "text": "*   - loginClass: Login linki class'ı (opsiyonel)"
+  }
+]

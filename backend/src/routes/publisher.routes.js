@@ -6,6 +6,7 @@ import * as publisherPaymentsController from '../controllers/publisher-payments.
 import * as publisherSettingsController from '../controllers/publisher-settings.controller.js';
 import * as referralController from '../controllers/referral.controller.js';
 import * as publisherAnalyticsController from '../controllers/publisher-analytics.controller.js';
+import * as notificationController from '../controllers/notification.controller.js';
 
 const router = express.Router();
 
@@ -15,6 +16,10 @@ router.use(authorize('PUBLISHER'));
 
 // Dashboard stats
 router.get('/dashboard', publisherController.getDashboard);
+
+// Notifications
+router.get('/notifications', notificationController.getNotifications);
+router.post('/notifications/:id/read', notificationController.markAsRead);
 
 // Sites management
 router.get('/sites', publisherController.getSites);

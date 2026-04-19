@@ -12,6 +12,8 @@ import * as adminExportController from '../controllers/admin-export.controller.j
 import * as adminHealthController from '../controllers/admin-health.controller.js';
 import * as adminAdsterraController from '../controllers/admin-adsterra.controller.js';
 import * as adminConversionsController from '../controllers/admin-conversions.controller.js';
+import * as adminCouponsController from '../controllers/admin-coupons.controller.js';
+import * as notificationController from '../controllers/notification.controller.js';
 
 const router = express.Router();
 
@@ -22,6 +24,12 @@ router.use(authorize('ADMIN'));
 // ==================== DASHBOARD ====================
 router.get('/dashboard', adminController.getDashboard);
 router.get('/notifications', adminController.getNotifications);
+
+// ==================== ANNOUNCEMENTS ====================
+router.get('/notifications/announcements', notificationController.adminGetNotifications);
+router.post('/notifications/announcements', notificationController.adminCreateNotification);
+router.put('/notifications/announcements/:id', notificationController.adminUpdateNotification);
+router.delete('/notifications/announcements/:id', notificationController.adminDeleteNotification);
 
 // ==================== SITES ====================
 router.get('/sites', adminController.getSites);
@@ -108,5 +116,13 @@ router.post('/adsterra/sync', adminAdsterraController.triggerAdsterraSync);
 router.get('/conversions/overview', adminConversionsController.getConversionOverview);
 router.get('/conversions/postback-logs', adminConversionsController.getPostbackLogs);
 router.delete('/conversions/test', adminConversionsController.deleteTestConversions);
+
+// ==================== COUPONS ====================
+router.get('/coupons', adminCouponsController.getCoupons);
+router.post('/coupons', adminCouponsController.createCoupon);
+router.get('/coupons/:id', adminCouponsController.getCoupon);
+router.put('/coupons/:id', adminCouponsController.updateCoupon);
+router.delete('/coupons/:id', adminCouponsController.deleteCoupon);
+router.get('/coupons/:id/usages', adminCouponsController.getCouponUsages);
 
 export default router;

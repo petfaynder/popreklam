@@ -75,7 +75,7 @@ export default function AdminConversionsPage() {
     };
 
     const clearTestConversions = async () => {
-        if (!confirm('Tüm TEST conversion kayıtları silinecek. Onaylıyor musunuz?')) return;
+        if (!confirm('All TEST conversion records will be deleted. Do you confirm?')) return;
         setClearing(true);
         try {
             await fetch('/api/admin/conversions/test', { method: 'DELETE', headers: headers() });

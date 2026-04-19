@@ -15,7 +15,7 @@ const S = {
     td: { padding: '13px 16px', fontSize: '13px', color: '#94a3b8', borderBottom: '1px solid rgba(255,255,255,0.04)', verticalAlign: 'middle' },
 };
 
-const STATUSES = ['All', 'PENDING', 'COMPLETED', 'FAILED'];  // PaymentStatus enum'a göre
+const STATUSES = ['All', 'PENDING', 'COMPLETED', 'FAILED'];  // Based on PaymentStatus enum
 const TYPES = ['All', 'WITHDRAWAL', 'DEPOSIT'];
 const fmt = (n) => '$' + Number(n || 0).toFixed(2);
 const fmtDate = (d) => d ? new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit', hour: '2-digit', minute: '2-digit' }) : '—';

@@ -70,7 +70,7 @@ export default function CountrySelect({ selectedCountries = [], onChange }) {
         }
     }, [isOpen]);
 
-    // Arama filtresi
+    // Search filter
     const filteredCountries = useCallback(() => {
         let list = activeTab === 'ALL'
             ? COUNTRIES
@@ -88,27 +88,27 @@ export default function CountrySelect({ selectedCountries = [], onChange }) {
 
     const filtered = filteredCountries();
 
-    // Kıtadaki seçili ülke sayısını hesapla
+    // Calculate selected countries in continent
     const getSelectedCountInContinent = (continentKey) => {
         const codes = getCountryCodesByContinent(continentKey);
         return codes.filter(c => selectedCountries.includes(c)).length;
     };
 
-    // Kıta seçimi toggle
+    // Continent selection toggle
     const toggleContinent = (continentKey) => {
         const codes = getCountryCodesByContinent(continentKey);
         const allSelected = codes.every(c => selectedCountries.includes(c));
         if (allSelected) {
-            // Hepsini kaldır
+            // Remove all
             onChange(selectedCountries.filter(c => !codes.includes(c)));
         } else {
-            // Hepsini ekle (duplicate'leri temizle)
+            // Add all (clear duplicates)
             const merged = Array.from(new Set([...selectedCountries, ...codes]));
             onChange(merged);
         }
     };
 
-    // Tek ülke toggle
+    // Single country toggle
     const toggleCountry = (code) => {
         if (selectedCountries.includes(code)) {
             onChange(selectedCountries.filter(c => c !== code));
@@ -117,7 +117,7 @@ export default function CountrySelect({ selectedCountries = [], onChange }) {
         }
     };
 
-    // Hepsini seç / temizle
+    // Select / clear all
     const selectAll = () => {
         const allCodes = COUNTRIES.map(c => c.code);
         onChange(allCodes);
@@ -125,7 +125,7 @@ export default function CountrySelect({ selectedCountries = [], onChange }) {
 
     const clearAll = () => onChange([]);
 
-    // Kıtanın tüm ülkeleri seçili mi?
+    // Are all countries in the continent selected?
     const isContinentFullySelected = (continentKey) => {
         const codes = getCountryCodesByContinent(continentKey);
         return codes.length > 0 && codes.every(c => selectedCountries.includes(c));

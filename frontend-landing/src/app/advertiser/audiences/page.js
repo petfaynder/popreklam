@@ -5,6 +5,7 @@ import { advertiserAPI } from '@/lib/api';
 import { getDashboardTheme } from '@/lib/themeUtils';
 import useTheme from '@/hooks/useTheme';
 import { COUNTRIES } from '../campaigns/create/components/countryData';
+import ConfirmModal from '@/components/ConfirmModal';
 import {
     Users, Plus, X, Trash2, Edit2, Save, Search,
     Globe, Smartphone, Monitor, Chrome, Target, CheckCircle, BarChart2,
@@ -360,8 +361,17 @@ function CreateEditModal({ audience, campaigns, onSave, onClose, d }) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className={`w-full max-w-xl border shadow-2xl flex flex-col max-h-[85vh] ${d.isDark ? 'bg-[#0a0a1a] border-white/10 rounded-2xl' : 'bg-white border-gray-200 rounded-xl'}`}>
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
+            {/* Backdrop */}
+            <div
+                className={`absolute inset-0 backdrop-blur-sm ${d.isDark ? 'bg-black/60' : 'bg-black/30'}`}
+                onClick={onClose}
+            />
+
+            <div className={`relative w-full max-w-xl flex flex-col max-h-[85vh] ${d.isDark
+                ? 'bg-slate-900 border border-white/10 rounded-2xl shadow-2xl'
+                : 'bg-white border border-gray-200 rounded-xl shadow-xl'
+            }`}>
                 {/* Header */}
                 <div className={`flex items-center justify-between p-5 border-b ${d.isDark ? 'border-white/[0.08]' : 'border-gray-200'}`}>
                     <h3 className={`font-bold text-base ${headText}`}>{audience ? 'Edit Audience' : 'New Audience'}</h3>
@@ -457,6 +467,7 @@ export default function AudiencesPage() {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [editingAudience, setEditingAudience] = useState(null);
+    const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
     useEffect(() => {
         loadData();
@@ -486,9 +497,12 @@ export default function AudiencesPage() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Delete this audience? Campaigns using it will still run but audience matching will be skipped.')) return;
-        await advertiserAPI.deleteAudience(id);
-        setAudiences(prev => prev.filter(a => a.id !== id));
+        setConfirmDeleteId(id);
+    };
+
+    const doDelete = async () => {
+        await advertiserAPI.deleteAudience(confirmDeleteId);
+        setAudiences(prev => prev.filter(a => a.id !== confirmDeleteId));
     };
 
     const handleEdit = (audience) => {
@@ -583,7 +597,20 @@ export default function AudiencesPage() {
                 </div>
             )}
 
-            {/* Modal */}
+            {/* Delete confirm modal */}
+            <ConfirmModal
+                isOpen={!!confirmDeleteId}
+                onClose={() => setConfirmDeleteId(null)}
+                onConfirm={doDelete}
+                title="Delete Audience?"
+                message="Campaigns using this audience will still run, but audience matching will be skipped. This action cannot be undone."
+                confirmText="Delete"
+                cancelText="Cancel"
+                type="danger"
+                d={d}
+            />
+
+            {/* Create/Edit modal */}
             {showModal && (
                 <CreateEditModal
                     audience={editingAudience}

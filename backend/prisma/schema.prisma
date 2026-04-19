@@ -151,6 +151,7 @@ model User {
   auditLogs         AuditLog[]             @relation("AdminAuditLogs")
   referrals         Referral[]             @relation("ReferrerReferrals")
   referredByUser    Referral?              @relation("ReferredUserReferral")
+  notificationReads NotificationRead[]
 
   @@map("users")
 }
@@ -508,12 +509,14 @@ model Payment {
   rejectionReason String?       @map("rejection_reason") @db.Text
   processedBy     String?       @map("processed_by") // Admin who approved/rejected
   processedAt     DateTime?     @map("processed_at")
+  couponId        String?       @map("coupon_id") // Applied promo coupon (if any)
   createdAt       DateTime      @default(now()) @map("created_at")
   updatedAt       DateTime      @updatedAt @map("updated_at")
   
   // Relations
   user       User      @relation("UserPayments", fields: [userId], references: [id], onDelete: Cascade)
   processor  User?     @relation("ProcessedPayments", fields: [processedBy], references: [id])
+  coupon     Coupon?   @relation(fields: [couponId], references: [id], onDelete: SetNull)
   invoice    Invoice?
   
   @@index([userId])
@@ -561,6 +564,56 @@ model Invoice {
   @@index([userId])
   @@index([invoiceNo])
   @@map("invoices")
+}
+
+// ========== COUPON / PROMO CODE SYSTEM ==========
+
+enum CouponType {
+  PERCENTAGE // bonus = deposit * value/100, capped by maxBonus
+  FIXED      // bonus = value (flat amount)
+}
+
+model Coupon {
+  id               String      @id @default(uuid())
+  code             String      @unique @db.VarChar(40)
+  description      String?     @db.Text
+  type             CouponType
+  value            Decimal     @db.Decimal(10, 2)  // Percentage (0-100) or fixed USD amount
+  minDeposit       Decimal?    @map("min_deposit") @db.Decimal(10, 2)  // Minimum deposit to qualify
+  maxBonus         Decimal?    @map("max_bonus") @db.Decimal(10, 2)   // Cap on bonus for PERCENTAGE type
+  maxUses          Int?        @map("max_uses")          // null = unlimited
+  maxUsesPerUser   Int         @default(1) @map("max_uses_per_user")
+  currentUses      Int         @default(0) @map("current_uses")
+  isActive         Boolean     @default(true) @map("is_active")
+  startDate        DateTime?   @map("start_date")
+  endDate          DateTime?   @map("end_date")
+  createdBy        String      @map("created_by") // Admin user ID
+  createdAt        DateTime    @default(now()) @map("created_at")
+  updatedAt        DateTime    @updatedAt @map("updated_at")
+
+  usages           CouponUsage[]
+  payments         Payment[]
+
+  @@index([code])
+  @@index([isActive])
+  @@map("coupons")
+}
+
+model CouponUsage {
+  id            String   @id @default(uuid())
+  couponId      String   @map("coupon_id")
+  userId        String   @map("user_id")
+  paymentId     String   @unique @map("payment_id")  // One usage per completed payment
+  depositAmount Decimal  @map("deposit_amount") @db.Decimal(10, 2)
+  bonusAmount   Decimal  @map("bonus_amount") @db.Decimal(10, 2)
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  coupon  Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+
+  @@index([couponId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("coupon_usages")
 }
 
 // ========== SUPPORT SYSTEM ==========
@@ -713,4 +766,38 @@ model PushDelivery {
   @@index([status])
   @@index([createdAt])
   @@map("push_deliveries")
+}
+
+// ========== NOTIFICATIONS ==========
+
+model Notification {
+  id          String    @id @default(uuid())
+  title       String    @db.VarChar(255)
+  message     String    @db.Text
+  type        String    @default("INFO") // INFO, WARNING, SUCCESS
+  targetGroup String    @default("ALL")  // ALL, ADVERTISER, PUBLISHER
+  status      String    @default("ACTIVE") // ACTIVE, INACTIVE
+  expiresAt   DateTime? @map("expires_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  reads       NotificationRead[]
+
+  @@index([targetGroup])
+  @@index([status])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model NotificationRead {
+  id             String       @id @default(uuid())
+  userId         String       @map("user_id")
+  notificationId String       @map("notification_id")
+  readAt         DateTime     @default(now()) @map("read_at")
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notification Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([notificationId])
+  @@map("notification_reads")
 }

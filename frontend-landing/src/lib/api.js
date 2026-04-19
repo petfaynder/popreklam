@@ -34,6 +34,14 @@ async function apiRequest(endpoint, options = {}) {
     }
 
     if (!response.ok) {
+        // 401 = invalid/expired token → clear session and redirect to login
+        if (response.status === 401) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) {
+                window.location.href = '/login';
+            }
+        }
         throw new Error(data.error || data.message || 'API request failed');
     }
 
@@ -175,6 +183,10 @@ export const publisherAPI = {
     // Push Notification Analytics
     getPushOverview: (days = 30) => apiRequest(`/push/publisher/overview?days=${days}`),
     getPushSiteStats: (siteId, days = 30) => apiRequest(`/push/stats/${siteId}?days=${days}`),
+
+    // Notifications
+    getNotifications: () => apiRequest('/publisher/notifications'),
+    markNotificationAsRead: (id) => apiRequest(`/publisher/notifications/${id}/read`, { method: 'POST' }),
 };
 
 // ==================== ADVERTISER API ====================
@@ -298,6 +310,10 @@ export const advertiserAPI = {
         const query = new URLSearchParams(params);
         return apiRequest(`/push/advertiser/stats?${query}`);
     },
+
+    // Notifications
+    getNotifications: () => apiRequest('/advertiser/notifications'),
+    markNotificationAsRead: (id) => apiRequest(`/advertiser/notifications/${id}/read`, { method: 'POST' }),
 };
 
 // ==================== ADMIN API ====================
@@ -376,4 +392,10 @@ export const adminAPI = {
     // Adsterra Backfill Stats
     getAdsterraStats: (days = 7) => apiRequest('/admin/adsterra/stats?days=' + days),
     triggerAdsterraSync: () => apiRequest('/admin/adsterra/sync', { method: 'POST' }),
+
+    // Announcements
+    getAnnouncements: () => apiRequest('/admin/notifications/announcements'),
+    createAnnouncement: (data) => apiRequest('/admin/notifications/announcements', { method: 'POST', body: JSON.stringify(data) }),
+    updateAnnouncement: (id, data) => apiRequest(`/admin/notifications/announcements/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    deleteAnnouncement: (id) => apiRequest(`/admin/notifications/announcements/${id}`, { method: 'DELETE' }),
 };

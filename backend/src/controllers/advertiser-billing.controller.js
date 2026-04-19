@@ -4,6 +4,58 @@ import { generateInvoiceHTML } from '../services/invoice.service.js';
 import { getSetting } from './admin-settings.controller.js';
 import { createDodoSession, createOxaPayInvoice, createVoletInvoice } from '../services/payment.service.js';
 
+// ─── Coupon Helpers ──────────────────────────────────────────────────────────
+
+/**
+ * Validate a coupon code for a specific user and deposit amount.
+ * Returns { valid: true, coupon, bonusAmount } or { valid: false, error }
+ */
+export async function validateCouponForDeposit(code, userId, depositAmount) {
+    const coupon = await prisma.coupon.findUnique({
+        where: { code: code.toUpperCase().trim() }
+    });
+
+    if (!coupon) return { valid: false, error: 'Invalid coupon code' };
+    if (!coupon.isActive) return { valid: false, error: 'This coupon is no longer active' };
+
+    const now = new Date();
+    if (coupon.startDate && now < coupon.startDate) {
+        return { valid: false, error: 'This coupon is not yet active' };
+    }
+    if (coupon.endDate && now > coupon.endDate) {
+        return { valid: false, error: 'This coupon has expired' };
+    }
+    if (coupon.maxUses !== null && coupon.currentUses >= coupon.maxUses) {
+        return { valid: false, error: 'This coupon has reached its maximum usage limit' };
+    }
+    if (coupon.minDeposit !== null && Number(depositAmount) < Number(coupon.minDeposit)) {
+        return { valid: false, error: `Minimum deposit of $${Number(coupon.minDeposit).toFixed(2)} is required for this coupon` };
+    }
+
+    // Check per-user usage limit
+    const userUsageCount = await prisma.couponUsage.count({
+        where: { couponId: coupon.id, userId }
+    });
+    if (userUsageCount >= coupon.maxUsesPerUser) {
+        return { valid: false, error: 'You have already used this coupon' };
+    }
+
+    // Calculate bonus
+    let bonusAmount = 0;
+    if (coupon.type === 'PERCENTAGE') {
+        bonusAmount = (Number(depositAmount) * Number(coupon.value)) / 100;
+        if (coupon.maxBonus !== null) {
+            bonusAmount = Math.min(bonusAmount, Number(coupon.maxBonus));
+        }
+    } else {
+        // FIXED
+        bonusAmount = Number(coupon.value);
+    }
+
+    bonusAmount = Math.round(bonusAmount * 100) / 100; // round to 2 decimals
+    return { valid: true, coupon, bonusAmount };
+}
+
 // Download Invoice (HTML View — users print to PDF via Ctrl+P)
 export const downloadInvoice = async (req, res) => {
     try {
@@ -51,6 +103,35 @@ export const downloadInvoice = async (req, res) => {
     }
 };
 
+
+// ─── Validate Coupon (advertiser pre-checkout check) ─────────────────────────
+export const validateCoupon = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { code, amount } = req.body;
+
+        if (!code || !amount) {
+            return res.status(400).json({ error: 'Code and amount are required' });
+        }
+
+        const result = await validateCouponForDeposit(code, userId, amount);
+        if (!result.valid) {
+            return res.status(400).json({ error: result.error });
+        }
+
+        res.json({
+            valid: true,
+            code: result.coupon.code,
+            type: result.coupon.type,
+            value: Number(result.coupon.value),
+            bonusAmount: result.bonusAmount,
+            description: result.coupon.description,
+        });
+    } catch (error) {
+        console.error('Validate coupon error:', error);
+        res.status(500).json({ error: 'Failed to validate coupon' });
+    }
+};
 
 // ================ DEPOSITS & BILLING ================
 
@@ -115,7 +196,7 @@ export const getBillingOverview = async (req, res) => {
 export const createDeposit = async (req, res) => {
     try {
         const userId = req.user.id;
-        const { amount, paymentMethodId, methodType } = req.body;
+        const { amount, paymentMethodId, methodType, couponCode } = req.body;
 
         const globalMinDeposit = await getSetting('min_advertiser_deposit', 50);
 
@@ -124,6 +205,16 @@ export const createDeposit = async (req, res) => {
         }
 
         const user = await prisma.user.findUnique({ where: { id: userId } });
+
+        // Validate coupon if provided (before creating payment)
+        let resolvedCouponId = null;
+        if (couponCode) {
+            const couponResult = await validateCouponForDeposit(couponCode, userId, amount);
+            if (!couponResult.valid) {
+                return res.status(400).json({ error: couponResult.error });
+            }
+            resolvedCouponId = couponResult.coupon.id;
+        }
 
         // Method 1: Existing saved manual payment method logic (Backward compatibility)
         if (paymentMethodId) {
@@ -142,7 +233,8 @@ export const createDeposit = async (req, res) => {
                     amount: Number(amount),
                     method: paymentMethod.type,
                     status: 'PENDING',
-                    details: paymentMethod.details
+                    details: paymentMethod.details,
+                    ...(resolvedCouponId && { couponId: resolvedCouponId }),
                 }
             });
             return res.json({ message: 'Manual deposit initiated. Awaiting admin approval.', payment });
@@ -179,7 +271,8 @@ export const createDeposit = async (req, res) => {
                 type: 'DEPOSIT',
                 amount: Number(amount),
                 method: METHOD,
-                status: 'PENDING'
+                status: 'PENDING',
+                ...(resolvedCouponId && { couponId: resolvedCouponId }),
             }
         });
 
