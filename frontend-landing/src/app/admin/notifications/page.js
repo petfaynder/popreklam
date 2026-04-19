@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { adminAPI } from '@/lib/api';
-import { adminToast } from '@/components/admin/Toast';
+import { useToast } from '@/components/admin/Toast';
 import { Plus, Trash2, Edit2, X, Megaphone, Check, Calendar, Users } from 'lucide-react';
 
 export default function AdminNotificationsPage() {
+    const toast = useToast();
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function AdminNotificationsPage() {
             const data = await adminAPI.getAnnouncements();
             setNotifications(data);
         } catch (error) {
-            adminToast.error('Failed to load announcements');
+            toast.error('Failed to load announcements');
         } finally {
             setLoading(false);
         }
@@ -68,15 +69,15 @@ export default function AdminNotificationsPage() {
 
             if (editingId) {
                 await adminAPI.updateAnnouncement(editingId, payload);
-                adminToast.success('Announcement updated');
+                toast.success('Announcement updated');
             } else {
                 await adminAPI.createAnnouncement(payload);
-                adminToast.success('Announcement created');
+                toast.success('Announcement created');
             }
             setIsModalOpen(false);
             fetchNotifications();
         } catch (error) {
-            adminToast.error(error.message || 'Failed to save announcement');
+            toast.error(error.message || 'Failed to save announcement');
         }
     };
 
@@ -84,10 +85,10 @@ export default function AdminNotificationsPage() {
         if (!confirm('Are you sure you want to delete this announcement?')) return;
         try {
             await adminAPI.deleteAnnouncement(id);
-            adminToast.success('Announcement deleted');
+            toast.success('Announcement deleted');
             fetchNotifications();
         } catch (error) {
-            adminToast.error('Failed to delete announcement');
+            toast.error('Failed to delete announcement');
         }
     };
 
