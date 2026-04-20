@@ -147,7 +147,7 @@ export const publisherAPI = {
         fetch(url, { headers: { 'Authorization': `Bearer ${token}` } })
             .then(res => res.text())
             .then(html => { const win = window.open('', '_blank'); win.document.write(html); win.document.close(); })
-            .catch(() => alert('Failed to open invoice'));
+            .catch((err) => console.error('Failed to open invoice:', err));
     },
 
     getStats: (filters) => {
@@ -216,7 +216,7 @@ export const advertiserAPI = {
         fetch(url, { headers: { 'Authorization': `Bearer ${token}` } })
             .then(res => res.text())
             .then(html => { const win = window.open('', '_blank'); win.document.write(html); win.document.close(); })
-            .catch(() => alert('Failed to open invoice'));
+            .catch((err) => console.error('Failed to open invoice:', err));
     },
 
     getStats: (filters) => {
@@ -325,6 +325,9 @@ export const adminAPI = {
     getSites: (params = {}) => apiRequest('/admin/sites?' + new URLSearchParams(params)),
     approveSite: (id) => apiRequest('/admin/sites/' + id + '/approve', { method: 'POST' }),
     rejectSite: (id, reason) => apiRequest('/admin/sites/' + id + '/reject', { method: 'POST', body: JSON.stringify({ reason }) }),
+    updateSite: (id, data) => apiRequest('/admin/sites/' + id, { method: 'PUT', body: JSON.stringify(data) }),
+    forceVerifySite: (id) => apiRequest('/admin/sites/' + id + '/force-verify', { method: 'POST' }),
+    forceVerifyAdsTxt: (id) => apiRequest('/admin/sites/' + id + '/force-verify-ads-txt', { method: 'POST' }),
 
     // Campaigns Management
     getCampaigns: (params = {}) => apiRequest('/admin/campaigns?' + new URLSearchParams(params)),

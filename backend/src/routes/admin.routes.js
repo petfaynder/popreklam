@@ -1,6 +1,7 @@
 import express from 'express';
 import { authenticate, authorize } from '../middleware/auth.js';
 import * as adminController from '../controllers/admin.controller.js';
+import { adminVerifySite, adminVerifyAdsTxt, adminUpdateSite } from '../controllers/admin.controller.js';
 import * as adminPaymentsController from '../controllers/admin-payments.controller.js';
 import * as adminSupportController from '../controllers/admin-support.controller.js';
 import * as adminSettingsController from '../controllers/admin-settings.controller.js';
@@ -35,6 +36,9 @@ router.delete('/notifications/announcements/:id', notificationController.adminDe
 router.get('/sites', adminController.getSites);
 router.post('/sites/:id/approve', adminController.approveSite);
 router.post('/sites/:id/reject', adminController.rejectSite);
+router.put('/sites/:id', adminUpdateSite);
+router.post('/sites/:id/force-verify', adminVerifySite);
+router.post('/sites/:id/force-verify-ads-txt', adminVerifyAdsTxt);
 
 // ==================== CAMPAIGNS ====================
 router.get('/campaigns', adminController.getCampaigns);

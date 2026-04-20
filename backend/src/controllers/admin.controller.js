@@ -203,6 +203,73 @@ export const rejectSite = async (req, res) => {
 };
 
 /**
+ * Admin: Update Site Details (category, name, url, description, status)
+ * PUT /api/admin/sites/:id
+ */
+export const adminUpdateSite = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, url, category, description, status } = req.body;
+
+        const updateData = {};
+        if (name !== undefined) updateData.name = name;
+        if (url !== undefined) updateData.url = url;
+        if (category !== undefined) updateData.category = category;
+        if (description !== undefined) updateData.description = description;
+        if (status !== undefined) updateData.status = status;
+
+        const site = await prisma.site.update({ where: { id }, data: updateData });
+        await writeAudit(req.user.id, 'UPDATE_SITE', 'site', id, { changes: updateData }, req.ip);
+        res.json({ message: 'Site updated successfully', site });
+    } catch (error) {
+        console.error('Admin update site error:', error);
+        res.status(500).json({ error: 'Failed to update site' });
+    }
+};
+
+/**
+ * Admin: Force-verify site ownership (bypass DNS/META/FILE check)
+ * POST /api/admin/sites/:id/force-verify
+ */
+export const adminVerifySite = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { method = 'ADMIN' } = req.body;
+        const site = await prisma.site.update({
+            where: { id },
+            data: {
+                verifiedAt: new Date(),
+                verificationMethod: method,
+            }
+        });
+        await writeAudit(req.user.id, 'FORCE_VERIFY_SITE', 'site', id, { siteName: site.name, method }, req.ip);
+        res.json({ message: 'Site ownership verified by admin', site });
+    } catch (error) {
+        console.error('Admin verify site error:', error);
+        res.status(500).json({ error: 'Failed to verify site' });
+    }
+};
+
+/**
+ * Admin: Force-verify ads.txt (bypass publisher ads.txt check)
+ * POST /api/admin/sites/:id/force-verify-ads-txt
+ */
+export const adminVerifyAdsTxt = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const site = await prisma.site.update({
+            where: { id },
+            data: { adsTxtVerifiedAt: new Date() }
+        });
+        await writeAudit(req.user.id, 'FORCE_VERIFY_ADSTXT', 'site', id, { siteName: site.name }, req.ip);
+        res.json({ message: 'ads.txt verified by admin', site });
+    } catch (error) {
+        console.error('Admin verify ads.txt error:', error);
+        res.status(500).json({ error: 'Failed to verify ads.txt' });
+    }
+};
+
+/**
  * Get All Campaigns (with filters)
  * GET /api/admin/campaigns
  */

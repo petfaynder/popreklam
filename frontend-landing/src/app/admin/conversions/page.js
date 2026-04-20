@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
+import ConfirmModal from '@/components/ConfirmModal';
 
 const STATUS_META = {
     SUCCESS:          { color: 'text-emerald-400', bg: 'bg-emerald-400/10', icon: CheckCircle2 },
@@ -39,6 +40,7 @@ export default function AdminConversionsPage() {
     const [statusFilter, setStatusFilter] = useState('');
     const [page, setPage] = useState(1);
     const [clearing, setClearing] = useState(false);
+    const [confirmClear, setConfirmClear] = useState(false);
 
     const headText = d.isDark ? 'text-white' : 'text-[#1A1A1A]';
     const subText = d.isDark ? 'text-gray-400' : 'text-gray-500';
@@ -75,7 +77,6 @@ export default function AdminConversionsPage() {
     };
 
     const clearTestConversions = async () => {
-        if (!confirm('All TEST conversion records will be deleted. Do you confirm?')) return;
         setClearing(true);
         try {
             await fetch('/api/admin/conversions/test', { method: 'DELETE', headers: headers() });
@@ -116,6 +117,17 @@ export default function AdminConversionsPage() {
 
     return (
         <div className="space-y-6">
+            <ConfirmModal
+                isOpen={confirmClear}
+                onClose={() => setConfirmClear(false)}
+                onConfirm={clearTestConversions}
+                title="Clear All Test Conversions?"
+                message="This will permanently delete all TEST conversion records. This action cannot be undone."
+                confirmText="Clear Test Data"
+                cancelText="Cancel"
+                type="danger"
+                d={d}
+            />
             {/* Header */}
             <div className="flex items-center justify-between flex-wrap gap-3">
                 <div>
@@ -124,7 +136,7 @@ export default function AdminConversionsPage() {
                 </div>
                 <div className="flex items-center gap-2">
                     <button
-                        onClick={clearTestConversions}
+                        onClick={() => setConfirmClear(true)}
                         disabled={clearing}
                         className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border ${borderColor} ${d.isDark ? 'bg-white/5 hover:bg-red-400/10 hover:border-red-400/30 hover:text-red-400 text-gray-300' : 'bg-white hover:bg-red-50 hover:border-red-200 hover:text-red-600 text-gray-600'} transition-all`}
                     >

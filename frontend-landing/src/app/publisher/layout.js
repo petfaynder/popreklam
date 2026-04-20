@@ -79,6 +79,7 @@ export default function PublisherLayout({ children }) {
     const d = getDashboardTheme(theme);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const [balance, setBalance] = useState(null);
     const [notifications, setNotifications] = useState([]);
     const [bellOpen, setBellOpen] = useState(false);
 
@@ -88,10 +89,26 @@ export default function PublisherLayout({ children }) {
             if (stored) setUser(JSON.parse(stored));
         } catch { }
 
+        fetchBalance();
         fetchNotifications();
         const interval = setInterval(fetchNotifications, 60000);
         return () => clearInterval(interval);
     }, []);
+
+    const fetchBalance = async () => {
+        try {
+            const data = await publisherAPI.getPayments();
+            setBalance(parseFloat(data?.stats?.balance ?? 0));
+        } catch (e) {
+            // Fallback: try dashboard endpoint
+            try {
+                const dash = await publisherAPI.getDashboard();
+                setBalance(parseFloat(dash?.earnings?.total ?? 0));
+            } catch {
+                setBalance(0);
+            }
+        }
+    };
 
     const fetchNotifications = async () => {
         try {
@@ -223,7 +240,12 @@ export default function PublisherLayout({ children }) {
                         <div className={d.balanceCard}>
                             <div className="text-right">
                                 <div className={d.balanceLabel}>Balance</div>
-                                <div className={d.balanceValue}>$1,240.50</div>
+                                <div className={d.balanceValue}>
+                                    {balance === null
+                                        ? <span className="opacity-40 animate-pulse">···</span>
+                                        : `$${balance.toFixed(2)}`
+                                    }
+                                </div>
                             </div>
                             <div className={d.balanceIcon}>
                                 <Wallet className="w-5 h-5" />

@@ -9,6 +9,7 @@ import StatsCard from '@/components/StatsCard';
 import { publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
+import ConfirmModal from '@/components/ConfirmModal';
 
 export default function PublisherSitesPage() {
     const theme = useTheme();
@@ -20,6 +21,7 @@ export default function PublisherSitesPage() {
     const [submitting, setSubmitting] = useState(false);
     const [sites, setSites] = useState([]);
     const [error, setError] = useState('');
+    const [confirmDeleteId, setConfirmDeleteId] = useState(null);
     const [formData, setFormData] = useState({
         url: '',
         name: '',
@@ -90,11 +92,10 @@ export default function PublisherSitesPage() {
     };
 
     const handleDeleteSite = async (siteId) => {
-        if (!confirm('Are you sure you want to delete this site?')) return;
         try {
             await publisherAPI.deleteSite(siteId);
             setSites(sites.filter(site => site.id !== siteId));
-        } catch (err) { alert('Error deleting site: ' + err.message); }
+        } catch (err) { setError('Error deleting site: ' + err.message); }
     };
 
     const handleOpenVerify = (site) => {
@@ -204,7 +205,7 @@ export default function PublisherSitesPage() {
 
                         <Edit className="w-4 h-4" />
                     </button>
-                    <button onClick={() => handleDeleteSite(row.id)} className="p-2 rounded hover:text-red-500 transition-colors tooltip-btn" title="Delete">
+                    <button onClick={() => setConfirmDeleteId(row.id)} className="p-2 rounded hover:text-red-500 transition-colors tooltip-btn" title="Delete">
                         <Trash2 className="w-4 h-4" />
                     </button>
                 </div>
@@ -232,6 +233,17 @@ export default function PublisherSitesPage() {
 
     return (
         <div className="space-y-8">
+            <ConfirmModal
+                isOpen={!!confirmDeleteId}
+                onClose={() => setConfirmDeleteId(null)}
+                onConfirm={() => { handleDeleteSite(confirmDeleteId); setConfirmDeleteId(null); }}
+                title="Delete Site?"
+                message="This will permanently remove the site and all associated data. This action cannot be undone."
+                confirmText="Delete Site"
+                cancelText="Cancel"
+                type="danger"
+                d={d}
+            />
             {error && (
                 <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400">
                     {error}
@@ -252,8 +264,8 @@ export default function PublisherSitesPage() {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <StatsCard icon={Globe} title="Total Sites" value={sites.length} subtitle={`${activeSites} active`} color="lime" />
-                <StatsCard icon={Eye} title="Total Impressions" value={totalImpressions.toLocaleString()} change="+12.5%" changeType="positive" color="sky" />
-                <StatsCard icon={DollarSign} title="Total Revenue" value={`$${totalRevenue.toFixed(2)}`} change="+8.3%" changeType="positive" color="purple" />
+                <StatsCard icon={Eye} title="Total Impressions" value={totalImpressions.toLocaleString()} subtitle="Last 30 days" color="sky" />
+                <StatsCard icon={DollarSign} title="Total Revenue" value={`$${totalRevenue.toFixed(2)}`} subtitle="Last 30 days" color="purple" />
                 <StatsCard icon={TrendingUp} title="Avg CPM" value={totalImpressions > 0 ? `$${((totalRevenue / totalImpressions) * 1000).toFixed(2)}` : '$0.00'} subtitle="Last 30 days" color="orange" />
             </div>
 

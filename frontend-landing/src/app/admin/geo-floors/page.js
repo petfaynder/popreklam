@@ -95,6 +95,106 @@ function Toast({ type, msg, onClose }) {
     );
 }
 
+/* ─── Confirm Dialog ─────────────────────────────────────── */
+function ConfirmDialog({ isOpen, onClose, onConfirm, title, message, country, format }) {
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        if (isOpen) requestAnimationFrame(() => setVisible(true));
+        else setVisible(false);
+    }, [isOpen]);
+    if (!isOpen) return null;
+    const cfg = FORMAT_CONFIG[format] || { color: '#ef4444', label: format };
+    return (
+        <div style={{
+            position: 'fixed', inset: 0, zIndex: 1000,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: '16px',
+            background: `rgba(0,0,0,${visible ? 0.7 : 0})`,
+            backdropFilter: visible ? 'blur(8px)' : 'none',
+            transition: 'background 0.25s, backdrop-filter 0.25s',
+        }} onClick={onClose}>
+            <div
+                onClick={e => e.stopPropagation()}
+                style={{
+                    width: '100%', maxWidth: 420,
+                    background: 'linear-gradient(135deg, rgba(20,20,40,0.98) 0%, rgba(10,10,25,0.98) 100%)',
+                    border: '1px solid rgba(239,68,68,0.3)',
+                    borderRadius: 20,
+                    padding: '28px',
+                    boxShadow: '0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(239,68,68,0.1)',
+                    transform: visible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
+                    opacity: visible ? 1 : 0,
+                    transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                }}
+            >
+                {/* Icon */}
+                <div style={{
+                    width: 52, height: 52, borderRadius: 14,
+                    background: 'rgba(239,68,68,0.12)',
+                    border: '1px solid rgba(239,68,68,0.25)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    marginBottom: 18,
+                }}>
+                    <Trash2 size={22} color="#ef4444" />
+                </div>
+
+                {/* Title */}
+                <div style={{ fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 10 }}>
+                    {title}
+                </div>
+
+                {/* Message */}
+                <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: 6 }}>
+                    {message}
+                </div>
+
+                {/* Details pill */}
+                <div style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    padding: '6px 14px', borderRadius: 100, marginBottom: 24,
+                    background: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    fontSize: 12, color: 'rgba(255,255,255,0.6)',
+                }}>
+                    <span style={{ fontFamily: 'monospace', fontWeight: 700, color: '#fff' }}>{country?.flag || '🌐'} {country?.code || format}</span>
+                    <span style={{ opacity: 0.4 }}>/</span>
+                    <span style={{ color: cfg.color, fontWeight: 700 }}>{cfg.label}</span>
+                </div>
+
+                {/* Actions */}
+                <div style={{ display: 'flex', gap: 10 }}>
+                    <button
+                        onClick={onClose}
+                        style={{
+                            flex: 1, padding: '11px 16px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.1)',
+                            background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.6)',
+                            cursor: 'pointer', fontSize: 14, fontWeight: 600, transition: 'all 0.15s',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = '#fff'; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={onConfirm}
+                        style={{
+                            flex: 1, padding: '11px 16px', borderRadius: 12, border: 'none',
+                            background: 'linear-gradient(135deg, #ef4444, #dc2626)',
+                            color: '#fff', cursor: 'pointer', fontSize: 14, fontWeight: 700,
+                            boxShadow: '0 4px 20px rgba(239,68,68,0.3)',
+                            transition: 'all 0.2s',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 8px 28px rgba(239,68,68,0.45)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(239,68,68,0.3)'; }}
+                    >
+                        Remove Floor
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 /* ─── Summary Stat Card ──────────────────────────────────── */
 function StatChip({ icon: Icon, label, value, accent }) {
     return (
@@ -298,6 +398,7 @@ export default function AdminGeoFloorPage() {
     const [sortField, setSortField] = useState('countryCode');
     const [sortDir, setSortDir] = useState('asc');
     const [newEntry, setNewEntry] = useState({ countryCode: '', adFormat: 'POPUNDER', minBid: '' });
+    const [pendingDelete, setPendingDelete] = useState(null); // { countryCode, adFormat }
 
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
 
@@ -340,7 +441,13 @@ export default function AdminGeoFloorPage() {
     };
 
     const handleDelete = async (countryCode, adFormat) => {
-        if (!confirm(`Remove floor for ${countryCode} / ${adFormat}?`)) return;
+        setPendingDelete({ countryCode, adFormat });
+    };
+
+    const confirmDelete = async () => {
+        if (!pendingDelete) return;
+        const { countryCode, adFormat } = pendingDelete;
+        setPendingDelete(null);
         try {
             await fetch(`/api/admin/geo-floors/${countryCode}/${adFormat}`, {
                 method: 'DELETE', headers: { Authorization: `Bearer ${token}` }
@@ -465,6 +572,17 @@ export default function AdminGeoFloorPage() {
             `}</style>
 
             <Toast type={toast.type} msg={toast.msg} onClose={() => setToast({ type: '', msg: '' })} />
+
+            {/* ── Confirm Delete Modal ── */}
+            <ConfirmDialog
+                isOpen={!!pendingDelete}
+                onClose={() => setPendingDelete(null)}
+                onConfirm={confirmDelete}
+                title="Remove Floor?"
+                message="This floor price rule will be permanently deleted. Advertisers targeting this country/format will revert to free-market bidding."
+                country={pendingDelete ? COMMON_COUNTRIES.find(c => c.code === pendingDelete.countryCode) || { code: pendingDelete?.countryCode } : null}
+                format={pendingDelete?.adFormat}
+            />
 
             <div style={{ maxWidth: 1100, space: 0 }}>
 

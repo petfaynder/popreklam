@@ -26,6 +26,10 @@ const REJECT_REASONS = [
     'Insufficient traffic data',
 ];
 
+const CATEGORIES = ['Entertainment', 'News', 'Technology', 'Sports', 'Finance', 'Health', 'Education', 'Gaming', 'Adult', 'Other'];
+const SITE_STATUSES = ['PENDING', 'ACTIVE', 'REJECTED', 'SUSPENDED'];
+const inp = { width: '100%', padding: '8px 12px', borderRadius: '7px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#f1f5f9', fontSize: '13px', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' };
+
 export default function SitesPage() {
     const [sites, setSites] = useState([]);
     const [pagination, setPagination] = useState({});
@@ -34,6 +38,7 @@ export default function SitesPage() {
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(1);
     const [selected, setSelected] = useState(null);
+    const [editForm, setEditForm] = useState(null);
     const [rejectModal, setRejectModal] = useState(false);
     const [rejectReason, setRejectReason] = useState('');
     const [actionLoading, setActionLoading] = useState(false);
@@ -53,6 +58,23 @@ export default function SitesPage() {
     }, [page, statusTab, search]);
 
     useEffect(() => { load(); }, [load]);
+
+    const openDetail = (site) => {
+        setSelected(site);
+        setEditForm({ name: site.name || '', category: site.category || '', description: site.description || '', status: site.status || 'PENDING' });
+    };
+
+    const saveEdit = async () => {
+        if (!selected || !editForm) return;
+        setActionLoading(true);
+        try {
+            const updated = await adminAPI.updateSite(selected.id, editForm);
+            toast.success('Site updated successfully');
+            setSelected(prev => ({ ...prev, ...editForm }));
+            await load();
+        } catch (e) { toast.error(e.message || 'Failed to update site'); }
+        finally { setActionLoading(false); }
+    };
 
     const approve = async (id) => {
         setActionLoading(true);
@@ -74,6 +96,28 @@ export default function SitesPage() {
             setSelected(null); setRejectModal(false); setRejectReason('');
             await load();
         } catch (e) { toast.error(e.message || 'Failed to reject'); }
+        finally { setActionLoading(false); }
+    };
+
+    const forceVerify = async (id) => {
+        setActionLoading(true);
+        try {
+            await adminAPI.forceVerifySite(id);
+            toast.success('Site ownership marked as verified');
+            setSelected(prev => prev ? { ...prev, verifiedAt: new Date().toISOString() } : prev);
+            await load();
+        } catch (e) { toast.error(e.message || 'Failed to verify'); }
+        finally { setActionLoading(false); }
+    };
+
+    const forceVerifyAdsTxt = async (id) => {
+        setActionLoading(true);
+        try {
+            await adminAPI.forceVerifyAdsTxt(id);
+            toast.success('ads.txt marked as verified');
+            setSelected(prev => prev ? { ...prev, adsTxtVerifiedAt: new Date().toISOString() } : prev);
+            await load();
+        } catch (e) { toast.error(e.message || 'Failed to verify ads.txt'); }
         finally { setActionLoading(false); }
     };
 
@@ -115,13 +159,19 @@ export default function SitesPage() {
                             <tr><td colSpan={8}><EmptyState icon="sites" title="No sites found" message="Try adjusting filters." /></td></tr>
                         ) : (
                             sites.map(site => (
-                                <tr key={site.id} onClick={() => setSelected(site)} style={{ cursor: 'pointer', transition: 'background 0.1s' }}
+                                <tr key={site.id} onClick={() => openDetail(site)} style={{ cursor: 'pointer', transition: 'background 0.1s' }}
                                     onMouseEnter={e => e.currentTarget.style.background = 'rgba(139,92,246,0.05)'}
                                     onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                                 >
                                     <td style={S.td}>
                                         <div style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '2px' }}>{site.name}</div>
-                                        <div style={{ fontSize: '11px', color: '#475569', wordBreak: 'break-all', maxWidth: '180px' }}>{site.url}</div>
+                                        <a href={site.url.startsWith('http') ? site.url : 'https://' + site.url} target="_blank" rel="noopener noreferrer"
+                                            onClick={e => e.stopPropagation()}
+                                            style={{ fontSize: '11px', color: '#6366f1', wordBreak: 'break-all', maxWidth: '180px', textDecoration: 'none', display: 'block' }}
+                                            onMouseEnter={e => e.target.style.textDecoration = 'underline'}
+                                            onMouseLeave={e => e.target.style.textDecoration = 'none'}>
+                                            {site.url}
+                                        </a>
                                     </td>
                                     <td style={{ ...S.td, fontSize: '12px' }}>{site.publisherId?.slice(0, 8)}...</td>
                                     <td style={S.td}><Badge value={site.status} size="xs" /></td>
@@ -133,13 +183,13 @@ export default function SitesPage() {
                                     <td style={S.td}>{fmtDate(site.createdAt)}</td>
                                     <td style={S.td} onClick={e => e.stopPropagation()}>
                                         <div style={{ display: 'flex', gap: '5px' }}>
-                                            {site.status === 'PENDING_APPROVAL' && (
+                                            {(site.status === 'PENDING_APPROVAL' || site.status === 'PENDING') && (
                                                 <>
                                                     <button onClick={() => approve(site.id)} style={{ padding: '4px 8px', borderRadius: '5px', border: 'none', background: 'rgba(16,185,129,0.15)', color: '#34d399', fontSize: '11px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>✓</button>
-                                                    <button onClick={() => { setSelected(site); setRejectModal(true); }} style={{ padding: '4px 8px', borderRadius: '5px', border: 'none', background: 'rgba(239,68,68,0.12)', color: '#f87171', fontSize: '11px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>✗</button>
+                                                    <button onClick={() => { openDetail(site); setRejectModal(true); }} style={{ padding: '4px 8px', borderRadius: '5px', border: 'none', background: 'rgba(239,68,68,0.12)', color: '#f87171', fontSize: '11px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>✗</button>
                                                 </>
                                             )}
-                                            <button onClick={() => setSelected(site)} style={{ padding: '4px 8px', borderRadius: '5px', border: 'none', background: 'rgba(255,255,255,0.06)', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit' }}>View</button>
+                                            <button onClick={() => openDetail(site)} style={{ padding: '4px 8px', borderRadius: '5px', border: 'none', background: 'rgba(255,255,255,0.06)', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit' }}>View</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -160,40 +210,98 @@ export default function SitesPage() {
             </div>
 
             {/* Site Detail Panel */}
-            <SlidePanel isOpen={!!selected && !rejectModal} onClose={() => setSelected(null)} title={selected?.name} subtitle={selected?.url} width="540px">
-                {selected && (
+            <SlidePanel isOpen={!!selected && !rejectModal} onClose={() => setSelected(null)} title={selected?.name} subtitle={
+                selected ? <a href={selected.url?.startsWith('http') ? selected.url : 'https://' + selected.url} target="_blank" rel="noopener noreferrer" style={{ color: '#6366f1', textDecoration: 'none', fontSize: '12px' }} onMouseEnter={e => e.target.style.textDecoration='underline'} onMouseLeave={e => e.target.style.textDecoration='none'}>↗ {selected.url}</a> : null
+            } width="540px">
+                {selected && editForm && (
                     <div style={{ padding: '24px' }}>
                         {selected.rejectionReason && (
                             <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '10px', padding: '12px 14px', marginBottom: '20px', fontSize: '13px', color: '#fca5a5' }}>
                                 <strong>Rejection Reason:</strong> {selected.rejectionReason}
                             </div>
                         )}
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '20px' }}>
+
+                        {/* Stats row (read-only) */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', marginBottom: '20px' }}>
                             {[
-                                ['Status', <Badge key="s" value={selected.status} />],
-                                ['Category', selected.category || '—'],
-                                ['Zones', selected._count?.zones || 0],
-                                ['Total Impressions', Number(selected.totalImpressions || 0).toLocaleString()],
-                                ['Monthly Visits', Number(selected.monthlyVisits || 0).toLocaleString()],
-                                ['Revenue', fmt(selected.totalRevenue)],
+                                ['Zones', selected._count?.zones || selected.zones?.length || 0],
+                                ['Impressions', Number(selected.totalImpressions || 0).toLocaleString()],
                                 ['Created', fmtDate(selected.createdAt)],
-                                ['Language', selected.language || '—'],
                             ].map(([label, val]) => (
-                                <div key={label} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '8px', padding: '12px 14px' }}>
-                                    <div style={{ fontSize: '10px', color: '#475569', marginBottom: '5px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{label}</div>
-                                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#94a3b8' }}>{val}</div>
+                                <div key={label} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '8px', padding: '10px 12px', textAlign: 'center' }}>
+                                    <div style={{ fontSize: '9px', color: '#475569', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '4px' }}>{label}</div>
+                                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#94a3b8' }}>{val}</div>
                                 </div>
                             ))}
                         </div>
 
-                        {selected.description && (
-                            <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '8px', padding: '14px', marginBottom: '16px' }}>
-                                <div style={{ fontSize: '10px', color: '#475569', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '8px' }}>Description</div>
-                                <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>{selected.description}</p>
+                        {/* Edit Form */}
+                        <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '10px', padding: '16px', marginBottom: '16px' }}>
+                            <div style={{ fontSize: '10px', color: '#475569', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '12px' }}>Edit Site Details</div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                <div>
+                                    <label style={{ display: 'block', fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: 600 }}>Site Name</label>
+                                    <input value={editForm.name} onChange={e => setEditForm(f => ({ ...f, name: e.target.value }))} style={inp} />
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: 600 }}>Category</label>
+                                        <select value={editForm.category} onChange={e => setEditForm(f => ({ ...f, category: e.target.value }))} style={{ ...inp, cursor: 'pointer' }}>
+                                            <option value="">— Select —</option>
+                                            {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: 600 }}>Status</label>
+                                        <select value={editForm.status} onChange={e => setEditForm(f => ({ ...f, status: e.target.value }))} style={{ ...inp, cursor: 'pointer' }}>
+                                            {SITE_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label style={{ display: 'block', fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: 600 }}>Description</label>
+                                    <textarea value={editForm.description} onChange={e => setEditForm(f => ({ ...f, description: e.target.value }))} rows={3} style={{ ...inp, resize: 'vertical' }} />
+                                </div>
+                                <button onClick={saveEdit} disabled={actionLoading} style={{ padding: '9px 16px', borderRadius: '8px', border: 'none', background: 'rgba(99,102,241,0.2)', color: '#818cf8', fontWeight: 700, fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', opacity: actionLoading ? 0.6 : 1, alignSelf: 'flex-end' }}>
+                                    {actionLoading ? 'Saving...' : '💾 Save Changes'}
+                                </button>
                             </div>
-                        )}
+                        </div>
 
-                        {selected.status === 'PENDING_APPROVAL' && (
+                        {/* Verification Status */}
+                        <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '8px', padding: '14px', marginBottom: '16px' }}>
+                            <div style={{ fontSize: '10px', color: '#475569', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '10px' }}>Verification Status</div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+                                        {selected.verifiedAt
+                                            ? <span style={{ color: '#34d399' }}>✓ Ownership verified — {fmtDate(selected.verifiedAt)} ({selected.verificationMethod || 'ADMIN'})</span>
+                                            : <span style={{ color: '#f87171' }}>✗ Ownership not verified</span>}
+                                    </span>
+                                    {!selected.verifiedAt && (
+                                        <button onClick={() => forceVerify(selected.id)} disabled={actionLoading}
+                                            style={{ padding: '4px 10px', borderRadius: '6px', border: 'none', background: 'rgba(16,185,129,0.15)', color: '#34d399', fontSize: '11px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', opacity: actionLoading ? 0.6 : 1 }}>
+                                            Force Verify
+                                        </button>
+                                    )}
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+                                        {selected.adsTxtVerifiedAt
+                                            ? <span style={{ color: '#34d399' }}>✓ ads.txt verified — {fmtDate(selected.adsTxtVerifiedAt)}</span>
+                                            : <span style={{ color: '#f59e0b' }}>⚠ ads.txt not verified</span>}
+                                    </span>
+                                    {!selected.adsTxtVerifiedAt && (
+                                        <button onClick={() => forceVerifyAdsTxt(selected.id)} disabled={actionLoading}
+                                            style={{ padding: '4px 10px', borderRadius: '6px', border: 'none', background: 'rgba(245,158,11,0.15)', color: '#fbbf24', fontSize: '11px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', opacity: actionLoading ? 0.6 : 1 }}>
+                                            Force Verify ads.txt
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {selected.status === 'PENDING_APPROVAL' || selected.status === 'PENDING' ? (
                             <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
                                 <button onClick={() => approve(selected.id)} disabled={actionLoading}
                                     style={{ flex: 1, padding: '10px', borderRadius: '9px', border: 'none', background: '#10b981', color: '#fff', fontWeight: 700, fontSize: '14px', cursor: 'pointer', fontFamily: 'inherit', opacity: actionLoading ? 0.7 : 1 }}>
@@ -204,7 +312,7 @@ export default function SitesPage() {
                                     ✗ Reject
                                 </button>
                             </div>
-                        )}
+                        ) : null}
                     </div>
                 )}
             </SlidePanel>

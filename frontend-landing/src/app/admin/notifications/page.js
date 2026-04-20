@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { adminAPI } from '@/lib/api';
 import { useToast } from '@/components/admin/Toast';
-import { Plus, Trash2, Edit2, X, Megaphone, Check, Calendar, Users } from 'lucide-react';
+import { Plus, Trash2, Edit2, X, Megaphone, Check, Calendar, Users, AlertTriangle } from 'lucide-react';
 
 export default function AdminNotificationsPage() {
     const toast = useToast();
@@ -11,6 +11,7 @@ export default function AdminNotificationsPage() {
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingId, setEditingId] = useState(null);
+    const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
     const [formData, setFormData] = useState({
         title: '',
@@ -82,7 +83,12 @@ export default function AdminNotificationsPage() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Are you sure you want to delete this announcement?')) return;
+        setConfirmDeleteId(id);
+    };
+
+    const confirmDelete = async () => {
+        const id = confirmDeleteId;
+        setConfirmDeleteId(null);
         try {
             await adminAPI.deleteAnnouncement(id);
             toast.success('Announcement deleted');
@@ -176,7 +182,7 @@ export default function AdminNotificationsPage() {
                                     <Edit2 size={14} />
                                 </button>
                                 <button
-                                    onClick={() => handleDelete(item.id)}
+                            onClick={() => handleDelete(item.id)}
                                     style={{
                                         background: 'rgba(239,68,68,0.1)', color: '#f87171', border: 'none',
                                         width: '32px', height: '32px', borderRadius: '6px',
@@ -311,6 +317,72 @@ export default function AdminNotificationsPage() {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* ── Delete Confirmation Modal ── */}
+            {confirmDeleteId && (
+                <div
+                    style={{
+                        position: 'fixed', inset: 0, zIndex: 200,
+                        background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(6px)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px',
+                    }}
+                    onClick={() => setConfirmDeleteId(null)}
+                >
+                    <div
+                        onClick={e => e.stopPropagation()}
+                        style={{
+                            width: '100%', maxWidth: 400,
+                            background: '#0f0f24',
+                            border: '1px solid rgba(239,68,68,0.3)',
+                            borderRadius: '20px', padding: '28px',
+                            boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
+                        }}
+                    >
+                        <div style={{
+                            width: 48, height: 48, borderRadius: 12,
+                            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            marginBottom: 16,
+                        }}>
+                            <AlertTriangle size={22} color="#ef4444" />
+                        </div>
+                        <h3 style={{ color: '#f8fafc', fontSize: 18, fontWeight: 700, margin: '0 0 8px 0' }}>Delete Announcement?</h3>
+                        <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.6, margin: '0 0 24px 0' }}>
+                            This announcement will be permanently deleted and users will no longer see it.
+                        </p>
+                        <div style={{ display: 'flex', gap: 10 }}>
+                            <button
+                                onClick={() => setConfirmDeleteId(null)}
+                                style={{
+                                    flex: 1, padding: '10px 16px', borderRadius: 10,
+                                    background: 'rgba(255,255,255,0.05)', color: '#94a3b8',
+                                    border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer',
+                                    fontWeight: 600, fontSize: 14, transition: 'all 0.15s',
+                                }}
+                                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+                                onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                style={{
+                                    flex: 1, padding: '10px 16px', borderRadius: 10,
+                                    background: 'linear-gradient(135deg, #ef4444, #dc2626)',
+                                    color: '#fff', border: 'none', cursor: 'pointer',
+                                    fontWeight: 700, fontSize: 14,
+                                    boxShadow: '0 4px 16px rgba(239,68,68,0.3)',
+                                    transition: 'all 0.2s',
+                                }}
+                                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(239,68,68,0.45)'; }}
+                                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(239,68,68,0.3)'; }}
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
