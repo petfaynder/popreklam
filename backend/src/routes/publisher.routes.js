@@ -7,6 +7,7 @@ import * as publisherSettingsController from '../controllers/publisher-settings.
 import * as referralController from '../controllers/referral.controller.js';
 import * as publisherAnalyticsController from '../controllers/publisher-analytics.controller.js';
 import * as notificationController from '../controllers/notification.controller.js';
+import * as publisherReportsController from '../controllers/publisher-reports.controller.js';
 
 const router = express.Router();
 
@@ -75,5 +76,9 @@ router.get('/referrals', referralController.getMyReferrals);
 // Legacy routes (keep for backward compatibility)
 router.get('/payments', publisherController.getPayments);
 router.post('/withdraw', publisherController.requestWithdrawal);
+
+// ==================== AD QUALITY REPORTS ====================
+router.post('/reports', publisherReportsController.createReport);
+router.get('/reports', publisherReportsController.getMyReports);
 
 export default router;

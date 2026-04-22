@@ -15,6 +15,7 @@ import * as adminAdsterraController from '../controllers/admin-adsterra.controll
 import * as adminConversionsController from '../controllers/admin-conversions.controller.js';
 import * as adminCouponsController from '../controllers/admin-coupons.controller.js';
 import * as notificationController from '../controllers/notification.controller.js';
+import * as adminAdQualityController from '../controllers/admin-ad-quality.controller.js';
 
 const router = express.Router();
 
@@ -128,5 +129,13 @@ router.get('/coupons/:id', adminCouponsController.getCoupon);
 router.put('/coupons/:id', adminCouponsController.updateCoupon);
 router.delete('/coupons/:id', adminCouponsController.deleteCoupon);
 router.get('/coupons/:id/usages', adminCouponsController.getCouponUsages);
+
+// ==================== AD QUALITY ====================
+router.get('/ad-quality/overview', adminAdQualityController.getOverview);
+router.get('/ad-quality/fraud-signals', adminAdQualityController.getFraudSignals);
+router.get('/ad-quality/reports', adminAdQualityController.getPublisherReports);
+router.put('/ad-quality/reports/:id', adminAdQualityController.updateReportStatus);
+router.post('/ad-quality/reports/:id/pause-campaign', adminAdQualityController.pauseCampaignFromReport);
+router.post('/ad-quality/fraud-signals/:campaignId/pause', adminAdQualityController.pauseFraudCampaign);
 
 export default router;
