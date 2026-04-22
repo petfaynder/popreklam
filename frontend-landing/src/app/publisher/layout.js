@@ -6,7 +6,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import {
     LayoutDashboard, BarChart2, Globe, Wallet,
     HelpCircle, Bell, LogOut, Zap, Code2,
-    Menu, X, Settings, Gift
+    Menu, X, Settings, Gift, Flag
 } from 'lucide-react';
 import { authAPI, publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
@@ -22,6 +22,7 @@ const navItems = [
     { href: '/publisher/statistics', icon: BarChart2, label: 'Statistics' },
     { href: '/publisher/payments', icon: Wallet, label: 'Payments' },
     { href: '/publisher/referrals', icon: Gift, label: 'Referrals' },
+    { href: '/publisher/reports', icon: Flag, label: 'Report Ad' },
 ];
 
 const accountItems = [

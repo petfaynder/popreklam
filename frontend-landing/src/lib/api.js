@@ -187,6 +187,10 @@ export const publisherAPI = {
     // Notifications
     getNotifications: () => apiRequest('/publisher/notifications'),
     markNotificationAsRead: (id) => apiRequest(`/publisher/notifications/${id}/read`, { method: 'POST' }),
+
+    // Ad Quality Reports
+    createAdReport: (data) => apiRequest('/publisher/reports', { method: 'POST', body: JSON.stringify(data) }),
+    getMyAdReports: () => apiRequest('/publisher/reports'),
 };
 
 // ==================== ADVERTISER API ====================
@@ -401,4 +405,12 @@ export const adminAPI = {
     createAnnouncement: (data) => apiRequest('/admin/notifications/announcements', { method: 'POST', body: JSON.stringify(data) }),
     updateAnnouncement: (id, data) => apiRequest(`/admin/notifications/announcements/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
     deleteAnnouncement: (id) => apiRequest(`/admin/notifications/announcements/${id}`, { method: 'DELETE' }),
+
+    // Ad Quality
+    getAdQualityOverview: () => apiRequest('/admin/ad-quality/overview'),
+    getFraudSignals: (params = {}) => apiRequest('/admin/ad-quality/fraud-signals?' + new URLSearchParams(params)),
+    getAdQualityReports: (params = {}) => apiRequest('/admin/ad-quality/reports?' + new URLSearchParams(params)),
+    updateAdQualityReport: (id, data) => apiRequest('/admin/ad-quality/reports/' + id, { method: 'PUT', body: JSON.stringify(data) }),
+    pauseCampaignFromReport: (id, adminNote) => apiRequest('/admin/ad-quality/reports/' + id + '/pause-campaign', { method: 'POST', body: JSON.stringify({ adminNote }) }),
+    pauseFraudCampaign: (campaignId) => apiRequest('/admin/ad-quality/fraud-signals/' + campaignId + '/pause', { method: 'POST' }),
 };
