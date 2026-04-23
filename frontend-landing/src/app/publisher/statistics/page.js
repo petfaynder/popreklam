@@ -11,6 +11,7 @@ import {
 import { publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
+import toast from 'react-hot-toast';
 
 const PERIODS = [
     { label: 'Today', value: 1 },
@@ -157,22 +158,34 @@ function FormatStatsTab({ format, formatLabel, d, theme, period, accent, tabActi
                         ))}
                     </div>
                 </div>
-                <div className="h-40 flex items-end gap-[2px]">
-                    {chartValues.map((val, i) => (
-                        <div key={i} className="flex-1 group relative cursor-pointer">
-                            <div className={`w-full bg-gradient-to-t ${barGradient} rounded-t transition-all duration-300 min-h-[2px]`}
-                                style={{ height: `${(val / chartMax) * 100}%` }} />
-                            <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none z-20 ${d.isDark ? 'bg-slate-800 border border-white/10' : 'bg-white border border-gray-200 shadow-lg'}`}>
-                                <p className={`font-bold ${headText}`}>{chartMetric === 'revenue' || chartMetric === 'ecpm' ? `$${val.toFixed(4)}` : val.toLocaleString()}</p>
-                                <p className={subText}>{dailyData[i]?.date}</p>
-                            </div>
+                {chartValues.some(v => v > 0) ? (
+                    <>
+                        <div className="h-40 flex items-end gap-[2px]">
+                            {chartValues.map((val, i) => (
+                                <div key={i} className="flex-1 group relative cursor-pointer">
+                                    <div className={`w-full bg-gradient-to-t ${barGradient} rounded-t transition-all duration-300 min-h-[2px]`}
+                                        style={{ height: `${(val / chartMax) * 100}%` }} />
+                                    <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none z-20 ${d.isDark ? 'bg-slate-800 border border-white/10' : 'bg-white border border-gray-200 shadow-lg'}`}>
+                                        <p className={`font-bold ${headText}`}>{chartMetric === 'revenue' || chartMetric === 'ecpm' ? `$${val.toFixed(4)}` : val.toLocaleString()}</p>
+                                        <p className={subText}>{dailyData[i]?.date}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-                {dailyData.length > 0 && (
-                    <div className={`flex justify-between mt-2 text-[10px] ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-                        <span>{dailyData[0]?.date}</span>
-                        <span>{dailyData[dailyData.length - 1]?.date}</span>
+                        {dailyData.length > 0 && (
+                            <div className={`flex justify-between mt-2 text-[10px] ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                                <span>{dailyData[0]?.date}</span>
+                                <span>{dailyData[dailyData.length - 1]?.date}</span>
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <div className="h-40 flex items-center justify-center">
+                        <div className="text-center">
+                            <BarChart3 className={`w-10 h-10 mx-auto mb-2 ${d.isDark ? 'text-gray-600' : 'text-gray-300'}`} />
+                            <p className={`text-sm ${subText}`}>No {formatLabel.toLowerCase()} traffic data for this period</p>
+                            <p className={`text-xs mt-1 ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>Data appears once zones start receiving traffic</p>
+                        </div>
                     </div>
                 )}
             </div>
@@ -407,24 +420,36 @@ function PushStatsTab({ d, theme, period, accent, tabActive, subText, headText, 
                         ))}
                     </div>
                 </div>
-                <div className="h-40 flex items-end gap-[2px]">
-                    {chartValues.map((val, i) => (
-                        <div key={i} className="flex-1 group relative cursor-pointer">
-                            <div
-                                className={`w-full bg-gradient-to-t ${barGradient} rounded-t transition-all duration-300 min-h-[2px]`}
-                                style={{ height: `${chartMax > 0 ? (val / chartMax) * 100 : 0}%` }}
-                            />
-                            <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none z-20 ${d.isDark ? 'bg-slate-800 border border-white/10' : 'bg-white border border-gray-200 shadow-lg'}`}>
-                                <p className={`font-bold ${headText}`}>{val.toLocaleString()}</p>
-                                <p className={subText}>{chartData[i]?.date}</p>
-                            </div>
+                {chartValues.some(v => v > 0) ? (
+                    <>
+                        <div className="h-40 flex items-end gap-[2px]">
+                            {chartValues.map((val, i) => (
+                                <div key={i} className="flex-1 group relative cursor-pointer">
+                                    <div
+                                        className={`w-full bg-gradient-to-t ${barGradient} rounded-t transition-all duration-300 min-h-[2px]`}
+                                        style={{ height: `${chartMax > 0 ? (val / chartMax) * 100 : 0}%` }}
+                                    />
+                                    <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none z-20 ${d.isDark ? 'bg-slate-800 border border-white/10' : 'bg-white border border-gray-200 shadow-lg'}`}>
+                                        <p className={`font-bold ${headText}`}>{val.toLocaleString()}</p>
+                                        <p className={subText}>{chartData[i]?.date}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-                {chartData.length > 0 && (
-                    <div className={`flex justify-between mt-2 text-[10px] ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-                        <span>{chartData[0]?.date}</span>
-                        <span>{chartData[chartData.length - 1]?.date}</span>
+                        {chartData.length > 0 && (
+                            <div className={`flex justify-between mt-2 text-[10px] ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                                <span>{chartData[0]?.date}</span>
+                                <span>{chartData[chartData.length - 1]?.date}</span>
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <div className="h-40 flex items-center justify-center">
+                        <div className="text-center">
+                            <Bell className={`w-10 h-10 mx-auto mb-2 ${d.isDark ? 'text-gray-600' : 'text-gray-300'}`} />
+                            <p className={`text-sm ${subText}`}>No push traffic data for this period</p>
+                            <p className={`text-xs mt-1 ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>Data appears once zones start receiving traffic</p>
+                        </div>
                     </div>
                 )}
             </div>
@@ -495,7 +520,7 @@ export default function PublisherStatistics() {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const data = await publisherAPI.getStatistics(period);
+            const data = await publisherAPI.getFormatStats('ALL', period);
             setStats(data.summary || null);
             setDaily(data.daily || []);
             setGeo(data.geo || []);
@@ -610,24 +635,26 @@ export default function PublisherStatistics() {
     const geoMax = Math.max(...geo.map(g => g.impressions));
 
     const kpiCards = stats ? [
-        { label: 'Impressions', value: stats.totalImpressions, change: stats.impressionChange, icon: Eye, i: 0, fmtFn: v => v.toLocaleString() },
-        { label: 'Clicks', value: stats.totalClicks, change: stats.clickChange, icon: MousePointerClick, i: 1, fmtFn: v => v.toLocaleString() },
-        { label: 'Revenue', value: stats.totalRevenue, change: stats.revenueChange, icon: DollarSign, i: 2, fmtFn: v => `$${v.toFixed(2)}` },
-        { label: 'CTR', value: stats.ctr, change: stats.ctrChange, icon: Target, i: 3, fmtFn: v => `${v.toFixed(2)}%` },
-        { label: 'eCPM', value: stats.ecpm, change: stats.ecpmChange, icon: TrendingUp, i: 4, fmtFn: v => `$${v.toFixed(2)}` },
-        { label: 'Fill Rate', value: stats.fillRate, change: stats.fillRateChange, icon: Zap, i: 5, fmtFn: v => `${v.toFixed(1)}%` },
+        { label: 'Impressions', value: stats.totalImpressions, change: stats.impressionChange, icon: Eye, i: 0, fmtFn: v => Number(v || 0).toLocaleString() },
+        { label: 'Clicks', value: stats.totalClicks, change: stats.clickChange, icon: MousePointerClick, i: 1, fmtFn: v => Number(v || 0).toLocaleString() },
+        { label: 'Revenue', value: stats.totalRevenue, change: stats.revenueChange, icon: DollarSign, i: 2, fmtFn: v => `$${Number(v || 0).toFixed(2)}` },
+        { label: 'CTR', value: stats.ctr, change: stats.ctrChange, icon: Target, i: 3, fmtFn: v => `${Number(v || 0).toFixed(2)}%` },
+        { label: 'eCPM', value: stats.eCPM || stats.ecpm, change: stats.ecpmChange, icon: TrendingUp, i: 4, fmtFn: v => `$${Number(v || 0).toFixed(2)}` },
+        { label: 'Fill Rate', value: stats.fillRate, change: stats.fillRateChange, icon: Zap, i: 5, fmtFn: v => `${Number(v || 0).toFixed(1)}%` },
     ] : [];
 
     const handlePDFExport = () => {
-        const win = window.open('', '_blank');
-        const tabLabel = activeTab === 'popunder' ? 'Popunder' : activeTab === 'inpage' ? 'In-Page Push' : 'All Formats';
-        const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const promise = new Promise((resolve, reject) => {
+            try {
+                const win = window.open('', '_blank');
+                const tabLabel = activeTab === 'popunder' ? 'Popunder' : activeTab === 'inpage' ? 'In-Page Push' : 'All Formats';
+                const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         const kpiRows = stats ? [
             ['Impressions', Number(stats.totalImpressions || 0).toLocaleString()],
             ['Clicks', Number(stats.totalClicks || 0).toLocaleString()],
             ['Revenue', `$${Number(stats.totalRevenue || 0).toFixed(2)}`],
             ['CTR', `${Number(stats.ctr || 0).toFixed(2)}%`],
-            ['eCPM', `$${Number(stats.ecpm || 0).toFixed(2)}`],
+            ['eCPM', `$${Number(stats.eCPM || stats.ecpm || 0).toFixed(2)}`],
         ] : [];
         win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Publisher Report</title>
         <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;padding:40px;color:#111}
@@ -649,7 +676,20 @@ export default function PublisherStatistics() {
         </tbody></table>` : '<p style="color:#6b7280">No data for selected period.</p>'}
         </body></html>`);
         win.document.close();
-        setTimeout(() => win.print(), 500);
+        setTimeout(() => {
+            win.print();
+            resolve();
+        }, 500);
+        } catch (e) {
+            reject(e);
+        }
+        });
+
+        toast.promise(promise, {
+            loading: 'Preparing PDF...',
+            success: 'PDF generated successfully!',
+            error: 'Failed to generate PDF'
+        });
     };
 
     return (
@@ -689,12 +729,15 @@ export default function PublisherStatistics() {
                                 <button
                                     onClick={async () => {
                                         setShowExportMenu(false);
-                                        try {
-                                            const fmt = activeTab === 'popunder' ? 'POPUNDER' : activeTab === 'inpage' ? 'IN_PAGE_PUSH' : 'ALL';
-                                            await publisherAPI.exportStatsCSV(period, fmt);
-                                        } catch (e) {
-                                            console.error('CSV export failed:', e);
-                                        }
+                                        const fmt = activeTab === 'popunder' ? 'POPUNDER' : activeTab === 'inpage' ? 'IN_PAGE_PUSH' : 'ALL';
+                                        await toast.promise(
+                                            publisherAPI.exportStatsCSV(period, fmt),
+                                            {
+                                                loading: 'Exporting CSV...',
+                                                success: 'CSV exported successfully!',
+                                                error: 'Failed to export CSV.'
+                                            }
+                                        ).catch(e => console.error('CSV export failed:', e));
                                     }}
                                     className={`w-full flex items-center gap-2.5 px-4 py-3 text-sm font-medium transition-colors ${
                                         d.isDark ? 'text-gray-300 hover:bg-white/5' : 'text-gray-700 hover:bg-gray-50'
@@ -817,26 +860,40 @@ export default function PublisherStatistics() {
                                         ))}
                                     </div>
                                 </div>
-                                <div className="h-48 flex items-end gap-[2px]">
-                                    {chartData.map((item, i) => (
-                                        <div key={i} className="flex-1 group relative cursor-pointer">
-                                            <div
-                                                className={`w-full bg-gradient-to-t ${accent.bar} rounded-t transition-all duration-300 min-h-[2px] ${accent.glow}`}
-                                                style={{ height: `${chartMax > 0 ? (item.value / chartMax) * 100 : 0}%` }}
-                                            />
-                                            <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none z-20 ${d.isDark ? 'bg-slate-800 border border-white/10' : 'bg-white border border-gray-200 shadow-lg'}`}>
-                                                <p className={`font-bold ${headText}`}>
-                                                    {activeMetric === 'revenue' ? `$${item.value?.toFixed(2)}` : activeMetric === 'fillRate' ? `${item.value?.toFixed(1)}%` : item.value?.toLocaleString()}
-                                                </p>
-                                                <p className={subText}>{item.date}</p>
-                                            </div>
+                                {chartData.some(d => d.value > 0) ? (
+                                    <>
+                                        <div className="h-48 flex items-end gap-[2px]">
+                                            {chartData.map((item, i) => (
+                                                <div key={i} className="flex-1 group relative cursor-pointer">
+                                                    <div
+                                                        className={`w-full bg-gradient-to-t ${accent.bar} rounded-t transition-all duration-300 min-h-[2px] ${accent.glow}`}
+                                                        style={{ height: `${chartMax > 0 ? (item.value / chartMax) * 100 : 0}%` }}
+                                                    />
+                                                    <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none z-20 ${d.isDark ? 'bg-slate-800 border border-white/10' : 'bg-white border border-gray-200 shadow-lg'}`}>
+                                                        <p className={`font-bold ${headText}`}>
+                                                            {activeMetric === 'revenue' ? `$${item.value?.toFixed(2)}` : activeMetric === 'fillRate' ? `${item.value?.toFixed(1)}%` : item.value?.toLocaleString()}
+                                                        </p>
+                                                        <p className={subText}>{item.date}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
-                                <div className={`flex justify-between mt-2 text-[10px] ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-                                    <span>{daily[0]?.date}</span>
-                                    <span>{daily[daily.length - 1]?.date}</span>
-                                </div>
+                                        {chartData.length > 0 && (
+                                            <div className={`flex justify-between mt-2 text-[10px] ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                                                <span>{chartData[0]?.date}</span>
+                                                <span>{chartData[chartData.length - 1]?.date}</span>
+                                            </div>
+                                        )}
+                                    </>
+                                ) : (
+                                    <div className="h-48 flex items-center justify-center">
+                                        <div className="text-center">
+                                            <BarChart3 className={`w-10 h-10 mx-auto mb-2 ${d.isDark ? 'text-gray-600' : 'text-gray-300'}`} />
+                                            <p className={`text-sm ${subText}`}>No traffic data for this period</p>
+                                            <p className={`text-xs mt-1 ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>Data appears once your zones start receiving traffic</p>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             {/* ── Ad Format Breakdown */}
@@ -855,21 +912,27 @@ export default function PublisherStatistics() {
                                             </tr>
                                         </thead>
                                         <tbody className={`divide-y ${d.isDark ? 'divide-white/5' : 'divide-gray-100'}`}>
-                                            {formats.map((fmt, i) => (
+                                            {formats.length === 0 ? (
+                                                <tr>
+                                                    <td colSpan="5" className={`py-8 text-center text-sm ${subText}`}>
+                                                        No format data available for the selected period.
+                                                    </td>
+                                                </tr>
+                                            ) : formats.map((fmt, i) => (
                                                 <tr key={i} className={d.isDark ? 'hover:bg-white/5' : 'hover:bg-gray-50'}>
                                                     <td className={`py-4 pr-4 font-medium text-sm ${headText}`}>
                                                         <div className="flex items-center gap-2">
-                                                            <div className={`w-2.5 h-2.5 rounded-full bg-gradient-to-br ${formatBarColors[i]}`} />
+                                                            <div className={`w-2.5 h-2.5 rounded-full bg-gradient-to-br ${formatBarColors[i % formatBarColors.length]}`} />
                                                             {fmt.name}
                                                         </div>
                                                     </td>
                                                     <td className={`py-4 pr-4 text-sm ${subText}`}>{(fmt.impressions || 0).toLocaleString()}</td>
-                                                    <td className={`py-4 pr-4 text-sm font-bold ${accent.text}`}>${fmt.revenue?.toFixed(2)}</td>
-                                                    <td className={`py-4 pr-4 text-sm font-mono ${headText}`}>${fmt.ecpm?.toFixed(2)}</td>
+                                                    <td className={`py-4 pr-4 text-sm font-bold ${accent.text}`}>${Number(fmt.revenue || 0).toFixed(2)}</td>
+                                                    <td className={`py-4 pr-4 text-sm font-mono ${headText}`}>${Number(fmt.ecpm || 0).toFixed(2)}</td>
                                                     <td className="py-4">
                                                         <div className="flex items-center gap-2">
                                                             <div className={`flex-1 h-2 rounded-full overflow-hidden ${d.isDark ? 'bg-white/10' : 'bg-gray-200'}`} style={{ minWidth: 60 }}>
-                                                                <div className={`h-full bg-gradient-to-r ${formatBarColors[i]} rounded-full`} style={{ width: `${fmt.fillRate}%` }} />
+                                                                <div className={`h-full bg-gradient-to-r ${formatBarColors[i % formatBarColors.length]} rounded-full`} style={{ width: `${fmt.fillRate}%` }} />
                                                             </div>
                                                             <span className={`text-xs font-medium ${headText}`}>{fmt.fillRate}%</span>
                                                         </div>

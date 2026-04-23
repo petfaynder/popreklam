@@ -281,10 +281,18 @@ export const advertiserAPI = {
         const query = new URLSearchParams(params);
         return apiRequest(`/push/advertiser/stats?${query}`);
     },
-    exportCSV: (params = {}) => {
+    exportCSV: async (params = {}) => {
         const query = new URLSearchParams(params);
         const token = localStorage.getItem('token');
-        return `${API_URL}/advertiser/stats/export-csv?${query}&token=${token}`;
+        const url = `${API_URL}/advertiser/stats/export-csv?${query}`;
+        const res = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
+        if (!res.ok) throw new Error('Export failed');
+        const blob = await res.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `advertiser-stats.csv`;
+        a.click();
+        URL.revokeObjectURL(a.href);
     },
 
     // Account / Settings

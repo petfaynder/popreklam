@@ -163,7 +163,7 @@ export const getYieldRecommendations = async (req, res) => {
 export const getFormatStats = async (req, res) => {
     try {
         const userId = req.user.id;
-        const format = req.query.format || 'POPUNDER'; // POPUNDER | IN_PAGE_PUSH
+        const format = req.query.format || 'ALL'; // ALL | POPUNDER | IN_PAGE_PUSH | PUSH_NOTIFICATIONS
         const days = parseInt(req.query.period) || 30;
 
         const past = new Date();
@@ -171,10 +171,12 @@ export const getFormatStats = async (req, res) => {
         past.setHours(0, 0, 0, 0);
 
         // Validate format
-        const allowedFormats = ['POPUNDER', 'IN_PAGE_PUSH'];
+        const allowedFormats = ['ALL', 'POPUNDER', 'IN_PAGE_PUSH', 'PUSH_NOTIFICATIONS', 'PUSH_NOTIFICATION'];
         if (!allowedFormats.includes(format)) {
-            return res.status(400).json({ error: 'Invalid format. Use POPUNDER or IN_PAGE_PUSH.' });
+            return res.status(400).json({ error: 'Invalid format. Use ALL, POPUNDER, IN_PAGE_PUSH, or PUSH_NOTIFICATIONS.' });
         }
+
+        const formatFilter = format !== 'ALL' ? `AND z.type = '${format}'` : '';
 
         // 1) Daily trend
         const dailyRaw = await prisma.$queryRawUnsafe(`
@@ -194,11 +196,11 @@ export const getFormatStats = async (req, res) => {
             JOIN sites s ON z.site_id = s.id
             JOIN publishers p ON s.publisher_id = p.id
             WHERE p.user_id = ?
-              AND z.type = ?
+              ${formatFilter}
               AND i.created_at >= ?
             GROUP BY DATE(i.created_at)
             ORDER BY date ASC
-        `, userId, format, past);
+        `, userId, past);
 
         // 2) Summary totals + prev period change
         const summaryRaw = await prisma.$queryRawUnsafe(`
@@ -211,9 +213,9 @@ export const getFormatStats = async (req, res) => {
             JOIN sites s ON z.site_id = s.id
             JOIN publishers p ON s.publisher_id = p.id
             WHERE p.user_id = ?
-              AND z.type = ?
+              ${formatFilter}
               AND i.created_at >= ?
-        `, userId, format, past);
+        `, userId, past);
 
         // Previous period
         const prevPast = new Date(past.getTime() - days * 86400000);
@@ -226,10 +228,10 @@ export const getFormatStats = async (req, res) => {
             JOIN sites s ON z.site_id = s.id
             JOIN publishers p ON s.publisher_id = p.id
             WHERE p.user_id = ?
-              AND z.type = ?
+              ${formatFilter}
               AND i.created_at >= ?
               AND i.created_at < ?
-        `, userId, format, prevPast, past);
+        `, userId, prevPast, past);
 
         const cur = summaryRaw[0] || {};
         const prev = prevSummaryRaw[0] || {};
@@ -254,13 +256,13 @@ export const getFormatStats = async (req, res) => {
             JOIN sites s ON z.site_id = s.id
             JOIN publishers p ON s.publisher_id = p.id
             WHERE p.user_id = ?
-              AND z.type = ?
+              ${formatFilter}
               AND i.created_at >= ?
               AND i.country IS NOT NULL
             GROUP BY i.country
             ORDER BY impressions DESC
             LIMIT 10
-        `, userId, format, past);
+        `, userId, past);
 
         // 4) Device breakdown
         const deviceRaw = await prisma.$queryRawUnsafe(`
@@ -273,11 +275,11 @@ export const getFormatStats = async (req, res) => {
             JOIN sites s ON z.site_id = s.id
             JOIN publishers p ON s.publisher_id = p.id
             WHERE p.user_id = ?
-              AND z.type = ?
+              ${formatFilter}
               AND i.created_at >= ?
               AND i.device IS NOT NULL
             GROUP BY i.device
-        `, userId, format, past);
+        `, userId, past);
 
         // 5) Top sites for this format
         const sitesRaw = await prisma.$queryRawUnsafe(`
@@ -297,12 +299,37 @@ export const getFormatStats = async (req, res) => {
             JOIN sites s ON z.site_id = s.id
             JOIN publishers p ON s.publisher_id = p.id
             WHERE p.user_id = ?
-              AND z.type = ?
+              ${formatFilter}
               AND i.created_at >= ?
             GROUP BY s.id, s.name, s.url
             ORDER BY revenue DESC
             LIMIT 10
-        `, userId, format, past);
+        `, userId, past);
+
+        // 6) Formats breakdown (only useful if format === 'ALL')
+        let formatsRaw = [];
+        if (format === 'ALL') {
+            formatsRaw = await prisma.$queryRawUnsafe(`
+                SELECT
+                    z.type AS name,
+                    COUNT(i.id) AS impressions,
+                    SUM(i.publisher_revenue) AS revenue,
+                    ROUND(
+                        CASE WHEN COUNT(i.id) > 0
+                            THEN (SUM(i.publisher_revenue) / COUNT(i.id)) * 1000
+                            ELSE 0
+                        END, 4
+                    ) AS ecpm
+                FROM impressions i
+                JOIN zones z ON i.zone_id = z.id
+                JOIN sites s ON z.site_id = s.id
+                JOIN publishers p ON s.publisher_id = p.id
+                WHERE p.user_id = ?
+                  AND i.created_at >= ?
+                GROUP BY z.type
+                ORDER BY revenue DESC
+            `, userId, past);
+        }
 
         const totalDeviceImpr = deviceRaw.reduce((s, r) => s + Number(r.impressions || 0), 0);
 
@@ -315,6 +342,10 @@ export const getFormatStats = async (req, res) => {
                 eCPM: curImpr > 0 ? ((curRev / curImpr) * 1000).toFixed(4) : '0.0000',
                 impressionChange: pctChange(curImpr, prevImpr),
                 revenueChange: pctChange(curRev, prevRev),
+                ctr: curImpr > 0 ? (Number(cur.clicks || 0) / curImpr * 100).toFixed(2) : 0,
+                ctrChange: 0, // Mocked for simplicity
+                fillRate: 100, // Mocked
+                fillRateChange: 0, // Mocked
             },
             daily: dailyRaw.map(r => ({
                 date: String(r.date).slice(0, 10),
@@ -322,6 +353,7 @@ export const getFormatStats = async (req, res) => {
                 clicks: Number(r.clicks || 0),
                 revenue: Number(r.revenue || 0).toFixed(4),
                 ecpm: Number(r.ecpm || 0).toFixed(4),
+                fillRate: 100
             })),
             geo: geoRaw.map(r => ({
                 country: r.country || 'Unknown',
@@ -331,7 +363,7 @@ export const getFormatStats = async (req, res) => {
             devices: deviceRaw.map(r => {
                 const imp = Number(r.impressions || 0);
                 return {
-                    device: r.device || 'Unknown',
+                    name: r.device || 'Unknown',
                     impressions: imp,
                     revenue: Number(r.revenue || 0).toFixed(4),
                     share: totalDeviceImpr > 0 ? parseFloat(((imp / totalDeviceImpr) * 100).toFixed(1)) : 0,
@@ -344,12 +376,20 @@ export const getFormatStats = async (req, res) => {
                 revenue: Number(r.revenue || 0).toFixed(4),
                 ecpm: Number(r.ecpm || 0).toFixed(4),
             })),
+            formats: formatsRaw.map(r => ({
+                name: r.name === 'POPUNDER' ? 'Popunder' : r.name === 'IN_PAGE_PUSH' ? 'In-Page Push' : r.name === 'PUSH_NOTIFICATIONS' ? 'Push Notifications' : r.name,
+                impressions: Number(r.impressions || 0),
+                revenue: Number(r.revenue || 0).toFixed(4),
+                ecpm: Number(r.ecpm || 0).toFixed(4),
+                fillRate: 100
+            }))
         });
     } catch (error) {
         console.error('[Publisher] Format stats error:', error);
         res.status(500).json({ error: 'Failed to fetch format stats' });
     }
 };
+
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // GET /api/publisher/stats/export?period=30&format=ALL

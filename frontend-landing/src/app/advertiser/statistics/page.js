@@ -13,6 +13,7 @@ import {
 import { advertiserAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
+import toast from 'react-hot-toast';
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // Constants
@@ -357,7 +358,7 @@ function PushAnalyticsTab({ d, theme, dateRange, accent, secAccent, tabActive, s
                         ))}
                     </div>
                 </div>
-                {(data.dailyDeliveries || []).length > 0 ? (
+                {chartValues.some(v => v > 0) ? (
                     <div className="h-40 flex items-end gap-[2px]">
                         {(data.dailyDeliveries || []).map((item, i) => (
                             <div key={i} className="flex-1 group relative cursor-pointer">
@@ -603,7 +604,7 @@ function PopunderTab({ d, theme, dateRange, groupBy, accent, tabActive, subText,
                         ))}
                     </div>
                 </div>
-                {chartValues.length > 0 ? (
+                {chartValues.some(v => v > 0) ? (
                     <>
                         <div className="h-48 flex items-end gap-[2px]">
                             {data.daily.map((item, i) => (
@@ -1449,7 +1450,7 @@ export default function AdvertiserStatistics() {
                                 ))}
                             </div>
                         </div>
-                        {chartData.length > 0 ? (
+                        {chartData.some(d => d.value > 0) ? (
                             <>
                                 <div className="h-48 flex items-end gap-[2px]">
                                     {chartData.map((item, i) => (
