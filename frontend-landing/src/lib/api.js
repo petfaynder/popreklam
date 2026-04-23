@@ -97,6 +97,8 @@ export const authAPI = {
             body: JSON.stringify({ token, password }),
         });
     },
+
+    resendVerificationEmail: () => apiRequest('/auth/resend-verification', { method: 'POST' }),
 };
 
 // ==================== PUBLISHER API ====================

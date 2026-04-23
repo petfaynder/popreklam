@@ -108,12 +108,13 @@ export const register = async (req, res, next) => {
         const token = generateToken(user.id);
 
         res.status(201).json({
-            message: 'Registration successful. Please wait for account approval.',
+            message: 'Registration successful.',
             user: {
                 id: user.id,
                 email: user.email,
                 role: user.role,
-                status: user.status
+                status: user.status,
+                isVerified: user.isVerified
             },
             token
         });
@@ -216,7 +217,8 @@ export const login = async (req, res, next) => {
                 email: user.email,
                 role: user.role,
                 status: user.status,
-                balance: user.balance
+                balance: user.balance,
+                isVerified: user.isVerified
             },
             token
         });
@@ -225,11 +227,88 @@ export const login = async (req, res, next) => {
     }
 };
 
-// Verify email (placeholder)
+// Verify email via token link
 export const verifyEmail = async (req, res, next) => {
     try {
-        // TODO: Implement email verification logic
-        res.json({ message: 'Email verification - Coming soon' });
+        const { token } = req.params;
+        const user = await prisma.user.findFirst({
+            where: {
+                verificationToken: token,
+                verificationTokenExpiry: { gt: new Date() }
+            }
+        });
+
+        if (!user) {
+            return res.status(400).json({
+                error: 'Invalid or expired verification link',
+                message: 'This verification link is invalid or has expired. Please request a new one.'
+            });
+        }
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: {
+                isVerified: true,
+                verificationToken: null,
+                verificationTokenExpiry: null
+            }
+        });
+
+        logger.info(`Email verified for user: ${user.email}`);
+
+        // Redirect to the appropriate dashboard with success flag
+        const dashboardPath = user.role === 'PUBLISHER' ? '/publisher' : '/advertiser';
+        return res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:3000'}${dashboardPath}?verified=1`);
+    } catch (error) {
+        next(error);
+    }
+};
+
+// Resend verification email
+export const resendVerification = async (req, res, next) => {
+    try {
+        const userId = req.user.userId;
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (user.isVerified) {
+            return res.status(400).json({ error: 'Email is already verified' });
+        }
+
+        // Generate a fresh token (1 hour)
+        const verificationToken = crypto.randomBytes(32).toString('hex');
+        const verificationTokenExpiry = new Date(Date.now() + 60 * 60 * 1000);
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { verificationToken, verificationTokenExpiry }
+        });
+
+        const verifyUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/api/auth/verify/${verificationToken}`;
+
+        const emailHtml = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #0a0d16; color: #e2e8f0;">
+                <div style="text-align: center; padding: 30px 0 20px;">
+                    <span style="font-size: 24px; font-weight: 700; color: #f1f5f9;">MrPop.io</span>
+                </div>
+                <div style="background: #111827; border: 1px solid #1e293b; border-radius: 16px; padding: 32px;">
+                    <h2 style="color: #f1f5f9; margin: 0 0 12px;">Verify Your Email</h2>
+                    <p style="color: #64748b; margin: 0 0 24px; line-height: 1.6;">Click the button below to verify your email address and activate your account.</p>
+                    <div style="text-align: center; margin: 28px 0;">
+                        <a href="${verifyUrl}" style="display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 10px; color: #fff; font-weight: 600; text-decoration: none;">Verify My Email &rarr;</a>
+                    </div>
+                    <p style="color: #475569; font-size: 13px; margin: 0;">This link expires in 1 hour. If you didn't create an account, ignore this email.</p>
+                </div>
+            </div>
+        `;
+
+        await sendEmail(user.email, 'MrPop.io — Verify Your Email', emailHtml);
+        logger.info(`Verification email resent to: ${user.email}`);
+
+        res.json({ message: 'Verification email sent successfully' });
     } catch (error) {
         next(error);
     }

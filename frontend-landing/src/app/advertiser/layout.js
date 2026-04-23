@@ -11,6 +11,7 @@ import {
 import { authAPI, advertiserAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
+import { MailWarning, X, RefreshCw } from 'lucide-react';
 
 const NOISE_BG = "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2VGaWx0ZXIpIiBvcGFjaXR5PSIwLjAzIi8+PC9zdmc+";
 
@@ -122,11 +123,18 @@ export default function AdvertiserLayout({ children }) {
     const d = getDashboardTheme(theme);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const [showVerifyBanner, setShowVerifyBanner] = useState(false);
+    const [resendLoading, setResendLoading] = useState(false);
+    const [resendSent, setResendSent] = useState(false);
 
     useEffect(() => {
         try {
             const stored = localStorage.getItem('user');
-            if (stored) setUser(JSON.parse(stored));
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                setUser(parsed);
+                if (parsed.isVerified === false) setShowVerifyBanner(true);
+            }
         } catch { }
     }, []);
 
@@ -172,6 +180,18 @@ export default function AdvertiserLayout({ children }) {
     const handleLogout = () => {
         authAPI.logout();
         router.push('/login');
+    };
+
+    const handleResendVerification = async () => {
+        setResendLoading(true);
+        try {
+            await authAPI.resendVerificationEmail();
+            setResendSent(true);
+        } catch (e) {
+            console.error('Failed to resend verification email');
+        } finally {
+            setResendLoading(false);
+        }
     };
 
     const isActive = (href) => {
@@ -264,6 +284,32 @@ export default function AdvertiserLayout({ children }) {
 
             {/* Main Content */}
             <div className="flex-1 lg:ml-64 flex flex-col min-h-screen relative z-10">
+
+                {/* ── Email Verification Banner ── */}
+                {showVerifyBanner && (
+                    <div className="relative z-50 flex items-center gap-3 px-4 py-3 bg-amber-500/10 border-b border-amber-500/25 text-amber-300 text-sm">
+                        <MailWarning className="w-4 h-4 shrink-0 text-amber-400" />
+                        <span className="flex-1">
+                            {resendSent
+                                ? '✓ Verification email sent! Please check your inbox (and spam folder).'
+                                : 'Your email address is not verified. Please check your inbox or resend the verification email.'
+                            }
+                        </span>
+                        {!resendSent && (
+                            <button
+                                onClick={handleResendVerification}
+                                disabled={resendLoading}
+                                className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 rounded-lg text-amber-300 text-xs font-semibold transition-colors disabled:opacity-50"
+                            >
+                                <RefreshCw className={`w-3 h-3 ${resendLoading ? 'animate-spin' : ''}`} />
+                                {resendLoading ? 'Sending...' : 'Resend Email'}
+                            </button>
+                        )}
+                        <button onClick={() => setShowVerifyBanner(false)} className="p-1 hover:text-amber-200 transition-colors">
+                            <X className="w-4 h-4" />
+                        </button>
+                    </div>
+                )}
                 <header className={d.topbar}>
                     <button className="lg:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
                         {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

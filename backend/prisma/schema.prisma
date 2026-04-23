@@ -132,6 +132,8 @@ model User {
   lastLogin          DateTime?   @map("last_login")
   resetToken         String?     @map("reset_token")
   resetTokenExpiry   DateTime?   @map("reset_token_expiry")
+  verificationToken       String?   @unique @map("verification_token")
+  verificationTokenExpiry DateTime? @map("verification_token_expiry")
   twoFactorSecret    String?     @map("two_factor_secret")
   twoFactorEnabled   Boolean     @default(false) @map("two_factor_enabled")
   twoFactorBackupCodes Json?     @map("two_factor_backup_codes")

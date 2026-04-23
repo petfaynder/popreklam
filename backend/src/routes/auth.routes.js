@@ -31,6 +31,9 @@ router.post('/login',
 // Verify email
 router.get('/verify/:token', authController.verifyEmail);
 
+// Resend verification email (requires auth)
+router.post('/resend-verification', authenticate, authController.resendVerification);
+
 // Forgot password
 router.post('/forgot-password',
     [
