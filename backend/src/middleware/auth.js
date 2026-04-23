@@ -19,7 +19,7 @@ export const authenticate = async (req, res, next) => {
 
         const user = await prisma.user.findUnique({
             where: { id: decoded.userId },
-            select: { id: true, email: true, role: true, status: true }
+            select: { id: true, email: true, role: true, status: true, isVerified: true }
         });
 
         if (!user) {
@@ -110,3 +110,16 @@ export const requireGeoReports = async (req, res, next) => {
     }
 };
 
+/**
+ * Middleware: requires the user to have verified their email.
+ * Apply to routes that should be blocked for unverified accounts.
+ */
+export const requireVerified = (req, res, next) => {
+    if (!req.user?.isVerified) {
+        return res.status(403).json({
+            error: 'EMAIL_NOT_VERIFIED',
+            message: 'Please verify your email address to use this feature.'
+        });
+    }
+    next();
+};

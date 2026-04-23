@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticate, authorize, requireApiAccess, requireGeoReports } from '../middleware/auth.js';
+import { authenticate, authorize, requireApiAccess, requireGeoReports, requireVerified } from '../middleware/auth.js';
 import * as advertiserController from '../controllers/advertiser.controller.js';
 import * as advertiserStatsController from '../controllers/advertiser-stats.controller.js';
 import * as advertiserBillingController from '../controllers/advertiser-billing.controller.js';
@@ -28,7 +28,7 @@ router.post('/notifications/:id/read', notificationController.markAsRead);
 // Campaigns management
 router.get('/campaigns', advertiserController.getCampaigns);
 router.get('/campaigns/bid-recommendation', advertiserController.getBidRecommendation);
-router.post('/campaigns', advertiserController.createCampaign);
+router.post('/campaigns', requireVerified, advertiserController.createCampaign);
 router.put('/campaigns/:id', advertiserController.updateCampaign);
 router.delete('/campaigns/:id', advertiserController.deleteCampaign);
 
@@ -61,9 +61,9 @@ router.delete('/campaigns/:id/creatives/:creativeId', creativesController.delete
 
 // Billing & Deposits
 router.get('/billing', advertiserBillingController.getBillingOverview);
-router.post('/billing/deposit', advertiserBillingController.createDeposit);
+router.post('/billing/deposit', requireVerified, advertiserBillingController.createDeposit);
 router.post('/billing/verify/:paymentId', advertiserBillingController.verifyPayment);
-router.post('/billing/auto-recharge', advertiserBillingController.configureAutoRecharge);
+router.post('/billing/auto-recharge', requireVerified, advertiserBillingController.configureAutoRecharge);
 router.get('/billing/invoices/:id/download', advertiserBillingController.downloadInvoice);
 router.get('/billing/invoices', advertiserBillingController.getInvoices);
 router.post('/billing/validate-coupon', advertiserBillingController.validateCoupon);

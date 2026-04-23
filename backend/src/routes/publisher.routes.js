@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticate, authorize } from '../middleware/auth.js';
+import { authenticate, authorize, requireVerified } from '../middleware/auth.js';
 import * as publisherController from '../controllers/publisher.controller.js';
 import * as publisherStatsController from '../controllers/publisher-stats.controller.js';
 import * as publisherPaymentsController from '../controllers/publisher-payments.controller.js';
@@ -24,7 +24,7 @@ router.post('/notifications/:id/read', notificationController.markAsRead);
 
 // Sites management
 router.get('/sites', publisherController.getSites);
-router.post('/sites', publisherController.createSite);
+router.post('/sites', requireVerified, publisherController.createSite);
 router.put('/sites/:id', publisherController.updateSite);
 router.delete('/sites/:id', publisherController.deleteSite);
 router.post('/sites/:id/verify', publisherController.verifySite);
@@ -44,13 +44,13 @@ router.get('/analytics/summary', publisherAnalyticsController.getRevenueSummary)
 
 // Payment Methods (NEW)
 router.get('/payments/methods', publisherPaymentsController.getPaymentMethods);
-router.post('/payments/methods', publisherPaymentsController.addPaymentMethod);
+router.post('/payments/methods', requireVerified, publisherPaymentsController.addPaymentMethod);
 router.put('/payments/methods/:id', publisherPaymentsController.updatePaymentMethod);
 router.delete('/payments/methods/:id', publisherPaymentsController.deletePaymentMethod);
 
 // Payments & Withdrawals (ENHANCED)
 router.get('/payments/history', publisherPaymentsController.getPaymentHistory);
-router.post('/payments/withdraw', publisherPaymentsController.requestWithdrawal);
+router.post('/payments/withdraw', requireVerified, publisherPaymentsController.requestWithdrawal);
 router.get('/payments/invoices/:id/download', publisherPaymentsController.downloadInvoice);
 router.post('/payments/:id/cancel', publisherPaymentsController.cancelWithdrawal);
 

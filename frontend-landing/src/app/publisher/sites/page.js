@@ -10,10 +10,12 @@ import { publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
 import ConfirmModal from '@/components/ConfirmModal';
+import useIsVerified from '@/hooks/useIsVerified';
 
 export default function PublisherSitesPage() {
     const theme = useTheme();
     const d = getDashboardTheme(theme);
+    const isVerified = useIsVerified();
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedSite, setSelectedSite] = useState(null);
@@ -255,7 +257,16 @@ export default function PublisherSitesPage() {
                     <h1 className={`${d.heading} mb-2`}>My Sites</h1>
                     <p className={d.subheading}>Manage your websites and monitor their performance</p>
                 </div>
-                <button onClick={() => setIsAddModalOpen(true)} className={`${d.btnPrimary} flex items-center gap-2`}>
+                <button
+                    onClick={() => {
+                        if (!isVerified) {
+                            setError('Please verify your email address before adding sites.');
+                            return;
+                        }
+                        setIsAddModalOpen(true);
+                    }}
+                    className={`${d.btnPrimary} flex items-center gap-2`}
+                >
                     <Plus className="w-5 h-5" />
                     Add New Site
                 </button>
@@ -276,7 +287,16 @@ export default function PublisherSitesPage() {
                     title="No sites added yet"
                     description="Add your first website to start monetizing your traffic"
                     action={
-                        <button onClick={() => setIsAddModalOpen(true)} className={d.btnPrimary}>
+                        <button
+                            onClick={() => {
+                                if (!isVerified) {
+                                    setError('Please verify your email address before adding sites.');
+                                    return;
+                                }
+                                setIsAddModalOpen(true);
+                            }}
+                            className={d.btnPrimary}
+                        >
                             Add Your First Site
                         </button>
                     }

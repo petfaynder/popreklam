@@ -12,6 +12,7 @@ import { advertiserAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
 import ConfirmModal from '@/components/ConfirmModal';
+import useIsVerified from '@/hooks/useIsVerified';
 
 const STATUS_TABS = ['ALL', 'ACTIVE', 'PAUSED', 'PENDING', 'REJECTED'];
 
@@ -43,6 +44,7 @@ function Toast({ type, message, onClose }) {
 export default function CampaignsPage() {
     const theme = useTheme();
     const d = getDashboardTheme(theme);
+    const isVerified = useIsVerified();
 
     const [campaigns, setCampaigns] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -221,11 +223,18 @@ export default function CampaignsPage() {
                     <button onClick={fetchCampaigns} className={`${d.btnSecondary} p-2.5`} title="Refresh">
                         <RefreshCw className="w-4 h-4" />
                     </button>
-                    <Link href="/advertiser/campaigns/create">
-                        <button className={`${d.btnPrimary} flex items-center gap-2`}>
-                            <Plus className="w-4 h-4" /> Create Campaign
-                        </button>
-                    </Link>
+                    <button
+                        onClick={() => {
+                            if (!isVerified) {
+                                showToast('error', '⚠️ Please verify your email address before creating campaigns.');
+                                return;
+                            }
+                            window.location.href = '/advertiser/campaigns/create';
+                        }}
+                        className={`${d.btnPrimary} flex items-center gap-2 ${!isVerified ? 'opacity-75 cursor-not-allowed' : ''}`}
+                    >
+                        <Plus className="w-4 h-4" /> Create Campaign
+                    </button>
                 </div>
             </div>
 
@@ -305,9 +314,18 @@ export default function CampaignsPage() {
                             <Megaphone className={`w-16 h-16 mx-auto mb-4 ${d.isDark ? 'text-gray-600' : 'text-gray-300'}`} />
                             <h3 className={`text-xl font-bold ${headText} mb-2`}>No campaigns yet</h3>
                             <p className={`${subText} mb-6`}>Create your first campaign to start advertising</p>
-                            <Link href="/advertiser/campaigns/create">
-                                <button className={d.btnPrimary}>Create Campaign</button>
-                            </Link>
+                            <button
+                                onClick={() => {
+                                    if (!isVerified) {
+                                        showToast('error', '⚠️ Please verify your email address before creating campaigns.');
+                                        return;
+                                    }
+                                    window.location.href = '/advertiser/campaigns/create';
+                                }}
+                                className={d.btnPrimary}
+                            >
+                                Create Campaign
+                            </button>
                         </>
                     )}
                 </div>
