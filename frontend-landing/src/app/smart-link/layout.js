@@ -1,21 +1,11 @@
-export const metadata = {
-    title: 'Smart Link  Automatic Offer Matching | MrPop.io',
-    description: 'MrPop.io Smart Link automatically routes visitors to the highest-paying offer based on GEO, device, and niche.',
-    openGraph: {
-        title: 'Smart Link  Automatic Offer Matching | MrPop.io',
-        description: 'MrPop.io Smart Link automatically routes visitors to the highest-paying offer based on GEO, device, and niche.',
-        siteName: 'MrPop.io',
-        type: 'website',
-    },
-    twitter: {
-        card: 'summary',
-        title: 'Smart Link  Automatic Offer Matching | MrPop.io',
-        description: 'MrPop.io Smart Link automatically routes visitors to the highest-paying offer based on GEO, device, and niche.',
-    },
-    alternates: {
-        canonical: 'https://mrpop.io/smart-link',
-    },
-};
+import { generatePageMetadata } from '@/lib/seo';
+
+export const metadata = generatePageMetadata({
+    title: 'Smart Link — Automatic Offer Matching',
+    description: 'MrPop.io Smart Link automatically routes each visitor to the highest-paying offer based on their geo, device, and browsing context. One link, maximum revenue.',
+    path: '/smart-link',
+    keywords: ['smart link', 'direct link', 'automatic offer matching', 'geo-targeted link', 'affiliate smart link'],
+});
 
 export default function Layout({ children }) {
     return children;

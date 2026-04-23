@@ -1,0 +1,102 @@
+# MrPop.io
+# Full context: https://mrpop.io/llms-full.txt
+# Last-updated: 2026-04
+
+> MrPop.io is a premium popunder and push notification advertising network that connects website publishers with advertisers worldwide. The platform specializes in high-CPM ad monetization for publishers and performance-driven traffic acquisition for advertisers.
+
+
+## About MrPop.io
+
+MrPop.io was built to make digital advertising straightforward and profitable. Unlike traditional ad networks with complex approval processes and low payouts, MrPop.io offers transparent CPM rates, weekly payments, and real-time statistics for every publisher and advertiser on the platform.
+
+The platform supports multiple ad formats including popunder ads, push notification ads, in-page push ads, interstitial ads, smart links, and banner ads.
+
+## For Publishers — Website Monetization
+
+Publishers can monetize any website by embedding a lightweight JavaScript snippet (under 10KB) before the closing `</body>` tag. The ad code is asynchronously loaded and does not affect website loading speed or Google PageSpeed scores.
+
+**Key Publisher Benefits:**
+- CPM rates from $0.50 to $8.00 USD depending on traffic tier and geography
+- Tier 1 countries (US, UK, CA, AU) earn $3.00–$8.00 CPM
+- Tier 2 countries earn $1.00–$3.00 CPM
+- Tier 3 countries earn $0.50–$1.00 CPM
+- Weekly payouts every Monday for the previous week's earnings
+- Minimum payout threshold: $50 USD
+- Payment methods: PayPal, Bitcoin, USDT, Wire Transfer (fee: $25)
+- Revenue share: up to 70% (one of the highest in the industry)
+- 100% fill rate guarantee
+- Real-time statistics dashboard with impression, click, and revenue tracking
+- Anti-adblock technology that serves ads to users with ad blockers
+- Compatible with Google AdSense and all other ad networks
+
+**Publisher Requirements:**
+- Minimum 1,000 daily visitors (basic tier)
+- Original, legal content
+- No adult, illegal, or malicious content
+- Quality traffic (no bots or incentivized traffic)
+
+## For Advertisers — Traffic & Campaign Management
+
+Advertisers can create and manage campaigns targeting specific geographies, devices, operating systems, browsers, languages, and connection types.
+
+**Key Advertiser Features:**
+- Minimum deposit: $100 USD
+- Payment methods: PayPal, Credit Card (Visa, MasterCard, Amex), Bitcoin, USDT
+- No hidden fees; unused funds fully refundable
+- Campaign approval within 1–2 hours during business hours
+- Targeting options: Country, City, Region, Device, OS, Browser, Language, Connection Type
+- Conversion tracking via S2S postback URLs or JavaScript pixel
+- Real-time bid management and campaign statistics
+- Fraud protection: bot detection, IP filtering, click pattern analysis
+
+**Available Ad Formats:**
+1. **Popunder Ads** — Opens a new tab/window behind the active browser window
+2. **Push Notification Ads** — Browser-native push notifications to opted-in users
+3. **In-Page Push Ads** — Push-style ads displayed within the web page content
+4. **Interstitial Ads** — Full-screen ads shown between page transitions
+5. **Smart Links** — Direct links that auto-detect and optimize for user device/location
+6. **Banner Ads** — Standard display banner placements
+
+## Payments & Payouts
+
+**Publisher Payout Schedule:**
+- Weekly payments, processed every Monday
+- Earnings from Monday–Sunday of the previous week
+- Minimum payout: $50 USD
+
+**Advertiser Deposits:**
+- Minimum: $100 USD
+- Available via PayPal, card, Bitcoin, USDT
+- No processing fees for most payment methods
+
+## Technology & Integration
+
+- RESTful API available for publishers and advertisers
+- JavaScript ad tag integration (async, non-blocking)
+- Anti-adblock bypass technology
+- Multi-layer fraud detection system
+- Real-time bidding (RTB) compatible
+- S2S and pixel-based conversion tracking
+
+## Key Pages
+
+- [Home](https://mrpop.io) — Overview of the ad network
+- [For Publishers](https://mrpop.io/for-publishers) — Publisher monetization details
+- [For Advertisers](https://mrpop.io/for-advertisers) — Advertiser campaign management
+- [How It Works](https://mrpop.io/how-it-works) — Step-by-step platform guide
+- [Ad Formats](https://mrpop.io/ad-formats) — All available advertising formats
+- [Anti-Adblock](https://mrpop.io/anti-adblock) — Anti-adblock technology for publishers
+- [Smart Link](https://mrpop.io/smart-link) — Smart affiliate link technology
+- [Blog](https://mrpop.io/blog) — Publisher tips, advertiser guides, industry insights
+- [FAQ](https://mrpop.io/faq) — Frequently asked questions
+- [API Documentation](https://mrpop.io/api-docs) — Developer integration guide
+- [Contact](https://mrpop.io/contact) — Support and contact information
+- [Status](https://mrpop.io/status) — Platform uptime and incident status
+
+## Company Information
+
+- **Website:** https://mrpop.io
+- **Platform:** MrPop.io Ad Network
+- **Category:** Digital Advertising, Ad Network, Publisher Monetization
+- **Specialization:** Popunder Ads, Push Notification Ads, CPM Advertising
+- **Audience:** Website Publishers, Digital Advertisers, Affiliate Marketers

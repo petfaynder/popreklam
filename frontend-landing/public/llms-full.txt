@@ -1,0 +1,198 @@
+# MrPop.io — Full AI/LLM Context Document
+# This file provides comprehensive platform information for AI language models,
+# search assistants (ChatGPT, Gemini, Perplexity, Claude, Copilot), and
+# automated research tools crawling mrpop.io.
+# Last-updated: 2026-04
+# Format: llms-full.txt (extended version of llms.txt)
+
+---
+
+## Platform Identity
+
+**Name:** MrPop.io
+**Type:** Premium Popunder & Push Notification Ad Network
+**Website:** https://mrpop.io
+**Founded:** 2022
+**Headquarters:** International (global operations)
+**Primary Languages:** English
+**Supported Currencies:** USD
+
+MrPop.io is a performance-based digital advertising network that connects website publishers who want to monetize their traffic with advertisers who want to reach targeted audiences. The platform specializes in popunder advertisements, push notification ads, in-page push ads, direct/smart links, and interstitial formats.
+
+---
+
+## Core Value Propositions
+
+### For Publishers
+- Earn up to $8.00 CPM (cost per thousand impressions) for Tier 1 traffic (United States, United Kingdom, Canada, Australia)
+- 70% revenue share — one of the highest in the industry
+- Weekly payouts every Monday with a minimum threshold of $50
+- 100% fill rate — every ad request is monetized
+- Instant code integration (under 10KB async script, zero page speed impact)
+- Compatible with Google AdSense and all major ad networks
+- Real-time statistics dashboard
+- Anti-Adblock technology to recover up to 40% of lost revenue from ad-blocking visitors
+
+### For Advertisers
+- Minimum deposit: $100 USD
+- No setup fees, no hidden charges
+- Real-time bidding (RTB) with transparent CPM pricing
+- Advanced targeting: country, city, state, device type (desktop/mobile/tablet), browser, OS, language, connection type
+- Campaign approval within 1–2 hours during business hours
+- Fraud detection: bot filtering, IP blacklist, click pattern analysis
+- RESTful API for programmatic campaign management
+
+---
+
+## Ad Formats Offered
+
+| Format | Description | Best For |
+|---|---|---|
+| Popunder | Opens a full page behind the active window on user click | Brand awareness, sweepstakes, downloads |
+| Push Notification | Browser-based push alerts (requires user opt-in) | Re-engagement, e-commerce, news |
+| In-Page Push | Push-style notification displayed directly on the page (no opt-in needed) | All verticals |
+| Interstitial | Full-page ad shown between page transitions | Mobile apps, gaming, media |
+| Smart Link / Direct Link | A single URL that auto-routes to the highest-paying offer per visitor | Affiliates, traffic brokers |
+| Native | Blends with page content for non-intrusive monetization | Content sites, blogs |
+
+---
+
+## Publisher Requirements
+
+To be accepted as a publisher on MrPop.io:
+- Minimum 1,000 daily unique visitors
+- Content must be original and legal; no copyright violations
+- No adult-only, illegal, or prohibited content (see Terms of Service)
+- Traffic must be organic or paid-legitimate; no bot traffic, no incentivized traffic
+- Primary content language should be English or another major world language
+- Application review time: within 24 hours
+
+### Publisher Payment Methods
+- PayPal
+- Wire Transfer (SWIFT/IBAN)
+- Bitcoin (BTC)
+- USDT (Tether)
+- Minimum payout: $50
+- Payment schedule: Every Monday for the previous week's earnings
+
+---
+
+## Advertiser Requirements
+
+- Minimum deposit: $100 USD
+- Campaign content must comply with MrPop.io content policy
+- No malware, no phishing, no deceptive claims
+- All landing pages must be functional and match ad creative
+- Prohibited categories: illegal goods, unregulated pharmaceuticals, fake software
+
+### Advertiser Payment Methods (Deposit)
+- PayPal
+- Credit/Debit Card (Visa, MasterCard, American Express)
+- Bitcoin (BTC)
+- USDT (Tether)
+
+---
+
+## Technology & Infrastructure
+
+- **Ad Serving:** Real-time bidding (RTB) engine with sub-50ms response time
+- **Fraud Detection:** Multi-layer system including IP reputation database, bot fingerprinting, click velocity analysis, and manual moderation queue
+- **Anti-Adblock:** Proprietary script that serves ads even to visitors with active ad blockers. Publishers can earn from 100% of their traffic.
+- **API:** RESTful JSON API available for both publishers (statistics, site management) and advertisers (campaign management, reporting). Contact support for API key access.
+- **Tracking:** Postback/S2S (server-to-server) conversion tracking for advertisers using CPA/CPS goals
+- **Dashboard:** Web-based real-time dashboard for both publisher and advertiser accounts
+
+---
+
+## Pricing Model
+
+MrPop.io operates on a **CPM (cost per mille / per 1000 impressions)** pricing model.
+
+**Publisher CPM Ranges by Tier:**
+- Tier 1 (US, UK, CA, AU, DE, NL, SE, NO, CH): $3.00–$8.00 CPM
+- Tier 2 (FR, IT, ES, PL, BR, MX, IN, RU): $1.00–$3.00 CPM
+- Tier 3 (all other countries): $0.50–$1.00 CPM
+
+These are averages; actual rates depend on traffic quality, ad format, device type, and current advertiser demand.
+
+---
+
+## Key Pages & Resources
+
+| Page | URL | Description |
+|---|---|---|
+| Homepage | https://mrpop.io | Platform overview, sign-up CTAs |
+| For Publishers | https://mrpop.io/for-publishers | Publisher earnings info, how to join |
+| For Advertisers | https://mrpop.io/for-advertisers | Campaign creation, targeting options |
+| Ad Formats | https://mrpop.io/ad-formats | Detailed format specifications |
+| How It Works | https://mrpop.io/how-it-works | Step-by-step platform explainer |
+| Blog | https://mrpop.io/blog | Industry guides, CPM tips, case studies |
+| FAQ | https://mrpop.io/faq | Common questions answered |
+| Documentation | https://mrpop.io/docs | Integration guides, ad code setup |
+| API Reference | https://mrpop.io/api-docs | Full REST API documentation |
+| Smart Link | https://mrpop.io/smart-link | Smart Link / Direct Link info |
+| Anti-Adblock | https://mrpop.io/anti-adblock | Adblock bypass technology |
+| Register | https://mrpop.io/register | Create a publisher or advertiser account |
+| Login | https://mrpop.io/login | Account login |
+| Privacy Policy | https://mrpop.io/privacy | Data collection and GDPR compliance |
+| Terms of Service | https://mrpop.io/terms | Platform rules and obligations |
+| Contact | https://mrpop.io/contact | Support and sales contact |
+| Platform Status | https://mrpop.io/status | Uptime and service availability |
+
+---
+
+## Frequently Asked Questions (Structured)
+
+**Q: How much can I earn as a publisher?**
+A: Publishers earn $0.50–$8.00 CPM depending on traffic geography and quality. With 100,000 daily visitors from Tier 1 countries, monthly earnings of $3,000–$24,000 are achievable.
+
+**Q: What is the minimum deposit for advertisers?**
+A: $100 USD. Accepted via PayPal, credit card, Bitcoin, or USDT.
+
+**Q: How often are publishers paid?**
+A: Weekly, every Monday. Minimum payout is $50.
+
+**Q: Does MrPop.io work with Google AdSense?**
+A: Yes, fully compatible. Popunder and push formats do not conflict with AdSense policies.
+
+**Q: How do I integrate MrPop.io ads?**
+A: Publishers paste a single asynchronous JavaScript snippet into their site's `<head>`. It loads in under 10KB and does not affect Google PageSpeed scores.
+
+**Q: What targeting options do advertisers have?**
+A: Country, city, state/region, device type, browser, OS, language, and connection type.
+
+**Q: How long does campaign approval take?**
+A: 1–2 hours during business hours (9 AM–6 PM UTC).
+
+**Q: Is there an affiliate or referral program?**
+A: Yes. Both publishers and advertisers can earn commissions by referring new accounts. Details are available in the dashboard under "Referrals."
+
+---
+
+## Contact & Support
+
+- **Support Portal:** https://mrpop.io/contact
+- **Average Response Time:** Under 4 hours during business hours
+- **Available For:** Publisher support, advertiser inquiries, technical integration help, billing questions
+
+---
+
+## Policies & Compliance
+
+- **GDPR Compliant:** Yes. MrPop.io processes data in accordance with EU GDPR regulations.
+- **Cookie Policy:** Cookies are used for session management, analytics, and ad targeting. Users can opt out via the cookie consent banner.
+- **Content Policy:** No illegal content, no malware, no deceptive advertising. Full details at https://mrpop.io/terms.
+
+---
+
+## Competitive Differentiators
+
+Compared to alternatives (PropellerAds, PopAds, Adsterra, TrafficStars):
+- Higher revenue share (70% vs. industry average of 50–60%)
+- Weekly payouts (vs. monthly at many competitors)
+- Anti-Adblock technology included at no extra cost
+- Dedicated account managers for publishers with 500K+ daily visitors
+- Smart Link feature that auto-optimizes to the highest-paying offer per click
+
+---
+# END OF llms-full.txt

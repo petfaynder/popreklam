@@ -1,21 +1,11 @@
-export const metadata = {
-    title: 'How It Works  MrPop.io Ad Network',
-    description: 'Discover how MrPop.io connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
-    openGraph: {
-        title: 'How It Works  MrPop.io Ad Network',
-        description: 'Discover how MrPop.io connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
-        siteName: 'MrPop.io',
-        type: 'website',
-    },
-    twitter: {
-        card: 'summary',
-        title: 'How It Works  MrPop.io Ad Network',
-        description: 'Discover how MrPop.io connects publishers and advertisers. Learn how ad serving, revenue sharing, and payments work.',
-    },
-    alternates: {
-        canonical: 'https://mrpop.io/how-it-works',
-    },
-};
+import { generatePageMetadata } from '@/lib/seo';
+
+export const metadata = generatePageMetadata({
+    title: 'How It Works — Ad Network Process Explained',
+    description: 'Learn how MrPop.io connects publishers and advertisers. Understand ad serving, revenue sharing, real-time bidding, and payment flows — step by step.',
+    path: '/how-it-works',
+    keywords: ['how ad network works', 'popunder ad serving', 'publisher revenue share', 'RTB explained'],
+});
 
 export default function Layout({ children }) {
     return children;
