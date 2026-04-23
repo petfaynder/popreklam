@@ -131,3 +131,45 @@ export const deleteCreative = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+/**
+ * GET /api/advertiser/creatives
+ * List all creatives for the authenticated advertiser (across all campaigns).
+ * Used by the Creative Library page.
+ */
+export const getAllCreatives = async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        const campaigns = await prisma.campaign.findMany({
+            where: { advertiser: { userId } },
+            select: {
+                id: true,
+                name: true,
+                adFormat: true,
+                status: true,
+                creatives: {
+                    orderBy: { createdAt: 'desc' }
+                }
+            },
+            orderBy: { createdAt: 'desc' }
+        });
+
+        // Flatten with campaign context
+        const creatives = campaigns.flatMap(c =>
+            c.creatives.map(cr => ({
+                ...cr,
+                campaignId: c.id,
+                campaignName: c.name,
+                adFormat: c.adFormat,
+                campaignStatus: c.status,
+            }))
+        );
+
+        res.json({ creatives });
+    } catch (error) {
+        console.error('getAllCreatives error:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+

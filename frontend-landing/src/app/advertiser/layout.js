@@ -7,7 +7,7 @@ import {
     LayoutDashboard, BarChart2, Target, CreditCard,
     HelpCircle, Bell, LogOut, Zap, Plus,
     Menu, X, Settings, Gift, Crown, Users, Activity,
-    MailWarning, RefreshCw
+    MailWarning, RefreshCw, Image as ImageIcon
 } from 'lucide-react';
 import { authAPI, advertiserAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
@@ -19,6 +19,7 @@ const navItems = [
     { href: '/advertiser', icon: LayoutDashboard, label: 'Dashboard' },
     { href: '/advertiser/campaigns', icon: Target, label: 'Campaigns' },
     { href: '/advertiser/audiences', icon: Users, label: 'Audiences' },
+    { href: '/advertiser/creatives', icon: ImageIcon, label: 'Creative Library' },
     { href: '/advertiser/statistics', icon: BarChart2, label: 'Statistics' },
     { href: '/advertiser/tracking', icon: Activity, label: 'Tracking' },
     { href: '/advertiser/billing', icon: CreditCard, label: 'Billing' },

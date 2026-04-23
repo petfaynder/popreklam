@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
     Eye, MousePointerClick, DollarSign, TrendingUp, TrendingDown,
     Globe, Monitor, Smartphone, Tablet, BarChart3, Activity,
     ArrowUpRight, ArrowDownRight, RefreshCw, Download, Loader2,
-    Layers, Zap, Target, Clock, Bell, Users, CheckCircle2, XCircle
+    Layers, Zap, Target, Clock, Bell, Users, CheckCircle2, XCircle,
+    FileText, ChevronDown, MousePointer2, Rocket
 } from 'lucide-react';
 import { publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
@@ -20,6 +21,8 @@ const PERIODS = [
 
 const TABS = [
     { key: 'general', label: 'General', icon: BarChart3 },
+    { key: 'popunder', label: 'Popunder', icon: MousePointer2 },
+    { key: 'inpage', label: 'In-Page Push', icon: Rocket },
     { key: 'push', label: 'Push Notifications', icon: Bell },
 ];
 
@@ -54,7 +57,199 @@ function BarRow({ label, value, max, valueLabel, colorClass, d }) {
     );
 }
 
-// ── Push Notification Tab ────────────────────────────────────────────────────
+// ── Format Stats Tab (Popunder / In-Page Push) ──────────────────────────────────
+function FormatStatsTab({ format, formatLabel, d, theme, period, accent, tabActive, subText, headText, divider, geoBarColors, formatBarColors }) {
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState(null);
+    const [chartMetric, setChartMetric] = useState('impressions');
+
+    useEffect(() => { fetchData(); }, [format, period]);
+
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const res = await publisherAPI.getFormatStats(format, period);
+            setData(res);
+        } catch (err) {
+            console.error('Format stats error:', err);
+            // Demo fallback
+            const days = Array.from({ length: Math.min(period, 30) }, (_, i) => ({
+                date: new Date(Date.now() - (period - i - 1) * 86400000).toISOString().slice(0, 10),
+                impressions: Math.floor(15000 + Math.random() * 12000),
+                clicks: Math.floor(300 + Math.random() * 400),
+                revenue: (18 + Math.random() * 22).toFixed(4),
+                ecpm: (1.8 + Math.random() * 1.5).toFixed(4),
+            }));
+            setData({
+                format,
+                summary: { totalImpressions: 486000, totalClicks: 11200, totalRevenue: '1240.00', eCPM: '2.55', impressionChange: 12.4, revenueChange: 18.7 },
+                daily: days,
+                geo: [{ country: 'United States', impressions: 148000, revenue: '380.00' }, { country: 'Germany', impressions: 92000, revenue: '240.00' }, { country: 'UK', impressions: 71000, revenue: '182.00' }],
+                devices: [{ device: 'Desktop', impressions: 252720, revenue: '644.80', share: 52 }, { device: 'Mobile', impressions: 199260, revenue: '496.00', share: 41 }, { device: 'Tablet', impressions: 34020, revenue: '99.20', share: 7 }],
+                sites: [{ siteName: 'Main Site', siteUrl: 'example.com', impressions: 280000, revenue: '714.00', ecpm: '2.55' }],
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) return (
+        <div className="flex items-center justify-center h-64 flex-col gap-4">
+            <Loader2 className={`w-8 h-8 animate-spin ${d.loaderColor}`} />
+            <p className={`text-sm ${subText}`}>Loading {formatLabel} stats...</p>
+        </div>
+    );
+    if (!data) return null;
+
+    const { summary, daily: dailyData, geo, devices, sites } = data;
+    const chartValues = dailyData.map(r => chartMetric === 'revenue' ? parseFloat(r.revenue) : chartMetric === 'ecpm' ? parseFloat(r.ecpm) : Number(r[chartMetric] || 0));
+    const chartMax = Math.max(...chartValues, 1);
+    const geoMax = Math.max(...geo.map(g => Number(g.impressions)), 1);
+    const posColor = { 'theme-luminous': 'text-lime-400', 'theme-azure': 'text-lime-400', 'theme-saas': 'text-green-400', 'theme-editorial': 'text-green-700', 'theme-brutalist': 'text-green-700' }[theme] || 'text-lime-400';
+    const negColor = { 'theme-luminous': 'text-red-400', 'theme-azure': 'text-red-400', 'theme-saas': 'text-red-400', 'theme-editorial': 'text-red-700', 'theme-brutalist': 'text-red-700' }[theme] || 'text-red-400';
+
+    const kpis = [
+        { label: 'Impressions', value: Number(summary.totalImpressions || 0).toLocaleString(), change: summary.impressionChange, icon: Eye },
+        { label: 'Clicks', value: Number(summary.totalClicks || 0).toLocaleString(), change: null, icon: MousePointerClick },
+        { label: 'Revenue', value: `$${Number(summary.totalRevenue || 0).toFixed(2)}`, change: summary.revenueChange, icon: DollarSign },
+        { label: 'eCPM', value: `$${Number(summary.eCPM || 0).toFixed(4)}`, change: null, icon: TrendingUp },
+    ];
+
+    const barGradient = accent.bar || 'from-lime-400/60 to-lime-400';
+
+    return (
+        <div className="space-y-6">
+            {/* KPI row */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {kpis.map((kpi, i) => {
+                    const Icon = kpi.icon;
+                    const isPos = (kpi.change || 0) >= 0;
+                    return (
+                        <div key={i} className={d.card}>
+                            <div className="flex items-start justify-between mb-4">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${accent.icon}`}>
+                                    <Icon className="w-5 h-5" />
+                                </div>
+                                {kpi.change !== null && kpi.change !== undefined && (
+                                    <span className={`flex items-center gap-0.5 text-xs font-bold ${isPos ? posColor : negColor}`}>
+                                        {isPos ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+                                        {Math.abs(kpi.change)}%
+                                    </span>
+                                )}
+                            </div>
+                            <p className={`text-2xl font-bold ${headText} mb-1`}>{kpi.value}</p>
+                            <p className={`text-sm ${subText}`}>{kpi.label}</p>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Trend chart */}
+            <div className={d.card}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                    <h2 className={`text-lg font-bold ${headText}`}>{formatLabel} Trend</h2>
+                    <div className="flex gap-1">
+                        {[{ key: 'impressions', label: 'Impressions' }, { key: 'revenue', label: 'Revenue' }, { key: 'ecpm', label: 'eCPM' }].map(opt => (
+                            <button key={opt.key} onClick={() => setChartMetric(opt.key)}
+                                className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all ${chartMetric === opt.key ? tabActive : `${subText} hover:opacity-100`}`}>
+                                {opt.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+                <div className="h-40 flex items-end gap-[2px]">
+                    {chartValues.map((val, i) => (
+                        <div key={i} className="flex-1 group relative cursor-pointer">
+                            <div className={`w-full bg-gradient-to-t ${barGradient} rounded-t transition-all duration-300 min-h-[2px]`}
+                                style={{ height: `${(val / chartMax) * 100}%` }} />
+                            <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none z-20 ${d.isDark ? 'bg-slate-800 border border-white/10' : 'bg-white border border-gray-200 shadow-lg'}`}>
+                                <p className={`font-bold ${headText}`}>{chartMetric === 'revenue' || chartMetric === 'ecpm' ? `$${val.toFixed(4)}` : val.toLocaleString()}</p>
+                                <p className={subText}>{dailyData[i]?.date}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                {dailyData.length > 0 && (
+                    <div className={`flex justify-between mt-2 text-[10px] ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                        <span>{dailyData[0]?.date}</span>
+                        <span>{dailyData[dailyData.length - 1]?.date}</span>
+                    </div>
+                )}
+            </div>
+
+            {/* Geo + Devices */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className={d.card}>
+                    <div className="flex items-center gap-2 mb-5">
+                        <Globe className={`w-5 h-5 ${accent.text}`} />
+                        <h2 className={`text-lg font-bold ${headText}`}>Top Countries</h2>
+                    </div>
+                    <div className="space-y-3">
+                        {geo.map((g, i) => (
+                            <BarRow key={i} label={g.country} value={Number(g.impressions)} max={geoMax}
+                                valueLabel={`$${Number(g.revenue).toFixed(2)}`}
+                                colorClass={`bg-gradient-to-r ${geoBarColors[i % 2]}`} d={d} />
+                        ))}
+                    </div>
+                </div>
+                <div className={d.card}>
+                    <div className="flex items-center gap-2 mb-5">
+                        <Monitor className={`w-5 h-5 ${accent.text}`} />
+                        <h2 className={`text-lg font-bold ${headText}`}>Device Breakdown</h2>
+                    </div>
+                    <div className="space-y-4">
+                        {devices.map((dev, i) => (
+                            <div key={i}>
+                                <div className="flex justify-between mb-1.5">
+                                    <span className={`text-sm font-medium ${headText}`}>{dev.device}</span>
+                                    <span className={`text-sm font-bold ${headText}`}>{dev.share}%</span>
+                                </div>
+                                <div className={`h-2.5 rounded-full overflow-hidden ${d.isDark ? 'bg-white/5' : 'bg-gray-100'}`}>
+                                    <div className={`h-full bg-gradient-to-r ${formatBarColors[i % 4]} rounded-full transition-all duration-700`} style={{ width: `${dev.share}%` }} />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Top Sites table */}
+            {sites?.length > 0 && (
+                <div className={d.card}>
+                    <div className="flex items-center gap-2 mb-5">
+                        <Layers className={`w-5 h-5 ${accent.text}`} />
+                        <h2 className={`text-lg font-bold ${headText}`}>Top Sites — {formatLabel}</h2>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full">
+                            <thead>
+                                <tr className={`border-b ${divider}`}>
+                                    {['Site', 'Impressions', 'Revenue', 'eCPM'].map(h => (
+                                        <th key={h} className={`${d.tableHeadCell} text-left pb-3`}>{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className={`divide-y ${d.isDark ? 'divide-white/5' : 'divide-gray-100'}`}>
+                                {sites.map((s, i) => (
+                                    <tr key={i} className={d.isDark ? 'hover:bg-white/5' : 'hover:bg-gray-50'}>
+                                        <td className={`py-3.5 pr-4 text-sm font-medium ${headText}`}>
+                                            {s.siteName}<span className={`block text-xs ${subText}`}>{s.siteUrl}</span>
+                                        </td>
+                                        <td className={`py-3.5 pr-4 text-sm ${subText}`}>{Number(s.impressions).toLocaleString()}</td>
+                                        <td className={`py-3.5 pr-4 text-sm font-bold ${accent.text}`}>${Number(s.revenue).toFixed(2)}</td>
+                                        <td className={`py-3.5 text-sm font-mono ${headText}`}>${Number(s.ecpm).toFixed(4)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+// ── Push Notification Tab ───────────────────────────────────────────────────────
 function PushStatsTab({ d, theme, period, accent, tabActive, subText, headText, divider }) {
     const [loading, setLoading] = useState(true);
     const [pushData, setPushData] = useState(null);
@@ -285,6 +480,15 @@ export default function PublisherStatistics() {
     const [geo, setGeo] = useState([]);
     const [devices, setDevices] = useState([]);
     const [formats, setFormats] = useState([]);
+    const [showExportMenu, setShowExportMenu] = useState(false);
+    const exportRef = useRef(null);
+
+    // Close export menu on outside click
+    useEffect(() => {
+        const handleClick = (e) => { if (exportRef.current && !exportRef.current.contains(e.target)) setShowExportMenu(false); };
+        document.addEventListener('mousedown', handleClick);
+        return () => document.removeEventListener('mousedown', handleClick);
+    }, []);
 
     useEffect(() => { if (activeTab === 'general') fetchData(); }, [period, activeTab]);
 
@@ -414,6 +618,40 @@ export default function PublisherStatistics() {
         { label: 'Fill Rate', value: stats.fillRate, change: stats.fillRateChange, icon: Zap, i: 5, fmtFn: v => `${v.toFixed(1)}%` },
     ] : [];
 
+    const handlePDFExport = () => {
+        const win = window.open('', '_blank');
+        const tabLabel = activeTab === 'popunder' ? 'Popunder' : activeTab === 'inpage' ? 'In-Page Push' : 'All Formats';
+        const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const kpiRows = stats ? [
+            ['Impressions', Number(stats.totalImpressions || 0).toLocaleString()],
+            ['Clicks', Number(stats.totalClicks || 0).toLocaleString()],
+            ['Revenue', `$${Number(stats.totalRevenue || 0).toFixed(2)}`],
+            ['CTR', `${Number(stats.ctr || 0).toFixed(2)}%`],
+            ['eCPM', `$${Number(stats.ecpm || 0).toFixed(2)}`],
+        ] : [];
+        win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Publisher Report</title>
+        <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;padding:40px;color:#111}
+        h1{font-size:24px;font-weight:800;margin-bottom:4px}p.sub{color:#666;font-size:13px;margin-bottom:32px}
+        .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+        .kpi{border:1px solid #e5e7eb;border-radius:10px;padding:16px}
+        .kpi .val{font-size:22px;font-weight:700;margin-bottom:4px}
+        .kpi .lbl{font-size:12px;color:#6b7280}
+        table{width:100%;border-collapse:collapse;font-size:13px}
+        th{text-align:left;padding:10px 12px;background:#f9fafb;border-bottom:2px solid #e5e7eb;font-weight:600}
+        td{padding:10px 12px;border-bottom:1px solid #f3f4f6}
+        .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;background:#f0fdf4;color:#16a34a}
+        </style></head><body>
+        <h1>Publisher Statistics Report</h1>
+        <p class="sub">${tabLabel} &bull; Last ${period} days &bull; Generated ${dateStr}</p>
+        <div class="kpi-grid">${kpiRows.map(([l, v]) => `<div class="kpi"><div class="val">${v}</div><div class="lbl">${l}</div></div>`).join('')}</div>
+        ${daily.length > 0 ? `<table><thead><tr><th>Date</th><th>Impressions</th><th>Clicks</th><th>Revenue</th></tr></thead><tbody>
+        ${daily.map(r => `<tr><td>${r.date}</td><td>${Number(r.impressions || 0).toLocaleString()}</td><td>${Number(r.clicks || 0).toLocaleString()}</td><td>$${Number(r.revenue || 0).toFixed(2)}</td></tr>`).join('')}
+        </tbody></table>` : '<p style="color:#6b7280">No data for selected period.</p>'}
+        </body></html>`);
+        win.document.close();
+        setTimeout(() => win.print(), 500);
+    };
+
     return (
         <div className="space-y-8">
             {/* ── Header */}
@@ -434,14 +672,54 @@ export default function PublisherStatistics() {
                     <button onClick={fetchData} className={`${d.btnSecondary} p-2.5`} title="Refresh">
                         <RefreshCw className="w-4 h-4" />
                     </button>
-                    <button className={`${d.btnSecondary} p-2.5`} title="Export">
-                        <Download className="w-4 h-4" />
-                    </button>
+                    {/* Export dropdown */}
+                    <div className="relative" ref={exportRef}>
+                        <button
+                            onClick={() => setShowExportMenu(v => !v)}
+                            className={`${d.btnSecondary} flex items-center gap-1.5 px-3 py-2.5`}
+                            title="Export"
+                        >
+                            <Download className="w-4 h-4" />
+                            <ChevronDown className="w-3 h-3" />
+                        </button>
+                        {showExportMenu && (
+                            <div className={`absolute right-0 top-full mt-1 w-44 rounded-xl shadow-xl z-50 overflow-hidden border ${
+                                d.isDark ? 'bg-slate-900 border-white/10' : 'bg-white border-gray-200'
+                            }`}>
+                                <button
+                                    onClick={async () => {
+                                        setShowExportMenu(false);
+                                        try {
+                                            const fmt = activeTab === 'popunder' ? 'POPUNDER' : activeTab === 'inpage' ? 'IN_PAGE_PUSH' : 'ALL';
+                                            await publisherAPI.exportStatsCSV(period, fmt);
+                                        } catch (e) {
+                                            console.error('CSV export failed:', e);
+                                        }
+                                    }}
+                                    className={`w-full flex items-center gap-2.5 px-4 py-3 text-sm font-medium transition-colors ${
+                                        d.isDark ? 'text-gray-300 hover:bg-white/5' : 'text-gray-700 hover:bg-gray-50'
+                                    }`}
+                                >
+                                    <Download className="w-4 h-4" />
+                                    Export CSV
+                                </button>
+                                <button
+                                    onClick={() => { setShowExportMenu(false); handlePDFExport(); }}
+                                    className={`w-full flex items-center gap-2.5 px-4 py-3 text-sm font-medium transition-colors ${
+                                        d.isDark ? 'text-gray-300 hover:bg-white/5' : 'text-gray-700 hover:bg-gray-50'
+                                    }`}
+                                >
+                                    <FileText className="w-4 h-4" />
+                                    Export PDF
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
             {/* ── Tab switcher */}
-            <div className={`flex gap-1 p-1 rounded-xl border w-fit ${d.isDark ? 'bg-white/5 border-white/10' : 'bg-gray-100 border-gray-200'}`}>
+            <div className={`flex flex-wrap gap-1 p-1 rounded-xl border w-fit ${d.isDark ? 'bg-white/5 border-white/10' : 'bg-gray-100 border-gray-200'}`}>
                 {TABS.map(tab => {
                     const Icon = tab.icon;
                     const isActive = activeTab === tab.key;
@@ -453,11 +731,6 @@ export default function PublisherStatistics() {
                         >
                             <Icon className="w-4 h-4" />
                             {tab.label}
-                            {tab.key === 'push' && (
-                                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${isActive ? (d.isDark ? 'bg-black/20 text-white' : 'bg-white/20') : (d.isDark ? 'bg-lime-400/10 text-lime-400' : 'bg-green-100 text-green-700')}`}>
-                                    NEW
-                                </span>
-                            )}
                         </button>
                     );
                 })}
@@ -469,6 +742,30 @@ export default function PublisherStatistics() {
                     d={d} theme={theme} period={period}
                     accent={accent} tabActive={tabActive}
                     subText={subText} headText={headText} divider={divider}
+                />
+            )}
+
+            {/* ── Popunder Tab */}
+            {activeTab === 'popunder' && (
+                <FormatStatsTab
+                    format="POPUNDER"
+                    formatLabel="Popunder"
+                    d={d} theme={theme} period={period}
+                    accent={accent} tabActive={tabActive}
+                    subText={subText} headText={headText} divider={divider}
+                    geoBarColors={geoBarColors} formatBarColors={formatBarColors}
+                />
+            )}
+
+            {/* ── In-Page Push Tab */}
+            {activeTab === 'inpage' && (
+                <FormatStatsTab
+                    format="IN_PAGE_PUSH"
+                    formatLabel="In-Page Push"
+                    d={d} theme={theme} period={period}
+                    accent={accent} tabActive={tabActive}
+                    subText={subText} headText={headText} divider={divider}
+                    geoBarColors={geoBarColors} formatBarColors={formatBarColors}
                 />
             )}
 

@@ -45,6 +45,9 @@ router.get('/stats/inpage-push', advertiserStatsController.getInPagePushStats);
 router.get('/stats/export-csv', advertiserStatsController.exportCSV);
 router.get('/stats/filter-options', advertiserStatsController.getFilterOptions);
 
+// Creative Library (all creatives across all campaigns)
+router.get('/creatives', creativesController.getAllCreatives);
+
 // Per-Campaign Analytics, Conversion Pixel & Creative A/B Management
 router.get('/campaigns/:id/analytics', campaignAnalyticsController.getCampaignAnalytics);
 router.get('/campaigns/:id/conversion-tag', campaignAnalyticsController.getConversionTag);

@@ -165,6 +165,23 @@ export const publisherAPI = {
     getGeographicStats: () => apiRequest('/publisher/stats/geographic'),
     getDeviceBreakdown: () => apiRequest('/publisher/stats/device-breakdown'),
     getYieldRecommendations: () => apiRequest('/publisher/stats/recommendations'),
+    // Format-specific stats (Popunder / In-Page Push tabs)
+    getFormatStats: (format, period = 30) => apiRequest(`/publisher/stats/format?format=${format}&period=${period}`),
+    // CSV export — uses fetch with Authorization header, returns a Promise<void>
+    exportStatsCSV: async (period = 30, format = 'ALL') => {
+        const token = localStorage.getItem('token');
+        const url = `${API_URL}/publisher/stats/export?period=${period}&format=${format}`;
+        const res = await fetch(url, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Export failed');
+        const blob = await res.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `publisher-stats-${format.toLowerCase()}-${period}d.csv`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+    },
 
     // Account / Settings
     updateProfile: (profileData) => apiRequest('/publisher/settings/profile', { method: 'PUT', body: JSON.stringify(profileData) }),
@@ -289,6 +306,7 @@ export const advertiserAPI = {
 
     // A/B Creative Management
     getCreatives: (campaignId) => apiRequest(`/advertiser/campaigns/${campaignId}/creatives`),
+    getAllCreatives: () => apiRequest('/advertiser/creatives'),
     addCreative: (campaignId, data) => apiRequest(`/advertiser/campaigns/${campaignId}/creatives`, { method: 'POST', body: JSON.stringify(data) }),
     updateCreative: (campaignId, creativeId, data) => apiRequest(`/advertiser/campaigns/${campaignId}/creatives/${creativeId}`, { method: 'PUT', body: JSON.stringify(data) }),
     deleteCreative: (campaignId, creativeId) => apiRequest(`/advertiser/campaigns/${campaignId}/creatives/${creativeId}`, { method: 'DELETE' }),

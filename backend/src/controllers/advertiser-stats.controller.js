@@ -113,11 +113,38 @@ export const getCampaignPerformance = async (req, res) => {
             };
         });
 
-        // 2) Aggregate summary
+        // 2) Aggregate summary — current period
         const totalImpressions = campaigns.reduce((s, c) => s + c.impressions, 0);
         const totalClicks = campaigns.reduce((s, c) => s + c.clicks, 0);
         const totalSpend = campaigns.reduce((s, c) => s + c.spent, 0);
         const totalConversions = campaigns.reduce((s, c) => s + c.conversions, 0);
+
+        // 2a) Previous period (same length, immediately before current window)
+        const periodMs = end.getTime() - start.getTime();
+        const prevEnd = new Date(start.getTime() - 1); // 1ms before current start
+        const prevStart = new Date(prevEnd.getTime() - periodMs);
+
+        const prevStats = await prisma.$queryRawUnsafe(`
+            SELECT
+                COUNT(i.id) as impressions,
+                SUM(CASE WHEN i.clicked = 1 THEN 1 ELSE 0 END) as clicks,
+                SUM(i.revenue) as spent
+            FROM impressions i
+            JOIN campaigns c ON i.campaign_id = c.id
+            JOIN advertisers a ON c.advertiser_id = a.id
+            WHERE a.user_id = ?
+            AND i.created_at BETWEEN ? AND ?
+            ${filterSQL}
+        `, userId, prevStart, prevEnd, ...filterParams);
+
+        const prevImpressions = Number(prevStats[0]?.impressions || 0);
+        const prevClicks = Number(prevStats[0]?.clicks || 0);
+        const prevSpend = Number(prevStats[0]?.spent || 0);
+
+        function calcChange(current, previous) {
+            if (previous === 0) return current > 0 ? 100 : 0;
+            return parseFloat(((current - previous) / previous * 100).toFixed(1));
+        }
 
         const summary = {
             totalImpressions,
@@ -128,9 +155,9 @@ export const getCampaignPerformance = async (req, res) => {
             cpm: totalImpressions > 0 ? parseFloat(((totalSpend / totalImpressions) * 1000).toFixed(2)) : 0,
             cpa: totalConversions > 0 ? parseFloat((totalSpend / totalConversions).toFixed(2)) : 0,
             roi: totalSpend > 0 ? parseFloat(((totalConversions * 10 - totalSpend) / totalSpend * 100).toFixed(0)) : 0,
-            impressionChange: 0,
-            clickChange: 0,
-            spendChange: 0,
+            impressionChange: calcChange(totalImpressions, prevImpressions),
+            clickChange: calcChange(totalClicks, prevClicks),
+            spendChange: calcChange(totalSpend, prevSpend),
             conversionChange: 0,
         };
 

@@ -37,6 +37,8 @@ router.get('/stats/top-pages', publisherStatsController.getTopPages);
 router.get('/stats/geographic', publisherStatsController.getGeographicStats);
 router.get('/stats/device-breakdown', publisherStatsController.getDeviceBreakdown);
 router.get('/stats/recommendations', publisherStatsController.getYieldRecommendations);
+router.get('/stats/format', publisherStatsController.getFormatStats);
+router.get('/stats/export', publisherStatsController.exportStats);
 
 // Real-Time Analytics Dashboard
 router.get('/analytics/realtime', publisherAnalyticsController.getRealtimeDashboard);
