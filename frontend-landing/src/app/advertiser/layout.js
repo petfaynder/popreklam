@@ -287,27 +287,79 @@ export default function AdvertiserLayout({ children }) {
 
                 {/* ── Email Verification Banner ── */}
                 {showVerifyBanner && (
-                    <div className="relative z-50 flex items-center gap-3 px-4 py-3 bg-amber-500/10 border-b border-amber-500/25 text-amber-300 text-sm">
-                        <MailWarning className="w-4 h-4 shrink-0 text-amber-400" />
-                        <span className="flex-1">
-                            {resendSent
-                                ? '✓ Verification email sent! Please check your inbox (and spam folder).'
-                                : 'Your email address is not verified. Please check your inbox or resend the verification email.'
-                            }
-                        </span>
-                        {!resendSent && (
+                    <div className={`relative z-50 ${
+                        d.isDark
+                            ? 'bg-amber-400/[0.07] border-b border-amber-400/20'
+                            : 'bg-amber-50 border-b-2 border-amber-200'
+                    }`}>
+                        <div className="flex items-center gap-4 px-6 py-3.5">
+                            {/* Left accent stripe */}
+                            <div className={`w-1 h-10 rounded-full shrink-0 ${
+                                d.isDark ? 'bg-amber-400' : 'bg-amber-500'
+                            }`} />
+
+                            {/* Icon */}
+                            <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
+                                d.isDark ? 'bg-amber-400/15' : 'bg-amber-100'
+                            }`}>
+                                <MailWarning className={`w-4.5 h-4.5 ${
+                                    d.isDark ? 'text-amber-400' : 'text-amber-600'
+                                }`} />
+                            </div>
+
+                            {/* Text */}
+                            <div className="flex-1 min-w-0">
+                                {resendSent ? (
+                                    <>
+                                        <p className={`text-sm font-semibold ${
+                                            d.isDark ? 'text-amber-300' : 'text-amber-900'
+                                        }`}>Verification email sent</p>
+                                        <p className={`text-xs mt-0.5 ${
+                                            d.isDark ? 'text-amber-400/60' : 'text-amber-600'
+                                        }`}>Check your inbox and spam folder, then click the link to activate your account.</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p className={`text-sm font-semibold ${
+                                            d.isDark ? 'text-amber-200' : 'text-amber-900'
+                                        }`}>Email verification required</p>
+                                        <p className={`text-xs mt-0.5 ${
+                                            d.isDark ? 'text-amber-400/60' : 'text-amber-600'
+                                        }`}>Your account is not fully active. Please verify your email address.</p>
+                                    </>
+                                )}
+                            </div>
+
+                            {/* Resend button */}
+                            {!resendSent && (
+                                <button
+                                    onClick={handleResendVerification}
+                                    disabled={resendLoading}
+                                    className={`flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wide shrink-0 transition-all disabled:opacity-50 ${
+                                        d.isDark
+                                            ? 'bg-amber-400 hover:bg-amber-300 text-slate-900 rounded-lg'
+                                            : 'bg-amber-600 hover:bg-amber-700 text-white rounded shadow-sm'
+                                    }`}
+                                >
+                                    <RefreshCw className={`w-3 h-3 ${
+                                        resendLoading ? 'animate-spin' : ''
+                                    }`} />
+                                    {resendLoading ? 'Sending...' : 'Resend Email'}
+                                </button>
+                            )}
+
+                            {/* Close */}
                             <button
-                                onClick={handleResendVerification}
-                                disabled={resendLoading}
-                                className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 rounded-lg text-amber-300 text-xs font-semibold transition-colors disabled:opacity-50"
+                                onClick={() => setShowVerifyBanner(false)}
+                                className={`p-1.5 rounded transition-colors shrink-0 ${
+                                    d.isDark
+                                        ? 'text-amber-400/40 hover:text-amber-300 hover:bg-amber-400/10'
+                                        : 'text-amber-400 hover:text-amber-700 hover:bg-amber-100'
+                                }`}
                             >
-                                <RefreshCw className={`w-3 h-3 ${resendLoading ? 'animate-spin' : ''}`} />
-                                {resendLoading ? 'Sending...' : 'Resend Email'}
+                                <X className="w-4 h-4" />
                             </button>
-                        )}
-                        <button onClick={() => setShowVerifyBanner(false)} className="p-1 hover:text-amber-200 transition-colors">
-                            <X className="w-4 h-4" />
-                        </button>
+                        </div>
                     </div>
                 )}
                 <header className={d.topbar}>
