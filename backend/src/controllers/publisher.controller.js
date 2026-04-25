@@ -680,6 +680,69 @@ export const requestWithdrawal = async (req, res) => {
     }
 };
 
+// ==================== ZONE MANAGEMENT ====================
+
+/**
+ * Get or Create Zone
+ * Given a siteId and an AdFormat type, find the existing zone or create a new one.
+ * This powers the Ad Codes page — publishers don't manage zones manually.
+ */
+export const getOrCreateZone = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { siteId, format } = req.body;
+
+        const VALID_FORMATS = ['POPUNDER', 'IN_PAGE_PUSH', 'PUSH_NOTIFICATION'];
+
+        if (!siteId || !format) {
+            return res.status(400).json({ message: 'siteId and format are required' });
+        }
+
+        if (!VALID_FORMATS.includes(format)) {
+            return res.status(400).json({ message: `Invalid format. Must be one of: ${VALID_FORMATS.join(', ')}` });
+        }
+
+        const publisher = await prisma.publisher.findUnique({ where: { userId } });
+        if (!publisher) return res.status(404).json({ message: 'Publisher not found' });
+
+        // Make sure the site belongs to this publisher and is active
+        const site = await prisma.site.findFirst({
+            where: { id: siteId, publisherId: publisher.id }
+        });
+
+        if (!site) return res.status(404).json({ message: 'Site not found' });
+
+        if (site.status !== 'ACTIVE') {
+            return res.status(400).json({ message: 'Site must be ACTIVE to generate ad codes. Please wait for admin approval.' });
+        }
+
+        // Find existing zone or create
+        let zone = await prisma.zone.findFirst({
+            where: { siteId, type: format }
+        });
+
+        if (!zone) {
+            const formatNames = {
+                POPUNDER: 'Popunder',
+                IN_PAGE_PUSH: 'In-Page Push',
+                PUSH_NOTIFICATION: 'Web Push Notification',
+            };
+            zone = await prisma.zone.create({
+                data: {
+                    siteId,
+                    name: `${site.name} - ${formatNames[format]}`,
+                    type: format,
+                }
+            });
+        }
+
+        return res.json({ zone });
+    } catch (error) {
+        console.error('getOrCreateZone error:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
 // Get Statistics
 export const getStats = async (req, res) => {
     try {

@@ -374,27 +374,29 @@ export const getPublisherPushOverview = async (req, res) => {
         }));
 
         // Overall daily growth
-        const dailyGrowthRaw = await prisma.$queryRaw`
+        const siteList = siteIds.map(id => `'${id}'`).join(',');
+
+        const dailyGrowthRaw = await prisma.$queryRawUnsafe(`
             SELECT DATE(created_at) as date, COUNT(*) as count
             FROM push_subscriptions
-            WHERE site_id IN (${siteIds.join(',')})
-              AND created_at >= ${cutoff}
+            WHERE site_id IN (${siteList})
+              AND created_at >= ?
             GROUP BY DATE(created_at)
             ORDER BY date ASC
-        `;
+        `, cutoff);
 
-        const dailyDeliveriesRaw = await prisma.$queryRaw`
+        const dailyDeliveriesRaw = await prisma.$queryRawUnsafe(`
             SELECT DATE(pd.created_at) as date,
                    COUNT(*) as delivered,
                    SUM(CASE WHEN pd.status = 'CLICKED' THEN 1 ELSE 0 END) as clicks,
                    COALESCE(SUM(CASE WHEN pd.status = 'CLICKED' THEN pd.revenue ELSE 0 END), 0) as revenue
             FROM push_deliveries pd
             JOIN push_subscriptions ps ON ps.id = pd.subscription_id
-            WHERE ps.site_id IN (${siteIds.join(',')})
-              AND pd.created_at >= ${cutoff}
+            WHERE ps.site_id IN (${siteList})
+              AND pd.created_at >= ?
             GROUP BY DATE(pd.created_at)
             ORDER BY date ASC
-        `;
+        `, cutoff);
 
         res.json({
             totalSubscribers: totalSubs,
@@ -588,3 +590,123 @@ export const getAdvertiserPushStats = async (req, res) => {
         res.status(500).json({ error: 'Stats fetch failed' });
     }
 };
+
+// ── GET /api/push/pr-sw.js ─── Serve the push service worker JS ──────────
+export const getPushServiceWorker = (req, res) => {
+    const apiUrl = process.env.APP_URL || 'https://api.mrpop.io';
+    const swScript = `
+// MrPop.io Push Notification Service Worker
+// Version 1.0 — Auto-generated. Do not edit.
+
+self.addEventListener('push', function(event) {
+    if (!event.data) return;
+    try {
+        const data = event.data.json();
+        const options = {
+            body: data.body || '',
+            icon: data.icon || '/icon-192.png',
+            badge: data.badge || '/badge-72.png',
+            image: data.image || null,
+            data: { url: data.url || '/', deliveryId: data.deliveryId || null },
+            requireInteraction: false,
+            vibrate: [200, 100, 200],
+        };
+        event.waitUntil(self.registration.showNotification(data.title || 'Notification', options));
+    } catch (e) {
+        console.error('[MrPop SW] Push parse error:', e);
+    }
+});
+
+self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    const data = event.notification.data || {};
+    const deliveryId = data.deliveryId;
+    const url = data.url || '/';
+
+    event.waitUntil(
+        (async () => {
+            // Track click
+            if (deliveryId) {
+                try {
+                    await fetch('${apiUrl}/api/push/click/' + deliveryId, { method: 'POST' });
+                } catch(e) {}
+            }
+            const windowClients = await clients.matchAll({ type: 'window', includeUncontrolled: true });
+            for (const client of windowClients) {
+                if (client.url === url && 'focus' in client) {
+                    return client.focus();
+                }
+            }
+            if (clients.openWindow) {
+                return clients.openWindow(url);
+            }
+        })()
+    );
+});
+`;
+    res.setHeader('Content-Type', 'application/javascript');
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    res.send(swScript.trim());
+};
+
+// ── GET /api/push/push-init.js?z=<zoneId> ─── Client-side push init script ─
+// Embedded in publisher pages; registers SW and subscribes the user
+export const getPushInitScript = async (req, res) => {
+    const zoneId = req.query.z || '';
+    const apiUrl = process.env.APP_URL || 'https://api.mrpop.io';
+
+    let vapidKey = '';
+    try {
+        const { getVapidPublicKey } = await import('../services/vapid.service.js');
+        vapidKey = (await getVapidPublicKey()) || '';
+    } catch (_) {}
+
+    const script = `
+(function() {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+    if (window.__mrpop_push_loaded) return;
+    window.__mrpop_push_loaded = true;
+
+    var ZONE_ID  = "${zoneId}";
+    var API_URL  = "${apiUrl}";
+    var VAPID_KEY = "${vapidKey}";
+
+    function urlBase64ToUint8Array(base64String) {
+        var padding = '='.repeat((4 - base64String.length % 4) % 4);
+        var base64  = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+        var rawData = window.atob(base64);
+        var outputArray = new Uint8Array(rawData.length);
+        for (var i = 0; i < rawData.length; ++i) { outputArray[i] = rawData.charCodeAt(i); }
+        return outputArray;
+    }
+
+    navigator.serviceWorker.register('/pr-sw.js').then(function(reg) {
+        return reg.pushManager.getSubscription().then(function(existing) {
+            if (existing) return; // Already subscribed
+            if (!VAPID_KEY) return;
+
+            // Ask permission (browser will prompt user only once)
+            return Notification.requestPermission().then(function(perm) {
+                if (perm !== 'granted') return;
+                return reg.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(VAPID_KEY)
+                });
+            }).then(function(sub) {
+                if (!sub) return;
+                return fetch(API_URL + '/api/push/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ zoneId: ZONE_ID, subscription: sub.toJSON() })
+                });
+            });
+        });
+    }).catch(function(err) { console.error('[MrPop Push]', err); });
+})();
+`;
+    res.setHeader('Content-Type', 'application/javascript');
+    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.send(script.trim());
+};
+
+

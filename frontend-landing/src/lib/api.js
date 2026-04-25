@@ -210,7 +210,24 @@ export const publisherAPI = {
     // Ad Quality Reports
     createAdReport: (data) => apiRequest('/publisher/reports', { method: 'POST', body: JSON.stringify(data) }),
     getMyAdReports: () => apiRequest('/publisher/reports'),
+
+    // Zone management (auto-created per site+format combo for Ad Codes page)
+    // formatKey: 'popunder' | 'inpage-push' | 'push-notification'
+    getOrCreateZone: (siteId, formatKey) => {
+        const FORMAT_MAP = {
+            'popunder': 'POPUNDER',
+            'inpage-push': 'IN_PAGE_PUSH',
+            'push-notification': 'PUSH_NOTIFICATION',
+        };
+        const format = FORMAT_MAP[formatKey];
+        if (!format) return Promise.reject(new Error(`Unknown format: ${formatKey}`));
+        return apiRequest('/publisher/zones/get-or-create', {
+            method: 'POST',
+            body: JSON.stringify({ siteId, format }),
+        });
+    },
 };
+
 
 // ==================== ADVERTISER API ====================
 export const advertiserAPI = {

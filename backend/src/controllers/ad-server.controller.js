@@ -246,43 +246,132 @@ export const trackImpression = async (req, res) => {
     }
 };
 
-// 3. GENERATE AD SCRIPT
-export const getAdScript = (req, res) => {
-    const { siteId } = req.params; // Kept siteId in param name, but logic uses it as zoneId or we need to change route param
-    // Actually route is /script/:siteId, but usually ad tags are per Zone.
-    // Let's assume the param passed is actually a ZONE ID for better precision.
-    const zoneId = siteId;
+// 3. GENERATE AD SCRIPT — zone-aware, format-specific
+export const getAdScript = async (req, res) => {
+    const zoneId = req.params.zoneId || req.params.siteId; // accept both param names
+    const apiUrl = process.env.APP_URL || 'https://api.mrpop.io';
 
-    // In real world, we might have /script/:zoneId
+    if (!zoneId) {
+        return res.status(400).send('// MrPop.io: missing zone ID');
+    }
 
-    const script = `
+    // Look up zone type so we can serve the right script
+    let zoneType = 'POPUNDER'; // default
+    try {
+        const zone = await prisma.zone.findUnique({ where: { id: zoneId }, select: { type: true } });
+        if (zone) zoneType = zone.type;
+    } catch (_) {
+        // Non-fatal — fall back to POPUNDER behaviour
+    }
+
+    let script = '';
+
+    if (zoneType === 'IN_PAGE_PUSH') {
+        // In-Page Push: fetches ad data then renders a native-style notification bar
+        script = `
 (function() {
-    var zoneId = "${zoneId}";
-    var apiUrl = "${process.env.API_URL || 'https://api.mrpop.io'}";
-    
-    // Popunder Logic
-    document.addEventListener('click', function(e) {
-        if (window.mrpop_clicked) return;
-        window.mrpop_clicked = true;
+    if (window.__mrpop_ipp_loaded) return;
+    window.__mrpop_ipp_loaded = true;
 
-        fetch(apiUrl + '/ads/serve?zoneId=' + zoneId)
-            .then(res => res.json())
-            .then(data => {
-                if (data.targetUrl) {
-                    var win = window.open(data.targetUrl, '_blank');
-                    if (win) {
-                        win.focus();
-                        // Trigger Tracking
-                        new Image().src = data.trackUrl;
-                    } else {
-                        console.log('Pop-up blocked');
-                    }
+    var zoneId = "${zoneId}";
+    var apiUrl = "${apiUrl}";
+
+    function renderIPP(data) {
+        if (!data || !data.targetUrl) return;
+        var creative = data.creative || {};
+
+        var bar = document.createElement('div');
+        bar.id = 'mrpop-ipp-bar';
+        bar.style.cssText = [
+            'position:fixed;bottom:20px;right:20px;z-index:2147483647;',
+            'max-width:360px;width:calc(100% - 40px);',
+            'background:#fff;border-radius:12px;',
+            'box-shadow:0 4px 24px rgba(0,0,0,0.18);',
+            'display:flex;align-items:center;gap:12px;padding:14px 16px;',
+            'cursor:pointer;font-family:system-ui,sans-serif;',
+            'animation:mrpop-slidein 0.35s cubic-bezier(0.16,1,0.3,1);'
+        ].join('');
+
+        var style = document.createElement('style');
+        style.textContent = '@keyframes mrpop-slidein{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}';
+        document.head.appendChild(style);
+
+        if (creative.iconUrl) {
+            var img = document.createElement('img');
+            img.src = creative.iconUrl;
+            img.style.cssText = 'width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0;';
+            bar.appendChild(img);
+        }
+
+        var textWrap = document.createElement('div');
+        textWrap.style.cssText = 'flex:1;overflow:hidden;';
+        if (creative.title) {
+            var title = document.createElement('div');
+            title.textContent = creative.title;
+            title.style.cssText = 'font-weight:700;font-size:14px;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+            textWrap.appendChild(title);
+        }
+        if (creative.description) {
+            var desc = document.createElement('div');
+            desc.textContent = creative.description;
+            desc.style.cssText = 'font-size:12px;color:#555;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+            textWrap.appendChild(desc);
+        }
+        bar.appendChild(textWrap);
+
+        var close = document.createElement('button');
+        close.textContent = '×';
+        close.style.cssText = 'background:none;border:none;font-size:22px;color:#999;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0;';
+        close.onclick = function(e) { e.stopPropagation(); document.body.removeChild(bar); };
+        bar.appendChild(close);
+
+        bar.onclick = function() {
+            new Image().src = data.trackUrl;
+            window.open(data.targetUrl, '_blank');
+            document.body.removeChild(bar);
+        };
+
+        document.body.appendChild(bar);
+        setTimeout(function() { if (bar.parentNode) bar.parentNode.removeChild(bar); }, 12000);
+    }
+
+    fetch(apiUrl + '/api/ads/serve?zoneId=' + zoneId)
+        .then(function(r) { return r.json(); })
+        .then(renderIPP)
+        .catch(function(err) { console.error('[MrPop IPP]', err); });
+})();`;
+    } else {
+        // POPUNDER (default) — on first click, open target URL in background tab
+        script = `
+(function() {
+    if (window.__mrpop_loaded) return;
+    window.__mrpop_loaded = true;
+
+    var zoneId = "${zoneId}";
+    var apiUrl = "${apiUrl}";
+
+    document.addEventListener('click', function() {
+        if (window.__mrpop_clicked) return;
+        window.__mrpop_clicked = true;
+
+        fetch(apiUrl + '/api/ads/serve?zoneId=' + zoneId)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (!data.targetUrl) return;
+                var win = window.open(data.targetUrl, '_blank');
+                if (win) {
+                    win.blur();
+                    window.focus();
+                    new Image().src = data.trackUrl;
                 }
             })
-            .catch(err => console.error('Ad error', err));
+            .catch(function(err) { console.error('[MrPop Popunder]', err); });
     }, { once: true });
-})();
-    `;
+})();`;
+    }
+
     res.setHeader('Content-Type', 'application/javascript');
-    res.send(script);
+    res.setHeader('Cache-Control', 'public, max-age=300'); // 5 min cache
+    res.send(script.trim());
 };
+

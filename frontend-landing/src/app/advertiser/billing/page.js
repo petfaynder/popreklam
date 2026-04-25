@@ -37,6 +37,49 @@ const GATEWAYS = [
     },
 ];
 
+// Human-readable messages for backend error codes
+const ERROR_MESSAGES = {
+    EMAIL_NOT_VERIFIED: {
+        title: 'Email Verification Required',
+        body: 'You need to verify your email address before making a deposit. Please check your inbox for the verification link.',
+        action: { label: 'Resend Verification Email', href: '/settings?tab=security' },
+    },
+    INSUFFICIENT_BALANCE: {
+        title: 'Insufficient Balance',
+        body: 'Your account balance is too low to complete this action.',
+    },
+    MINIMUM_DEPOSIT: {
+        title: 'Amount Too Low',
+        body: 'The minimum deposit amount is $50.00. Please increase your deposit amount and try again.',
+    },
+    INVALID_AMOUNT: {
+        title: 'Invalid Amount',
+        body: 'Please enter a valid deposit amount (numbers only, minimum $50.00).',
+    },
+    GATEWAY_ERROR: {
+        title: 'Payment Gateway Error',
+        body: 'We could not connect to the payment provider. Please try again in a moment or choose a different payment method.',
+    },
+    COUPON_INVALID: {
+        title: 'Invalid Promo Code',
+        body: 'This promo code is not valid or has already been used. Please try a different code.',
+    },
+    RATE_LIMITED: {
+        title: 'Too Many Attempts',
+        body: 'You have made too many requests. Please wait a few minutes before trying again.',
+    },
+};
+
+function resolveError(rawMessage) {
+    if (!rawMessage) return { title: 'Checkout Failed', body: 'An unexpected error occurred. Please try again.' };
+    // Try matching a known error code first
+    const known = ERROR_MESSAGES[rawMessage.trim()];
+    if (known) return known;
+    // Fallback: capitalise and display as-is but strip underscores
+    const cleaned = rawMessage.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    return { title: 'Checkout Failed', body: cleaned };
+}
+
 export default function AdvertiserBilling() {
     const theme = useTheme();
     const d = getDashboardTheme(theme);
@@ -65,11 +108,11 @@ export default function AdvertiserBilling() {
     const [invoices, setInvoices] = useState([]);
     const [loadingInvoices, setLoadingInvoices] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
-    const [billingToast, setBillingToast] = useState({ type: '', msg: '' });
+    const [billingToast, setBillingToast] = useState({ type: '', title: '', body: '', action: null });
 
-    const showBillingToast = (type, msg) => {
-        setBillingToast({ type, msg });
-        setTimeout(() => setBillingToast({ type: '', msg: '' }), 5000);
+    const showBillingToast = (type, title, body = '', action = null) => {
+        setBillingToast({ type, title, body, action });
+        setTimeout(() => setBillingToast({ type: '', title: '', body: '', action: null }), 8000);
     };
 
     useEffect(() => {
@@ -141,7 +184,7 @@ export default function AdvertiserBilling() {
             if (win) win.addEventListener('load', () => URL.revokeObjectURL(url), { once: true });
         } catch (err) {
             console.error('Invoice download error:', err);
-            showBillingToast('error', 'Failed to open invoice. Please try again.');
+            showBillingToast('error', 'Invoice Unavailable', 'We could not open this invoice. Please try again or contact support.');
         }
     };
 
@@ -205,12 +248,13 @@ export default function AdvertiserBilling() {
                     window.location.href = result.checkoutUrl;
                 }
             } else {
-                showBillingToast('success', result.message || 'Deposit successful!');
+                showBillingToast('success', 'Deposit Successful', result.message || 'Your account balance has been updated.');
                 closeDepositModal();
                 fetchData();
             }
         } catch (err) {
-            showBillingToast('error', 'Checkout failed: ' + err.message);
+            const resolved = resolveError(err.message);
+            showBillingToast('error', resolved.title, resolved.body, resolved.action);
         } finally {
             setDepositing(false);
         }
@@ -270,19 +314,49 @@ export default function AdvertiserBilling() {
             )}
 
             {/* Billing Action Toast */}
-            {billingToast.msg && (
-                <div className={`flex items-center gap-3 px-5 py-4 rounded-xl border text-sm animate-fade-in ${
+            {billingToast.title && (
+                <div className={`flex gap-4 px-5 py-4 rounded-2xl border text-sm animate-fade-in shadow-lg ${
                     billingToast.type === 'success'
-                        ? 'bg-green-500/10 border-green-500/20 text-green-400'
-                        : 'bg-red-500/10 border-red-500/20 text-red-400'
+                        ? 'bg-green-500/10 border-green-500/30'
+                        : 'bg-red-500/8 border-red-500/25'
                 }`}>
-                    {billingToast.type === 'success'
-                        ? <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-                        : <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                    }
-                    <p className="flex-1">{billingToast.msg}</p>
-                    <button onClick={() => setBillingToast({ type: '', msg: '' })}>
-                        <X className="w-4 h-4 opacity-60 hover:opacity-100" />
+                    <div className={`mt-0.5 flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center ${
+                        billingToast.type === 'success' ? 'bg-green-500/20' : 'bg-red-500/15'
+                    }`}>
+                        {billingToast.type === 'success'
+                            ? <CheckCircle2 className="w-5 h-5 text-green-400" />
+                            : <AlertCircle className="w-5 h-5 text-red-400" />
+                        }
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className={`font-bold text-sm leading-snug ${
+                            billingToast.type === 'success'
+                                ? (d.isDark ? 'text-green-300' : 'text-green-700')
+                                : (d.isDark ? 'text-red-300' : 'text-red-700')
+                        }`}>{billingToast.title}</p>
+                        {billingToast.body && (
+                            <p className={`mt-1 text-xs leading-relaxed ${
+                                d.isDark ? 'text-gray-400' : 'text-gray-500'
+                            }`}>{billingToast.body}</p>
+                        )}
+                        {billingToast.action && (
+                            <a
+                                href={billingToast.action.href}
+                                className={`inline-block mt-2 text-xs font-bold underline underline-offset-2 ${
+                                    d.isDark ? 'text-red-400 hover:text-red-300' : 'text-red-600 hover:text-red-700'
+                                }`}
+                            >
+                                {billingToast.action.label} →
+                            </a>
+                        )}
+                    </div>
+                    <button
+                        onClick={() => setBillingToast({ type: '', title: '', body: '', action: null })}
+                        className={`flex-shrink-0 p-1 rounded-lg transition-opacity opacity-50 hover:opacity-100 ${
+                            d.isDark ? 'text-gray-400' : 'text-gray-500'
+                        }`}
+                    >
+                        <X className="w-4 h-4" />
                     </button>
                 </div>
             )}

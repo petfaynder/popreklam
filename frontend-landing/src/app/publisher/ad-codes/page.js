@@ -1,18 +1,35 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Code, Copy, Check, Globe, MousePointer2, Smartphone, Layers, Loader2, AlertCircle, Bell, Download } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { Code, Copy, Check, Globe, MousePointer2, Smartphone, Layers, Loader2, AlertCircle, Bell, Download, Info } from 'lucide-react';
 import { publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
 
-const BACKEND_URL = '';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrpop.io';
 
 const AD_FORMATS = [
-    { id: 'popunder', name: 'Popunder', icon: MousePointer2, description: 'Opens in new tab behind main window. Highest CPM, 100% viewability.', cpm: '$2–8 CPM' },
-    { id: 'inpage-push', name: 'In-Page Push', icon: Smartphone, description: 'Native push notifications on your site. High CTR, Google-compliant.', cpm: '$1–5 CPM' },
-    { id: 'push-notification', name: 'Web Push Notification', icon: Bell, description: 'OS-level browser notifications. Reach users even when your site is closed. Premium CPM.', cpm: '🔥 $3–15 CPM' },
-    { id: 'interstitial', name: 'Interstitial', icon: Layers, description: 'Full-screen ads between page loads. Best for mobile traffic.', cpm: '$1.5–4 CPM' },
+    {
+        id: 'popunder',
+        name: 'Popunder',
+        icon: MousePointer2,
+        description: 'Opens in new tab behind main window. Highest CPM, 100% viewability.',
+        cpm: '$2–8 CPM',
+    },
+    {
+        id: 'inpage-push',
+        name: 'In-Page Push',
+        icon: Smartphone,
+        description: 'Native push-style notification rendered directly on your page. High CTR, Google-compliant.',
+        cpm: '$1–5 CPM',
+    },
+    {
+        id: 'push-notification',
+        name: 'Web Push Notification',
+        icon: Bell,
+        description: 'OS-level browser notifications. Reach users even when your site is closed. Premium CPM.',
+        cpm: '🔥 $3–15 CPM',
+    },
 ];
 
 export default function PublisherAdCodesPage() {
@@ -24,6 +41,13 @@ export default function PublisherAdCodesPage() {
     const [siteError, setSiteError] = useState('');
     const [selectedSite, setSelectedSite] = useState('');
     const [selectedFormat, setSelectedFormat] = useState('popunder');
+
+    // Zone state
+    const [zone, setZone] = useState(null);
+    const [zoneLoading, setZoneLoading] = useState(false);
+    const [zoneError, setZoneError] = useState('');
+
+    // Copy state
     const [copiedCode, setCopiedCode] = useState(false);
     const [copiedId, setCopiedId] = useState(false);
 
@@ -46,19 +70,42 @@ export default function PublisherAdCodesPage() {
         }
     };
 
+    // Whenever site or format changes, fetch/create the zone
+    const fetchZone = useCallback(async (siteId, formatId) => {
+        if (!siteId || !formatId) return;
+        setZone(null);
+        setZoneError('');
+        setZoneLoading(true);
+        try {
+            const data = await publisherAPI.getOrCreateZone(siteId, formatId);
+            setZone(data.zone);
+        } catch (err) {
+            setZoneError(err.message || 'Failed to load zone. Make sure your site is ACTIVE.');
+        } finally {
+            setZoneLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (selectedSite) {
+            fetchZone(selectedSite, selectedFormat);
+        } else {
+            setZone(null);
+            setZoneError('');
+        }
+    }, [selectedSite, selectedFormat, fetchZone]);
+
     const activeSites = sites.filter(s => s.status === 'ACTIVE' || s.status === 'active');
     const selectedSiteData = sites.find(s => s.id === parseInt(selectedSite) || s.id === selectedSite);
 
     const getAdCode = () => {
-        if (!selectedSiteData) return '';
+        if (!zone) return '';
+        const zoneId = zone.id;
 
         if (selectedFormat === 'push-notification') {
-            // Push needs a special zone ID — for now use site ID as zone placeholder
-            const zoneId = selectedSiteData.pushZoneId || selectedSiteData.id;
-            return `<!-- MrPop.io Web Push Notification -->
-<!-- Step 1: Download pr-sw.js and upload to your site root -->
+            return `<!-- MrPop.io Web Push Notification — Step 1: download pr-sw.js and upload to your site root -->
 <!-- Step 2: Add this script to every page <head> -->
-<script src="${BACKEND_URL}/api/serve/push.js?z=${zoneId}" async></script>`;
+<script src="${API_URL}/api/push/push-init.js?z=${zoneId}" async></script>`;
         }
 
         const formatName = AD_FORMATS.find(f => f.id === selectedFormat)?.name || selectedFormat;
@@ -68,9 +115,8 @@ export default function PublisherAdCodesPage() {
     var s = document.createElement('script');
     s.type = 'text/javascript';
     s.async = true;
-    s.src = 'https://cdn.mrpop.io/ad.js';
-    s.setAttribute('data-site-id', '${selectedSiteData.id}');
-    s.setAttribute('data-format', '${selectedFormat}');
+    s.src = '${API_URL}/api/ads/script/${zoneId}';
+    s.setAttribute('data-zone-id', '${zoneId}');
     var x = document.getElementsByTagName('script')[0];
     x.parentNode.insertBefore(s, x);
   })();
@@ -87,7 +133,13 @@ export default function PublisherAdCodesPage() {
     const headText = d.isDark ? 'text-white' : 'text-[#1A1A1A]';
     const subText = d.isDark ? 'text-gray-400' : 'text-gray-500';
 
-    const accentText = { 'theme-luminous': 'text-lime-400', 'theme-azure': 'text-sky-400', 'theme-saas': 'text-white', 'theme-editorial': 'text-red-700', 'theme-brutalist': 'text-[#1A1A1A]' }[theme] || 'text-lime-400';
+    const accentText = {
+        'theme-luminous': 'text-lime-400',
+        'theme-azure': 'text-sky-400',
+        'theme-saas': 'text-white',
+        'theme-editorial': 'text-red-700',
+        'theme-brutalist': 'text-[#1A1A1A]',
+    }[theme] || 'text-lime-400';
 
     const formatActive = {
         'theme-luminous': 'bg-lime-400/10 border-lime-400/30',
@@ -104,6 +156,8 @@ export default function PublisherAdCodesPage() {
         'theme-editorial': 'bg-white border-gray-200 hover:border-gray-400',
         'theme-brutalist': 'bg-[#F5F5F0] border-gray-300 hover:border-[#1A1A1A]',
     }[theme] || 'bg-white/5 border-white/10 hover:border-white/20';
+
+    const canShowCode = selectedSite && zone && !zoneLoading;
 
     return (
         <div className="space-y-8">
@@ -136,7 +190,7 @@ export default function PublisherAdCodesPage() {
                         ) : activeSites.length === 0 ? (
                             <div className="text-center py-8">
                                 <Globe className={`w-10 h-10 mx-auto mb-3 ${d.isDark ? 'text-gray-600' : 'text-gray-300'}`} />
-                                <p className={`${subText} mb-4 text-sm`}>No active sites yet</p>
+                                <p className={`${subText} mb-4 text-sm`}>No active sites yet. Add and get a site approved first.</p>
                                 <a href="/publisher/sites" className={d.btnPrimary}>Add Your First Site</a>
                             </div>
                         ) : (
@@ -144,10 +198,10 @@ export default function PublisherAdCodesPage() {
                                 value={selectedSite}
                                 onChange={e => setSelectedSite(e.target.value)}
                                 className={`w-full px-4 py-3 focus:outline-none transition-all text-sm ${theme === 'theme-brutalist'
-                                        ? 'border-2 border-[#1A1A1A] bg-[#F5F5F0] text-[#1A1A1A]'
-                                        : d.isDark
-                                            ? 'bg-white/5 border border-white/10 text-white rounded-xl focus:border-white/30'
-                                            : 'bg-white border border-gray-200 text-[#1A1A1A] rounded-xl focus:border-gray-400'
+                                    ? 'border-2 border-[#1A1A1A] bg-[#F5F5F0] text-[#1A1A1A]'
+                                    : d.isDark
+                                        ? 'bg-white/5 border border-white/10 text-white rounded-xl focus:border-white/30'
+                                        : 'bg-white border border-gray-200 text-[#1A1A1A] rounded-xl focus:border-gray-400'
                                     }`}>
                                 <option value="">Choose a site...</option>
                                 {activeSites.map(site => (
@@ -158,17 +212,29 @@ export default function PublisherAdCodesPage() {
                             </select>
                         )}
 
-                        {/* Site ID badge */}
-                        {selectedSiteData && (
+                        {/* Zone ID badge */}
+                        {selectedSite && (
                             <div className={`mt-4 p-4 rounded-xl border ${d.isDark ? 'bg-white/5 border-white/5' : 'bg-gray-50 border-gray-200'}`}>
-                                <p className={`text-xs mb-1 ${subText}`}>Site ID</p>
-                                <div className="flex items-center justify-between">
-                                    <code className={`font-mono font-bold ${accentText}`}>{selectedSiteData.id}</code>
-                                    <button onClick={() => copyToClipboard(String(selectedSiteData.id), 'id')}
-                                        className={`p-2 rounded-lg transition-colors ${d.isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}>
-                                        {copiedId ? <Check className="w-4 h-4 text-green-400" /> : <Copy className={`w-4 h-4 ${subText}`} />}
-                                    </button>
-                                </div>
+                                <p className={`text-xs mb-1 ${subText}`}>Zone ID</p>
+                                {zoneLoading ? (
+                                    <div className="flex items-center gap-2">
+                                        <Loader2 className={`w-4 h-4 animate-spin ${d.loaderColor}`} />
+                                        <span className={`text-xs ${subText}`}>Generating zone...</span>
+                                    </div>
+                                ) : zoneError ? (
+                                    <div className={`flex items-center gap-2 text-xs ${d.isDark ? 'text-red-400' : 'text-red-600'}`}>
+                                        <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                                        <span>{zoneError}</span>
+                                    </div>
+                                ) : zone ? (
+                                    <div className="flex items-center justify-between">
+                                        <code className={`font-mono font-bold text-sm ${accentText}`}>{zone.id}</code>
+                                        <button onClick={() => copyToClipboard(zone.id, 'id')}
+                                            className={`p-2 rounded-lg transition-colors ${d.isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}>
+                                            {copiedId ? <Check className="w-4 h-4 text-green-400" /> : <Copy className={`w-4 h-4 ${subText}`} />}
+                                        </button>
+                                    </div>
+                                ) : null}
                             </div>
                         )}
                     </div>
@@ -210,19 +276,33 @@ export default function PublisherAdCodesPage() {
                     <div className={d.card}>
                         <div className="flex items-center justify-between mb-4">
                             <h2 className={`text-lg font-bold ${headText}`}>Your Ad Code</h2>
-                            {selectedSite && (
+                            {canShowCode && (
                                 <button onClick={() => copyToClipboard(getAdCode(), 'code')}
                                     className={`${d.btnPrimary} flex items-center gap-2`}>
                                     {copiedCode ? <><Check className="w-4 h-4" /> Copied!</> : <><Copy className="w-4 h-4" /> Copy Code</>}
                                 </button>
                             )}
                         </div>
+
                         {!selectedSite ? (
                             <div className={`text-center py-16 ${d.isDark ? 'text-gray-600' : 'text-gray-400'}`}>
                                 <Code className="w-14 h-14 mx-auto mb-4 opacity-30" />
-                                <p className="text-sm">Select a site to generate your ad code</p>
+                                <p className="text-sm">Select an active site to generate your ad code</p>
                             </div>
-                        ) : (
+                        ) : zoneLoading ? (
+                            <div className="flex items-center justify-center py-16 gap-3">
+                                <Loader2 className={`w-6 h-6 animate-spin ${d.loaderColor}`} />
+                                <span className={`text-sm ${subText}`}>Generating your zone...</span>
+                            </div>
+                        ) : zoneError ? (
+                            <div className={`flex flex-col items-center text-center py-12 gap-3 ${d.isDark ? 'text-red-400' : 'text-red-600'}`}>
+                                <AlertCircle className="w-10 h-10 opacity-60" />
+                                <p className="text-sm font-medium">{zoneError}</p>
+                                {zoneError.includes('ACTIVE') && (
+                                    <a href="/publisher/sites" className={d.btnPrimary + ' text-xs mt-2'}>Manage Sites</a>
+                                )}
+                            </div>
+                        ) : zone ? (
                             <>
                                 {/* Push SW download button */}
                                 {selectedFormat === 'push-notification' && (
@@ -236,7 +316,7 @@ export default function PublisherAdCodesPage() {
                                             </p>
                                         </div>
                                         <a
-                                            href={`${BACKEND_URL}/api/serve/pr-sw.js`}
+                                            href={`${API_URL}/api/push/pr-sw.js`}
                                             download="pr-sw.js"
                                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap ${
                                                 d.isDark
@@ -249,15 +329,22 @@ export default function PublisherAdCodesPage() {
                                         </a>
                                     </div>
                                 )}
+
+                                {/* Zone info banner */}
+                                <div className={`mb-3 flex items-center gap-2 text-xs px-3 py-2 rounded-lg ${d.isDark ? 'bg-green-500/10 text-green-400' : 'bg-green-50 text-green-700'}`}>
+                                    <Info className="w-3.5 h-3.5 flex-shrink-0" />
+                                    <span>Zone <strong>{zone.name}</strong> ready — ID: <code className="font-mono">{zone.id.slice(0, 8)}…</code></span>
+                                </div>
+
                                 <pre className={`p-5 rounded-xl border overflow-x-auto text-xs leading-relaxed ${d.isDark ? 'bg-slate-950 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
                                     <code className={`font-mono ${accentText}`}>{getAdCode()}</code>
                                 </pre>
                             </>
-                        )}
+                        ) : null}
                     </div>
 
                     {/* Installation steps */}
-                    {selectedSite && (
+                    {canShowCode && (
                         <div className={d.card}>
                             <h2 className={`text-lg font-bold mb-5 ${headText}`}>Installation Guide</h2>
                             <div className="space-y-5">
@@ -268,14 +355,14 @@ export default function PublisherAdCodesPage() {
                                     { num: '4', title: 'Verify & go live', desc: 'Visitors will see a browser permission prompt. Subscribers start building automatically.' },
                                 ] : [
                                     { num: '1', title: 'Copy the code', desc: 'Click "Copy Code" to copy the integration snippet.' },
-                                    { num: '2', title: 'Paste before </body>', desc: 'Add the code before the closing </body> tag on every page.' },
+                                    { num: '2', title: 'Paste before </body>', desc: 'Add the code just before the closing </body> tag on every page.' },
                                     { num: '3', title: 'Start earning', desc: 'Ads start serving within minutes. Check Statistics for real-time data.' },
                                 ]).map(step => (
                                     <div key={step.num} className="flex gap-4">
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${theme === 'theme-brutalist' ? 'border-2 border-[#1A1A1A] bg-[#F5F5F0]'
-                                                : d.isDark ? `bg-gradient-to-br ${theme === 'theme-luminous' ? 'from-lime-400/20 to-lime-400/5' : 'from-sky-400/20 to-sky-400/5'}`
-                                                    : theme === 'theme-editorial' ? 'bg-red-50 border border-red-200'
-                                                        : 'bg-gray-100'
+                                            : d.isDark ? `bg-gradient-to-br ${theme === 'theme-luminous' ? 'from-lime-400/20 to-lime-400/5' : 'from-sky-400/20 to-sky-400/5'}`
+                                                : theme === 'theme-editorial' ? 'bg-red-50 border border-red-200'
+                                                    : 'bg-gray-100'
                                             }`}>
                                             <span className={`font-bold text-sm ${accentText}`}>{step.num}</span>
                                         </div>

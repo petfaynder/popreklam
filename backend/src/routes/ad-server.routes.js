@@ -13,6 +13,6 @@ router.get('/track/impression', adServerController.trackImpression);
 
 // 3. Get Ad Script (Dynamic JS generation)
 // Access: Public (embedded by publishers)
-router.get('/script/:siteId', adServerController.getAdScript);
+router.get('/script/:zoneId', adServerController.getAdScript);
 
 export default router;

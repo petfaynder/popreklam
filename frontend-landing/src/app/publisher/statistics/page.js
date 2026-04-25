@@ -11,7 +11,27 @@ import {
 import { publisherAPI } from '@/lib/api';
 import useTheme from '@/hooks/useTheme';
 import { getDashboardTheme } from '@/lib/themeUtils';
-import toast from 'react-hot-toast';
+
+// Lightweight toast shim — avoids pulling in react-hot-toast/goober at build time
+function useNotify() {
+    const [msg, setMsg] = useState(null); // { text, type: 'loading'|'success'|'error' }
+    const notify = (text, type = 'success', ms = 3000) => {
+        setMsg({ text, type });
+        if (type !== 'loading') setTimeout(() => setMsg(null), ms);
+    };
+    const clear = () => setMsg(null);
+    const ToastUI = msg ? (
+        <div style={{
+            position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)',
+            zIndex: 9999, padding: '10px 20px', borderRadius: 10, fontSize: 14,
+            fontWeight: 600, color: '#fff', pointerEvents: 'none',
+            background: msg.type === 'error' ? '#ef4444' : msg.type === 'loading' ? '#6366f1' : '#22c55e',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+            animation: 'fadein .2s ease'
+        }}>{msg.text}</div>
+    ) : null;
+    return { notify, clear, ToastUI };
+}
 
 const PERIODS = [
     { label: 'Today', value: 1 },
@@ -507,6 +527,7 @@ export default function PublisherStatistics() {
     const [formats, setFormats] = useState([]);
     const [showExportMenu, setShowExportMenu] = useState(false);
     const exportRef = useRef(null);
+    const { notify, clear, ToastUI } = useNotify();
 
     // Close export menu on outside click
     useEffect(() => {
@@ -685,15 +706,15 @@ export default function PublisherStatistics() {
         }
         });
 
-        toast.promise(promise, {
-            loading: 'Preparing PDF...',
-            success: 'PDF generated successfully!',
-            error: 'Failed to generate PDF'
-        });
+        notify('Preparing PDF...', 'loading');
+        promise
+            .then(() => notify('PDF generated successfully!', 'success'))
+            .catch(() => notify('Failed to generate PDF', 'error'));
     };
 
     return (
         <div className="space-y-8">
+            {ToastUI}
             {/* ── Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -730,14 +751,10 @@ export default function PublisherStatistics() {
                                     onClick={async () => {
                                         setShowExportMenu(false);
                                         const fmt = activeTab === 'popunder' ? 'POPUNDER' : activeTab === 'inpage' ? 'IN_PAGE_PUSH' : 'ALL';
-                                        await toast.promise(
-                                            publisherAPI.exportStatsCSV(period, fmt),
-                                            {
-                                                loading: 'Exporting CSV...',
-                                                success: 'CSV exported successfully!',
-                                                error: 'Failed to export CSV.'
-                                            }
-                                        ).catch(e => console.error('CSV export failed:', e));
+                                        notify('Exporting CSV...', 'loading');
+                                        publisherAPI.exportStatsCSV(period, fmt)
+                                            .then(() => notify('CSV exported successfully!', 'success'))
+                                            .catch(() => notify('Failed to export CSV.', 'error'));
                                     }}
                                     className={`w-full flex items-center gap-2.5 px-4 py-3 text-sm font-medium transition-colors ${
                                         d.isDark ? 'text-gray-300 hover:bg-white/5' : 'text-gray-700 hover:bg-gray-50'

@@ -30,6 +30,10 @@ router.delete('/sites/:id', publisherController.deleteSite);
 router.post('/sites/:id/verify', publisherController.verifySite);
 router.post('/sites/:id/verify-ads-txt', publisherController.verifyAdsTxt);
 
+// Zones (auto-managed via Ad Codes page)
+router.post('/zones/get-or-create', publisherController.getOrCreateZone);
+
+
 // Statistics
 router.get('/stats', publisherController.getStats);
 router.get('/stats/revenue-trends', publisherStatsController.getRevenueTrends);

@@ -17,7 +17,7 @@ export const getRealtimeDashboard = async (req, res) => {
 
         const zones = await prisma.zone.findMany({
             where: { site: { publisherId: publisher.id } },
-            select: { id: true, name: true, type: true, siteId: true, site: { select: { domain: true } } }
+            select: { id: true, name: true, type: true, siteId: true }
         });
         const zoneIds = zones.map(z => z.id);
 
@@ -25,19 +25,21 @@ export const getRealtimeDashboard = async (req, res) => {
             return res.json({ today: { impressions: 0, clicks: 0, revenue: 0, eCPM: 0 }, hourly: [], sites: [], recentHourRevenue: 0 });
         }
 
+        const zoneList = zoneIds.map(id => `'${id}'`).join(',');
+
         // Today's totals
-        const todayRaw = await prisma.$queryRaw`
+        const todayRaw = await prisma.$queryRawUnsafe(`
             SELECT
                 COUNT(i.id) AS impressions,
                 SUM(i.clicked) AS clicks,
                 SUM(i.publisher_revenue) AS revenue
             FROM impressions i
-            WHERE i.zone_id IN (${zoneIds.join(',')})
+            WHERE i.zone_id IN (${zoneList})
               AND DATE(i.created_at) = CURDATE()
-        `;
+        `);
 
         // Last 24h hourly breakdown
-        const hourlyRaw = await prisma.$queryRaw`
+        const hourlyRaw = await prisma.$queryRawUnsafe(`
             SELECT
                 HOUR(i.created_at) AS hour,
                 DATE(i.created_at) AS date,
@@ -45,11 +47,11 @@ export const getRealtimeDashboard = async (req, res) => {
                 SUM(i.clicked) AS clicks,
                 SUM(i.publisher_revenue) AS revenue
             FROM impressions i
-            WHERE i.zone_id IN (${zoneIds.join(',')})
+            WHERE i.zone_id IN (${zoneList})
               AND i.created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
             GROUP BY DATE(i.created_at), HOUR(i.created_at)
             ORDER BY date ASC, hour ASC
-        `;
+        `);
 
         // Fill 24-hour gaps
         const now = new Date();
@@ -73,21 +75,22 @@ export const getRealtimeDashboard = async (req, res) => {
         }
 
         // Site breakdown
-        const siteRaw = await prisma.$queryRaw`
+        const siteRaw = await prisma.$queryRawUnsafe(`
             SELECT
-                s.domain,
+                s.name AS siteName,
+                s.url AS siteUrl,
                 s.id AS siteId,
                 COUNT(i.id) AS impressions,
                 SUM(i.publisher_revenue) AS revenue
             FROM impressions i
             JOIN zones z ON i.zone_id = z.id
             JOIN sites s ON z.site_id = s.id
-            WHERE z.id IN (${zoneIds.join(',')})
+            WHERE z.id IN (${zoneList})
               AND DATE(i.created_at) = CURDATE()
-            GROUP BY s.id, s.domain
+            GROUP BY s.id, s.name, s.url
             ORDER BY revenue DESC
             LIMIT 10
-        `;
+        `);
 
         const today = todayRaw[0] || {};
         const totalImpressions = Number(today.impressions || 0);
@@ -105,12 +108,11 @@ export const getRealtimeDashboard = async (req, res) => {
             },
             hourly: Object.values(hourMap),
             sites: siteRaw.map(s => ({
-                domain: s.domain,
+                domain: s.siteUrl || s.siteName,
                 siteId: s.siteId,
                 impressions: Number(s.impressions),
                 revenue: Number(s.revenue || 0).toFixed(4)
             })),
-            // Estimated daily revenue from the last hour's pace
             projectedDaily: (lastHourRevenue * 24).toFixed(2),
             lastHourRevenue: lastHourRevenue.toFixed(4)
         });
@@ -120,6 +122,7 @@ export const getRealtimeDashboard = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch real-time dashboard' });
     }
 };
+
 
 /**
  * GET /api/publisher/analytics/summary
@@ -138,18 +141,20 @@ export const getRevenueSummary = async (req, res) => {
         const zoneIds = zones.map(z => z.id);
         if (zoneIds.length === 0) return res.json({ days: [] });
 
-        const rawDays = await prisma.$queryRaw`
+        const zoneList = zoneIds.map(id => `'${id}'`).join(',');
+
+        const rawDays = await prisma.$queryRawUnsafe(`
             SELECT
                 DATE(i.created_at) AS date,
                 COUNT(i.id) AS impressions,
                 SUM(i.clicked) AS clicks,
                 SUM(i.publisher_revenue) AS revenue
             FROM impressions i
-            WHERE i.zone_id IN (${zoneIds.join(',')})
+            WHERE i.zone_id IN (${zoneList})
               AND i.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
             GROUP BY DATE(i.created_at)
             ORDER BY date ASC
-        `;
+        `);
 
         res.json({
             days: rawDays.map(r => ({

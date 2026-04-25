@@ -8,6 +8,8 @@ import {
     getPushStats,
     getPublisherPushOverview,
     getAdvertiserPushStats,
+    getPushServiceWorker,
+    getPushInitScript,
 } from '../controllers/push.controller.js';
 
 const router = express.Router();
@@ -17,6 +19,12 @@ router.get('/vapid-public-key', getPublicKey);
 router.post('/subscribe', subscribe);
 router.delete('/unsubscribe', unsubscribe);
 router.post('/click/:deliveryId', trackClick);
+
+// Serve push service worker (downloaded by publishers and placed at their site root)
+router.get('/pr-sw.js', getPushServiceWorker);
+
+// Serve push init script (embedded in publisher pages <head>)
+router.get('/push-init.js', getPushInitScript);
 
 // ── Publisher protected endpoints ─────────────────────────────────────────
 // Per-site stats
