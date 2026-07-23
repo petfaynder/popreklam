@@ -178,27 +178,6 @@ services:
       timeout: 10s
       retries: 3
 
-  # ─── phpMyAdmin ───────────────────────────────────────────────────────────────
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.2.1
-    container_name: mrpop_phpmyadmin
-    restart: unless-stopped
-    depends_on:
-      mysql:
-        condition: service_healthy
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: ${MYSQL_USER:-mrpop}
-      PMA_PASSWORD: ${MYSQL_PASSWORD:-mrpop_secure_pass}
-      PMA_ARBITRARY: 1
-      UPLOAD_LIMIT: 100M
-      MAX_EXECUTION_TIME: 600
-    networks:
-      - mrpop_internal
-      - dokploy-network
-
 networks:
   mrpop_internal:
     driver: bridge
