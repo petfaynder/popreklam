@@ -1,3 +1,7 @@
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.js');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Required for Docker standalone deployment
@@ -16,7 +20,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/:path*`,
+        destination: `${process.env.BACKEND_URL || 'http://backend:4000'}/api/:path*`,
       },
     ];
   },
@@ -53,4 +57,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
