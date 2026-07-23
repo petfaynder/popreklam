@@ -1,25 +1,19 @@
-# ─── Stage 1: Dependencies ────────────────────────────────────────────────────
-FROM node:20-alpine AS deps
-
-WORKDIR /app
-
-COPY package*.json ./
-ARG CACHEBUST=1
-RUN npm ci
-
-# ─── Stage 2: Builder ─────────────────────────────────────────────────────────
+# ─── Stage 1: Builder ─────────────────────────────────────────────────────────
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY --from=deps /app/node_modules ./node_modules
+# Install dependencies directly (no separate deps stage to avoid cross-stage cache bugs)
+COPY package*.json ./
+RUN npm ci
+
+# Copy source and build
 COPY . .
 
-# Build Next.js app (reads NEXT_PUBLIC_* from .env.production automatically)
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-# ─── Stage 3: Production Runner ───────────────────────────────────────────────
+# ─── Stage 2: Production Runner ───────────────────────────────────────────────
 FROM node:20-alpine AS production
 
 WORKDIR /app
