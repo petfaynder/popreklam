@@ -30,6 +30,10 @@ import { maintenanceMiddleware } from './middleware/maintenance.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Trust reverse proxy (Dokploy / Traefik / Nginx) — required for
+// correct IP detection with X-Forwarded-For and rate limiting
+app.set('trust proxy', 1);
+
 // Initialize Cron Jobs
 initCronJobs();
 
@@ -54,15 +58,24 @@ app.use(helmet({
 }));
 
 // CORS
-const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? (process.env.ALLOWED_ORIGINS || '').split(',').map(o => o.trim()).filter(Boolean)
-  : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:3001'];
+// In production, reads a comma-separated list from ALLOWED_ORIGINS env var.
+// If ALLOWED_ORIGINS is not set we default to '*' (allow all) so that the
+// Next.js reverse-proxy can forward requests without configuration errors.
+const rawAllowedOrigins = process.env.NODE_ENV === 'production'
+  ? (process.env.ALLOWED_ORIGINS || '*')
+  : 'http://localhost:3000,http://localhost:5173,http://localhost:3001';
+
+const allowedOrigins = rawAllowedOrigins.split(',').map(o => o.trim()).filter(Boolean);
+const allowAllOrigins = allowedOrigins.includes('*');
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, same-server requests)
+    // Allow requests with no origin (mobile apps, curl, server-to-server proxy)
     if (!origin) return callback(null, true);
+    // Wildcard — allow all (when ALLOWED_ORIGINS not configured)
+    if (allowAllOrigins) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
+    logger.error(`CORS blocked: ${origin}`);
     callback(new Error(`CORS blocked: ${origin}`));
   },
   credentials: true
