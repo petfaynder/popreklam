@@ -1,0 +1,681 @@
+{
+  "nav": {
+    "advertisers": "Anunciantes",
+    "publishers": "Editores",
+    "howItWorks": "Cómo Funciona",
+    "faq": "Preguntas Frecuentes",
+    "contact": "Contacto",
+    "blog": "Blog",
+    "docs": "Documentación",
+    "login": "Iniciar Sesión",
+    "getStarted": "Empezar",
+    "dashboard": "Panel",
+    "logout": "Cerrar Sesión",
+    "subscribe": "Suscribirse"
+  },
+  "footer": {
+    "platform": "Plataforma",
+    "resources": "Recursos",
+    "company": "Empresa",
+    "legal": "Legal",
+    "tagline": "La red publicitaria de alto rendimiento para editores y anunciantes serios.",
+    "taglineSaaS": "La red publicitaria moderna para editores y anunciantes.",
+    "taglineLuminous": "Monetiza de manera más inteligente con la red de editores de próxima generación.",
+    "taglineAzure": "Llega a tu audiencia con segmentación precisa.",
+    "copyright": "© {year} MrPop.io",
+    "links": {
+      "adFormats": "Formatos de Anuncios",
+      "smartLink": "Enlace Inteligente",
+      "antiAdblock": "Anti-Adblock",
+      "howItWorks": "Cómo Funciona",
+      "blog": "Blog",
+      "docs": "Documentación",
+      "contact": "Contacto",
+      "faq": "Preguntas Frecuentes",
+      "status": "Estado",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "publishers": "Editores",
+      "advertisers": "Anunciantes"
+    }
+  },
+  "common": {
+    "save": "Guardar Cambios",
+    "cancel": "Cancelar",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "success": "Éxito",
+    "noData": "No hay datos disponibles",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "download": "Descargar",
+    "upload": "Subir",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "reset": "Restablecer",
+    "submit": "Enviar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "all": "Todo",
+    "active": "Activo",
+    "paused": "Pausado",
+    "pending": "Pendiente",
+    "completed": "Completado",
+    "rejected": "Rechazado",
+    "status": "Estado",
+    "actions": "Acciones",
+    "date": "Fecha",
+    "amount": "Monto",
+    "total": "Total",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Dirección de correo electrónico no válida",
+    "exportCsv": "Exportar CSV",
+    "refresh": "Actualizar",
+    "comingSoon": "Próximamente"
+  },
+  "auth": {
+    "loginTitle": "Bienvenido de nuevo",
+    "loginSubtitle": "Inicia sesión en tu cuenta de MrPop.io",
+    "registerTitle": "Crea tu cuenta",
+    "registerSubtitle": "Únete a más de 10,000 editores y anunciantes",
+    "emailLabel": "Correo Electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "confirmPasswordLabel": "Confirmar Contraseña",
+    "confirmPasswordPlaceholder": "Repite tu contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "loginBtn": "Iniciar Sesión",
+    "registerBtn": "Crear Cuenta",
+    "noAccount": "¿No tienes una cuenta?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "signUpLink": "Regístrate",
+    "signInLink": "Inicia sesión",
+    "rolePublisher": "Editor",
+    "roleAdvertiser": "Anunciante",
+    "roleLabel": "Soy un",
+    "rolePublisherDesc": "Quiero monetizar mi sitio web",
+    "roleAdvertiserDesc": "Quiero ejecutar campañas publicitarias",
+    "termsAgreement": "Al crear una cuenta, aceptas nuestros {terms} y {privacy}.",
+    "terms": "Términos de Servicio",
+    "privacy": "Política de Privacidad",
+    "forgotTitle": "Restablecer tu contraseña",
+    "forgotSubtitle": "Ingresa tu correo electrónico y te enviaremos un enlace de restablecimiento",
+    "forgotBtn": "Enviar Enlace de Restablecimiento",
+    "forgotSuccess": "Revisa tu correo electrónico para obtener el enlace de restablecimiento",
+    "resetTitle": "Establecer nueva contraseña",
+    "resetBtn": "Restablecer Contraseña",
+    "resetSuccess": "Contraseña actualizada exitosamente",
+    "loginSuccess": "¡Bienvenido de nuevo!",
+    "registerSuccess": "¡Cuenta creada! Por favor revisa tu correo electrónico.",
+    "invalidCredentials": "Correo electrónico o contraseña inválidos",
+    "accountSuspended": "Tu cuenta ha sido suspendida",
+    "verifyEmail": "Por favor verifica tu dirección de correo electrónico",
+    "twoFactor": "Autenticación de Dos Factores",
+    "twoFactorSubtitle": "Ingresa el código de 6 dígitos de tu aplicación autenticadora",
+    "twoFactorCode": "Código de Autenticación",
+    "twoFactorBtn": "Verificar",
+    "twoFactorBackup": "Usar código de respaldo"
+  },
+  "publisher": {
+    "nav": {
+      "dashboard": "Panel",
+      "analytics": "Analíticas",
+      "sites": "Sitios",
+      "adCodes": "Códigos de Anuncios",
+      "statistics": "Estadísticas",
+      "payments": "Pagos",
+      "referrals": "Referidos",
+      "reportAd": "Reportar Anuncio",
+      "settings": "Configuración",
+      "support": "Soporte",
+      "account": "Cuenta"
+    },
+    "topbar": {
+      "balance": "Saldo",
+      "notifications": "Notificaciones",
+      "noNotifications": "Aún no hay notificaciones",
+      "breadcrumb": "Panel del Editor",
+      "logout": "Cerrar Sesión"
+    },
+    "verify": {
+      "title": "Verificación de correo electrónico requerida",
+      "subtitle": "Tu cuenta no está completamente activa. Por favor verifica tu dirección de correo.",
+      "sentTitle": "Correo de verificación enviado",
+      "sentSubtitle": "Revisa tu bandeja de entrada y carpeta de spam, luego haz clic en el enlace para activar tu cuenta.",
+      "resend": "Reenviar Correo",
+      "sending": "Enviando..."
+    },
+    "dashboard": {
+      "title": "Panel",
+      "subtitle": "Resumen de tus ganancias",
+      "totalEarnings": "Ganancias Totales",
+      "todayEarnings": "Ganancias de Hoy",
+      "impressions": "Impresiones",
+      "clicks": "Clics",
+      "ctr": "CTR",
+      "cpm": "CPM",
+      "sites": "Sitios Activos",
+      "pendingPayout": "Pago Pendiente",
+      "recentActivity": "Actividad Reciente",
+      "earningsChart": "Resumen de Ganancias",
+      "topSites": "Sitios Principales",
+      "noSites": "Aún no hay sitios",
+      "addSite": "Agrega Tu Primer Sitio"
+    },
+    "sites": {
+      "title": "Mis Sitios",
+      "addSite": "Agregar Sitio",
+      "siteName": "Nombre del Sitio",
+      "siteUrl": "URL del Sitio",
+      "category": "Categoría",
+      "status": "Estado",
+      "verified": "Verificado",
+      "unverified": "No Verificado",
+      "pending": "Pendiente",
+      "rejected": "Rechazado",
+      "active": "Activo",
+      "paused": "Pausado",
+      "verify": "Verificar Sitio",
+      "verifyMethod": "Método de Verificación",
+      "metaTag": "Etiqueta Meta",
+      "fileUpload": "Carga de Archivo",
+      "dns": "Registro DNS",
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar este sitio?",
+      "noSites": "Aún no se han agregado sitios. Agrega tu primer sitio para comenzar a ganar.",
+      "impressionsToday": "Impresiones Hoy",
+      "earningsToday": "Ganancias Hoy"
+    },
+    "payments": {
+      "title": "Pagos",
+      "requestPayout": "Solicitar Pago",
+      "method": "Método de Pago",
+      "amount": "Monto",
+      "status": "Estado",
+      "date": "Fecha",
+      "minPayout": "Pago mínimo: ${amount}",
+      "currentBalance": "Saldo Actual",
+      "pendingBalance": "Saldo Pendiente",
+      "paymentHistory": "Historial de Pagos",
+      "noPayments": "Aún no hay historial de pagos",
+      "paypal": "PayPal",
+      "bankTransfer": "Transferencia Bancaria",
+      "bitcoin": "Bitcoin",
+      "usdt": "USDT",
+      "paypalEmail": "Correo de PayPal",
+      "bankDetails": "Detalles Bancarios",
+      "walletAddress": "Dirección de Billetera"
+    },
+    "referrals": {
+      "title": "Programa de Referidos",
+      "subtitle": "Gana comisión refiriendo nuevos editores y anunciantes",
+      "yourCode": "Tu Código de Referido",
+      "referralLink": "Enlace de Referido",
+      "totalEarned": "Total Ganado",
+      "totalReferrals": "Total de Referidos",
+      "commissionRate": "Tasa de Comisión",
+      "referredUsers": "Usuarios Referidos",
+      "noReferrals": "Aún no hay referidos. ¡Comparte tu enlace para comenzar a ganar!"
+    },
+    "settings": {
+      "title": "Configuración de la Cuenta",
+      "profile": "Perfil",
+      "security": "Seguridad",
+      "notifications": "Notificaciones",
+      "payment": "Información de Pago",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "company": "Nombre de la Empresa",
+      "timezone": "Zona Horaria",
+      "language": "Idioma",
+      "currentPassword": "Contraseña Actual",
+      "newPassword": "Nueva Contraseña",
+      "confirmPassword": "Confirmar Nueva Contraseña",
+      "twoFactor": "Autenticación de Dos Factores",
+      "enable2FA": "Habilitar 2FA",
+      "disable2FA": "Deshabilitar 2FA",
+      "emailNotifications": "Notificaciones por Correo",
+      "paymentNotifications": "Alertas de Pago",
+      "reportNotifications": "Reportes Semanales",
+      "saved": "Configuración guardada exitosamente"
+    },
+    "support": {
+      "title": "Soporte",
+      "newTicket": "Nuevo Ticket",
+      "subject": "Asunto",
+      "category": "Categoría",
+      "priority": "Prioridad",
+      "message": "Mensaje",
+      "openTickets": "Tickets Abiertos",
+      "closedTickets": "Tickets Cerrados",
+      "noTickets": "Aún no hay tickets de soporte",
+      "status": {
+        "open": "Abierto",
+        "inProgress": "En Progreso",
+        "resolved": "Resuelto",
+        "closed": "Cerrado"
+      }
+    }
+  },
+  "advertiser": {
+    "nav": {
+      "dashboard": "Panel",
+      "campaigns": "Campañas",
+      "creatives": "Creatividades",
+      "audiences": "Audiencias",
+      "billing": "Facturación",
+      "statistics": "Estadísticas",
+      "referrals": "Referidos",
+      "tracking": "Seguimiento",
+      "priority": "Prioridad",
+      "settings": "Configuración",
+      "support": "Soporte",
+      "account": "Cuenta"
+    },
+    "topbar": {
+      "balance": "Saldo",
+      "deposit": "Agregar Fondos",
+      "notifications": "Notificaciones",
+      "noNotifications": "Aún no hay notificaciones",
+      "breadcrumb": "Panel del Anunciante"
+    },
+    "dashboard": {
+      "title": "Panel",
+      "subtitle": "Resumen de tus campañas",
+      "totalSpent": "Total Gastado",
+      "todaySpent": "Gasto de Hoy",
+      "impressions": "Impresiones Totales",
+      "clicks": "Clics Totales",
+      "ctr": "CTR",
+      "activeCampaigns": "Campañas Activas",
+      "balance": "Saldo de la Cuenta",
+      "conversions": "Conversiones",
+      "topCampaigns": "Campañas Principales",
+      "spendChart": "Resumen de Gastos",
+      "noCampaigns": "Aún no hay campañas",
+      "createFirst": "Crea Tu Primera Campaña"
+    },
+    "campaigns": {
+      "title": "Campañas",
+      "create": "Crear Campaña",
+      "name": "Nombre de la Campaña",
+      "format": "Formato de Anuncio",
+      "targetUrl": "URL de Destino",
+      "dailyBudget": "Presupuesto Diario",
+      "totalBudget": "Presupuesto Total",
+      "bidAmount": "Monto de Oferta (CPM)",
+      "status": "Estado",
+      "spent": "Gastado",
+      "impressions": "Impresiones",
+      "clicks": "Clics",
+      "ctr": "CTR",
+      "start": "Activar",
+      "pause": "Pausar",
+      "edit": "Editar",
+      "duplicate": "Duplicar",
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar esta campaña?",
+      "noCampaigns": "Aún no hay campañas. Crea tu primera campaña para comenzar a obtener tráfico.",
+      "targeting": "Segmentación",
+      "geo": "Segmentación Geográfica",
+      "device": "Segmentación por Dispositivo",
+      "browser": "Segmentación por Navegador",
+      "os": "Segmentación por Sistema Operativo",
+      "schedule": "Programación de Anuncios",
+      "frequency": "Límite de Frecuencia",
+      "pacing": "Ritmo de Entrega"
+    },
+    "billing": {
+      "title": "Facturación y Pagos",
+      "deposit": "Agregar Fondos",
+      "amount": "Monto del Depósito",
+      "method": "Método de Pago",
+      "currentBalance": "Saldo Actual",
+      "totalDeposited": "Total Depositado",
+      "totalSpent": "Total Gastado",
+      "history": "Historial de Transacciones",
+      "noHistory": "Aún no hay transacciones",
+      "minDeposit": "Depósito mínimo: $100",
+      "creditCard": "Tarjeta de Crédito",
+      "paypal": "PayPal",
+      "bitcoin": "Bitcoin",
+      "usdt": "USDT",
+      "coupon": "Código Promocional",
+      "applyCoupon": "Aplicar",
+      "couponApplied": "¡Código promocional aplicado!"
+    },
+    "settings": {
+      "title": "Configuración de la Cuenta",
+      "profile": "Perfil",
+      "security": "Seguridad",
+      "notifications": "Notificaciones",
+      "company": "Nombre de la Empresa",
+      "billingAddress": "Dirección de Facturación",
+      "taxId": "Identificación Fiscal / IVA",
+      "autoRecharge": "Recarga Automática",
+      "autoRechargeDesc": "Agrega fondos automáticamente cuando el saldo cae por debajo del límite",
+      "rechargeThreshold": "Límite de Recarga",
+      "rechargeAmount": "Monto de Recarga",
+      "saved": "Configuración guardada exitosamente"
+    }
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "titleBrutalist": "P.R.E.G.U.N.T.A.S.",
+    "subtitle": "Encuentra respuestas a preguntas comunes sobre MrPop.io",
+    "searchPlaceholder": "Buscar respuestas...",
+    "notFound": "No se encontraron preguntas que coincidan con tu búsqueda.",
+    "stillHaveQuestions": "¿Aún Tienes Preguntas?",
+    "stillHaveQuestionsSubtitle": "¿No encuentras la respuesta que buscas? Nuestro equipo de soporte está aquí para ayudarte.",
+    "contactSupport": "Contactar Soporte →",
+    "categories": {
+      "all": "Todo",
+      "publishers": "Editores",
+      "advertisers": "Anunciantes",
+      "payments": "Pagos",
+      "technical": "Técnico"
+    },
+    "questions": {
+      "q1": "¿Cuánto puedo ganar como editor?",
+      "a1": "Las ganancias de los editores varían según la calidad del tráfico, la geografía y los formatos de anuncios. Ofrecemos hasta un 70% de participación en los ingresos.",
+      "q2": "¿Cuáles son los requisitos mínimos para unirse?",
+      "a2": "Para unirte como editor, necesitas un mínimo de 1,000 visitantes diarios y contenido legal y original.",
+      "q3": "¿Cómo instalo el código del anuncio?",
+      "a3": "Después de que tu sitio sea aprobado, inicia sesión en tu panel, copia el fragmento de JavaScript y pégalo antes de la etiqueta body en tu sitio web.",
+      "q4": "¿Puedo usar MrPop.io con Google AdSense?",
+      "a4": "¡Sí! MrPop.io es 100% compatible con Google AdSense y otras redes publicitarias.",
+      "q5": "¿Cuál es el depósito mínimo para los anunciantes?",
+      "a5": "El depósito mínimo es de $100 USD. Puedes agregar fondos mediante PayPal, tarjeta de crédito o criptomonedas."
+    }
+  },
+  "contact": {
+    "title": "Ponte en Contacto",
+    "subtitle": "¿Tienes alguna pregunta o necesitas ayuda? Estamos aquí para ti.",
+    "nameLabel": "Nombre Completo",
+    "namePlaceholder": "Juan Pérez",
+    "emailLabel": "Correo Electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "subjectLabel": "Asunto",
+    "subjectPlaceholder": "¿Cómo podemos ayudarte?",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Cuéntanos más...",
+    "sendBtn": "Enviar Mensaje",
+    "sending": "Enviando...",
+    "successTitle": "¡Mensaje enviado!",
+    "successSubtitle": "Te responderemos dentro de 24 horas.",
+    "errorMsg": "Error al enviar el mensaje. Por favor intenta nuevamente.",
+    "supportEmail": "soporte@mrpop.io",
+    "responseTime": "Tiempo de respuesta típico: < 24 horas"
+  },
+  "forPublishers": {
+    "heroTitle": "Monetiza Tu Tráfico",
+    "heroSubtitle": "Únete a más de 10,000 editores que ganan hasta $8 de CPM con nuestra red publicitaria premium. Pagos semanales, tasa de llenado del 100%.",
+    "heroCta": "Comienza a Ganar",
+    "heroStats": {
+      "publishers": "Más de 10K Editores",
+      "cpm": "CPM Máximo de $8",
+      "payout": "Pagos Semanales",
+      "fillRate": "Tasa de Llenado del 100%"
+    },
+    "whyTitle": "¿Por Qué Elegir MrPop.io?",
+    "features": {
+      "highCpm": "CPM Líder en la Industria",
+      "highCpmDesc": "Gana hasta $8 de CPM con tráfico de Nivel 1. Nuestras pujas inteligentes aseguran que siempre obtengas el mejor precio.",
+      "weeklyPayout": "Pagos Semanales",
+      "weeklyPayoutDesc": "Recibe tu pago cada lunes con un límite mínimo de solo $50. Sin demoras, sin excusas.",
+      "fillRate": "Tasa de Llenado del 100%",
+      "fillRateDesc": "Nunca dejes dinero sobre la mesa. Nuestra base global de anunciantes garantiza que cada impresión se monetice.",
+      "easyInstall": "Configuración en 5 Minutos",
+      "easyInstallDesc": "Un solo fragmento de JavaScript. Funciona en cualquier sitio web o CMS."
+    },
+    "howTitle": "Cómo Funciona",
+    "steps": {
+      "s1": "Regístrate Gratis",
+      "s1Desc": "Crea tu cuenta de editor en 2 minutos.",
+      "s2": "Agrega Tu Sitio",
+      "s2Desc": "Envía tu sitio web para su aprobación. Lo revisamos en menos de 24 horas.",
+      "s3": "Instala el Código",
+      "s3Desc": "Copia y pega un solo fragmento de JavaScript.",
+      "s4": "Gana Dinero",
+      "s4Desc": "Observa cómo crecen tus ganancias. Recibe pagos semanales."
+    },
+    "cta": "Comienza a Ganar Hoy"
+  },
+  "forAdvertisers": {
+    "heroTitle": "Llega a Millones de Usuarios Reales",
+    "heroSubtitle": "Tráfico con segmentación precisa de más de 10,000 sitios premium. Comienza tu campaña desde $100.",
+    "heroCta": "Lanzar Campaña",
+    "heroStats": {
+      "traffic": "5B+ Impresiones Mensuales",
+      "countries": "Más de 195 Países",
+      "formats": "6 Formatos de Anuncios",
+      "support": "Soporte 24/7"
+    },
+    "whyTitle": "¿Por Qué Anunciarse en MrPop.io?",
+    "features": {
+      "targeting": "Segmentación Precisa",
+      "targetingDesc": "Segmentación por GEO, dispositivo, navegador, sistema operativo y horario para llegar exactamente a la audiencia adecuada.",
+      "realTime": "Análisis en Tiempo Real",
+      "realTimeDesc": "Monitorea el rendimiento en tiempo real. Optimiza pujas y segmentación al instante.",
+      "fraud": "Tráfico Libre de Fraude",
+      "fraudDesc": "La detección de fraude de múltiples capas protege tu presupuesto.",
+      "flexible": "Presupuesto Flexible",
+      "flexibleDesc": "Comienza desde $100. Establece límites de presupuesto diarios y totales."
+    },
+    "formatsTitle": "Formatos de Anuncios",
+    "cta": "Comienza a Anunciarte"
+  },
+  "howItWorks": {
+    "title": "Cómo Funciona MrPop.io",
+    "subtitle": "El camino más simple de tráfico a ingresos, o de presupuesto a clientes.",
+    "forPublishers": "Para Editores",
+    "forAdvertisers": "Para Anunciantes"
+  },
+  "notFound": {
+    "title": "Página No Encontrada",
+    "subtitle": "La página que buscas no existe o ha sido movida.",
+    "backHome": "Volver al Inicio"
+  },
+  "status": {
+    "title": "Estado del Sistema",
+    "allOperational": "Todos los Sistemas Operativos",
+    "operational": "Operativo",
+    "degraded": "Degradado",
+    "outage": "Interrupción"
+  },
+  "cookie": {
+    "message": "Usamos cookies para mejorar tu experiencia y analizar el uso del sitio.",
+    "accept": "Aceptar Todo",
+    "decline": "Rechazar",
+    "learnMore": "Aprender más"
+  },
+  "languageSwitcher": {
+    "label": "Idioma"
+  },
+  "themes": {
+    "brutalist": {
+      "trustedBy": "Con la confianza de más de 10.000 editores",
+      "heroTitleHtml": "EL TRÁFICO <br /> <span class=\"text-primary italic\">SE ENCUENTRA CON</span> <br /> EL DINERO",
+      "heroDesc": "La red publicitaria mejor pagada diseñada para editores serios. Segmentación impulsada por IA, tasa de relleno del 100%, pagos semanales.",
+      "startEarning": "Empieza a Ganar →",
+      "launchAds": "Lanzar Anuncios",
+      "marquee": {
+        "highCpm": "★ ALTAS TASAS DE CPM",
+        "weekly": "★ PAGOS SEMANALES",
+        "fill": "★ 100% DE TASA DE RELLENO",
+        "antiAdblock": "★ ANTI-ADBLOCK",
+        "realtime": "★ ESTADÍSTICAS EN TIEMPO REAL",
+        "geos": "★ 248 GEOs"
+      },
+      "stats": {
+        "fillRate": {
+          "label": "Tasa de Relleno",
+          "desc": "Cada impresión monetizada, cada país cubierto."
+        },
+        "avgCpm": {
+          "label": "CPM Promedio",
+          "desc": "El tráfico de nivel 1 gana lo que merece."
+        },
+        "payouts": {
+          "label": "Pagos",
+          "desc": "BTC, USDT, PayPal, Transferencia. Siempre a tiempo."
+        },
+        "geos": {
+          "label": "GEOs",
+          "desc": "Cobertura global de anunciantes directos."
+        }
+      },
+      "forPublishers": {
+        "titleHtml": "PARA<br />EDITORES",
+        "desc": "Maximiza los ingresos de cada impresión. Nuestro feed de anuncios optimizado por IA ofrece las tasas de eCPM más altas con anuncios limpios y seguros.",
+        "b1": "Hasta el 70% de participación en los ingresos",
+        "b2": "6 formatos de anuncios de alto impacto",
+        "b3": "Pago mínimo de $5",
+        "b4": "Gerente de cuenta dedicado",
+        "b5": "Solución anti-adblock",
+        "cta": "Únete como Editor"
+      },
+      "forAdvertisers": {
+        "titleHtml": "PARA<br />ANUNCIANTES",
+        "desc": "Llega a audiencias de alta intención en 248 GEOs. Más de 20 configuraciones de segmentación, pujas inteligentes y análisis en tiempo real.",
+        "b1": "Tráfico directo de editores",
+        "b2": "Segmentación avanzada por GEO/Dispositivo/SO",
+        "b3": "CPM Inteligente y Objetivo de CPA",
+        "b4": "Depósito mínimo de $100",
+        "b5": "Protección contra fraude de 3 niveles",
+        "cta": "Lanzar Campaña"
+      },
+      "adFormats": {
+        "titleHtml": "Formatos de Anuncios <br /><span class=\"text-outline text-foreground\">que Convierten</span>",
+        "desc": "Unidades de anuncios no intrusivas y de alto rendimiento que ofrecen más de 2.000 millones de impresiones mensuales en todos los dispositivos.",
+        "popunder": {
+          "title": "Popunder",
+          "desc": "Anuncios a página completa detrás de la ventana principal. Las tasas de CPM más altas, cero ceguera a los banners."
+        },
+        "push": {
+          "title": "In-Page Push",
+          "desc": "Notificaciones amigables con el navegador. No se requiere suscripción. CTR 30 veces mayor que el web push."
+        },
+        "interstitial": {
+          "title": "Intersticial",
+          "desc": "Cobertura a pantalla completa entre páginas. Máximo impacto visual y compromiso."
+        },
+        "smartLink": {
+          "title": "Smart Link",
+          "desc": "La IA dirige automáticamente a la oferta mejor pagada. Ideal para tráfico social y de referencia."
+        },
+        "native": {
+          "title": "Anuncios Nativos",
+          "desc": "Se combinan perfectamente con el contenido del sitio. Los editores controlan los colores, tamaños y ubicación."
+        },
+        "banner": {
+          "title": "Anuncios de Banner",
+          "desc": "Estándares clásicos de IAB. Beneficios estables para computadoras de escritorio y móviles."
+        }
+      },
+      "whyUs": {
+        "title": "Por qué más de 10.000 socios confían en nosotros",
+        "safety": {
+          "title": "Seguridad y Calidad de los Anuncios",
+          "desc": "El sistema de seguridad de 3 niveles evita el malware, el fraude y el tráfico de bots."
+        },
+        "care": {
+          "title": "Atención al Socio",
+          "desc": "Más que soporte. Gerentes dedicados ayudan a optimizar campañas, mejorar la estrategia y aumentar sus ingresos."
+        },
+        "tools": {
+          "title": "Herramientas de Rendimiento",
+          "desc": "CPM Inteligente, Objetivo de CPA, Estimador de Tráfico. Automatiza las pujas."
+        },
+        "global": {
+          "title": "Cobertura Global",
+          "desc": "Editores directos de 248 GEOs. Tráfico premium desde Tier-1 hasta Tier-3."
+        },
+        "ecpm": {
+          "title": "eCPM Competitivo",
+          "desc": "Nuestro modelo de eCPM recompensa la calidad. Más clics y conversiones = mayores ganancias."
+        },
+        "payouts": {
+          "title": "Pagos Rápidos",
+          "desc": "Pago mínimo de $5. Pagos semanales automatizados a través de PayPal, USDT, Bitcoin y más."
+        }
+      },
+      "steps": {
+        "title": "Empieza en 4 Pasos",
+        "s1": {
+          "title": "Regístrate",
+          "desc": "Crea tu cuenta en menos de 2 minutos. Sin retrasos por aprobación."
+        },
+        "s2": {
+          "title": "Añade tu Sitio",
+          "desc": "Envía tu sitio web o fuente de tráfico para una verificación rápida."
+        },
+        "s3": {
+          "title": "Obtén el Código",
+          "desc": "Copia nuestra etiqueta ligera de JavaScript. Una sola línea de código."
+        },
+        "s4": {
+          "title": "Gana Dinero",
+          "desc": "Observa cómo crecen los ingresos en tiempo real. Cobra semanalmente."
+        }
+      },
+      "testimonials": {
+        "title": "Lo que Dicen Nuestros Socios",
+        "t1": {
+          "name": "Alex M.",
+          "role": "Editor • Nicho de Juegos",
+          "quote": "Cambié de AdSense a MrPop.io. Mis ingresos literalmente se triplicaron en el primer mes."
+        },
+        "t2": {
+          "name": "Sarah K.",
+          "role": "Comprador de Medios",
+          "quote": "La granularidad de la segmentación es increíble. El Objetivo de CPA me ahorró miles al auto-optimizar mis campañas."
+        },
+        "t3": {
+          "name": "Dmitri V.",
+          "role": "Editor • Blog de Tecnología",
+          "quote": "Pagos semanales a través de USDT. Sin retrasos. Mi gerente de cuenta me ayudó a obtener un 40% más de ingresos."
+        }
+      },
+      "faq": {
+        "title": "Preguntas Frecuentes",
+        "q1": {
+          "q": "¿Cuánto puedo ganar?",
+          "a": "Las ganancias varían según la calidad del tráfico y el GEO. El tráfico de Nivel 1 puede ganar entre $5 y $8+ de CPM."
+        },
+        "q2": {
+          "q": "¿Cuál es el pago mínimo?",
+          "a": "Solo $5 a través de Paxum. Otros métodos como PayPal y USDT tienen mínimos ligeramente más altos."
+        },
+        "q3": {
+          "q": "¿Qué formatos de anuncios admiten?",
+          "a": "Admitimos Popunder, In-Page Push, Intersticial, Smart Link, Anuncios Nativos y Banners."
+        },
+        "q4": {
+          "q": "¿Cómo funciona la protección contra el fraude?",
+          "a": "Nuestro sistema detecta y bloquea el tráfico de bots, el malware y los clics fraudulentos en tiempo real."
+        },
+        "q5": {
+          "q": "¿Qué opciones de segmentación están disponibles?",
+          "a": "Más de 20 configuraciones de segmentación que incluyen País, Ciudad, SO, Navegador, Tipo de Dispositivo y más."
+        }
+      },
+      "cta": {
+        "bgText": "ÚNETE A NOSOTROS",
+        "title1": "¿Listo para",
+        "title2": "Dominar?",
+        "subtitle": "Únete a más de 10.000 editores y anunciantes que ya están escalando con nosotros.",
+        "publisher": "Registro de Editor",
+        "advertiser": "Registro de Anunciante"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useState } from 'react';
 import {
     Zap, TrendingUp, DollarSign, Clock, Shield, BarChart3,
@@ -8,6 +8,8 @@ import {
     MousePointer2, Smartphone, Layers, Cpu, Globe, Users
 } from 'lucide-react';
 import AuthNavButtons from '@/components/AuthNavButtons';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 function PubFAQ({ question, answer }) {
     const [open, setOpen] = useState(false);
@@ -23,6 +25,7 @@ function PubFAQ({ question, answer }) {
 }
 
 export default function PublisherLayout() {
+    const t = useTranslations('nav');
     return (
         <div className="min-h-screen bg-slate-950 text-white selection:bg-lime-400 selection:text-slate-900" style={{ fontFamily: 'var(--font-heading)' }}>
 
@@ -36,18 +39,21 @@ export default function PublisherLayout() {
                         <span className="text-2xl font-bold tracking-tight">MrPop.io</span>
                     </div>
                     <div className="hidden md:flex gap-6 text-sm font-medium text-gray-400">
-                        <Link href="/for-publishers" className="hover:text-lime-400 transition-colors">Publishers</Link>
-                        <Link href="/for-advertisers" className="hover:text-lime-400 transition-colors">Advertisers</Link>
-                        <Link href="/how-it-works" className="hover:text-lime-400 transition-colors">How It Works</Link>
-                        <Link href="/faq" className="hover:text-lime-400 transition-colors">FAQ</Link>
-                        <Link href="/contact" className="hover:text-lime-400 transition-colors">Contact</Link>
+                        <Link href="/for-publishers" className="hover:text-lime-400 transition-colors">{t('publishers')}</Link>
+                        <Link href="/for-advertisers" className="hover:text-lime-400 transition-colors">{t('advertisers')}</Link>
+                        <Link href="/how-it-works" className="hover:text-lime-400 transition-colors">{t('howItWorks')}</Link>
+                        <Link href="/faq" className="hover:text-lime-400 transition-colors">{t('faq')}</Link>
+                        <Link href="/contact" className="hover:text-lime-400 transition-colors">{t('contact')}</Link>
                     </div>
-                    <AuthNavButtons
-                        hrefCTA="/register?role=publisher"
-                        labelCTA="Start Earning"
-                        btnClass="px-6 py-2.5 bg-lime-400 text-slate-900 rounded-xl font-bold hover:bg-lime-300 shadow-[0_0_20px_rgba(163,255,51,0.3)] hover:shadow-[0_0_30px_rgba(163,255,51,0.5)] transition-all text-sm flex items-center gap-2"
-                        loginClass="text-gray-400 hover:text-white transition-colors text-sm font-bold"
-                    />
+                    <div className="flex items-center gap-3">
+                        <LanguageSwitcher dark={true} />
+                        <AuthNavButtons
+                            hrefCTA="/register?role=publisher"
+                            labelCTA={t('getStarted')}
+                            btnClass="px-6 py-2.5 bg-lime-400 text-slate-900 rounded-xl font-bold hover:bg-lime-300 shadow-[0_0_20px_rgba(163,255,51,0.3)] hover:shadow-[0_0_30px_rgba(163,255,51,0.5)] transition-all text-sm flex items-center gap-2"
+                            loginClass="text-gray-400 hover:text-white transition-colors text-sm font-bold"
+                        />
+                    </div>
                 </div>
             </nav>
 

@@ -5,7 +5,7 @@
 // Everything else (TopStories, CatSections) is server-rendered above this
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Search, X, Clock } from 'lucide-react';
 
 const CAT = {

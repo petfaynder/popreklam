@@ -1,0 +1,361 @@
+{
+  "nav": {
+    "advertisers": "Werbetreibende",
+    "publishers": "Publisher",
+    "howItWorks": "Wie es funktioniert",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "blog": "Blog",
+    "docs": "Dokumentation",
+    "login": "Anmelden",
+    "getStarted": "Loslegen",
+    "dashboard": "Dashboard",
+    "logout": "Abmelden",
+    "subscribe": "Abonnieren"
+  },
+  "footer": {
+    "platform": "Plattform",
+    "resources": "Ressourcen",
+    "company": "Unternehmen",
+    "legal": "Rechtliches",
+    "tagline": "Das leistungsstarke Werbenetzwerk für Publisher und Werbetreibende.",
+    "taglineSaaS": "Das moderne Werbenetzwerk.",
+    "taglineLuminous": "Monetarisieren Sie intelligenter.",
+    "taglineAzure": "Erreichen Sie Ihre Zielgruppe.",
+    "copyright": "© {year} MrPop.io",
+    "links": {
+      "adFormats": "Anzeigenformate",
+      "smartLink": "Smart Link",
+      "antiAdblock": "Anti-Adblock",
+      "howItWorks": "Wie es funktioniert",
+      "blog": "Blog",
+      "docs": "Dokumentation",
+      "contact": "Kontakt",
+      "faq": "FAQ",
+      "status": "Status",
+      "privacy": "Datenschutz",
+      "terms": "Nutzungsbedingungen",
+      "publishers": "Publisher",
+      "advertisers": "Werbetreibende"
+    }
+  },
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "loading": "Wird geladen...",
+    "error": "Etwas ist schiefgelaufen",
+    "success": "Erfolg",
+    "noData": "Keine Daten verfügbar",
+    "retry": "Wiederholen",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Ansehen",
+    "search": "Suchen",
+    "all": "Alle",
+    "active": "Aktiv",
+    "status": "Status",
+    "actions": "Aktionen",
+    "date": "Datum",
+    "amount": "Betrag",
+    "total": "Gesamt",
+    "name": "Name",
+    "email": "E-Mail"
+  },
+  "auth": {
+    "loginTitle": "Willkommen zurück",
+    "loginSubtitle": "Melden Sie sich an",
+    "registerTitle": "Konto erstellen",
+    "registerSubtitle": "Treten Sie über 10.000 Nutzern bei",
+    "emailLabel": "E-Mail",
+    "passwordLabel": "Passwort",
+    "loginBtn": "Anmelden",
+    "registerBtn": "Konto erstellen",
+    "rolePublisher": "Publisher",
+    "roleAdvertiser": "Werbetreibender",
+    "roleLabel": "Ich bin ein"
+  },
+  "publisher": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "analytics": "Analytik",
+      "sites": "Websites",
+      "payments": "Auszahlungen",
+      "settings": "Einstellungen"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "totalEarnings": "Gesamteinnahmen",
+      "impressions": "Impressionen",
+      "clicks": "Klicks",
+      "ctr": "CTR",
+      "cpm": "CPM"
+    }
+  },
+  "advertiser": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "campaigns": "Kampagnen",
+      "billing": "Abrechnung",
+      "settings": "Einstellungen"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "totalSpent": "Gesamtausgaben",
+      "activeCampaigns": "Aktive Kampagnen"
+    }
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "titleBrutalist": "F.A.Q.",
+    "subtitle": "Finden Sie Antworten auf häufige Fragen",
+    "searchPlaceholder": "Suchen...",
+    "notFound": "Keine Fragen gefunden.",
+    "categories": {
+      "all": "Alle",
+      "publishers": "Publisher",
+      "advertisers": "Werbetreibende"
+    },
+    "questions": {
+      "q1": "Wie viel kann ich verdienen?",
+      "a1": "Einnahmen variieren je nach Traffic-Qualität.",
+      "q2": "Was sind die Voraussetzungen?",
+      "a2": "Mindestens 1.000 tägliche Besucher.",
+      "q3": "Wie installiere ich den Code?",
+      "a3": "Kopieren und fügen Sie den JavaScript-Code vor dem body-Tag ein.",
+      "q4": "Ist es mit Google AdSense kompatibel?",
+      "a4": "Ja, 100% kompatibel."
+    }
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "nameLabel": "Vollständiger Name",
+    "emailLabel": "E-Mail",
+    "subjectLabel": "Betreff",
+    "messageLabel": "Nachricht",
+    "sendBtn": "Nachricht senden"
+  },
+  "forPublishers": {
+    "heroTitle": "Monetarisieren Sie Ihren Traffic",
+    "heroSubtitle": "Bis zu $8 CPM. Wöchentliche Auszahlungen.",
+    "heroCta": "Jetzt verdienen",
+    "howTitle": "Wie es funktioniert",
+    "steps": {
+      "s1": "Kostenlos anmelden",
+      "s2": "Website hinzufügen",
+      "s3": "Code installieren",
+      "s4": "Geld verdienen"
+    }
+  },
+  "forAdvertisers": {
+    "heroTitle": "Erreichen Sie Millionen von Nutzern",
+    "heroSubtitle": "Premium-Traffic. Starten Sie ab $100.",
+    "heroCta": "Kampagne starten",
+    "formatsTitle": "Anzeigenformate"
+  },
+  "howItWorks": {
+    "title": "Wie MrPop.io funktioniert",
+    "forPublishers": "Für Publisher",
+    "forAdvertisers": "Für Werbetreibende"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  },
+  "status": {
+    "title": "System Status",
+    "allOperational": "All Systems Operational",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "outage": "Outage"
+  },
+  "cookie": {
+    "message": "We use cookies to improve your experience and analyze site usage.",
+    "accept": "Accept All",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  },
+  "themes": {
+    "brutalist": {
+      "trustedBy": "Über 10.000 Publisher vertrauen uns",
+      "heroTitleHtml": "TRAFFIC <br /> <span class=\"text-primary italic\">TRIFFT AUF</span> <br /> GELD",
+      "heroDesc": "Das bestbezahlte Werbenetzwerk für Publisher. KI-gesteuertes Targeting, 100% Auslastung, wöchentliche Auszahlungen.",
+      "startEarning": "Jetzt Geld verdienen →",
+      "launchAds": "Werbung schalten",
+      "marquee": {
+        "highCpm": "★ HOHE CPM-RATEN",
+        "weekly": "★ WÖCHENTLICHE AUSZAHLUNGEN",
+        "fill": "★ 100% FILL-RATE",
+        "antiAdblock": "★ ANTI-ADBLOCK",
+        "realtime": "★ ECHTZEIT-STATISTIKEN",
+        "geos": "★ 248 LÄNDER"
+      },
+      "stats": {
+        "fillRate": {
+          "label": "Fill-Rate",
+          "desc": "Jede Impression wird monetarisiert, jedes Land abgedeckt."
+        },
+        "avgCpm": {
+          "label": "Ø CPM",
+          "desc": "Tier-1-Traffic verdient das, was er wert ist."
+        },
+        "payouts": {
+          "label": "Auszahlungen",
+          "desc": "BTC, USDT, PayPal, Überweisung. Immer pünktlich."
+        },
+        "geos": {
+          "label": "GEOs",
+          "desc": "Weltweite Abdeckung durch direkte Werbetreibende."
+        }
+      },
+      "forPublishers": {
+        "titleHtml": "FÜR<br />PUBLISHER",
+        "desc": "Maximieren Sie Ihren Umsatz mit jeder Impression. Unser KI-optimierter Anzeigen-Feed liefert höchste eCPM-Raten.",
+        "b1": "Bis zu 70% Umsatzbeteiligung",
+        "b2": "6 wirkungsvolle Anzeigenformate",
+        "b3": "$5 Mindestauszahlung",
+        "b4": "Persönlicher Account Manager",
+        "b5": "Anti-Adblock-Lösung",
+        "cta": "Als Publisher anmelden"
+      },
+      "forAdvertisers": {
+        "titleHtml": "FÜR<br />WERBETREIBENDE",
+        "desc": "Erreichen Sie kaufbereite Zielgruppen in 248 Ländern. 20+ Targeting-Optionen und Echtzeit-Analysen.",
+        "b1": "Direkter Publisher-Traffic",
+        "b2": "Erweitertes GEO/Geräte/OS-Targeting",
+        "b3": "Smart CPM & CPA Goal",
+        "b4": "$100 Mindesteinzahlung",
+        "b5": "3-stufiger Betrugsschutz",
+        "cta": "Kampagne starten"
+      },
+      "adFormats": {
+        "titleHtml": "Anzeigenformate <br /><span class=\"text-outline text-foreground\">die konvertieren</span>",
+        "desc": "Unaufdringliche, leistungsstarke Anzeigenblöcke mit über 2 Milliarden monatlichen Impressionen auf allen Geräten.",
+        "popunder": {
+          "title": "Popunder",
+          "desc": "Vollbildanzeigen hinter dem Hauptfenster. Höchste CPM-Raten."
+        },
+        "push": {
+          "title": "In-Page Push",
+          "desc": "Browserfreundliche Benachrichtigungen. Keine Anmeldung erforderlich."
+        },
+        "interstitial": {
+          "title": "Interstitial",
+          "desc": "Vollbildabdeckung zwischen Seiten. Maximale visuelle Wirkung."
+        },
+        "smartLink": {
+          "title": "Smart Link",
+          "desc": "KI leitet zum bestbezahlten Angebot weiter. Perfekt für Social Media."
+        },
+        "native": {
+          "title": "Native Ads",
+          "desc": "Fügen sich nahtlos in den Inhalt ein. Volle Kontrolle für Publisher."
+        },
+        "banner": {
+          "title": "Bannerwerbung",
+          "desc": "Klassische IAB-Standards. Stabile Gewinne für Desktop und Mobile."
+        }
+      },
+      "whyUs": {
+        "title": "Warum uns 10.000+ Partner vertrauen",
+        "safety": {
+          "title": "Sicherheit & Qualität",
+          "desc": "3-stufiges Sicherheitssystem verhindert Malware, Betrug und Bot-Traffic."
+        },
+        "care": {
+          "title": "Partner-Support",
+          "desc": "Mehr als nur Support. Persönliche Manager helfen bei der Optimierung."
+        },
+        "tools": {
+          "title": "Leistungs-Tools",
+          "desc": "Smart CPM, CPA Goal. Automatisieren Sie Ihre Gebote."
+        },
+        "global": {
+          "title": "Weltweite Abdeckung",
+          "desc": "Direkte Publisher aus 248 Ländern. Premium-Traffic aus allen Regionen."
+        },
+        "ecpm": {
+          "title": "Wettbewerbsfähiger eCPM",
+          "desc": "Unser eCPM-Modell belohnt Qualität. Mehr Klicks = mehr Einnahmen."
+        },
+        "payouts": {
+          "title": "Schnelle Auszahlungen",
+          "desc": "$5 Mindestauszahlung. Automatisierte wöchentliche Zahlungen."
+        }
+      },
+      "steps": {
+        "title": "Starten Sie in 4 Schritten",
+        "s1": {
+          "title": "Registrieren",
+          "desc": "Erstellen Sie Ihr Konto in unter 2 Minuten."
+        },
+        "s2": {
+          "title": "Website hinzufügen",
+          "desc": "Reichen Sie Ihre Website zur schnellen Überprüfung ein."
+        },
+        "s3": {
+          "title": "Code erhalten",
+          "desc": "Kopieren Sie unser leichtes JavaScript-Tag."
+        },
+        "s4": {
+          "title": "Geld verdienen",
+          "desc": "Beobachten Sie, wie Ihr Umsatz in Echtzeit wächst."
+        }
+      },
+      "testimonials": {
+        "title": "Was Partner sagen",
+        "t1": {
+          "name": "Alex M.",
+          "role": "Publisher",
+          "quote": "Mein Umsatz hat sich im ersten Monat verdreifacht. Anti-Adblock allein hat 30% gerettet."
+        },
+        "t2": {
+          "name": "Sarah K.",
+          "role": "Advertiser",
+          "quote": "Die Targeting-Tiefe ist verrückt. CPA Goal hat mir Tausende gespart."
+        },
+        "t3": {
+          "name": "Dmitri V.",
+          "role": "Tech-Blogger",
+          "quote": "Wöchentliche Auszahlungen über USDT. Keine Verzögerungen. Einfach perfekt."
+        }
+      },
+      "faq": {
+        "title": "Häufige Fragen",
+        "q1": {
+          "q": "Wie viel kann ich verdienen?",
+          "a": "Einnahmen variieren nach Traffic-Qualität. Tier-1-Traffic kann $5-8+ CPM verdienen."
+        },
+        "q2": {
+          "q": "Wie hoch ist die Mindestauszahlung?",
+          "a": "Nur $5 über Paxum. PayPal, Überweisung und USDT sind etwas höher."
+        },
+        "q3": {
+          "q": "Welche Anzeigenformate gibt es?",
+          "a": "Popunder, In-Page Push, Interstitial, Smart Link, Native Ads und Banner."
+        },
+        "q4": {
+          "q": "Wie funktioniert der Betrugsschutz?",
+          "a": "Unser System blockiert Bot-Traffic und Malware in Echtzeit."
+        },
+        "q5": {
+          "q": "Welche Targeting-Optionen gibt es?",
+          "a": "Über 20 Einstellungen einschließlich Land, Stadt, Betriebssystem und Browser."
+        }
+      },
+      "cta": {
+        "bgText": "WERDEN SIE PARTNER",
+        "title1": "Bereit zu",
+        "title2": "dominieren?",
+        "subtitle": "Schließen Sie sich über 10.000 Publishern und Werbetreibenden an.",
+        "publisher": "Als Publisher anmelden",
+        "advertiser": "Als Werbetreibender anmelden"
+      }
+    }
+  }
+}

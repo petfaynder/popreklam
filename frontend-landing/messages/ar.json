@@ -1,0 +1,399 @@
+{
+  "nav": {
+    "advertisers": "المعلنون",
+    "publishers": "الناشرون",
+    "howItWorks": "كيف تعمل",
+    "faq": "الأسئلة الشائعة",
+    "contact": "اتصل بنا",
+    "blog": "المدونة",
+    "docs": "الوثائق",
+    "login": "تسجيل الدخول",
+    "getStarted": "ابدأ الآن",
+    "dashboard": "لوحة القيادة",
+    "logout": "تسجيل الخروج",
+    "subscribe": "اشتراك"
+  },
+  "footer": {
+    "platform": "المنصة",
+    "resources": "الموارد",
+    "company": "الشركة",
+    "legal": "قانوني",
+    "tagline": "شبكة إعلانات عالية الأداء للناشرين والمعلنين.",
+    "copyright": "© {year} MrPop.io",
+    "links": {
+      "adFormats": "صيغ الإعلانات",
+      "smartLink": "الرابط الذكي",
+      "antiAdblock": "مضاد حظر الإعلانات",
+      "howItWorks": "كيف تعمل",
+      "blog": "المدونة",
+      "docs": "الوثائق",
+      "contact": "اتصل بنا",
+      "faq": "الأسئلة الشائعة",
+      "status": "الحالة",
+      "privacy": "سياسة الخصوصية",
+      "terms": "شروط الخدمة"
+    }
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما",
+    "success": "نجاح",
+    "noData": "لا توجد بيانات",
+    "close": "إغلاق",
+    "search": "بحث",
+    "all": "الكل"
+  },
+  "auth": {
+    "loginTitle": "مرحباً بعودتك",
+    "loginSubtitle": "تسجيل الدخول إلى حسابك",
+    "registerTitle": "أنشئ حسابك",
+    "emailLabel": "البريد الإلكتروني",
+    "passwordLabel": "كلمة المرور",
+    "loginBtn": "دخول",
+    "registerBtn": "تسجيل",
+    "rolePublisher": "ناشر",
+    "roleAdvertiser": "معلن"
+  },
+  "publisher": {
+    "nav": {
+      "dashboard": "لوحة القيادة",
+      "sites": "المواقع",
+      "payments": "المدفوعات"
+    },
+    "dashboard": {
+      "title": "لوحة القيادة",
+      "totalEarnings": "إجمالي الأرباح"
+    }
+  },
+  "advertiser": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "campaigns": "Campaigns",
+      "creatives": "Creatives",
+      "audiences": "Audiences",
+      "billing": "Billing",
+      "statistics": "Statistics",
+      "referrals": "Referrals",
+      "tracking": "Tracking",
+      "priority": "Priority",
+      "settings": "Settings",
+      "support": "Support",
+      "account": "Account"
+    },
+    "topbar": {
+      "balance": "Balance",
+      "deposit": "Add Funds",
+      "notifications": "Notifications",
+      "noNotifications": "No notifications yet",
+      "breadcrumb": "Advertiser Panel"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Your campaigns overview",
+      "totalSpent": "Total Spent",
+      "todaySpent": "Today's Spend",
+      "impressions": "Total Impressions",
+      "clicks": "Total Clicks",
+      "ctr": "CTR",
+      "activeCampaigns": "Active Campaigns",
+      "balance": "Account Balance",
+      "conversions": "Conversions",
+      "topCampaigns": "Top Campaigns",
+      "spendChart": "Spend Overview",
+      "noCampaigns": "No campaigns yet",
+      "createFirst": "Create Your First Campaign"
+    },
+    "campaigns": {
+      "title": "Campaigns",
+      "create": "Create Campaign",
+      "name": "Campaign Name",
+      "format": "Ad Format",
+      "targetUrl": "Target URL",
+      "dailyBudget": "Daily Budget",
+      "totalBudget": "Total Budget",
+      "bidAmount": "Bid Amount (CPM)",
+      "status": "Status",
+      "spent": "Spent",
+      "impressions": "Impressions",
+      "clicks": "Clicks",
+      "ctr": "CTR",
+      "start": "Activate",
+      "pause": "Pause",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "deleteConfirm": "Are you sure you want to delete this campaign?",
+      "noCampaigns": "No campaigns yet. Create your first campaign to start getting traffic.",
+      "targeting": "Targeting",
+      "geo": "Geographic Targeting",
+      "device": "Device Targeting",
+      "browser": "Browser Targeting",
+      "os": "OS Targeting",
+      "schedule": "Ad Schedule",
+      "frequency": "Frequency Capping",
+      "pacing": "Pacing"
+    },
+    "billing": {
+      "title": "Billing & Payments",
+      "deposit": "Add Funds",
+      "amount": "Deposit Amount",
+      "method": "Payment Method",
+      "currentBalance": "Current Balance",
+      "totalDeposited": "Total Deposited",
+      "totalSpent": "Total Spent",
+      "history": "Transaction History",
+      "noHistory": "No transactions yet",
+      "minDeposit": "Minimum deposit: $100",
+      "creditCard": "Credit Card",
+      "paypal": "PayPal",
+      "bitcoin": "Bitcoin",
+      "usdt": "USDT",
+      "coupon": "Promo Code",
+      "applyCoupon": "Apply",
+      "couponApplied": "Promo code applied!"
+    },
+    "settings": {
+      "title": "Account Settings",
+      "profile": "Profile",
+      "security": "Security",
+      "notifications": "Notifications",
+      "company": "Company Name",
+      "billingAddress": "Billing Address",
+      "taxId": "Tax ID / VAT Number",
+      "autoRecharge": "Auto-Recharge",
+      "autoRechargeDesc": "Automatically add funds when balance drops below threshold",
+      "rechargeThreshold": "Recharge Threshold",
+      "rechargeAmount": "Recharge Amount",
+      "saved": "Settings saved successfully"
+    }
+  },
+  "faq": {
+    "title": "الأسئلة الشائعة",
+    "titleBrutalist": "أسئلة وأجوبة",
+    "searchPlaceholder": "ابحث عن إجابات...",
+    "questions": {
+      "q1": "كم يمكنني أن أكسب؟",
+      "a1": "تختلف الأرباح بناءً على جودة الزيارات.",
+      "q3": "كيف أقوم بتثبيت الرمز؟",
+      "a3": "انسخ والصق الكود قبل وسم body."
+    }
+  },
+  "contact": {
+    "title": "تواصل معنا",
+    "sendBtn": "إرسال رسالة"
+  },
+  "forPublishers": {
+    "heroTitle": "حقق أرباحًا من زياراتك",
+    "heroCta": "ابدأ في الكسب",
+    "howTitle": "كيف تعمل"
+  },
+  "forAdvertisers": {
+    "heroTitle": "الوصول إلى ملايين المستخدمين",
+    "heroCta": "إطلاق حملة"
+  },
+  "howItWorks": {
+    "title": "كيف تعمل",
+    "forPublishers": "للناشرين",
+    "forAdvertisers": "للمعلن"
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  },
+  "status": {
+    "title": "System Status",
+    "allOperational": "All Systems Operational",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "outage": "Outage"
+  },
+  "cookie": {
+    "message": "We use cookies to improve your experience and analyze site usage.",
+    "accept": "Accept All",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  },
+  "themes": {
+    "brutalist": {
+      "trustedBy": "موثوق به من قبل 10,000+ ناشر",
+      "heroTitleHtml": "الزيارات <br /> <span class=\"text-primary italic\">تلتقي</span> <br /> بالأرباح",
+      "heroDesc": "أعلى شبكة إعلانية ربحاً مصممة للناشرين الجادين. استهداف بالذكاء الاصطناعي، معدل تعبئة 100%، مدفوعات أسبوعية.",
+      "startEarning": "ابدأ في الربح ←",
+      "launchAds": "إطلاق حملة",
+      "marquee": {
+        "highCpm": "★ أعلى معدلات CPM",
+        "weekly": "★ مدفوعات أسبوعية",
+        "fill": "★ معدل تعبئة 100%",
+        "antiAdblock": "★ تجاوز حظر الإعلانات",
+        "realtime": "★ إحصائيات مباشرة",
+        "geos": "★ 248 دولة"
+      },
+      "stats": {
+        "fillRate": {
+          "label": "معدل التعبئة",
+          "desc": "تحقيق الدخل من كل ظهور، وتغطية كل دولة."
+        },
+        "avgCpm": {
+          "label": "متوسط CPM",
+          "desc": "زيارات الدرجة الأولى تكسب ما تستحقه."
+        },
+        "payouts": {
+          "label": "المدفوعات",
+          "desc": "دائماً في الوقت المحدد عبر BTC, USDT, PayPal."
+        },
+        "geos": {
+          "label": "الدول",
+          "desc": "تغطية عالمية من معلنين مباشرين."
+        }
+      },
+      "forPublishers": {
+        "titleHtml": "للناشرين",
+        "desc": "ضاعف إيراداتك من كل ظهور. توفر تغذية الإعلانات المحسّنة بالذكاء الاصطناعي أعلى معدلات eCPM.",
+        "b1": "مشاركة أرباح تصل إلى 70%",
+        "b2": "6 أشكال إعلانية عالية التأثير",
+        "b3": "الحد الأدنى للسحب 5 دولارات",
+        "b4": "مدير حساب مخصص",
+        "b5": "حلول لتجاوز حظر الإعلانات",
+        "cta": "انضم كناشر"
+      },
+      "forAdvertisers": {
+        "titleHtml": "للمعلنـين",
+        "desc": "الوصول إلى جماهير عالية الاستهداف في 248 دولة. 20+ إعداد استهداف وتحليلات في الوقت الفعلي.",
+        "b1": "زيارات ناشرين مباشرة",
+        "b2": "استهداف متقدم (دولة/جهاز/نظام)",
+        "b3": "هدف CPA و CPM ذكي",
+        "b4": "الحد الأدنى للإيداع 100 دولار",
+        "b5": "حماية من الاحتيال بثلاث مستويات",
+        "cta": "إطلاق حملة"
+      },
+      "adFormats": {
+        "titleHtml": "أشكال الإعلانات <br /><span class=\"text-outline text-foreground\">التي تحقق أرباحاً</span>",
+        "desc": "وحدات إعلانية عالية الأداء غير مزعجة، تخدم أكثر من 2 مليار ظهور شهرياً عبر جميع الأجهزة.",
+        "popunder": {
+          "title": "Popunder",
+          "desc": "إعلانات صفحة كاملة خلف النافذة الرئيسية. أعلى معدلات العائد."
+        },
+        "push": {
+          "title": "In-Page Push",
+          "desc": "إشعارات متوافقة مع المتصفح. لا تتطلب اشتراك."
+        },
+        "interstitial": {
+          "title": "إعلان بيني",
+          "desc": "تغطية بملء الشاشة بين الصفحات. أقصى تأثير مرئي."
+        },
+        "smartLink": {
+          "title": "الرابط الذكي",
+          "desc": "يوجه الذكاء الاصطناعي إلى العرض الأعلى أرباحاً. مثالي لزيارات السوشيال ميديا."
+        },
+        "native": {
+          "title": "الإعلانات المدمجة",
+          "desc": "تمتزج بسلاسة مع محتوى الموقع."
+        },
+        "banner": {
+          "title": "إعلانات البانر",
+          "desc": "معايير IAB الكلاسيكية. أرباح مستقرة."
+        }
+      },
+      "whyUs": {
+        "title": "لماذا يثق بنا 10,000+ شريك",
+        "safety": {
+          "title": "الأمان والجودة",
+          "desc": "نظام أمان من 3 مستويات يمنع البرامج الضارة والزيارات الوهمية."
+        },
+        "care": {
+          "title": "رعاية الشركاء",
+          "desc": "مديرون مخصصون يساعدون في تحسين حملاتك وزيادة أرباحك."
+        },
+        "tools": {
+          "title": "أدوات الأداء",
+          "desc": "CPM ذكي وهدف CPA. أتمتة تقديم العطاءات الخاصة بك."
+        },
+        "global": {
+          "title": "تغطية عالمية",
+          "desc": "ناشرون مباشرون من 248 دولة."
+        },
+        "ecpm": {
+          "title": "eCPM تنافسي",
+          "desc": "نموذج العائد لدينا يكافئ الجودة. نقرات أكثر = أرباح أعلى."
+        },
+        "payouts": {
+          "title": "دفع سريع",
+          "desc": "الحد الأدنى 5 دولارات. مدفوعات أسبوعية آلية."
+        }
+      },
+      "steps": {
+        "title": "ابدأ في 4 خطوات",
+        "s1": {
+          "title": "تسجيل",
+          "desc": "أنشئ حسابك في أقل من دقيقتين."
+        },
+        "s2": {
+          "title": "أضف موقعك",
+          "desc": "أرسل موقع الويب الخاص بك للتحقق السريع."
+        },
+        "s3": {
+          "title": "احصل على الكود",
+          "desc": "انسخ كود JavaScript الخفيف الخاص بنا."
+        },
+        "s4": {
+          "title": "اكسب المال",
+          "desc": "شاهد الأرباح تنمو في الوقت الفعلي. مدفوعات أسبوعية."
+        }
+      },
+      "testimonials": {
+        "title": "ماذا يقول شركاؤنا",
+        "t1": {
+          "name": "أليكس م.",
+          "role": "ناشر",
+          "quote": "انتقلت من أدسنس إلى MrPop.io. تضاعفت أرباحي ثلاث مرات في الشهر الأول."
+        },
+        "t2": {
+          "name": "سارة ك.",
+          "role": "معلن",
+          "quote": "تفاصيل الاستهداف مذهلة. وفرت لي ميزة هدف CPA آلاف الدولارات."
+        },
+        "t3": {
+          "name": "ديمتري ف.",
+          "role": "مدون",
+          "quote": "مدفوعات أسبوعية عبر USDT. لا تأخير. أنصح به بشدة."
+        }
+      },
+      "faq": {
+        "title": "الأسئلة الشائعة",
+        "q1": {
+          "q": "كم يمكنني أن أكسب؟",
+          "a": "تختلف الأرباح حسب جودة الزيارات. زيارات الدرجة الأولى يمكن أن تربح 5-8 دولار لكل 1000 ظهور."
+        },
+        "q2": {
+          "q": "ما هو الحد الأدنى للدفع؟",
+          "a": "5 دولارات فقط عبر Paxum. المدفوعات تتم أسبوعياً في الوقت المحدد."
+        },
+        "q3": {
+          "q": "ما هي صيغ الإعلانات المدعومة؟",
+          "a": "ندعم Popunder و Push و Interstitial والروابط الذكية والبانر."
+        },
+        "q4": {
+          "q": "كيف تعمل حماية الاحتيال؟",
+          "a": "نظامنا المكون من 3 مستويات يحظر الزيارات الوهمية والبرامج الضارة فوراً."
+        },
+        "q5": {
+          "q": "ما هي خيارات الاستهداف المتاحة؟",
+          "a": "أكثر من 20 خيار استهداف بما في ذلك الدولة والمدينة ونظام التشغيل والمتصفح."
+        }
+      },
+      "cta": {
+        "bgText": "انضم إلينا الآن",
+        "title1": "جاهز",
+        "title2": "للسيطرة؟",
+        "subtitle": "انضم إلى 10,000+ ناشر ومعلن ينمون معنا.",
+        "publisher": "تسجيل كناشر",
+        "advertiser": "تسجيل كمعلن"
+      }
+    }
+  }
+}

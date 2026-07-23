@@ -1,0 +1,786 @@
+{
+  "nav": {
+    "advertisers": "Advertisers",
+    "publishers": "Publishers",
+    "howItWorks": "How It Works",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "blog": "Blog",
+    "docs": "Documentation",
+    "login": "Login",
+    "getStarted": "Get Started",
+    "dashboard": "Dashboard",
+    "logout": "Log Out",
+    "subscribe": "Subscribe"
+  },
+  "footer": {
+    "platform": "Platform",
+    "resources": "Resources",
+    "company": "Company",
+    "legal": "Legal",
+    "tagline": "The high-performance ad network for serious publishers and advertisers.",
+    "taglineSaaS": "The modern ad network for publishers and advertisers.",
+    "taglineLuminous": "Monetize smarter with the next-gen publisher network.",
+    "taglineAzure": "Reach your audience with precision targeting.",
+    "copyright": "© {year} MrPop.io",
+    "links": {
+      "adFormats": "Ad Formats",
+      "smartLink": "Smart Link",
+      "antiAdblock": "Anti-Adblock",
+      "howItWorks": "How It Works",
+      "blog": "Blog",
+      "docs": "Documentation",
+      "contact": "Contact",
+      "faq": "FAQ",
+      "status": "Status",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "publishers": "Publishers",
+      "advertisers": "Advertisers"
+    }
+  },
+  "common": {
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "success": "Success",
+    "noData": "No data available",
+    "retry": "Try Again",
+    "close": "Close",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "download": "Download",
+    "upload": "Upload",
+    "search": "Search",
+    "filter": "Filter",
+    "reset": "Reset",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "all": "All",
+    "active": "Active",
+    "paused": "Paused",
+    "pending": "Pending",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "status": "Status",
+    "actions": "Actions",
+    "date": "Date",
+    "amount": "Amount",
+    "total": "Total",
+    "name": "Name",
+    "email": "Email",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "exportCsv": "Export CSV",
+    "refresh": "Refresh",
+    "comingSoon": "Coming Soon"
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to your MrPop.io account",
+    "registerTitle": "Create your account",
+    "registerSubtitle": "Join 10,000+ publishers and advertisers",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPasswordLabel": "Confirm Password",
+    "confirmPasswordPlaceholder": "Repeat your password",
+    "forgotPassword": "Forgot password?",
+    "loginBtn": "Sign In",
+    "registerBtn": "Create Account",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signUpLink": "Sign up",
+    "signInLink": "Sign in",
+    "rolePublisher": "Publisher",
+    "roleAdvertiser": "Advertiser",
+    "roleLabel": "I am a",
+    "rolePublisherDesc": "I want to monetize my website",
+    "roleAdvertiserDesc": "I want to run ad campaigns",
+    "termsAgreement": "By creating an account, you agree to our {terms} and {privacy}.",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "forgotTitle": "Reset your password",
+    "forgotSubtitle": "Enter your email and we'll send you a reset link",
+    "forgotBtn": "Send Reset Link",
+    "forgotSuccess": "Check your email for the reset link",
+    "resetTitle": "Set new password",
+    "resetBtn": "Reset Password",
+    "resetSuccess": "Password updated successfully",
+    "loginSuccess": "Welcome back!",
+    "registerSuccess": "Account created! Please check your email.",
+    "invalidCredentials": "Invalid email or password",
+    "accountSuspended": "Your account has been suspended",
+    "verifyEmail": "Please verify your email address",
+    "twoFactor": "Two-Factor Authentication",
+    "twoFactorSubtitle": "Enter the 6-digit code from your authenticator app",
+    "twoFactorCode": "Authentication Code",
+    "twoFactorBtn": "Verify",
+    "twoFactorBackup": "Use backup code"
+  },
+  "publisher": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "analytics": "Analytics",
+      "sites": "Sites",
+      "adCodes": "Ad Codes",
+      "statistics": "Statistics",
+      "payments": "Payments",
+      "referrals": "Referrals",
+      "reportAd": "Report Ad",
+      "settings": "Settings",
+      "support": "Support",
+      "account": "Account"
+    },
+    "topbar": {
+      "balance": "Balance",
+      "notifications": "Notifications",
+      "noNotifications": "No notifications yet",
+      "breadcrumb": "Publisher Panel",
+      "logout": "Logout"
+    },
+    "verify": {
+      "title": "Email verification required",
+      "subtitle": "Your account is not fully active. Please verify your email address.",
+      "sentTitle": "Verification email sent",
+      "sentSubtitle": "Check your inbox and spam folder, then click the link to activate your account.",
+      "resend": "Resend Email",
+      "sending": "Sending..."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Your earnings overview",
+      "totalEarnings": "Total Earnings",
+      "todayEarnings": "Today's Earnings",
+      "impressions": "Impressions",
+      "clicks": "Clicks",
+      "ctr": "CTR",
+      "cpm": "CPM",
+      "sites": "Active Sites",
+      "pendingPayout": "Pending Payout",
+      "recentActivity": "Recent Activity",
+      "earningsChart": "Earnings Overview",
+      "topSites": "Top Sites",
+      "noSites": "No sites yet",
+      "addSite": "Add Your First Site"
+    },
+    "sites": {
+      "title": "My Sites",
+      "addSite": "Add Site",
+      "siteName": "Site Name",
+      "siteUrl": "Site URL",
+      "category": "Category",
+      "status": "Status",
+      "verified": "Verified",
+      "unverified": "Unverified",
+      "pending": "Pending",
+      "rejected": "Rejected",
+      "active": "Active",
+      "paused": "Paused",
+      "verify": "Verify Site",
+      "verifyMethod": "Verification Method",
+      "metaTag": "Meta Tag",
+      "fileUpload": "File Upload",
+      "dns": "DNS Record",
+      "deleteConfirm": "Are you sure you want to delete this site?",
+      "noSites": "No sites added yet. Add your first site to start earning.",
+      "impressionsToday": "Impressions Today",
+      "earningsToday": "Earnings Today"
+    },
+    "payments": {
+      "title": "Payments",
+      "requestPayout": "Request Payout",
+      "method": "Payment Method",
+      "amount": "Amount",
+      "status": "Status",
+      "date": "Date",
+      "minPayout": "Minimum payout: ${amount}",
+      "currentBalance": "Current Balance",
+      "pendingBalance": "Pending Balance",
+      "paymentHistory": "Payment History",
+      "noPayments": "No payment history yet",
+      "paypal": "PayPal",
+      "bankTransfer": "Bank Transfer",
+      "bitcoin": "Bitcoin",
+      "usdt": "USDT",
+      "paypalEmail": "PayPal Email",
+      "bankDetails": "Bank Details",
+      "walletAddress": "Wallet Address"
+    },
+    "referrals": {
+      "title": "Referral Program",
+      "subtitle": "Earn commission by referring new publishers and advertisers",
+      "yourCode": "Your Referral Code",
+      "referralLink": "Referral Link",
+      "totalEarned": "Total Earned",
+      "totalReferrals": "Total Referrals",
+      "commissionRate": "Commission Rate",
+      "referredUsers": "Referred Users",
+      "noReferrals": "No referrals yet. Share your link to start earning!"
+    },
+    "settings": {
+      "title": "Account Settings",
+      "profile": "Profile",
+      "security": "Security",
+      "notifications": "Notifications",
+      "payment": "Payment Info",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "company": "Company Name",
+      "timezone": "Timezone",
+      "language": "Language",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "twoFactor": "Two-Factor Authentication",
+      "enable2FA": "Enable 2FA",
+      "disable2FA": "Disable 2FA",
+      "emailNotifications": "Email Notifications",
+      "paymentNotifications": "Payment Alerts",
+      "reportNotifications": "Weekly Reports",
+      "saved": "Settings saved successfully"
+    },
+    "support": {
+      "title": "Support",
+      "newTicket": "New Ticket",
+      "subject": "Subject",
+      "category": "Category",
+      "priority": "Priority",
+      "message": "Message",
+      "openTickets": "Open Tickets",
+      "closedTickets": "Closed Tickets",
+      "noTickets": "No support tickets yet",
+      "status": {
+        "open": "Open",
+        "inProgress": "In Progress",
+        "resolved": "Resolved",
+        "closed": "Closed"
+      }
+    },
+    "ad-codes": {
+      "title": "Ad Codes",
+      "subtitle": "Generate and manage your integration codes",
+      "generate": "Generate Code",
+      "site": "Select Site",
+      "format": "Ad Format",
+      "copy": "Copy Code",
+      "copied": "Copied!",
+      "noCodes": "No ad codes generated yet."
+    },
+    "analytics": {
+      "title": "Analytics",
+      "subtitle": "Deep dive into your traffic performance",
+      "views": "Total Views",
+      "clicks": "Total Clicks",
+      "revenue": "Total Revenue",
+      "ecpm": "Average eCPM",
+      "dateRange": "Date Range",
+      "export": "Export Data"
+    },
+    "reports": {
+      "title": "Reports",
+      "subtitle": "Downloadable reports and summaries",
+      "generate": "Generate Report",
+      "download": "Download PDF",
+      "noReports": "No reports available."
+    },
+    "statistics": {
+      "title": "Statistics",
+      "subtitle": "Real-time statistics overview",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisMonth": "This Month",
+      "lastMonth": "Last Month"
+    }
+  },
+  "advertiser": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "campaigns": "Campaigns",
+      "creatives": "Creatives",
+      "audiences": "Audiences",
+      "billing": "Billing",
+      "statistics": "Statistics",
+      "referrals": "Referrals",
+      "tracking": "Tracking",
+      "priority": "Priority",
+      "settings": "Settings",
+      "support": "Support",
+      "account": "Account"
+    },
+    "topbar": {
+      "balance": "Balance",
+      "deposit": "Add Funds",
+      "notifications": "Notifications",
+      "noNotifications": "No notifications yet",
+      "breadcrumb": "Advertiser Panel"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Your campaigns overview",
+      "totalSpent": "Total Spent",
+      "todaySpent": "Today's Spend",
+      "impressions": "Total Impressions",
+      "clicks": "Total Clicks",
+      "ctr": "CTR",
+      "activeCampaigns": "Active Campaigns",
+      "balance": "Account Balance",
+      "conversions": "Conversions",
+      "topCampaigns": "Top Campaigns",
+      "spendChart": "Spend Overview",
+      "noCampaigns": "No campaigns yet",
+      "createFirst": "Create Your First Campaign"
+    },
+    "campaigns": {
+      "title": "Campaigns",
+      "create": "Create Campaign",
+      "name": "Campaign Name",
+      "format": "Ad Format",
+      "targetUrl": "Target URL",
+      "dailyBudget": "Daily Budget",
+      "totalBudget": "Total Budget",
+      "bidAmount": "Bid Amount (CPM)",
+      "status": "Status",
+      "spent": "Spent",
+      "impressions": "Impressions",
+      "clicks": "Clicks",
+      "ctr": "CTR",
+      "start": "Activate",
+      "pause": "Pause",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "deleteConfirm": "Are you sure you want to delete this campaign?",
+      "noCampaigns": "No campaigns yet. Create your first campaign to start getting traffic.",
+      "targeting": "Targeting",
+      "geo": "Geographic Targeting",
+      "device": "Device Targeting",
+      "browser": "Browser Targeting",
+      "os": "OS Targeting",
+      "schedule": "Ad Schedule",
+      "frequency": "Frequency Capping",
+      "pacing": "Pacing"
+    },
+    "billing": {
+      "title": "Billing & Payments",
+      "deposit": "Add Funds",
+      "amount": "Deposit Amount",
+      "method": "Payment Method",
+      "currentBalance": "Current Balance",
+      "totalDeposited": "Total Deposited",
+      "totalSpent": "Total Spent",
+      "history": "Transaction History",
+      "noHistory": "No transactions yet",
+      "minDeposit": "Minimum deposit: $100",
+      "creditCard": "Credit Card",
+      "paypal": "PayPal",
+      "bitcoin": "Bitcoin",
+      "usdt": "USDT",
+      "coupon": "Promo Code",
+      "applyCoupon": "Apply",
+      "couponApplied": "Promo code applied!"
+    },
+    "settings": {
+      "title": "Account Settings",
+      "profile": "Profile",
+      "security": "Security",
+      "notifications": "Notifications",
+      "company": "Company Name",
+      "billingAddress": "Billing Address",
+      "taxId": "Tax ID / VAT Number",
+      "autoRecharge": "Auto-Recharge",
+      "autoRechargeDesc": "Automatically add funds when balance drops below threshold",
+      "rechargeThreshold": "Recharge Threshold",
+      "rechargeAmount": "Recharge Amount",
+      "saved": "Settings saved successfully"
+    },
+    "audiences": {
+      "title": "Audiences",
+      "subtitle": "Manage your target audiences and retargeting lists",
+      "create": "Create Audience",
+      "name": "Audience Name",
+      "size": "Estimated Size",
+      "noAudiences": "No audiences created yet."
+    },
+    "creatives": {
+      "title": "Creative Library",
+      "subtitle": "All your In-Page Push, Popunder, and Push Notification creatives in one place",
+      "total": "Total Creatives",
+      "search": "Search by title, label, or campaign...",
+      "allFormats": "All Formats",
+      "allStatuses": "All Statuses",
+      "noCreatives": "No creatives found",
+      "adjustFilters": "Try adjusting your filters",
+      "firstCampaign": "Create your first campaign to add creatives",
+      "showing": "Showing",
+      "of": "of",
+      "creatives": "creatives",
+      "untitled": "Untitled Creative",
+      "customHtml": "Custom HTML creative",
+      "edit": "Edit",
+      "active": "Active",
+      "paused": "Paused",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    },
+    "priority": {
+      "title": "Priority Rules",
+      "subtitle": "Manage campaign priority and traffic allocation",
+      "create": "New Rule",
+      "noRules": "No priority rules configured."
+    },
+    "statistics": {
+      "title": "Statistics",
+      "subtitle": "Detailed campaign performance metrics",
+      "dateRange": "Date Range",
+      "export": "Export CSV"
+    },
+    "tracking": {
+      "title": "Tracking",
+      "subtitle": "Setup conversion tracking and postbacks",
+      "globalPostback": "Global Postback URL",
+      "testPostback": "Test Postback",
+      "save": "Save Tracking Settings"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "titleBrutalist": "F.A.Q.",
+    "subtitle": "Find answers to common questions about MrPop.io",
+    "searchPlaceholder": "Search for answers...",
+    "notFound": "No questions found matching your search.",
+    "stillHaveQuestions": "Still Have Questions?",
+    "stillHaveQuestionsSubtitle": "Can't find the answer you're looking for? Our support team is here to help.",
+    "contactSupport": "Contact Support →",
+    "categories": {
+      "all": "All",
+      "publishers": "Publishers",
+      "advertisers": "Advertisers",
+      "payments": "Payments",
+      "technical": "Technical"
+    },
+    "questions": {
+      "q1": "How much can I earn as a publisher?",
+      "a1": "Publisher earnings vary based on traffic quality, geography, and ad formats. Our publishers earn between $0.50 to $8.00 CPM depending on these factors. Top publishers with Tier 1 traffic (US, UK, CA) earn $3-8 CPM. With 100,000 daily visitors, you could earn $3,000-$24,000 monthly. We offer up to 70% revenue share, one of the highest in the industry.",
+      "q2": "What are the minimum requirements to join?",
+      "a2": "To join as a publisher, you need: (1) Minimum 1,000 daily visitors, (2) Original, legal content with no copyright violations, (3) No adult, illegal, or malicious content, (4) Quality traffic (no bots or incentivized traffic), (5) English or major language content. We review all applications within 24 hours.",
+      "q3": "How do I install the ad code?",
+      "a3": "After your site is approved, log in to your dashboard and navigate to \"Sites\" → \"Ad Code\". Copy the JavaScript snippet provided and paste it before the closing body tag on your website. The code is lightweight (under 10KB) and won't affect your site speed.",
+      "q4": "Can I use MrPop.io with Google AdSense?",
+      "a4": "Yes! MrPop.io is 100% compatible with Google AdSense and other ad networks. Our pop ad formats don't compete with display ads, so you can maximize revenue by using both simultaneously.",
+      "q5": "What is the minimum deposit for advertisers?",
+      "a5": "The minimum deposit is $100 USD. You can add funds via PayPal, credit card (Visa, MasterCard, Amex), Bitcoin, or USDT. There are no hidden fees, and unused funds are fully refundable anytime.",
+      "q6": "What targeting options are available?",
+      "a6": "We offer comprehensive targeting: Geographic (Country, City, State/Region), Device (Desktop, Mobile, Tablet), Technology (Browser, OS, Language), Connection Type (Wi-Fi, Mobile), and Time-based targeting.",
+      "q7": "How quickly do campaigns go live?",
+      "a7": "Most campaigns are approved and go live within 1-2 hours during business hours. We manually review all campaigns to ensure quality and compliance.",
+      "q8": "What ad formats are available?",
+      "a8": "We offer Popunder, In-Page Push, Interstitial, Smart Link, Banner Ads, and Multi-Tag. Each format has different CPM rates and performance characteristics.",
+      "q9": "When do I receive payouts?",
+      "a9": "Publishers are paid weekly on Mondays for earnings from the previous week. Minimum payout threshold is $50. Payments are processed via PayPal, Wire Transfer, Bitcoin, or USDT.",
+      "q10": "Are there any payment fees?",
+      "a10": "PayPal and cryptocurrency payments are free for publishers. Wire transfers have a $25 fee. For advertisers, processing fees are included in your deposit.",
+      "q11": "Do I need to provide tax information?",
+      "a11": "For payouts over $600/year, US-based publishers need to submit a W-9 form. Non-US publishers need a W-8BEN form.",
+      "q12": "Will ads slow down my website?",
+      "a12": "No. Our ad code is asynchronously loaded (under 10KB) and doesn't block your page rendering. Google PageSpeed score typically remains unchanged.",
+      "q13": "Do you have an API for integration?",
+      "a13": "Yes! We offer a RESTful API for both publishers and advertisers. Retrieve statistics, manage sites, create campaigns, and manage funds. Contact support for API access.",
+      "q14": "How do you prevent click fraud?",
+      "a14": "We use multi-layer fraud detection: real-time bot detection, IP filtering, click pattern analysis, manual review, and third-party fraud database integration.",
+      "q15": "Can I use MrPop.io on mobile apps?",
+      "a15": "Currently, MrPop.io is designed for websites only. However, our ads work perfectly on mobile-optimized websites and PWAs.",
+      "q16": "Can I track conversions?",
+      "a16": "Yes! We support conversion tracking via S2S postback URLs or JavaScript pixel. Track CPA, ROAS, and conversion rates directly in your dashboard."
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have a question or need help? We're here for you.",
+    "nameLabel": "Full Name",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "How can we help?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell us more...",
+    "sendBtn": "Send Message",
+    "sending": "Sending...",
+    "successTitle": "Message sent!",
+    "successSubtitle": "We'll get back to you within 24 hours.",
+    "errorMsg": "Failed to send message. Please try again.",
+    "supportEmail": "support@mrpop.io",
+    "responseTime": "Typical response: < 24 hours"
+  },
+  "forPublishers": {
+    "heroTitle": "Monetize Your Traffic",
+    "heroSubtitle": "Join 10,000+ publishers earning up to $8 CPM with our premium ad network. Weekly payouts, 100% fill rate.",
+    "heroCta": "Start Earning",
+    "heroStats": {
+      "publishers": "10K+ Publishers",
+      "cpm": "$8 Max CPM",
+      "payout": "Weekly Payouts",
+      "fillRate": "100% Fill Rate"
+    },
+    "whyTitle": "Why Choose MrPop.io?",
+    "features": {
+      "highCpm": "Industry-Leading CPM",
+      "highCpmDesc": "Earn up to $8 CPM with Tier-1 traffic. Our smart bidding ensures you always get the best price.",
+      "weeklyPayout": "Weekly Payouts",
+      "weeklyPayoutDesc": "Get paid every Monday with a minimum threshold of just $50. No delays, no excuses.",
+      "fillRate": "100% Fill Rate",
+      "fillRateDesc": "Never leave money on the table. Our global advertiser base ensures every impression is monetized.",
+      "easyInstall": "5-Minute Setup",
+      "easyInstallDesc": "One JavaScript snippet. Works on any website or CMS — WordPress, Blogger, custom HTML."
+    },
+    "howTitle": "How It Works",
+    "steps": {
+      "s1": "Sign Up Free",
+      "s1Desc": "Create your publisher account in 2 minutes.",
+      "s2": "Add Your Site",
+      "s2Desc": "Submit your website for approval. We review within 24 hours.",
+      "s3": "Install Ad Code",
+      "s3Desc": "Copy-paste a single JavaScript snippet before body.",
+      "s4": "Earn Money",
+      "s4Desc": "Watch your earnings grow. Get paid weekly."
+    },
+    "cta": "Start Earning Today"
+  },
+  "forAdvertisers": {
+    "heroTitle": "Reach Millions of Real Users",
+    "heroSubtitle": "Laser-targeted traffic from 10,000+ premium publisher sites. Start your campaign from $100.",
+    "heroCta": "Launch Campaign",
+    "heroStats": {
+      "traffic": "5B+ Monthly Impressions",
+      "countries": "195+ Countries",
+      "formats": "6 Ad Formats",
+      "support": "24/7 Support"
+    },
+    "whyTitle": "Why Advertise with MrPop.io?",
+    "features": {
+      "targeting": "Precision Targeting",
+      "targetingDesc": "GEO, device, browser, OS, language, and time-of-day targeting to reach exactly the right audience.",
+      "realTime": "Real-Time Analytics",
+      "realTimeDesc": "Monitor campaign performance in real-time. Optimize bids and targeting on the fly.",
+      "fraud": "Fraud-Free Traffic",
+      "fraudDesc": "Multi-layer fraud detection protects your budget. Only pay for real human traffic.",
+      "flexible": "Flexible Budgeting",
+      "flexibleDesc": "Start from $100. Set daily and total budget caps. Scale up as you see results."
+    },
+    "formatsTitle": "Ad Formats",
+    "cta": "Start Advertising"
+  },
+  "howItWorks": {
+    "title": "How MrPop.io Works",
+    "subtitle": "The simplest path from traffic to revenue — or from budget to customers.",
+    "forPublishers": "For Publishers",
+    "forAdvertisers": "For Advertisers"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  },
+  "status": {
+    "title": "System Status",
+    "allOperational": "All Systems Operational",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "outage": "Outage"
+  },
+  "cookie": {
+    "message": "We use cookies to improve your experience and analyze site usage.",
+    "accept": "Accept All",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  },
+  "themes": {
+    "brutalist": {
+      "trustedBy": "Trusted by 10,000+ Publishers",
+      "heroTitleHtml": "TRAFFIC <br /> <span class=\"text-primary italic\">MEETS</span> <br /> MONEY",
+      "heroDesc": "The highest-paying ad network built for serious publishers. AI-driven targeting, 100% fill rate, weekly payouts.",
+      "startEarning": "Start Earning →",
+      "launchAds": "Launch Ads",
+      "marquee": {
+        "highCpm": "★ HIGH CPM RATES",
+        "weekly": "★ WEEKLY PAYOUTS",
+        "fill": "★ 100% FILL RATE",
+        "antiAdblock": "★ ANTI-ADBLOCK",
+        "realtime": "★ REAL-TIME STATS",
+        "geos": "★ 248 GEOs"
+      },
+      "stats": {
+        "fillRate": {
+          "label": "Fill Rate",
+          "desc": "Every impression monetized, every country covered."
+        },
+        "avgCpm": {
+          "label": "Avg CPM",
+          "desc": "Tier-1 traffic earns what it deserves."
+        },
+        "payouts": {
+          "label": "Payouts",
+          "desc": "BTC, USDT, PayPal, Wire. Always on time."
+        },
+        "geos": {
+          "label": "GEOs",
+          "desc": "Global coverage from direct advertisers."
+        }
+      },
+      "forPublishers": {
+        "titleHtml": "FOR<br />PUBLISHERS",
+        "desc": "Maximize revenue from every impression. Our AI-optimized ad feed delivers the highest eCPM rates with clean, safe ads.",
+        "b1": "Up to 70% revenue share",
+        "b2": "6 high-impact ad formats",
+        "b3": "$5 minimum payout",
+        "b4": "Dedicated account manager",
+        "b5": "Anti-adblock solution",
+        "cta": "Join as Publisher"
+      },
+      "forAdvertisers": {
+        "titleHtml": "FOR<br />ADVERTISERS",
+        "desc": "Reach high-intent audiences across 248 GEOs. 20+ targeting settings, smart bidding, and real-time analytics.",
+        "b1": "Direct publisher traffic",
+        "b2": "Advanced GEO/Device/OS targeting",
+        "b3": "Smart CPM & CPA Goal",
+        "b4": "$100 minimum deposit",
+        "b5": "3-level fraud protection",
+        "cta": "Launch Campaign"
+      },
+      "adFormats": {
+        "titleHtml": "Ad Formats <br /><span class=\"text-outline text-foreground\">That Convert</span>",
+        "desc": "Non-intrusive, high-performing ad units serving 2B+ monthly impressions across all devices.",
+        "popunder": {
+          "title": "Popunder",
+          "desc": "Full-page ads behind the main window. Highest CPM rates, zero banner blindness."
+        },
+        "push": {
+          "title": "In-Page Push",
+          "desc": "Browser-friendly notifications. No opt-in required. 30X higher CTR than web push."
+        },
+        "interstitial": {
+          "title": "Interstitial",
+          "desc": "Full-screen coverage between pages. Maximum visual impact and engagement."
+        },
+        "smartLink": {
+          "title": "Smart Link",
+          "desc": "AI auto-routes to highest-paying offer. Best for social and referral traffic."
+        },
+        "native": {
+          "title": "Native Ads",
+          "desc": "Blend seamlessly with site content. Publishers control colors, sizes, and placement."
+        },
+        "banner": {
+          "title": "Banner Ads",
+          "desc": "Classic IAB standards. Stable profits for desktop and mobile. Complement any layout."
+        }
+      },
+      "whyUs": {
+        "title": "Why 10,000+ Partners Trust Us",
+        "safety": {
+          "title": "Ad Safety & Quality",
+          "desc": "3-level security system prevents malware, fraud, and bot traffic. Only clean, verified ads reach your users."
+        },
+        "care": {
+          "title": "Partner Care",
+          "desc": "Beyond support. Dedicated managers help optimize campaigns, improve monetization strategy, and grow your revenue."
+        },
+        "tools": {
+          "title": "Performance Tools",
+          "desc": "Smart CPM, CPA Goal, Traffic Estimator. Automate bidding and let AI find the best-converting placements."
+        },
+        "global": {
+          "title": "Global Coverage",
+          "desc": "Direct publishers from 248 GEOs. Premium traffic from Tier-1 to Tier-3 with competitive rates for every region."
+        },
+        "ecpm": {
+          "title": "Competitive eCPM",
+          "desc": "Our eCPM model rewards quality. More clicks and conversions = higher earnings. No ceiling on your income."
+        },
+        "payouts": {
+          "title": "Fast Payouts",
+          "desc": "$5 minimum payout. Automated weekly payments via PayPal, USDT, Bitcoin, Wire Transfer, and more."
+        }
+      },
+      "steps": {
+        "title": "Start in 4 Steps",
+        "s1": {
+          "title": "Sign Up",
+          "desc": "Create your account in under 2 minutes. No approval delays."
+        },
+        "s2": {
+          "title": "Add Your Site",
+          "desc": "Submit your website or traffic source for quick verification."
+        },
+        "s3": {
+          "title": "Get Ad Code",
+          "desc": "Copy our lightweight JavaScript tag. One line of code."
+        },
+        "s4": {
+          "title": "Earn Money",
+          "desc": "Watch revenue grow in real-time. Get paid weekly."
+        }
+      },
+      "testimonials": {
+        "title": "What Partners Say",
+        "t1": {
+          "name": "Alex M.",
+          "role": "Publisher • Gaming Niche",
+          "quote": "Switched from AdSense to MrPop.io. My revenue literally tripled in the first month. The anti-adblock feature alone recovered 30% of lost income."
+        },
+        "t2": {
+          "name": "Sarah K.",
+          "role": "Media Buyer • E-Commerce",
+          "quote": "The targeting granularity is insane. I can drill down to OS version and carrier. CPA Goal saved me thousands by auto-optimizing my campaigns."
+        },
+        "t3": {
+          "name": "Dmitri V.",
+          "role": "Publisher • Tech Blog",
+          "quote": "Weekly payouts via USDT. No delays, no excuses. My account manager actually helped me optimize ad placements for 40% more revenue."
+        }
+      },
+      "faq": {
+        "title": "FAQ",
+        "q1": {
+          "q": "How much can I earn?",
+          "a": "Publisher earnings vary by traffic quality and GEO. Tier-1 traffic (US, UK, CA) can earn $5-8+ CPM. Our eCPM model rewards quality — more clicks and conversions mean higher earnings with no ceiling."
+        },
+        "q2": {
+          "q": "What is the minimum payout?",
+          "a": "Just $5 via Paxum. Other methods like PayPal, Wire, and USDT have slightly higher minimums. Payments are processed weekly, always on time."
+        },
+        "q3": {
+          "q": "What ad formats do you support?",
+          "a": "We support Popunder, In-Page Push, Interstitial, Smart Link, Native Ads, and Banner Ads. You can run multiple formats simultaneously for maximum revenue."
+        },
+        "q4": {
+          "q": "How does fraud protection work?",
+          "a": "Our in-house 3-level security system detects and blocks bot traffic, malware, and fraudulent clicks in real-time. Only clean, verified impressions are counted."
+        },
+        "q5": {
+          "q": "What targeting options are available?",
+          "a": "20+ targeting settings including Country, City, OS, Browser, Device Type, Carrier, Language, and more. Smart CPM automates bidding for best-converting placements."
+        }
+      },
+      "cta": {
+        "bgText": "JOIN US NOW",
+        "title1": "Ready to",
+        "title2": "Dominate?",
+        "subtitle": "Join 10,000+ publishers and advertisers already scaling with us.",
+        "publisher": "Publisher Signup",
+        "advertiser": "Advertiser Signup"
+      }
+    }
+  }
+}

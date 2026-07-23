@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Shield, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { authAPI } from '@/lib/api';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 export default function AdminLoginPage() {
     const router = useRouter();

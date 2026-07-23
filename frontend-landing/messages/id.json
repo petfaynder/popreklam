@@ -1,0 +1,361 @@
+{
+  "nav": {
+    "advertisers": "Pengiklan",
+    "publishers": "Penerbit",
+    "howItWorks": "Cara Kerja",
+    "faq": "FAQ",
+    "contact": "Kontak",
+    "blog": "Blog",
+    "docs": "Dokumentasi",
+    "login": "Masuk",
+    "getStarted": "Mulai",
+    "dashboard": "Dasbor",
+    "logout": "Keluar",
+    "subscribe": "Berlangganan"
+  },
+  "footer": {
+    "platform": "Platform",
+    "resources": "Sumber Daya",
+    "company": "Perusahaan",
+    "legal": "Hukum",
+    "tagline": "Jaringan iklan berkinerja tinggi untuk penerbit dan pengiklan.",
+    "taglineSaaS": "Jaringan iklan modern.",
+    "taglineLuminous": "Monetisasi lebih cerdas.",
+    "taglineAzure": "Jangkau audiens Anda dengan presisi.",
+    "copyright": "© {year} MrPop.io",
+    "links": {
+      "adFormats": "Format Iklan",
+      "smartLink": "Tautan Pintar",
+      "antiAdblock": "Anti-Adblock",
+      "howItWorks": "Cara Kerja",
+      "blog": "Blog",
+      "docs": "Dokumentasi",
+      "contact": "Kontak",
+      "faq": "FAQ",
+      "status": "Status",
+      "privacy": "Kebijakan Privasi",
+      "terms": "Syarat Ketentuan",
+      "publishers": "Penerbit",
+      "advertisers": "Pengiklan"
+    }
+  },
+  "common": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "loading": "Memuat...",
+    "error": "Terjadi kesalahan",
+    "success": "Berhasil",
+    "noData": "Tidak ada data",
+    "retry": "Coba lagi",
+    "close": "Tutup",
+    "confirm": "Konfirmasi",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "view": "Lihat",
+    "search": "Cari",
+    "all": "Semua",
+    "active": "Aktif",
+    "status": "Status",
+    "actions": "Tindakan",
+    "date": "Tanggal",
+    "amount": "Jumlah",
+    "total": "Total",
+    "name": "Nama",
+    "email": "Email"
+  },
+  "auth": {
+    "loginTitle": "Selamat datang kembali",
+    "loginSubtitle": "Masuk ke akun MrPop.io Anda",
+    "registerTitle": "Buat akun Anda",
+    "registerSubtitle": "Bergabung dengan 10.000+ pengguna",
+    "emailLabel": "Email",
+    "passwordLabel": "Kata Sandi",
+    "loginBtn": "Masuk",
+    "registerBtn": "Daftar",
+    "rolePublisher": "Penerbit",
+    "roleAdvertiser": "Pengiklan",
+    "roleLabel": "Saya seorang"
+  },
+  "publisher": {
+    "nav": {
+      "dashboard": "Dasbor",
+      "analytics": "Analitik",
+      "sites": "Situs",
+      "payments": "Pembayaran",
+      "settings": "Pengaturan"
+    },
+    "dashboard": {
+      "title": "Dasbor",
+      "totalEarnings": "Total Pendapatan",
+      "impressions": "Tayangan",
+      "clicks": "Klik",
+      "ctr": "CTR",
+      "cpm": "CPM"
+    }
+  },
+  "advertiser": {
+    "nav": {
+      "dashboard": "Dasbor",
+      "campaigns": "Kampanye",
+      "billing": "Penagihan",
+      "settings": "Pengaturan"
+    },
+    "dashboard": {
+      "title": "Dasbor",
+      "totalSpent": "Total Pengeluaran",
+      "activeCampaigns": "Kampanye Aktif"
+    }
+  },
+  "faq": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "titleBrutalist": "F.A.Q.",
+    "subtitle": "Temukan jawaban untuk pertanyaan umum",
+    "searchPlaceholder": "Cari...",
+    "notFound": "Tidak ada pertanyaan ditemukan.",
+    "categories": {
+      "all": "Semua",
+      "publishers": "Penerbit",
+      "advertisers": "Pengiklan"
+    },
+    "questions": {
+      "q1": "Berapa penghasilan saya?",
+      "a1": "Penghasilan bervariasi berdasarkan kualitas lalu lintas.",
+      "q2": "Apa saja persyaratannya?",
+      "a2": "Minimal 1.000 pengunjung per hari.",
+      "q3": "Bagaimana cara memasang kode?",
+      "a3": "Salin dan tempel JavaScript sebelum tag body.",
+      "q4": "Kompatibel dengan Google AdSense?",
+      "a4": "Ya, 100% kompatibel."
+    }
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "nameLabel": "Nama Lengkap",
+    "emailLabel": "Email",
+    "subjectLabel": "Subjek",
+    "messageLabel": "Pesan",
+    "sendBtn": "Kirim Pesan"
+  },
+  "forPublishers": {
+    "heroTitle": "Monetisasi Lalu Lintas Anda",
+    "heroSubtitle": "Hingga $8 CPM. Pembayaran mingguan.",
+    "heroCta": "Mulai Menghasilkan",
+    "howTitle": "Cara Kerja",
+    "steps": {
+      "s1": "Daftar",
+      "s2": "Tambahkan Situs",
+      "s3": "Pasang Kode",
+      "s4": "Dapatkan Uang"
+    }
+  },
+  "forAdvertisers": {
+    "heroTitle": "Jangkau Jutaan Pengguna",
+    "heroSubtitle": "Lalu lintas premium. Mulai dari $100.",
+    "heroCta": "Luncurkan Kampanye",
+    "formatsTitle": "Format Iklan"
+  },
+  "howItWorks": {
+    "title": "Cara Kerja MrPop.io",
+    "forPublishers": "Untuk Penerbit",
+    "forAdvertisers": "Untuk Pengiklan"
+  },
+  "notFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  },
+  "status": {
+    "title": "System Status",
+    "allOperational": "All Systems Operational",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "outage": "Outage"
+  },
+  "cookie": {
+    "message": "We use cookies to improve your experience and analyze site usage.",
+    "accept": "Accept All",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  },
+  "themes": {
+    "brutalist": {
+      "trustedBy": "Dipercaya oleh 10.000+ Publisher",
+      "heroTitleHtml": "TRAFIK <br /> <span class=\"text-primary italic\">BERTEMU</span> <br /> UANG",
+      "heroDesc": "Jaringan iklan dengan bayaran tertinggi untuk publisher serius. Penargetan berbasis AI, 100% fill rate, pembayaran mingguan.",
+      "startEarning": "Mulai Menghasilkan →",
+      "launchAds": "Luncurkan Iklan",
+      "marquee": {
+        "highCpm": "★ TINGKAT CPM TINGGI",
+        "weekly": "★ PEMBAYARAN MINGGUAN",
+        "fill": "★ 100% FILL RATE",
+        "antiAdblock": "★ ANTI-ADBLOCK",
+        "realtime": "★ STATISTIK REAL-TIME",
+        "geos": "★ 248 NEGARA"
+      },
+      "stats": {
+        "fillRate": {
+          "label": "Fill Rate",
+          "desc": "Setiap tayangan dimonetisasi, setiap negara dicakup."
+        },
+        "avgCpm": {
+          "label": "Rata-rata CPM",
+          "desc": "Trafik Tier-1 mendapatkan bayaran yang layak."
+        },
+        "payouts": {
+          "label": "Pembayaran",
+          "desc": "BTC, USDT, PayPal, Transfer Bank. Selalu tepat waktu."
+        },
+        "geos": {
+          "label": "GEOs",
+          "desc": "Cakupan global dari pengiklan langsung."
+        }
+      },
+      "forPublishers": {
+        "titleHtml": "UNTUK<br />PUBLISHER",
+        "desc": "Maksimalkan pendapatan dari setiap tayangan. Umpan iklan kami yang dioptimalkan AI memberikan tingkat eCPM tertinggi dengan iklan bersih dan aman.",
+        "b1": "Hingga 70% pembagian pendapatan",
+        "b2": "6 format iklan berdampak tinggi",
+        "b3": "$5 batas pembayaran minimum",
+        "b4": "Manajer akun khusus",
+        "b5": "Solusi Anti-adblock",
+        "cta": "Gabung sebagai Publisher"
+      },
+      "forAdvertisers": {
+        "titleHtml": "UNTUK<br />PENGIKLAN",
+        "desc": "Jangkau audiens berniat tinggi di 248 GEO. 20+ pengaturan penargetan, penawaran cerdas, dan analitik real-time.",
+        "b1": "Trafik publisher langsung",
+        "b2": "Penargetan GEO/Perangkat/OS Lanjutan",
+        "b3": "CPM Pintar & Target CPA",
+        "b4": "$100 deposit minimum",
+        "b5": "Perlindungan penipuan 3 lapis",
+        "cta": "Luncurkan Kampanye"
+      },
+      "adFormats": {
+        "titleHtml": "Format Iklan <br /><span class=\"text-outline text-foreground\">yang Mengonversi</span>",
+        "desc": "Unit iklan berkinerja tinggi dan tidak mengganggu, menayangkan lebih dari 2 Miliar tayangan bulanan di semua perangkat.",
+        "popunder": {
+          "title": "Popunder",
+          "desc": "Iklan layar penuh di belakang jendela utama. Tingkat CPM tertinggi."
+        },
+        "push": {
+          "title": "In-Page Push",
+          "desc": "Notifikasi ramah browser. Tidak memerlukan izin."
+        },
+        "interstitial": {
+          "title": "Interstitial",
+          "desc": "Cakupan layar penuh di antara halaman. Dampak visual maksimal."
+        },
+        "smartLink": {
+          "title": "Smart Link",
+          "desc": "AI secara otomatis merutekan ke penawaran dengan bayaran tertinggi."
+        },
+        "native": {
+          "title": "Iklan Native",
+          "desc": "Menyatu dengan konten situs. Publisher mengontrol warna dan ukuran."
+        },
+        "banner": {
+          "title": "Iklan Banner",
+          "desc": "Standar IAB klasik. Keuntungan stabil untuk desktop dan seluler."
+        }
+      },
+      "whyUs": {
+        "title": "Mengapa 10.000+ Mitra Mempercayai Kami",
+        "safety": {
+          "title": "Keamanan & Kualitas",
+          "desc": "Sistem keamanan 3 tingkat mencegah malware, penipuan, dan trafik bot."
+        },
+        "care": {
+          "title": "Dukungan Mitra",
+          "desc": "Manajer khusus membantu mengoptimalkan kampanye dan meningkatkan pendapatan Anda."
+        },
+        "tools": {
+          "title": "Alat Kinerja",
+          "desc": "Smart CPM, CPA Goal. Otomatiskan penawaran Anda."
+        },
+        "global": {
+          "title": "Cakupan Global",
+          "desc": "Publisher langsung dari 248 GEO. Trafik premium dari Tier-1 hingga Tier-3."
+        },
+        "ecpm": {
+          "title": "eCPM Kompetitif",
+          "desc": "Model eCPM kami menghargai kualitas. Lebih banyak konversi = bayaran lebih tinggi."
+        },
+        "payouts": {
+          "title": "Pembayaran Cepat",
+          "desc": "$5 minimum pembayaran. Pembayaran mingguan otomatis."
+        }
+      },
+      "steps": {
+        "title": "Mulai dalam 4 Langkah",
+        "s1": {
+          "title": "Daftar",
+          "desc": "Buat akun Anda dalam waktu kurang dari 2 menit."
+        },
+        "s2": {
+          "title": "Tambahkan Situs",
+          "desc": "Kirim situs web Anda untuk verifikasi cepat."
+        },
+        "s3": {
+          "title": "Dapatkan Kode",
+          "desc": "Salin tag JavaScript ringan kami. Cukup satu baris kode."
+        },
+        "s4": {
+          "title": "Hasilkan Uang",
+          "desc": "Saksikan pendapatan tumbuh secara real-time. Dibayar mingguan."
+        }
+      },
+      "testimonials": {
+        "title": "Apa Kata Mitra Kami",
+        "t1": {
+          "name": "Alex M.",
+          "role": "Publisher",
+          "quote": "Beralih dari AdSense ke MrPop.io. Pendapatan saya meningkat tiga kali lipat di bulan pertama."
+        },
+        "t2": {
+          "name": "Sarah K.",
+          "role": "Pengiklan",
+          "quote": "Penargetannya sangat detail. CPA Goal menghemat ribuan dolar dengan mengoptimalkan kampanye secara otomatis."
+        },
+        "t3": {
+          "name": "Dmitri V.",
+          "role": "Blogger Teknologi",
+          "quote": "Pembayaran mingguan melalui USDT. Tanpa penundaan. Sangat direkomendasikan."
+        }
+      },
+      "faq": {
+        "title": "FAQ",
+        "q1": {
+          "q": "Berapa banyak yang bisa saya hasilkan?",
+          "a": "Penghasilan bervariasi berdasarkan kualitas trafik. Trafik Tier-1 dapat menghasilkan $5-8+ CPM."
+        },
+        "q2": {
+          "q": "Berapa pembayaran minimum?",
+          "a": "Hanya $5 melalui Paxum. PayPal, Transfer Bank, dan USDT sedikit lebih tinggi."
+        },
+        "q3": {
+          "q": "Format iklan apa yang didukung?",
+          "a": "Kami mendukung Popunder, In-Page Push, Interstitial, Smart Link, Iklan Native, dan Banner."
+        },
+        "q4": {
+          "q": "Bagaimana cara kerja perlindungan penipuan?",
+          "a": "Sistem keamanan 3 tingkat kami memblokir trafik bot dan malware secara real-time."
+        },
+        "q5": {
+          "q": "Opsi penargetan apa yang tersedia?",
+          "a": "20+ pengaturan termasuk Negara, Kota, OS, Browser, dan Perangkat."
+        }
+      },
+      "cta": {
+        "bgText": "BERGABUNGLAH",
+        "title1": "Siap untuk",
+        "title2": "Mendominasi?",
+        "subtitle": "Bergabunglah dengan 10.000+ publisher dan pengiklan bersama kami.",
+        "publisher": "Daftar Publisher",
+        "advertiser": "Daftar Pengiklan"
+      }
+    }
+  }
+}

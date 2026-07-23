@@ -1,0 +1,361 @@
+{
+  "nav": {
+    "advertisers": "Anunciantes",
+    "publishers": "Editores",
+    "howItWorks": "Como Funciona",
+    "faq": "FAQ",
+    "contact": "Contato",
+    "blog": "Blog",
+    "docs": "Documentação",
+    "login": "Entrar",
+    "getStarted": "Começar",
+    "dashboard": "Painel",
+    "logout": "Sair",
+    "subscribe": "Inscrever-se"
+  },
+  "footer": {
+    "platform": "Plataforma",
+    "resources": "Recursos",
+    "company": "Empresa",
+    "legal": "Legal",
+    "tagline": "A rede de anúncios de alto desempenho para editores e anunciantes.",
+    "taglineSaaS": "A rede de anúncios moderna.",
+    "taglineLuminous": "Monetize de forma inteligente.",
+    "taglineAzure": "Alcance seu público com precisão.",
+    "copyright": "© {year} MrPop.io",
+    "links": {
+      "adFormats": "Formatos de Anúncio",
+      "smartLink": "Smart Link",
+      "antiAdblock": "Anti-Adblock",
+      "howItWorks": "Como Funciona",
+      "blog": "Blog",
+      "docs": "Documentação",
+      "contact": "Contato",
+      "faq": "FAQ",
+      "status": "Status",
+      "privacy": "Política de Privacidade",
+      "terms": "Termos de Serviço",
+      "publishers": "Editores",
+      "advertisers": "Anunciantes"
+    }
+  },
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "loading": "Carregando...",
+    "error": "Algo deu errado",
+    "success": "Sucesso",
+    "noData": "Sem dados",
+    "retry": "Tentar novamente",
+    "close": "Fechar",
+    "confirm": "Confirmar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "view": "Visualizar",
+    "search": "Buscar",
+    "all": "Todos",
+    "active": "Ativo",
+    "status": "Status",
+    "actions": "Ações",
+    "date": "Data",
+    "amount": "Valor",
+    "total": "Total",
+    "name": "Nome",
+    "email": "E-mail"
+  },
+  "auth": {
+    "loginTitle": "Bem-vindo de volta",
+    "loginSubtitle": "Faça login na sua conta MrPop.io",
+    "registerTitle": "Crie sua conta",
+    "registerSubtitle": "Junte-se a mais de 10.000 usuários",
+    "emailLabel": "E-mail",
+    "passwordLabel": "Senha",
+    "loginBtn": "Entrar",
+    "registerBtn": "Criar Conta",
+    "rolePublisher": "Editor",
+    "roleAdvertiser": "Anunciante",
+    "roleLabel": "Eu sou um"
+  },
+  "publisher": {
+    "nav": {
+      "dashboard": "Painel",
+      "analytics": "Análises",
+      "sites": "Sites",
+      "payments": "Pagamentos",
+      "settings": "Configurações"
+    },
+    "dashboard": {
+      "title": "Painel",
+      "totalEarnings": "Ganhos Totais",
+      "impressions": "Impressões",
+      "clicks": "Cliques",
+      "ctr": "CTR",
+      "cpm": "CPM"
+    }
+  },
+  "advertiser": {
+    "nav": {
+      "dashboard": "Painel",
+      "campaigns": "Campanhas",
+      "billing": "Faturamento",
+      "settings": "Configurações"
+    },
+    "dashboard": {
+      "title": "Painel",
+      "totalSpent": "Total Gasto",
+      "activeCampaigns": "Campanhas Ativas"
+    }
+  },
+  "faq": {
+    "title": "Perguntas Frequentes",
+    "titleBrutalist": "F.A.Q.",
+    "subtitle": "Encontre respostas para perguntas comuns",
+    "searchPlaceholder": "Pesquisar...",
+    "notFound": "Nenhuma pergunta encontrada.",
+    "categories": {
+      "all": "Todos",
+      "publishers": "Editores",
+      "advertisers": "Anunciantes"
+    },
+    "questions": {
+      "q1": "Quanto posso ganhar?",
+      "a1": "Os ganhos variam de acordo com a qualidade do tráfego.",
+      "q2": "Quais são os requisitos?",
+      "a2": "Mínimo de 1.000 visitantes diários.",
+      "q3": "Como instalo o código?",
+      "a3": "Copie e cole o JavaScript antes da tag body.",
+      "q4": "Posso usar com o Google AdSense?",
+      "a4": "Sim, é 100% compatível."
+    }
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "nameLabel": "Nome Completo",
+    "emailLabel": "E-mail",
+    "subjectLabel": "Assunto",
+    "messageLabel": "Mensagem",
+    "sendBtn": "Enviar Mensagem"
+  },
+  "forPublishers": {
+    "heroTitle": "Monetize Seu Tráfego",
+    "heroSubtitle": "Até $8 CPM. Pagamentos semanais.",
+    "heroCta": "Começar a Ganhar",
+    "howTitle": "Como Funciona",
+    "steps": {
+      "s1": "Inscreva-se",
+      "s2": "Adicione seu Site",
+      "s3": "Instale o Código",
+      "s4": "Ganhe Dinheiro"
+    }
+  },
+  "forAdvertisers": {
+    "heroTitle": "Alcance Milhões de Usuários",
+    "heroSubtitle": "Tráfego de 10.000+ sites premium. Comece com $100.",
+    "heroCta": "Lançar Campanha",
+    "formatsTitle": "Formatos de Anúncio"
+  },
+  "howItWorks": {
+    "title": "Como o MrPop.io Funciona",
+    "forPublishers": "Para Editores",
+    "forAdvertisers": "Para Anunciantes"
+  },
+  "notFound": {
+    "title": "Página Não Encontrada",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  },
+  "status": {
+    "title": "System Status",
+    "allOperational": "All Systems Operational",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "outage": "Outage"
+  },
+  "cookie": {
+    "message": "We use cookies to improve your experience and analyze site usage.",
+    "accept": "Accept All",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  },
+  "themes": {
+    "brutalist": {
+      "trustedBy": "Com a confiança de mais de 10.000 editores",
+      "heroTitleHtml": "O TRÁFEGO <br /> <span class=\"text-primary italic\">ENCONTRA</span> <br /> O DINHEIRO",
+      "heroDesc": "A rede de publicidade mais bem paga construída para editores sérios. Segmentação baseada em IA, taxa de preenchimento de 100%, pagamentos semanais.",
+      "startEarning": "Comece a Ganhar →",
+      "launchAds": "Lançar Anúncios",
+      "marquee": {
+        "highCpm": "★ ALTAS TAXAS DE CPM",
+        "weekly": "★ PAGAMENTOS SEMANAIS",
+        "fill": "★ 100% DE TAXA DE PREENCHIMENTO",
+        "antiAdblock": "★ ANTI-ADBLOCK",
+        "realtime": "★ ESTATÍSTICAS EM TEMPO REAL",
+        "geos": "★ 248 GEOs"
+      },
+      "stats": {
+        "fillRate": {
+          "label": "Taxa de Preenchimento",
+          "desc": "Cada impressão monetizada, cada país coberto."
+        },
+        "avgCpm": {
+          "label": "CPM Médio",
+          "desc": "O tráfego de nível 1 ganha o que merece."
+        },
+        "payouts": {
+          "label": "Pagamentos",
+          "desc": "BTC, USDT, PayPal, Transferência. Sempre no prazo."
+        },
+        "geos": {
+          "label": "GEOs",
+          "desc": "Cobertura global de anunciantes diretos."
+        }
+      },
+      "forPublishers": {
+        "titleHtml": "PARA<br />EDITORES",
+        "desc": "Maximize a receita de cada impressão. Nosso feed de anúncios otimizado por IA oferece as taxas de eCPM mais altas com anúncios limpos e seguros.",
+        "b1": "Até 70% de participação na receita",
+        "b2": "6 formatos de anúncios de alto impacto",
+        "b3": "Pagamento mínimo de $5",
+        "b4": "Gerente de conta dedicado",
+        "b5": "Solução anti-adblock",
+        "cta": "Junte-se como Editor"
+      },
+      "forAdvertisers": {
+        "titleHtml": "PARA<br />ANUNCIANTES",
+        "desc": "Alcance públicos de alta intenção em 248 GEOs. Mais de 20 configurações de segmentação, lances inteligentes e análises em tempo real.",
+        "b1": "Tráfego direto de editores",
+        "b2": "Segmentação avançada por GEO/Dispositivo/SO",
+        "b3": "CPM Inteligente e Objetivo de CPA",
+        "b4": "Depósito mínimo de $100",
+        "b5": "Proteção contra fraude de 3 níveis",
+        "cta": "Lançar Campanha"
+      },
+      "adFormats": {
+        "titleHtml": "Formatos de Anúncios <br /><span class=\"text-outline text-foreground\">que Convertem</span>",
+        "desc": "Unidades de anúncios não intrusivas e de alto desempenho atendendo a mais de 2 bilhões de impressões mensais em todos os dispositivos.",
+        "popunder": {
+          "title": "Popunder",
+          "desc": "Anúncios em tela cheia atrás da janela principal. As taxas de CPM mais altas, zero cegueira de banner."
+        },
+        "push": {
+          "title": "In-Page Push",
+          "desc": "Notificações amigáveis do navegador. Não requer inscrição. CTR 30x maior que o web push."
+        },
+        "interstitial": {
+          "title": "Intersticial",
+          "desc": "Cobertura de tela cheia entre páginas. Máximo impacto visual."
+        },
+        "smartLink": {
+          "title": "Smart Link",
+          "desc": "A IA direciona para a oferta mais bem paga. O melhor para tráfego social."
+        },
+        "native": {
+          "title": "Anúncios Nativos",
+          "desc": "Misturam-se perfeitamente com o conteúdo do site. Você controla as cores e o tamanho."
+        },
+        "banner": {
+          "title": "Anúncios de Banner",
+          "desc": "Padrões clássicos do IAB. Lucros estáveis para desktop e mobile."
+        }
+      },
+      "whyUs": {
+        "title": "Por que mais de 10.000 parceiros confiam em nós",
+        "safety": {
+          "title": "Segurança e Qualidade",
+          "desc": "O sistema de segurança de 3 níveis evita malware, fraude e tráfego de bots."
+        },
+        "care": {
+          "title": "Suporte ao Parceiro",
+          "desc": "Gerentes dedicados ajudam a otimizar campanhas e aumentar sua receita."
+        },
+        "tools": {
+          "title": "Ferramentas de Desempenho",
+          "desc": "CPM Inteligente, Objetivo de CPA. Automatize seus lances."
+        },
+        "global": {
+          "title": "Cobertura Global",
+          "desc": "Editores diretos de 248 GEOs. Tráfego premium para todas as regiões."
+        },
+        "ecpm": {
+          "title": "eCPM Competitivo",
+          "desc": "Nosso modelo eCPM recompensa a qualidade. Mais conversões = mais ganhos."
+        },
+        "payouts": {
+          "title": "Pagamentos Rápidos",
+          "desc": "Pagamento mínimo de $5. Pagamentos semanais automatizados."
+        }
+      },
+      "steps": {
+        "title": "Comece em 4 Passos",
+        "s1": {
+          "title": "Cadastre-se",
+          "desc": "Crie sua conta em menos de 2 minutos. Sem atrasos na aprovação."
+        },
+        "s2": {
+          "title": "Adicione seu Site",
+          "desc": "Envie seu site ou fonte de tráfego para verificação rápida."
+        },
+        "s3": {
+          "title": "Obtenha o Código",
+          "desc": "Copie nossa tag leve em JavaScript. Apenas uma linha de código."
+        },
+        "s4": {
+          "title": "Ganhe Dinheiro",
+          "desc": "Veja a receita crescer em tempo real. Receba pagamentos semanalmente."
+        }
+      },
+      "testimonials": {
+        "title": "O que os Parceiros Dizem",
+        "t1": {
+          "name": "Alex M.",
+          "role": "Editor • Nicho de Jogos",
+          "quote": "Mudei do AdSense para o MrPop.io. Minha receita triplicou no primeiro mês."
+        },
+        "t2": {
+          "name": "Sarah K.",
+          "role": "Comprador de Mídia",
+          "quote": "A granularidade da segmentação é incrível. O Objetivo de CPA me economizou milhares."
+        },
+        "t3": {
+          "name": "Dmitri V.",
+          "role": "Editor • Blog de Tecnologia",
+          "quote": "Pagamentos semanais via USDT. Sem atrasos. Meu gerente ajudou a otimizar os anúncios."
+        }
+      },
+      "faq": {
+        "title": "Perguntas Frequentes",
+        "q1": {
+          "q": "Quanto posso ganhar?",
+          "a": "Os ganhos variam conforme a qualidade do tráfego. O tráfego Tier-1 pode ganhar $5-8+ CPM."
+        },
+        "q2": {
+          "q": "Qual é o pagamento mínimo?",
+          "a": "Apenas $5 via Paxum. Outros métodos como PayPal e USDT têm mínimos um pouco mais altos."
+        },
+        "q3": {
+          "q": "Quais formatos vocês suportam?",
+          "a": "Suportamos Popunder, In-Page Push, Interstitial, Smart Link, Anúncios Nativos e Banners."
+        },
+        "q4": {
+          "q": "Como funciona a proteção contra fraudes?",
+          "a": "Nosso sistema de 3 níveis detecta e bloqueia tráfego de bots e cliques fraudulentos em tempo real."
+        },
+        "q5": {
+          "q": "Quais opções de segmentação estão disponíveis?",
+          "a": "Mais de 20 opções, incluindo País, Cidade, SO, Navegador, Dispositivo e Idioma."
+        }
+      },
+      "cta": {
+        "bgText": "JUNTE-SE A NÓS",
+        "title1": "Pronto para",
+        "title2": "Dominar?",
+        "subtitle": "Junte-se a 10.000+ editores e anunciantes escalando conosco.",
+        "publisher": "Cadastro de Editor",
+        "advertiser": "Cadastro de Anunciante"
+      }
+    }
+  }
+}

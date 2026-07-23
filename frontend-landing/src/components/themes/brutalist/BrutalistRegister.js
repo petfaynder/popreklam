@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Mail, Lock, User, Globe, ArrowRight, AlertCircle, Loader2, CheckCircle2, Briefcase, Target } from 'lucide-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRegisterForm } from '@/hooks/useAuthForms';

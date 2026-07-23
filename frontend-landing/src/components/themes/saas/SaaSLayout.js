@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useState } from 'react';
 import {
     Zap, ArrowRight, MousePointer2, Smartphone, Layers, Cpu,
@@ -8,6 +8,8 @@ import {
     TrendingUp, Users, DollarSign, Target, Code, Play
 } from 'lucide-react';
 import AuthNavButtons from '@/components/AuthNavButtons';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 function SaaSFAQ({ question, answer }) {
     const [open, setOpen] = useState(false);
@@ -24,6 +26,7 @@ function SaaSFAQ({ question, answer }) {
 
 export default function SaaSLayout() {
     const [activeTab, setActiveTab] = useState('publishers');
+    const t = useTranslations('nav');
 
     return (
         <div className="min-h-screen bg-[#09090B] text-white selection:bg-white/20" style={{ fontFamily: 'var(--font-sans)' }}>
@@ -39,19 +42,22 @@ export default function SaaSLayout() {
                             <span className="text-[15px] font-semibold tracking-tight">MrPop.io</span>
                         </div>
                         <div className="hidden md:flex gap-6 text-[13px] text-gray-500 font-medium">
-                            <Link href="/for-publishers" className="hover:text-white transition-colors">Publishers</Link>
-                            <Link href="/for-advertisers" className="hover:text-white transition-colors">Advertisers</Link>
-                            <Link href="/how-it-works" className="hover:text-white transition-colors">How It Works</Link>
-                            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
-                            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+                            <Link href="/for-publishers" className="hover:text-white transition-colors">{t('publishers')}</Link>
+                            <Link href="/for-advertisers" className="hover:text-white transition-colors">{t('advertisers')}</Link>
+                            <Link href="/how-it-works" className="hover:text-white transition-colors">{t('howItWorks')}</Link>
+                            <Link href="/faq" className="hover:text-white transition-colors">{t('faq')}</Link>
+                            <Link href="/contact" className="hover:text-white transition-colors">{t('contact')}</Link>
                         </div>
                     </div>
-                    <AuthNavButtons
-                        hrefCTA="/register"
-                        labelCTA="Get Started"
-                        btnClass="px-3 py-1.5 text-[13px] font-medium bg-white text-black rounded-md hover:bg-gray-200 transition-colors flex items-center gap-1.5"
-                        loginClass="px-3 py-1.5 text-[13px] font-medium text-gray-400 hover:text-white transition-colors"
-                    />
+                    <div className="flex items-center gap-3">
+                        <LanguageSwitcher dark={true} />
+                        <AuthNavButtons
+                            hrefCTA="/register"
+                            labelCTA={t('getStarted')}
+                            btnClass="px-3 py-1.5 text-[13px] font-medium bg-white text-black rounded-md hover:bg-gray-200 transition-colors flex items-center gap-1.5"
+                            loginClass="px-3 py-1.5 text-[13px] font-medium text-gray-400 hover:text-white transition-colors"
+                        />
+                    </div>
                 </div>
             </nav>
 

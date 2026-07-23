@@ -5,7 +5,7 @@ import StatCard from '@/components/admin/StatCard';
 import Badge from '@/components/admin/Badge';
 import { useToast } from '@/components/admin/Toast';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 const STYLES = {
     page: { padding: '28px', minHeight: '100vh', background: '#05050f' },

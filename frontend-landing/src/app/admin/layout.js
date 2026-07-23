@@ -1,7 +1,8 @@
 'use client';
+import '../globals.css';
 
 import { useEffect, useState, useCallback } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useRouter, usePathname } from 'next/navigation';
 import { authAPI, adminAPI } from '@/lib/api';
 import { ToastContainer } from '@/components/admin/Toast';
@@ -100,25 +101,39 @@ export default function AdminLayout({ children }) {
 
     if (checking) {
         return (
-            <div style={{
-                minHeight: '100vh', background: '#05050f',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-                <div style={{
-                    width: '40px', height: '40px', border: '2px solid #8b5cf6',
-                    borderTopColor: 'transparent', borderRadius: '50%',
-                    animation: 'spin 0.8s linear infinite',
-                }} />
-                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-            </div>
+            <html lang="en">
+                <body>
+                    <div style={{
+                        minHeight: '100vh', background: '#05050f',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                        <div style={{
+                            width: '40px', height: '40px', border: '2px solid #8b5cf6',
+                            borderTopColor: 'transparent', borderRadius: '50%',
+                            animation: 'spin 0.8s linear infinite',
+                        }} />
+                        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                    </div>
+                </body>
+            </html>
         );
     }
 
     if (pathname === '/admin/login') {
-        return <>{children}<ToastContainer /></>;
+        return (
+            <html lang="en">
+                <body style={{ margin: 0, background: '#05050f', fontFamily: 'DM Sans, sans-serif' }}>
+                    {children}
+                    <ToastContainer />
+                </body>
+            </html>
+        );
     }
 
     return (
+        <html lang="en">
+          <body style={{ margin: 0 }}>
+
         <div style={{ minHeight: '100vh', background: '#05050f', display: 'flex', fontFamily: 'DM Sans, sans-serif' }}>
             {/* ===== SIDEBAR ===== */}
             <aside style={{
@@ -364,6 +379,8 @@ export default function AdminLayout({ children }) {
 
             {/* Toast Container — global */}
             <ToastContainer />
-        </div>
+          </div>
+          </body>
+        </html>
     );
 }

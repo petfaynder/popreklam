@@ -1,0 +1,414 @@
+{
+  "nav": {
+    "advertisers": "Annonceurs",
+    "publishers": "Éditeurs",
+    "howItWorks": "Comment ça marche",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "blog": "Blog",
+    "docs": "Documentation",
+    "login": "Se connecter",
+    "getStarted": "Commencer",
+    "dashboard": "Tableau de bord",
+    "logout": "Déconnexion",
+    "subscribe": "S'abonner"
+  },
+  "footer": {
+    "platform": "Plateforme",
+    "resources": "Ressources",
+    "company": "Entreprise",
+    "legal": "Légal",
+    "tagline": "Le réseau publicitaire haute performance pour les éditeurs et annonceurs.",
+    "taglineSaaS": "Le réseau publicitaire moderne pour les éditeurs et annonceurs.",
+    "taglineLuminous": "Monétisez plus intelligemment avec le réseau nouvelle génération.",
+    "taglineAzure": "Atteignez votre audience avec un ciblage précis.",
+    "copyright": "© {year} MrPop.io",
+    "links": {
+      "adFormats": "Formats publicitaires",
+      "smartLink": "Lien intelligent",
+      "antiAdblock": "Anti-Adblock",
+      "howItWorks": "Comment ça marche",
+      "blog": "Blog",
+      "docs": "Documentation",
+      "contact": "Contact",
+      "faq": "FAQ",
+      "status": "Statut",
+      "privacy": "Confidentialité",
+      "terms": "Conditions",
+      "publishers": "Éditeurs",
+      "advertisers": "Annonceurs"
+    }
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "success": "Succès",
+    "noData": "Aucune donnée disponible",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "download": "Télécharger",
+    "upload": "Uploader",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "reset": "Réinitialiser",
+    "submit": "Soumettre",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "all": "Tout",
+    "active": "Actif",
+    "paused": "En pause",
+    "pending": "En attente",
+    "completed": "Terminé",
+    "rejected": "Rejeté",
+    "status": "Statut",
+    "actions": "Actions",
+    "date": "Date",
+    "amount": "Montant",
+    "total": "Total",
+    "name": "Nom",
+    "email": "E-mail",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "required": "Ce champ est requis",
+    "invalidEmail": "Adresse e-mail invalide",
+    "exportCsv": "Exporter CSV",
+    "refresh": "Actualiser",
+    "comingSoon": "Bientôt disponible"
+  },
+  "auth": {
+    "loginTitle": "Bon retour",
+    "loginSubtitle": "Connectez-vous à votre compte MrPop.io",
+    "registerTitle": "Créez votre compte",
+    "registerSubtitle": "Rejoignez plus de 10 000 éditeurs et annonceurs",
+    "emailLabel": "Adresse e-mail",
+    "emailPlaceholder": "vous@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "confirmPasswordLabel": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Répétez votre mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loginBtn": "Se connecter",
+    "registerBtn": "Créer un compte",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "haveAccount": "Vous avez déjà un compte ?",
+    "signUpLink": "S'inscrire",
+    "signInLink": "Se connecter",
+    "rolePublisher": "Éditeur",
+    "roleAdvertiser": "Annonceur",
+    "roleLabel": "Je suis un",
+    "rolePublisherDesc": "Je veux monétiser mon site web",
+    "roleAdvertiserDesc": "Je veux lancer des campagnes publicitaires"
+  },
+  "publisher": {
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "analytics": "Analytique",
+      "sites": "Sites",
+      "adCodes": "Codes publicitaires",
+      "statistics": "Statistiques",
+      "payments": "Paiements",
+      "referrals": "Parrainage",
+      "reportAd": "Signaler une pub",
+      "settings": "Paramètres",
+      "support": "Support",
+      "account": "Compte"
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "subtitle": "Aperçu de vos revenus",
+      "totalEarnings": "Revenus totaux",
+      "todayEarnings": "Revenus du jour",
+      "impressions": "Impressions",
+      "clicks": "Clics",
+      "ctr": "CTR",
+      "cpm": "CPM"
+    }
+  },
+  "advertiser": {
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "campaigns": "Campagnes",
+      "creatives": "Créatifs",
+      "audiences": "Audiences",
+      "billing": "Facturation",
+      "statistics": "Statistiques",
+      "referrals": "Parrainage"
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "subtitle": "Aperçu de vos campagnes",
+      "totalSpent": "Total dépensé",
+      "todaySpent": "Dépenses du jour"
+    }
+  },
+  "faq": {
+    "title": "Foire Aux Questions",
+    "titleBrutalist": "F.A.Q.",
+    "subtitle": "Trouvez des réponses aux questions courantes sur MrPop.io",
+    "searchPlaceholder": "Rechercher des réponses...",
+    "notFound": "Aucune question trouvée.",
+    "categories": {
+      "all": "Tout",
+      "publishers": "Éditeurs",
+      "advertisers": "Annonceurs",
+      "payments": "Paiements",
+      "technical": "Technique"
+    },
+    "questions": {
+      "q1": "Combien puis-je gagner en tant qu'éditeur ?",
+      "a1": "Les revenus des éditeurs varient selon la qualité du trafic. Nous offrons jusqu'à 70% de partage des revenus.",
+      "q2": "Quelles sont les conditions requises ?",
+      "a2": "Un minimum de 1 000 visiteurs quotidiens et un contenu original et légal.",
+      "q3": "Comment installer le code publicitaire ?",
+      "a3": "Copiez l'extrait JavaScript fourni et collez-le avant la balise body sur votre site Web.",
+      "q4": "Puis-je utiliser MrPop.io avec Google AdSense ?",
+      "a4": "Oui ! MrPop.io est 100% compatible avec Google AdSense.",
+      "q5": "Quel est le dépôt minimum pour les annonceurs ?",
+      "a5": "Le dépôt minimum est de 100 $."
+    }
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Vous avez une question ? Nous sommes là pour vous.",
+    "nameLabel": "Nom complet",
+    "namePlaceholder": "Jean Dupont",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "vous@exemple.com",
+    "subjectLabel": "Sujet",
+    "messageLabel": "Message",
+    "sendBtn": "Envoyer le message"
+  },
+  "forPublishers": {
+    "heroTitle": "Monétisez Votre Trafic",
+    "heroSubtitle": "Rejoignez 10 000+ éditeurs gagnant jusqu'à 8 $ de CPM.",
+    "heroCta": "Commencer à gagner",
+    "howTitle": "Comment ça marche",
+    "steps": {
+      "s1": "Inscription gratuite",
+      "s1Desc": "Créez votre compte en 2 minutes.",
+      "s2": "Ajoutez votre site",
+      "s2Desc": "Soumettez votre site web.",
+      "s3": "Installez le code",
+      "s3Desc": "Copiez-collez l'extrait JavaScript.",
+      "s4": "Gagnez de l'argent",
+      "s4Desc": "Recevez des paiements hebdomadaires."
+    }
+  },
+  "forAdvertisers": {
+    "heroTitle": "Atteignez des Millions d'Utilisateurs",
+    "heroSubtitle": "Trafic ultra-ciblé de plus de 10 000 sites premium. À partir de 100 $.",
+    "heroCta": "Lancer une campagne",
+    "formatsTitle": "Formats publicitaires"
+  },
+  "howItWorks": {
+    "title": "Comment fonctionne MrPop.io",
+    "forPublishers": "Pour les éditeurs",
+    "forAdvertisers": "Pour les annonceurs"
+  },
+  "notFound": {
+    "title": "Page Non Trouvée",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  },
+  "status": {
+    "title": "System Status",
+    "allOperational": "All Systems Operational",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "outage": "Outage"
+  },
+  "cookie": {
+    "message": "We use cookies to improve your experience and analyze site usage.",
+    "accept": "Accept All",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  },
+  "themes": {
+    "brutalist": {
+      "trustedBy": "Approuvé par plus de 10 000 éditeurs",
+      "heroTitleHtml": "LE TRAFIC <br /> <span class=\"text-primary italic\">RENCONTRE</span> <br /> L'ARGENT",
+      "heroDesc": "Le réseau publicitaire le plus rémunérateur pour les éditeurs sérieux. Ciblage par IA, taux de remplissage de 100%, paiements hebdomadaires.",
+      "startEarning": "Commencer à gagner →",
+      "launchAds": "Lancer des publicités",
+      "marquee": {
+        "highCpm": "★ TAUX CPM ÉLEVÉS",
+        "weekly": "★ PAIEMENTS HEBDOMADAIRES",
+        "fill": "★ 100% DE REMPLISSAGE",
+        "antiAdblock": "★ ANTI-ADBLOCK",
+        "realtime": "★ STATISTIQUES EN DIRECT",
+        "geos": "★ 248 PAYS"
+      },
+      "stats": {
+        "fillRate": {
+          "label": "Remplissage",
+          "desc": "Chaque impression est monétisée, chaque pays est couvert."
+        },
+        "avgCpm": {
+          "label": "CPM Moyen",
+          "desc": "Le trafic de niveau 1 gagne ce qu'il mérite."
+        },
+        "payouts": {
+          "label": "Paiements",
+          "desc": "BTC, USDT, PayPal, Virement. Toujours à temps."
+        },
+        "geos": {
+          "label": "Pays",
+          "desc": "Couverture mondiale par des annonceurs directs."
+        }
+      },
+      "forPublishers": {
+        "titleHtml": "POUR LES<br />ÉDITEURS",
+        "desc": "Maximisez les revenus de chaque impression. Notre flux publicitaire optimisé par l'IA offre les meilleurs taux eCPM avec des publicités propres.",
+        "b1": "Jusqu'à 70% de partage des revenus",
+        "b2": "6 formats publicitaires percutants",
+        "b3": "Paiement minimum de 5 $",
+        "b4": "Gestionnaire de compte dédié",
+        "b5": "Solution anti-adblock",
+        "cta": "Rejoindre comme Éditeur"
+      },
+      "forAdvertisers": {
+        "titleHtml": "POUR LES<br />ANNONCEURS",
+        "desc": "Atteignez des audiences hautement ciblées dans 248 pays. Plus de 20 paramètres de ciblage et des statistiques en temps réel.",
+        "b1": "Trafic direct des éditeurs",
+        "b2": "Ciblage avancé Pays/Appareil/OS",
+        "b3": "Objectif CPM et CPA intelligent",
+        "b4": "Dépôt minimum de 100 $",
+        "b5": "Protection anti-fraude à 3 niveaux",
+        "cta": "Lancer une campagne"
+      },
+      "adFormats": {
+        "titleHtml": "Des Formats <br /><span class=\"text-outline text-foreground\">qui Convertissent</span>",
+        "desc": "Des blocs d'annonces non intrusifs et très performants, diffusant plus de 2 milliards d'impressions par mois.",
+        "popunder": {
+          "title": "Popunder",
+          "desc": "Annonces en pleine page derrière la fenêtre principale. Taux CPM les plus élevés."
+        },
+        "push": {
+          "title": "In-Page Push",
+          "desc": "Notifications conviviales. Aucun abonnement requis. CTR 30x supérieur."
+        },
+        "interstitial": {
+          "title": "Interstitiel",
+          "desc": "Couverture plein écran entre les pages. Impact visuel maximal."
+        },
+        "smartLink": {
+          "title": "Smart Link",
+          "desc": "L'IA vous dirige vers l'offre la plus rémunératrice. Idéal pour les réseaux sociaux."
+        },
+        "native": {
+          "title": "Annonces Natives",
+          "desc": "S'intègrent parfaitement au contenu. Vous contrôlez l'apparence."
+        },
+        "banner": {
+          "title": "Bannières",
+          "desc": "Formats IAB classiques. Profits stables sur ordinateur et mobile."
+        }
+      },
+      "whyUs": {
+        "title": "Pourquoi 10 000+ partenaires nous font confiance",
+        "safety": {
+          "title": "Sécurité et Qualité",
+          "desc": "Système de sécurité à 3 niveaux contre les malwares et les bots."
+        },
+        "care": {
+          "title": "Soutien aux Partenaires",
+          "desc": "Des gestionnaires dédiés vous aident à optimiser vos campagnes."
+        },
+        "tools": {
+          "title": "Outils de Performance",
+          "desc": "CPM intelligent, objectif CPA, estimateur de trafic."
+        },
+        "global": {
+          "title": "Couverture Mondiale",
+          "desc": "Éditeurs directs de 248 pays. Trafic premium de Tiers 1 à 3."
+        },
+        "ecpm": {
+          "title": "eCPM Compétitif",
+          "desc": "Notre modèle eCPM récompense la qualité. Plus de clics = plus de gains."
+        },
+        "payouts": {
+          "title": "Paiements Rapides",
+          "desc": "Seuil de 5 $. Paiements hebdomadaires automatisés via PayPal, USDT, etc."
+        }
+      },
+      "steps": {
+        "title": "Commencez en 4 étapes",
+        "s1": {
+          "title": "Inscrivez-vous",
+          "desc": "Créez votre compte en moins de 2 minutes."
+        },
+        "s2": {
+          "title": "Ajoutez votre site",
+          "desc": "Soumettez votre site web pour une vérification rapide."
+        },
+        "s3": {
+          "title": "Obtenez le code",
+          "desc": "Copiez notre balise JavaScript légère."
+        },
+        "s4": {
+          "title": "Gagnez de l'argent",
+          "desc": "Voyez vos revenus augmenter en temps réel."
+        }
+      },
+      "testimonials": {
+        "title": "Ce que disent nos partenaires",
+        "t1": {
+          "name": "Alex M.",
+          "role": "Éditeur",
+          "quote": "Mes revenus ont triplé le premier mois. L'anti-adblock a récupéré 30 % de mes revenus perdus."
+        },
+        "t2": {
+          "name": "Sarah K.",
+          "role": "Annonceur",
+          "quote": "La précision du ciblage est incroyable. L'objectif CPA m'a fait économiser des milliers d'euros."
+        },
+        "t3": {
+          "name": "Dmitri V.",
+          "role": "Blogueur",
+          "quote": "Paiements hebdomadaires par USDT. Mon gestionnaire m'a aidé à optimiser mes annonces pour +40 %."
+        }
+      },
+      "faq": {
+        "title": "FAQ",
+        "q1": {
+          "q": "Combien puis-je gagner ?",
+          "a": "Les revenus dépendent de la qualité du trafic. Le trafic Tiers 1 peut atteindre 5 à 8 $ CPM."
+        },
+        "q2": {
+          "q": "Quel est le seuil de paiement ?",
+          "a": "À partir de 5 $ via Paxum. PayPal, Virement et USDT ont des minimums légèrement plus élevés."
+        },
+        "q3": {
+          "q": "Quels formats proposez-vous ?",
+          "a": "Popunder, In-Page Push, Interstitiel, Smart Link, Annonces Natives et Bannières."
+        },
+        "q4": {
+          "q": "Comment fonctionne la protection anti-fraude ?",
+          "a": "Notre système bloque le trafic de bots et les malwares en temps réel."
+        },
+        "q5": {
+          "q": "Quelles sont les options de ciblage ?",
+          "a": "Plus de 20 paramètres incluant le pays, la ville, le navigateur, l'OS, et la langue."
+        }
+      },
+      "cta": {
+        "bgText": "REJOIGNEZ-NOUS",
+        "title1": "Prêt à",
+        "title2": "Dominer ?",
+        "subtitle": "Rejoignez 10 000+ éditeurs et annonceurs.",
+        "publisher": "Inscription Éditeur",
+        "advertiser": "Inscription Annonceur"
+      }
+    }
+  }
+}

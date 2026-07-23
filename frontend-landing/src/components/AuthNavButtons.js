@@ -1,30 +1,18 @@
 'use client';
 
-/**
- * AuthNavButtons
- * 
- * Smart navbar component used in all theme layouts.
- * Shows "Dashboard" button if user is logged in, otherwise Login/CTA buttons.
- * 
- * Props:
- *   - accentClass: active/hover color (e.g. "hover:text-lime-400")
- *   - hrefCTA: register/CTA link (e.g. "/register?role=publisher")
- *   - labelCTA: CTA button text (e.g. "Start Earning")
- *   - btnClass: CTA button class
- *   - loginClass: Login link class (optional)
- */
-
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { LayoutDashboard } from 'lucide-react';
 import { authAPI } from '@/lib/api';
+import { useTranslations } from 'next-intl';
 
 export default function AuthNavButtons({
     hrefCTA = '/register',
-    labelCTA = 'Get Started',
+    labelCTA,
     btnClass = 'px-6 py-2.5 bg-lime-400 text-slate-900 rounded-xl font-bold text-sm hover:bg-lime-300 transition-all',
     loginClass = 'text-gray-400 hover:text-white transition-colors text-sm font-bold',
 }) {
+    const t = useTranslations('nav');
     const [user, setUser] = useState(null);
     const [mounted, setMounted] = useState(false);
 
@@ -35,7 +23,6 @@ export default function AuthNavButtons({
         if (token && u) setUser(u);
     }, []);
 
-    // Avoid hydration mismatch
     if (!mounted) {
         return (
             <div className="flex items-center gap-4">
@@ -60,13 +47,10 @@ export default function AuthNavButtons({
             <div className="flex items-center gap-3">
                 <Link href={dashHref} className={`${btnClass} flex items-center gap-2`}>
                     <LayoutDashboard className="w-4 h-4" />
-                    Dashboard
+                    {t('dashboard')}
                 </Link>
-                <button
-                    onClick={handleLogout}
-                    className={loginClass}
-                >
-                    Log Out
+                <button onClick={handleLogout} className={loginClass}>
+                    {t('logout')}
                 </button>
             </div>
         );
@@ -74,9 +58,9 @@ export default function AuthNavButtons({
 
     return (
         <div className="flex items-center gap-4">
-            <Link href="/login" className={loginClass}>Login</Link>
+            <Link href="/login" className={loginClass}>{t('login')}</Link>
             <Link href={hrefCTA} className={btnClass}>
-                {labelCTA}
+                {labelCTA || t('getStarted')}
             </Link>
         </div>
     );

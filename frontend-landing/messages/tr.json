@@ -1,0 +1,786 @@
+{
+  "nav": {
+    "advertisers": "Reklamverenler",
+    "publishers": "Yayıncılar",
+    "howItWorks": "Nasıl Çalışır",
+    "faq": "SSS",
+    "contact": "İletişim",
+    "blog": "Blog",
+    "docs": "Dökümanlar",
+    "login": "Giriş Yap",
+    "getStarted": "Başla",
+    "dashboard": "Panel",
+    "logout": "Çıkış Yap",
+    "subscribe": "Abone Ol"
+  },
+  "footer": {
+    "platform": "Platform",
+    "resources": "Kaynaklar",
+    "company": "Şirket",
+    "legal": "Yasal",
+    "tagline": "Ciddi yayıncılar ve reklamverenler için yüksek performanslı reklam ağı.",
+    "taglineSaaS": "Yayıncılar ve reklamverenler için modern reklam ağı.",
+    "taglineLuminous": "Yeni nesil yayıncı ağıyla daha akıllıca para kazanın.",
+    "taglineAzure": "Hassas hedefleme ile kitlenize ulaşın.",
+    "copyright": "© {year} MrPop.io",
+    "links": {
+      "adFormats": "Reklam Formatları",
+      "smartLink": "Akıllı Link",
+      "antiAdblock": "Anti-Adblock",
+      "howItWorks": "Nasıl Çalışır",
+      "blog": "Blog",
+      "docs": "Dökümanlar",
+      "contact": "İletişim",
+      "faq": "SSS",
+      "status": "Durum",
+      "privacy": "Gizlilik Politikası",
+      "terms": "Hizmet Şartları",
+      "publishers": "Yayıncılar",
+      "advertisers": "Reklamverenler"
+    }
+  },
+  "common": {
+    "save": "Değişiklikleri Kaydet",
+    "cancel": "İptal",
+    "loading": "Yükleniyor...",
+    "error": "Bir şeyler yanlış gitti",
+    "success": "Başarılı",
+    "noData": "Veri yok",
+    "retry": "Tekrar Dene",
+    "close": "Kapat",
+    "confirm": "Onayla",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "view": "Görüntüle",
+    "download": "İndir",
+    "upload": "Yükle",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "reset": "Sıfırla",
+    "submit": "Gönder",
+    "back": "Geri",
+    "next": "İleri",
+    "previous": "Önceki",
+    "all": "Tümü",
+    "active": "Aktif",
+    "paused": "Duraklatıldı",
+    "pending": "Beklemede",
+    "completed": "Tamamlandı",
+    "rejected": "Reddedildi",
+    "status": "Durum",
+    "actions": "İşlemler",
+    "date": "Tarih",
+    "amount": "Tutar",
+    "total": "Toplam",
+    "name": "İsim",
+    "email": "E-posta",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "required": "Bu alan zorunludur",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "exportCsv": "CSV'ye Aktar",
+    "refresh": "Yenile",
+    "comingSoon": "Çok Yakında"
+  },
+  "auth": {
+    "loginTitle": "Tekrar Hoş Geldiniz",
+    "loginSubtitle": "MrPop.io hesabınıza giriş yapın",
+    "registerTitle": "Hesabınızı oluşturun",
+    "registerSubtitle": "10.000+ yayıncı ve reklamverene katılın",
+    "emailLabel": "E-posta Adresi",
+    "emailPlaceholder": "siz@ornek.com",
+    "passwordLabel": "Şifre",
+    "passwordPlaceholder": "Şifrenizi girin",
+    "confirmPasswordLabel": "Şifreyi Onayla",
+    "confirmPasswordPlaceholder": "Şifrenizi tekrar girin",
+    "forgotPassword": "Şifremi unuttum?",
+    "loginBtn": "Giriş Yap",
+    "registerBtn": "Hesap Oluştur",
+    "noAccount": "Hesabınız yok mu?",
+    "haveAccount": "Zaten bir hesabınız var mı?",
+    "signUpLink": "Kayıt ol",
+    "signInLink": "Giriş yap",
+    "rolePublisher": "Yayıncı",
+    "roleAdvertiser": "Reklamveren",
+    "roleLabel": "Ben bir",
+    "rolePublisherDesc": "Web sitemden para kazanmak istiyorum",
+    "roleAdvertiserDesc": "Reklam kampanyaları yürütmek istiyorum",
+    "termsAgreement": "Hesap oluşturarak {terms} ve {privacy} şartlarını kabul etmiş olursunuz.",
+    "terms": "Hizmet Şartları",
+    "privacy": "Gizlilik Politikası",
+    "forgotTitle": "Şifrenizi sıfırlayın",
+    "forgotSubtitle": "E-postanızı girin, size bir sıfırlama bağlantısı gönderelim",
+    "forgotBtn": "Sıfırlama Bağlantısı Gönder",
+    "forgotSuccess": "Sıfırlama bağlantısı için e-postanızı kontrol edin",
+    "resetTitle": "Yeni şifre belirleyin",
+    "resetBtn": "Şifreyi Sıfırla",
+    "resetSuccess": "Şifre başarıyla güncellendi",
+    "loginSuccess": "Tekrar hoş geldiniz!",
+    "registerSuccess": "Hesap oluşturuldu! Lütfen e-postanızı kontrol edin.",
+    "invalidCredentials": "Geçersiz e-posta veya şifre",
+    "accountSuspended": "Hesabınız askıya alındı",
+    "verifyEmail": "Lütfen e-posta adresinizi doğrulayın",
+    "twoFactor": "İki Faktörlü Kimlik Doğrulama",
+    "twoFactorSubtitle": "Doğrulayıcı uygulamanızdaki 6 haneli kodu girin",
+    "twoFactorCode": "Doğrulama Kodu",
+    "twoFactorBtn": "Doğrula",
+    "twoFactorBackup": "Yedek kod kullan"
+  },
+  "publisher": {
+    "nav": {
+      "dashboard": "Panel",
+      "analytics": "Analizler",
+      "sites": "Siteler",
+      "adCodes": "Reklam Kodları",
+      "statistics": "İstatistikler",
+      "payments": "Ödemeler",
+      "referrals": "Referanslar",
+      "reportAd": "Reklam Bildir",
+      "settings": "Ayarlar",
+      "support": "Destek",
+      "account": "Hesap"
+    },
+    "topbar": {
+      "balance": "Bakiye",
+      "notifications": "Bildirimler",
+      "noNotifications": "Henüz bildirim yok",
+      "breadcrumb": "Yayıncı Paneli",
+      "logout": "Çıkış Yap"
+    },
+    "verify": {
+      "title": "E-posta doğrulaması gerekli",
+      "subtitle": "Hesabınız tam olarak aktif değil. Lütfen e-posta adresinizi doğrulayın.",
+      "sentTitle": "Doğrulama e-postası gönderildi",
+      "sentSubtitle": "Gelen kutunuzu ve spam klasörünüzü kontrol edin, ardından hesabınızı etkinleştirmek için bağlantıya tıklayın.",
+      "resend": "E-postayı Yeniden Gönder",
+      "sending": "Gönderiliyor..."
+    },
+    "dashboard": {
+      "title": "Panel",
+      "subtitle": "Kazançlarınıza genel bakış",
+      "totalEarnings": "Toplam Kazanç",
+      "todayEarnings": "Bugünkü Kazanç",
+      "impressions": "Gösterimler",
+      "clicks": "Tıklamalar",
+      "ctr": "TO",
+      "cpm": "CPM",
+      "sites": "Aktif Siteler",
+      "pendingPayout": "Bekleyen Ödeme",
+      "recentActivity": "Son Etkinlikler",
+      "earningsChart": "Kazançlara Genel Bakış",
+      "topSites": "En İyi Siteler",
+      "noSites": "Henüz site yok",
+      "addSite": "İlk Sitenizi Ekleyin"
+    },
+    "sites": {
+      "title": "Sitelerim",
+      "addSite": "Site Ekle",
+      "siteName": "Site Adı",
+      "siteUrl": "Site URL",
+      "category": "Kategori",
+      "status": "Durum",
+      "verified": "Doğrulandı",
+      "unverified": "Doğrulanmadı",
+      "pending": "Beklemede",
+      "rejected": "Reddedildi",
+      "active": "Aktif",
+      "paused": "Duraklatıldı",
+      "verify": "Siteyi Doğrula",
+      "verifyMethod": "Doğrulama Yöntemi",
+      "metaTag": "Meta Etiketi",
+      "fileUpload": "Dosya Yükleme",
+      "dns": "DNS Kaydı",
+      "deleteConfirm": "Bu siteyi silmek istediğinizden emin misiniz?",
+      "noSites": "Henüz site eklenmedi. Para kazanmaya başlamak için ilk sitenizi ekleyin.",
+      "impressionsToday": "Bugünkü Gösterimler",
+      "earningsToday": "Bugünkü Kazanç"
+    },
+    "payments": {
+      "title": "Ödemeler",
+      "requestPayout": "Ödeme İste",
+      "method": "Ödeme Yöntemi",
+      "amount": "Tutar",
+      "status": "Durum",
+      "date": "Tarih",
+      "minPayout": "Minimum ödeme: ${amount}",
+      "currentBalance": "Mevcut Bakiye",
+      "pendingBalance": "Bekleyen Bakiye",
+      "paymentHistory": "Ödeme Geçmişi",
+      "noPayments": "Henüz ödeme geçmişi yok",
+      "paypal": "PayPal",
+      "bankTransfer": "Banka Transferi",
+      "bitcoin": "Bitcoin",
+      "usdt": "USDT",
+      "paypalEmail": "PayPal E-postası",
+      "bankDetails": "Banka Bilgileri",
+      "walletAddress": "Cüzdan Adresi"
+    },
+    "referrals": {
+      "title": "Referans Programı",
+      "subtitle": "Yeni yayıncılar ve reklamverenler yönlendirerek komisyon kazanın",
+      "yourCode": "Referans Kodunuz",
+      "referralLink": "Referans Bağlantısı",
+      "totalEarned": "Toplam Kazanılan",
+      "totalReferrals": "Toplam Referans",
+      "commissionRate": "Komisyon Oranı",
+      "referredUsers": "Yönlendirilen Kullanıcılar",
+      "noReferrals": "Henüz referans yok. Kazanmaya başlamak için bağlantınızı paylaşın!"
+    },
+    "settings": {
+      "title": "Hesap Ayarları",
+      "profile": "Profil",
+      "security": "Güvenlik",
+      "notifications": "Bildirimler",
+      "payment": "Ödeme Bilgileri",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "company": "Şirket Adı",
+      "timezone": "Saat Dilimi",
+      "language": "Dil",
+      "currentPassword": "Mevcut Şifre",
+      "newPassword": "Yeni Şifre",
+      "confirmPassword": "Yeni Şifreyi Onayla",
+      "twoFactor": "İki Faktörlü Kimlik Doğrulama",
+      "enable2FA": "2FA'yı Etkinleştir",
+      "disable2FA": "2FA'yı Devre Dışı Bırak",
+      "emailNotifications": "E-posta Bildirimleri",
+      "paymentNotifications": "Ödeme Uyarıları",
+      "reportNotifications": "Haftalık Raporlar",
+      "saved": "Ayarlar başarıyla kaydedildi"
+    },
+    "support": {
+      "title": "Destek",
+      "newTicket": "Yeni Destek Talebi",
+      "subject": "Konu",
+      "category": "Kategori",
+      "priority": "Öncelik",
+      "message": "Mesaj",
+      "openTickets": "Açık Talepler",
+      "closedTickets": "Kapalı Talepler",
+      "noTickets": "Henüz destek talebi yok",
+      "status": {
+        "open": "Açık",
+        "inProgress": "İşlemde",
+        "resolved": "Çözüldü",
+        "closed": "Kapalı"
+      }
+    },
+    "ad-codes": {
+      "title": "Reklam Kodları",
+      "subtitle": "Entegrasyon kodlarınızı oluşturun ve yönetin",
+      "generate": "Kod Oluştur",
+      "site": "Siteyi Seçin",
+      "format": "Reklam Formatı",
+      "copy": "Kodu Kopyala",
+      "copied": "Kopyalandı!",
+      "noCodes": "Henüz reklam kodu oluşturulmadı."
+    },
+    "analytics": {
+      "title": "Analitik",
+      "subtitle": "Trafik performansınızı derinlemesine inceleyin",
+      "views": "Toplam Görüntülemeler",
+      "clicks": "Toplam Tıklamalar",
+      "revenue": "Toplam Gelir",
+      "ecpm": "Ortalama eBGBM",
+      "dateRange": "Tarih Aralığı",
+      "export": "Verileri Dışa Aktar"
+    },
+    "reports": {
+      "title": "Raporlar",
+      "subtitle": "İndirilebilir raporlar ve özetler",
+      "generate": "Rapor Oluştur",
+      "download": "PDF'yi indir",
+      "noReports": "Rapor yok."
+    },
+    "statistics": {
+      "title": "İstatistikler",
+      "subtitle": "Gerçek zamanlı istatistiklere genel bakış",
+      "today": "Bugün",
+      "yesterday": "Dün",
+      "thisMonth": "Bu Ay",
+      "lastMonth": "Geçen ay"
+    }
+  },
+  "advertiser": {
+    "nav": {
+      "dashboard": "Panel",
+      "campaigns": "Kampanyalar",
+      "creatives": "Reklam Öğeleri",
+      "audiences": "Hedef Kitleler",
+      "billing": "Faturalandırma",
+      "statistics": "İstatistikler",
+      "referrals": "Referanslar",
+      "tracking": "İzleme",
+      "priority": "Öncelik",
+      "settings": "Ayarlar",
+      "support": "Destek",
+      "account": "Hesap"
+    },
+    "topbar": {
+      "balance": "Bakiye",
+      "deposit": "Bakiye Yükle",
+      "notifications": "Bildirimler",
+      "noNotifications": "Henüz bildirim yok",
+      "breadcrumb": "Reklamveren Paneli"
+    },
+    "dashboard": {
+      "title": "Panel",
+      "subtitle": "Kampanyalarınıza genel bakış",
+      "totalSpent": "Toplam Harcama",
+      "todaySpent": "Bugünkü Harcama",
+      "impressions": "Toplam Gösterim",
+      "clicks": "Toplam Tıklama",
+      "ctr": "TO",
+      "activeCampaigns": "Aktif Kampanyalar",
+      "balance": "Hesap Bakiyesi",
+      "conversions": "Dönüşümler",
+      "topCampaigns": "En İyi Kampanyalar",
+      "spendChart": "Harcamalara Genel Bakış",
+      "noCampaigns": "Henüz kampanya yok",
+      "createFirst": "İlk Kampanyanızı Oluşturun"
+    },
+    "campaigns": {
+      "title": "Kampanyalar",
+      "create": "Kampanya Oluştur",
+      "name": "Kampanya Adı",
+      "format": "Reklam Formatı",
+      "targetUrl": "Hedef URL",
+      "dailyBudget": "Günlük Bütçe",
+      "totalBudget": "Toplam Bütçe",
+      "bidAmount": "Teklif Tutarı (CPM)",
+      "status": "Durum",
+      "spent": "Harcanan",
+      "impressions": "Gösterimler",
+      "clicks": "Tıklamalar",
+      "ctr": "TO",
+      "start": "Aktifleştir",
+      "pause": "Duraklat",
+      "edit": "Düzenle",
+      "duplicate": "Çoğalt",
+      "deleteConfirm": "Bu kampanyayı silmek istediğinizden emin misiniz?",
+      "noCampaigns": "Henüz kampanya yok. Trafik almaya başlamak için ilk kampanyanızı oluşturun.",
+      "targeting": "Hedefleme",
+      "geo": "Coğrafi Hedefleme",
+      "device": "Cihaz Hedefleme",
+      "browser": "Tarayıcı Hedefleme",
+      "os": "İşletim Sistemi Hedefleme",
+      "schedule": "Reklam Zamanlaması",
+      "frequency": "Sıklık Sınırı (Frequency Capping)",
+      "pacing": "Hızlandırma (Pacing)"
+    },
+    "billing": {
+      "title": "Faturalandırma ve Ödemeler",
+      "deposit": "Bakiye Yükle",
+      "amount": "Yükleme Tutarı",
+      "method": "Ödeme Yöntemi",
+      "currentBalance": "Mevcut Bakiye",
+      "totalDeposited": "Toplam Yüklenen",
+      "totalSpent": "Toplam Harcanan",
+      "history": "İşlem Geçmişi",
+      "noHistory": "Henüz işlem yok",
+      "minDeposit": "Minimum yükleme: 100$",
+      "creditCard": "Kredi Kartı",
+      "paypal": "PayPal",
+      "bitcoin": "Bitcoin",
+      "usdt": "USDT",
+      "coupon": "Promosyon Kodu",
+      "applyCoupon": "Uygula",
+      "couponApplied": "Promosyon kodu uygulandı!"
+    },
+    "settings": {
+      "title": "Hesap Ayarları",
+      "profile": "Profil",
+      "security": "Güvenlik",
+      "notifications": "Bildirimler",
+      "company": "Şirket Adı",
+      "billingAddress": "Fatura Adresi",
+      "taxId": "Vergi Kimlik / KDV Numarası",
+      "autoRecharge": "Otomatik Yükleme",
+      "autoRechargeDesc": "Bakiye eşiğin altına düştüğünde otomatik olarak para ekle",
+      "rechargeThreshold": "Yükleme Eşiği",
+      "rechargeAmount": "Yükleme Tutarı",
+      "saved": "Ayarlar başarıyla kaydedildi"
+    },
+    "audiences": {
+      "title": "Kitleler",
+      "subtitle": "Hedef kitlelerinizi ve yeniden hedefleme listelerinizi yönetin",
+      "create": "Kitle Oluştur",
+      "name": "Hedef Kitle Adı",
+      "size": "Tahmini Boyut",
+      "noAudiences": "Henüz kitle oluşturulmadı."
+    },
+    "creatives": {
+      "title": "Yaratıcı Kitaplık",
+      "subtitle": "Tüm Sayfa İçi Push, Popunder ve Anlık Bildirim reklam öğeleriniz tek bir yerde",
+      "total": "Toplam Reklam Öğeleri",
+      "search": "Başlığa, etikete veya kampanyaya göre arayın...",
+      "allFormats": "Tüm Formatlar",
+      "allStatuses": "Tüm Durumlar",
+      "noCreatives": "Hiçbir reklam öğesi bulunamadı",
+      "adjustFilters": "Filtrelerinizi ayarlamayı deneyin",
+      "firstCampaign": "Reklam öğeleri eklemek için ilk kampanyanızı oluşturun",
+      "showing": "Gösterilen",
+      "of": "ile ilgili",
+      "creatives": "yaratıcılar",
+      "untitled": "Başlıksız Reklam Öğesi",
+      "customHtml": "Özel HTML reklamı",
+      "edit": "Düzenlemek",
+      "active": "Aktif",
+      "paused": "Duraklatıldı",
+      "pending": "Askıda olması",
+      "rejected": "Reddedilmiş"
+    },
+    "priority": {
+      "title": "Öncelik Kuralları",
+      "subtitle": "Kampanya önceliğini ve trafik tahsisini yönetin",
+      "create": "Yeni Kural",
+      "noRules": "Hiçbir öncelik kuralı yapılandırılmadı."
+    },
+    "statistics": {
+      "title": "İstatistikler",
+      "subtitle": "Ayrıntılı kampanya performansı metrikleri",
+      "dateRange": "Tarih Aralığı",
+      "export": "CSV'yi dışa aktar"
+    },
+    "tracking": {
+      "title": "Takip",
+      "subtitle": "Dönüşüm izlemeyi ve geri göndermeleri ayarlayın",
+      "globalPostback": "Genel Geri Gönderme URL'si",
+      "testPostback": "Geri Göndermeyi Test Et",
+      "save": "İzleme Ayarlarını Kaydet"
+    }
+  },
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "titleBrutalist": "S.S.S.",
+    "subtitle": "MrPop.io hakkında sık sorulan soruların yanıtlarını bulun",
+    "searchPlaceholder": "Yanıtları arayın...",
+    "notFound": "Aramanızla eşleşen soru bulunamadı.",
+    "stillHaveQuestions": "Hâlâ Sorularınız Mı Var?",
+    "stillHaveQuestionsSubtitle": "Aradığınız cevabı bulamıyor musunuz? Destek ekibimiz yardım etmek için burada.",
+    "contactSupport": "Destek Ekibiyle İletişime Geçin →",
+    "categories": {
+      "all": "Tümü",
+      "publishers": "Yayıncılar",
+      "advertisers": "Reklamverenler",
+      "payments": "Ödemeler",
+      "technical": "Teknik"
+    },
+    "questions": {
+      "q1": "Bir yayıncı olarak ne kadar kazanabilirim?",
+      "a1": "Yayıncı kazançları trafik kalitesine, coğrafyaya ve reklam formatlarına göre değişir. Yayıncılarımız bu faktörlere bağlı olarak 0,50 ila 8,00 ABD Doları CPM arasında kazanır. Tier 1 trafiğine (ABD, İngiltere, Kanada) sahip en iyi yayıncılar 3-8 ABD Doları CPM kazanır. Günlük 100.000 ziyaretçi ile aylık 3.000-24.000 ABD Doları kazanabilirsiniz. Sektördeki en yüksek oranlardan biri olan %70'e kadar gelir paylaşımı sunuyoruz.",
+      "q2": "Katılmak için minimum gereksinimler nelerdir?",
+      "a2": "Yayıncı olarak katılmak için şunlara ihtiyacınız var: (1) Minimum 1.000 günlük ziyaretçi, (2) Telif hakkı ihlali olmayan orijinal, yasal içerik, (3) Yetişkinlere uygun, yasadışı veya kötü amaçlı içerik olmaması, (4) Kaliteli trafik (bot veya teşvikli trafik olmaması), (5) İngilizce veya önemli bir dilde içerik. Tüm başvuruları 24 saat içinde inceliyoruz.",
+      "q3": "Reklam kodunu nasıl yüklerim?",
+      "a3": "Siteniz onaylandıktan sonra panelinize giriş yapın ve \"Siteler\" → \"Reklam Kodu\"na gidin. Sağlanan JavaScript parçasını kopyalayın ve web sitenizdeki kapanış body etiketinden önce yapıştırın. Kod hafiftir (10 KB'ın altında) ve site hızınızı etkilemez.",
+      "q4": "MrPop.io'yu Google AdSense ile kullanabilir miyim?",
+      "a4": "Evet! MrPop.io, Google AdSense ve diğer reklam ağlarıyla %100 uyumludur. Pop reklam formatlarımız görüntülü reklamlarla rekabet etmez, bu nedenle ikisini aynı anda kullanarak gelirinizi en üst düzeye çıkarabilirsiniz.",
+      "q5": "Reklamverenler için minimum yükleme tutarı nedir?",
+      "a5": "Minimum yükleme tutarı 100 ABD Doları'dır. PayPal, kredi kartı (Visa, MasterCard, Amex), Bitcoin veya USDT ile bakiye ekleyebilirsiniz. Gizli ücret yoktur ve kullanılmayan fonlar her zaman tamamen iade edilebilir.",
+      "q6": "Hangi hedefleme seçenekleri mevcuttur?",
+      "a6": "Kapsamlı hedefleme sunuyoruz: Coğrafi (Ülke, Şehir, Eyalet/Bölge), Cihaz (Masaüstü, Mobil, Tablet), Teknoloji (Tarayıcı, İS, Dil), Bağlantı Türü (Wi-Fi, Mobil) ve Zamana dayalı hedefleme.",
+      "q7": "Kampanyalar ne kadar sürede yayına girer?",
+      "a7": "Çoğu kampanya iş saatleri içinde 1-2 saat içinde onaylanır ve yayına girer. Kaliteyi ve uyumluluğu sağlamak için tüm kampanyaları manuel olarak inceliyoruz.",
+      "q8": "Hangi reklam formatları mevcut?",
+      "a8": "Popunder, In-Page Push, Interstitial, Smart Link, Banner Ads ve Multi-Tag sunuyoruz. Her formatın farklı CPM oranları ve performans özellikleri vardır.",
+      "q9": "Ödemeleri ne zaman alırım?",
+      "a9": "Yayıncılara, önceki haftanın kazançları için her hafta Pazartesi günü ödeme yapılır. Minimum ödeme eşiği 50 ABD Doları'dır. Ödemeler PayPal, Banka Transferi, Bitcoin veya USDT aracılığıyla işlenir.",
+      "q10": "Herhangi bir ödeme ücreti var mı?",
+      "a10": "PayPal ve kripto para ödemeleri yayıncılar için ücretsizdir. Banka transferlerinin 25 ABD Doları ücreti vardır. Reklamverenler için işlem ücretleri yüklemenize dahildir.",
+      "q11": "Vergi bilgisi vermem gerekiyor mu?",
+      "a11": "Yılda 600 ABD Doları üzerindeki ödemeler için ABD merkezli yayıncıların bir W-9 formu göndermesi gerekir. ABD dışı yayıncıların bir W-8BEN formuna ihtiyacı vardır.",
+      "q12": "Reklamlar web sitemi yavaşlatır mı?",
+      "a12": "Hayır. Reklam kodumuz eşzamansız olarak yüklenir (10 KB'ın altında) ve sayfa oluşturmanızı engellemez. Google PageSpeed puanı genellikle değişmeden kalır.",
+      "q13": "Entegrasyon için bir API'niz var mı?",
+      "a13": "Evet! Hem yayıncılar hem de reklamverenler için RESTful bir API sunuyoruz. İstatistikleri alın, siteleri yönetin, kampanyalar oluşturun ve fonları yönetin. API erişimi için destek ekibiyle iletişime geçin.",
+      "q14": "Tıklama sahtekarlığını nasıl önlüyorsunuz?",
+      "a14": "Çok katmanlı sahtekarlık tespiti kullanıyoruz: gerçek zamanlı bot tespiti, IP filtreleme, tıklama deseni analizi, manuel inceleme ve üçüncü taraf sahtekarlık veritabanı entegrasyonu.",
+      "q15": "MrPop.io'yu mobil uygulamalarda kullanabilir miyim?",
+      "a15": "Şu anda MrPop.io yalnızca web siteleri için tasarlanmıştır. Ancak reklamlarımız mobil cihazlar için optimize edilmiş web sitelerinde ve PWA'larda mükemmel şekilde çalışır.",
+      "q16": "Dönüşümleri izleyebilir miyim?",
+      "a16": "Evet! S2S postback URL'leri veya JavaScript pikselleri aracılığıyla dönüşüm izlemeyi destekliyoruz. CPA, ROAS ve dönüşüm oranlarını doğrudan panelinizden izleyin."
+    }
+  },
+  "contact": {
+    "title": "Bizimle İletişime Geçin",
+    "subtitle": "Bir sorunuz mu var veya yardıma mı ihtiyacınız var? Sizin için buradayız.",
+    "nameLabel": "Ad Soyad",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "E-posta Adresi",
+    "emailPlaceholder": "siz@ornek.com",
+    "subjectLabel": "Konu",
+    "subjectPlaceholder": "Size nasıl yardımcı olabiliriz?",
+    "messageLabel": "Mesaj",
+    "messagePlaceholder": "Bize daha fazlasını anlatın...",
+    "sendBtn": "Mesajı Gönder",
+    "sending": "Gönderiliyor...",
+    "successTitle": "Mesaj gönderildi!",
+    "successSubtitle": "24 saat içinde size geri döneceğiz.",
+    "errorMsg": "Mesaj gönderilemedi. Lütfen tekrar deneyin.",
+    "supportEmail": "destek@mrpop.io",
+    "responseTime": "Tipik yanıt süresi: < 24 saat"
+  },
+  "notFound": {
+    "title": "Sayfa Bulunamadı",
+    "subtitle": "Aradığınız sayfa mevcut değil veya taşınmış.",
+    "backHome": "Ana Sayfaya Dön"
+  },
+  "cookie": {
+    "message": "Deneyiminizi iyileştirmek ve site kullanımını analiz etmek için çerezler kullanıyoruz.",
+    "accept": "Tümünü Kabul Et",
+    "decline": "Reddet",
+    "learnMore": "Daha fazla bilgi"
+  },
+  "languageSwitcher": {
+    "label": "Dil"
+  },
+  "forPublishers": {
+    "heroTitle": "Trafiğinizden Para Kazanın",
+    "heroSubtitle": "Premium reklam ağımızla 8 ABD Dolarına kadar CPM kazanan 10.000+ yayıncıya katılın. Haftalık ödemeler, %100 doluluk oranı.",
+    "heroCta": "Kazanmaya Başla",
+    "heroStats": {
+      "publishers": "10B+ Yayıncı",
+      "cpm": "Maks 8$ CPM",
+      "payout": "Haftalık Ödemeler",
+      "fillRate": "%100 Doluluk Oranı"
+    },
+    "whyTitle": "Neden MrPop.io'yu Seçmelisiniz?",
+    "features": {
+      "highCpm": "Sektör Lideri CPM",
+      "highCpmDesc": "Tier-1 trafiğiyle 8 ABD Dolarına kadar CPM kazanın. Akıllı teklif verme sistemimiz her zaman en iyi fiyatı almanızı sağlar.",
+      "weeklyPayout": "Haftalık Ödemeler",
+      "weeklyPayoutDesc": "Sadece 50 ABD Doları minimum eşikle her Pazartesi ödeme alın. Gecikme yok, bahane yok.",
+      "fillRate": "%100 Doluluk Oranı",
+      "fillRateDesc": "Masada asla para bırakmayın. Küresel reklamveren tabanımız her gösterimin paraya dönüştürülmesini sağlar.",
+      "easyInstall": "5 Dakikada Kurulum",
+      "easyInstallDesc": "Tek bir JavaScript parçası. Herhangi bir web sitesinde veya CMS'de (WordPress, Blogger, özel HTML) çalışır."
+    },
+    "howTitle": "Nasıl Çalışır?",
+    "steps": {
+      "s1": "Ücretsiz Üye Olun",
+      "s1Desc": "Yayıncı hesabınızı 2 dakikada oluşturun.",
+      "s2": "Sitenizi Ekleyin",
+      "s2Desc": "Web sitenizi onay için gönderin. 24 saat içinde inceliyoruz.",
+      "s3": "Reklam Kodunu Yükleyin",
+      "s3Desc": "Tek bir JavaScript parçasını body etiketinden önce kopyalayıp yapıştırın.",
+      "s4": "Para Kazanın",
+      "s4Desc": "Kazançlarınızın artmasını izleyin. Haftalık ödeme alın."
+    },
+    "cta": "Bugün Kazanmaya Başlayın"
+  },
+  "forAdvertisers": {
+    "heroTitle": "Milyonlarca Gerçek Kullanıcıya Ulaşın",
+    "heroSubtitle": "10.000+ premium yayıncı sitesinden lazer hedefli trafik. Kampanyanızı 100 ABD Dolarından başlatın.",
+    "heroCta": "Kampanya Başlat",
+    "heroStats": {
+      "traffic": "Aylık 5Milyar+ Gösterim",
+      "countries": "195+ Ülke",
+      "formats": "6 Reklam Formatı",
+      "support": "7/24 Destek"
+    },
+    "whyTitle": "Neden MrPop.io'da Reklam Vermelisiniz?",
+    "features": {
+      "targeting": "Hassas Hedefleme",
+      "targetingDesc": "Tam olarak doğru kitleye ulaşmak için GEO, cihaz, tarayıcı, İS, dil ve günün saati hedeflemesi.",
+      "realTime": "Gerçek Zamanlı Analizler",
+      "realTimeDesc": "Kampanya performansını gerçek zamanlı olarak izleyin. Teklifleri ve hedeflemeyi anında optimize edin.",
+      "fraud": "Sahtekarlıktan Arındırılmış Trafik",
+      "fraudDesc": "Çok katmanlı sahtekarlık tespiti bütçenizi korur. Yalnızca gerçek insan trafiği için ödeme yapın.",
+      "flexible": "Esnek Bütçeleme",
+      "flexibleDesc": "100$'dan başlayın. Günlük ve toplam bütçe sınırlarını belirleyin. Sonuçları gördükçe ölçeklendirin."
+    },
+    "formatsTitle": "Reklam Formatları",
+    "cta": "Reklam Vermeye Başla"
+  },
+  "howItWorks": {
+    "title": "MrPop.io Nasıl Çalışır?",
+    "subtitle": "Trafikten gelire — veya bütçeden müşterilere uzanan en basit yol.",
+    "forPublishers": "Yayıncılar İçin",
+    "forAdvertisers": "Reklamverenler İçin"
+  },
+  "status": {
+    "title": "Sistem Durumu",
+    "allOperational": "Tüm Sistemler Çalışıyor",
+    "operational": "Çalışıyor",
+    "degraded": "Bozulmuş",
+    "outage": "Kesinti"
+  },
+  "themes": {
+    "brutalist": {
+      "trustedBy": "10.000+ Yayıncı Tarafından Güveniliyor",
+      "heroTitleHtml": "TRAFİK <br /> <span class=\"text-primary italic\">PARAYLA</span> <br /> BULUŞUYOR",
+      "heroDesc": "Ciddi yayıncılar için tasarlanmış en yüksek ödemeli reklam ağı. Yapay zeka destekli hedefleme, %100 doluluk oranı, haftalık ödemeler.",
+      "startEarning": "Kazanmaya Başla →",
+      "launchAds": "Reklam Ver",
+      "marquee": {
+        "highCpm": "★ YÜKSEK CPM ORANLARI",
+        "weekly": "★ HAFTALIK ÖDEMELER",
+        "fill": "★ %100 DOLULUK ORANI",
+        "antiAdblock": "★ ANTI-ADBLOCK",
+        "realtime": "★ GERÇEK ZAMANLI İSTATİSTİKLER",
+        "geos": "★ 248 ÜLKE"
+      },
+      "stats": {
+        "fillRate": {
+          "label": "Doluluk Oranı",
+          "desc": "Her gösterim paraya dönüşür, her ülke kapsanır."
+        },
+        "avgCpm": {
+          "label": "Ort. CPM",
+          "desc": "Tier-1 trafiğiniz hak ettiğini kazanır."
+        },
+        "payouts": {
+          "label": "Ödemeler",
+          "desc": "BTC, USDT, PayPal, Banka. Her zaman zamanında."
+        },
+        "geos": {
+          "label": "Ülke",
+          "desc": "Doğrudan reklamverenlerden global kapsama."
+        }
+      },
+      "forPublishers": {
+        "titleHtml": "YAYINCILAR<br />İÇİN",
+        "desc": "Her gösterimden elde ettiğiniz geliri en üst düzeye çıkarın. Yapay zeka ile optimize edilmiş reklam akışımız temiz ve güvenli reklamlarla en yüksek eCPM oranlarını sunar.",
+        "b1": "%70'e varan gelir paylaşımı",
+        "b2": "6 yüksek etkili reklam formatı",
+        "b3": "$5 minimum ödeme",
+        "b4": "Özel hesap yöneticisi",
+        "b5": "Anti-adblock çözümü",
+        "cta": "Yayıncı Olarak Katıl"
+      },
+      "forAdvertisers": {
+        "titleHtml": "REKLAMVERENLER<br />İÇİN",
+        "desc": "248 ülkede yüksek etkileşimli kitlelere ulaşın. 20'den fazla hedefleme ayarı, akıllı teklif ve gerçek zamanlı analizler.",
+        "b1": "Doğrudan yayıncı trafiği",
+        "b2": "Gelişmiş Ülke/Cihaz/İS hedefleme",
+        "b3": "Akıllı CPM ve EBM Hedefi",
+        "b4": "$100 minimum bakiye yükleme",
+        "b5": "3 aşamalı sahtekarlık koruması",
+        "cta": "Kampanya Başlat"
+      },
+      "adFormats": {
+        "titleHtml": "Dönüşüm Sağlayan <br /><span class=\"text-outline text-foreground\">Reklam Formatları</span>",
+        "desc": "Tüm cihazlarda ayda 2 milyardan fazla gösterim sunan, rahatsız edici olmayan yüksek performanslı reklam birimleri.",
+        "popunder": {
+          "title": "Popunder",
+          "desc": "Ana pencerenin arkasında tam sayfa reklamlar. En yüksek CPM oranları, sıfır banner körlüğü."
+        },
+        "push": {
+          "title": "In-Page Push",
+          "desc": "Tarayıcı dostu bildirimler. İzin gerektirmez. Web push'a göre 30 kat daha yüksek TO."
+        },
+        "interstitial": {
+          "title": "Geçiş Reklamı (Interstitial)",
+          "desc": "Sayfalar arasında tam ekran kaplama. Maksimum görsel etki ve etkileşim."
+        },
+        "smartLink": {
+          "title": "Akıllı Link",
+          "desc": "Yapay zeka trafiği en yüksek ödemeli teklife yönlendirir. Sosyal medya trafiği için en iyisi."
+        },
+        "native": {
+          "title": "Doğal (Native) Reklam",
+          "desc": "Site içeriğiyle kusursuz uyum sağlar. Yayıncılar renkleri, boyutları ve yerleşimi kontrol eder."
+        },
+        "banner": {
+          "title": "Banner Reklamları",
+          "desc": "Klasik IAB standartları. Masaüstü ve mobil için istikrarlı karlar."
+        }
+      },
+      "whyUs": {
+        "title": "Neden 10.000+ Ortak Bize Güveniyor?",
+        "safety": {
+          "title": "Reklam Güvenliği ve Kalitesi",
+          "desc": "3 aşamalı güvenlik sistemi kötü amaçlı yazılımları, sahtekarlığı ve bot trafiğini engeller. Kullanıcılarınıza sadece temiz reklamlar ulaşır."
+        },
+        "care": {
+          "title": "Ortak Destek",
+          "desc": "Destekten daha fazlası. Özel yöneticiler kampanyaları optimize etmeye ve gelirinizi büyütmeye yardımcı olur."
+        },
+        "tools": {
+          "title": "Performans Araçları",
+          "desc": "Akıllı CPM, EBM Hedefi, Trafik Tahmin Edici. Teklifleri otomatikleştirin ve yapay zekanın en iyi yerleşimleri bulmasına izin verin."
+        },
+        "global": {
+          "title": "Küresel Kapsama",
+          "desc": "248 ülkeden doğrudan yayıncılar. Her bölge için rekabetçi fiyatlarla Tier-1'den Tier-3'e premium trafik."
+        },
+        "ecpm": {
+          "title": "Rekabetçi eCPM",
+          "desc": "eCPM modelimiz kaliteyi ödüllendirir. Daha fazla tıklama ve dönüşüm = daha yüksek kazanç."
+        },
+        "payouts": {
+          "title": "Hızlı Ödemeler",
+          "desc": "$5 minimum ödeme tutarı. PayPal, USDT, Bitcoin, Banka Transferi ve daha fazlasıyla otomatik haftalık ödemeler."
+        }
+      },
+      "steps": {
+        "title": "4 Adımda Başlayın",
+        "s1": {
+          "title": "Kayıt Ol",
+          "desc": "Hesabınızı 2 dakikanın altında oluşturun. Onay gecikmesi yok."
+        },
+        "s2": {
+          "title": "Sitenizi Ekleyin",
+          "desc": "Web sitenizi veya trafik kaynağınızı hızlı doğrulama için gönderin."
+        },
+        "s3": {
+          "title": "Reklam Kodunu Alın",
+          "desc": "Hafif JavaScript etiketimizi kopyalayın. Sadece tek satır kod."
+        },
+        "s4": {
+          "title": "Para Kazanın",
+          "desc": "Gelirinizin gerçek zamanlı olarak artışını izleyin. Haftalık ödeme alın."
+        }
+      },
+      "testimonials": {
+        "title": "Ortaklarımız Ne Diyor?",
+        "t1": {
+          "name": "Alex M.",
+          "role": "Yayıncı • Oyun Nişi",
+          "quote": "AdSense'den MrPop.io'ya geçtim. Gelirim ilk ayda kelimenin tam anlamıyla üç katına çıktı. Sadece anti-adblock özelliği kaybedilen gelirin %30'unu geri kazandırdı."
+        },
+        "t2": {
+          "name": "Sarah K.",
+          "role": "Medya Satın Alıcı • E-Ticaret",
+          "quote": "Hedefleme detayları inanılmaz. İşletim sistemi sürümüne ve operatöre kadar inebiliyorum. EBM Hedefi kampanyalarımı otomatik optimize ederek binlerce dolar tasarruf sağladı."
+        },
+        "t3": {
+          "name": "Dmitri V.",
+          "role": "Yayıncı • Teknoloji Blogu",
+          "quote": "USDT ile haftalık ödemeler. Gecikme yok, bahane yok. Hesap yöneticim reklam yerleşimlerini optimize etmeme yardımcı oldu ve %40 daha fazla gelir sağladı."
+        }
+      },
+      "faq": {
+        "title": "SSS",
+        "q1": {
+          "q": "Ne kadar kazanabilirim?",
+          "a": "Yayıncı kazançları trafik kalitesine ve ülkeye göre değişir. Tier-1 trafiği (ABD, İngiltere, Kanada) $5-8+ CPM kazanabilir. eCPM modelimiz kaliteyi ödüllendirir — daha fazla tıklama ve dönüşüm, limitsiz daha yüksek kazanç demektir."
+        },
+        "q2": {
+          "q": "Minimum ödeme tutarı nedir?",
+          "a": "Paxum ile sadece $5. PayPal, Banka Transferi ve USDT gibi yöntemlerin minimum tutarları biraz daha yüksektir. Ödemeler haftalık olarak, her zaman zamanında işlenir."
+        },
+        "q3": {
+          "q": "Hangi reklam formatlarını destekliyorsunuz?",
+          "a": "Popunder, In-Page Push, Interstitial, Smart Link, Native Ads ve Banner Reklamlarını destekliyoruz. Maksimum gelir için birden fazla formatı aynı anda çalıştırabilirsiniz."
+        },
+        "q4": {
+          "q": "Sahtekarlık koruması nasıl çalışır?",
+          "a": "Kendi geliştirdiğimiz 3 aşamalı güvenlik sistemimiz bot trafiğini, kötü amaçlı yazılımları ve sahte tıklamaları gerçek zamanlı olarak tespit edip engeller."
+        },
+        "q5": {
+          "q": "Hangi hedefleme seçenekleri mevcut?",
+          "a": "Ülke, Şehir, İS, Tarayıcı, Cihaz Türü, Operatör, Dil ve daha fazlası dahil olmak üzere 20+ hedefleme ayarı."
+        }
+      },
+      "cta": {
+        "bgText": "ŞİMDİ BİZE KATIL",
+        "title1": "Hükmetmeye",
+        "title2": "Hazır mısın?",
+        "subtitle": "Bizimle ölçeklenen 10.000+ yayıncı ve reklamverene katıl.",
+        "publisher": "Yayıncı Kaydı",
+        "advertiser": "Reklamveren Kaydı"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Zap, Lock, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { useResetPasswordForm } from '@/hooks/useAuthForms';
 

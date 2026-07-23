@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useState } from 'react';
 import {
     TrendingUp, TrendingDown, Menu, ArrowRight, CheckCircle,
@@ -8,6 +8,8 @@ import {
     Clock, Users, Zap, MousePointer2
 } from 'lucide-react';
 import AuthNavButtons from '@/components/AuthNavButtons';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 function EditorialFAQ({ question, answer }) {
     const [open, setOpen] = useState(false);
@@ -24,6 +26,7 @@ function EditorialFAQ({ question, answer }) {
 
 export default function EditorialLayout() {
     const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const t = useTranslations('nav');
 
     return (
         <div className="min-h-screen bg-[#FBF9F6] text-[#1A1A1A] selection:bg-red-200" style={{ fontFamily: 'var(--font-serif)' }}>
@@ -56,9 +59,10 @@ export default function EditorialLayout() {
                             <p className="text-[10px] uppercase tracking-[0.3em] mt-1.5 text-gray-500" style={{ fontFamily: 'var(--font-sans)' }}>Market Intelligence for Digital Publishers & Advertisers</p>
                         </div>
                         <div className="flex items-center gap-4" style={{ fontFamily: 'var(--font-sans)' }}>
+                            <LanguageSwitcher dark={false} />
                             <AuthNavButtons
                                 hrefCTA="/register"
-                                labelCTA="Subscribe"
+                                labelCTA={t('subscribe')}
                                 btnClass="bg-[#1A1A1A] text-white px-4 py-2 text-xs font-bold uppercase tracking-wider hover:bg-red-700 transition-colors flex items-center gap-1.5"
                                 loginClass="text-xs font-bold uppercase tracking-widest hover:underline hidden md:block"
                             />
@@ -66,11 +70,11 @@ export default function EditorialLayout() {
                     </div>
                     {/* Nav Bar */}
                     <nav className="hidden md:flex justify-center gap-8 mt-4 pt-4 border-t border-gray-300 text-xs font-bold uppercase tracking-widest" style={{ fontFamily: 'var(--font-sans)' }}>
-                        <Link href="/for-publishers" className="hover:text-red-700 transition-colors">Publishers</Link>
-                        <Link href="/for-advertisers" className="hover:text-red-700 transition-colors">Advertisers</Link>
-                        <Link href="/how-it-works" className="hover:text-red-700 transition-colors">How It Works</Link>
-                        <Link href="/faq" className="hover:text-red-700 transition-colors">FAQ</Link>
-                        <Link href="/contact" className="hover:text-red-700 transition-colors">Contact</Link>
+                        <Link href="/for-publishers" className="hover:text-red-700 transition-colors">{t('publishers')}</Link>
+                        <Link href="/for-advertisers" className="hover:text-red-700 transition-colors">{t('advertisers')}</Link>
+                        <Link href="/how-it-works" className="hover:text-red-700 transition-colors">{t('howItWorks')}</Link>
+                        <Link href="/faq" className="hover:text-red-700 transition-colors">{t('faq')}</Link>
+                        <Link href="/contact" className="hover:text-red-700 transition-colors">{t('contact')}</Link>
                     </nav>
                 </div>
             </header>

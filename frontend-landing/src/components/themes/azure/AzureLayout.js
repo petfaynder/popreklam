@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useState } from 'react';
 import {
     Zap, Target, Users, BarChart2, Globe2, Shield, ArrowRight, CheckCircle,
@@ -8,6 +8,8 @@ import {
     Cpu, DollarSign, BarChart3, Crosshair, Play
 } from 'lucide-react';
 import AuthNavButtons from '@/components/AuthNavButtons';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 function AdvFAQ({ question, answer }) {
     const [open, setOpen] = useState(false);
@@ -23,6 +25,7 @@ function AdvFAQ({ question, answer }) {
 }
 
 export default function AdvertiserLayout() {
+    const t = useTranslations('nav');
     return (
         <div className="min-h-screen bg-slate-950 text-white selection:bg-sky-400 selection:text-slate-900" style={{ fontFamily: 'var(--font-heading)' }}>
 
@@ -36,18 +39,21 @@ export default function AdvertiserLayout() {
                         <span className="text-2xl font-bold">MrPop.io</span>
                     </div>
                     <div className="hidden md:flex gap-6 text-sm font-bold text-gray-400">
-                        <Link href="/for-publishers" className="hover:text-sky-400 transition-colors">Publishers</Link>
-                        <Link href="/for-advertisers" className="hover:text-sky-400 transition-colors">Advertisers</Link>
-                        <Link href="/how-it-works" className="hover:text-sky-400 transition-colors">How It Works</Link>
-                        <Link href="/faq" className="hover:text-sky-400 transition-colors">FAQ</Link>
-                        <Link href="/contact" className="hover:text-sky-400 transition-colors">Contact</Link>
+                        <Link href="/for-publishers" className="hover:text-sky-400 transition-colors">{t('publishers')}</Link>
+                        <Link href="/for-advertisers" className="hover:text-sky-400 transition-colors">{t('advertisers')}</Link>
+                        <Link href="/how-it-works" className="hover:text-sky-400 transition-colors">{t('howItWorks')}</Link>
+                        <Link href="/faq" className="hover:text-sky-400 transition-colors">{t('faq')}</Link>
+                        <Link href="/contact" className="hover:text-sky-400 transition-colors">{t('contact')}</Link>
                     </div>
-                    <AuthNavButtons
-                        hrefCTA="/register?role=advertiser"
-                        labelCTA="Launch Campaign"
-                        btnClass="px-6 py-2.5 bg-sky-500 text-white rounded-xl font-bold hover:bg-sky-400 shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all text-sm flex items-center gap-2"
-                        loginClass="text-gray-400 hover:text-white transition-colors text-sm font-bold"
-                    />
+                    <div className="flex items-center gap-3">
+                        <LanguageSwitcher dark={true} />
+                        <AuthNavButtons
+                            hrefCTA="/register?role=advertiser"
+                            labelCTA={t('getStarted')}
+                            btnClass="px-6 py-2.5 bg-sky-500 text-white rounded-xl font-bold hover:bg-sky-400 shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all text-sm flex items-center gap-2"
+                            loginClass="text-gray-400 hover:text-white transition-colors text-sm font-bold"
+                        />
+                    </div>
                 </div>
             </nav>
 
