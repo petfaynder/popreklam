@@ -4,6 +4,7 @@ FROM node:20-alpine AS deps
 WORKDIR /app
 
 COPY package*.json ./
+ARG CACHEBUST=1
 RUN npm ci
 
 # ─── Stage 2: Builder ─────────────────────────────────────────────────────────
