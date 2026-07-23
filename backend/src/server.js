@@ -58,12 +58,10 @@ app.use(helmet({
 }));
 
 // CORS
-// In production, reads a comma-separated list from ALLOWED_ORIGINS env var.
-// If ALLOWED_ORIGINS is not set we default to '*' (allow all) so that the
-// Next.js reverse-proxy can forward requests without configuration errors.
-const rawAllowedOrigins = process.env.NODE_ENV === 'production'
-  ? (process.env.ALLOWED_ORIGINS || '*')
-  : 'http://localhost:3000,http://localhost:5173,http://localhost:3001';
+// Reads a comma-separated list from ALLOWED_ORIGINS env var.
+// If ALLOWED_ORIGINS is not set, defaults to '*' (allow all origins).
+// To restrict: set ALLOWED_ORIGINS=https://mrpop.io,https://www.mrpop.io in Dokploy.
+const rawAllowedOrigins = process.env.ALLOWED_ORIGINS || '*';
 
 const allowedOrigins = rawAllowedOrigins.split(',').map(o => o.trim()).filter(Boolean);
 const allowAllOrigins = allowedOrigins.includes('*');
@@ -72,7 +70,7 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (mobile apps, curl, server-to-server proxy)
     if (!origin) return callback(null, true);
-    // Wildcard — allow all (when ALLOWED_ORIGINS not configured)
+    // Wildcard — allow all origins (when ALLOWED_ORIGINS not configured)
     if (allowAllOrigins) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
     logger.error(`CORS blocked: ${origin}`);
