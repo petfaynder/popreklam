@@ -18,20 +18,20 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 const NOISE_BG = "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2VGaWx0ZXIpIiBvcGFjaXR5PSIwLjAzIi8+PC9zdmc+";
 
 const navItems = [
-    { href: '/advertiser', icon: LayoutDashboard, label: t('dashboard') },
-    { href: '/advertiser/campaigns', icon: Target, label: t('campaigns') },
-    { href: '/advertiser/audiences', icon: Users, label: t('audiences') },
-    { href: '/advertiser/creatives', icon: ImageIcon, label: t('creatives') },
-    { href: '/advertiser/statistics', icon: BarChart2, label: t('statistics') },
-    { href: '/advertiser/tracking', icon: Activity, label: t('tracking') },
-    { href: '/advertiser/billing', icon: CreditCard, label: t('billing') },
-    { href: '/advertiser/referrals', icon: Gift, label: t('referrals') },
-    { href: '/advertiser/priority', icon: Crown, label: t('priority') },
+    { href: '/advertiser', icon: LayoutDashboard, tKey: 'dashboard' },
+    { href: '/advertiser/campaigns', icon: Target, tKey: 'campaigns' },
+    { href: '/advertiser/audiences', icon: Users, tKey: 'audiences' },
+    { href: '/advertiser/creatives', icon: ImageIcon, tKey: 'creatives' },
+    { href: '/advertiser/statistics', icon: BarChart2, tKey: 'statistics' },
+    { href: '/advertiser/tracking', icon: Activity, tKey: 'tracking' },
+    { href: '/advertiser/billing', icon: CreditCard, tKey: 'billing' },
+    { href: '/advertiser/referrals', icon: Gift, tKey: 'referrals' },
+    { href: '/advertiser/priority', icon: Crown, tKey: 'priority' },
 ];
 
 const accountItems = [
-    { href: '/advertiser/settings', icon: Settings, label: t('settings') },
-    { href: '/advertiser/support', icon: HelpCircle, label: t('support') },
+    { href: '/advertiser/settings', icon: Settings, tKey: 'settings' },
+    { href: '/advertiser/support', icon: HelpCircle, tKey: 'support' },
 ];
 
 function ThemeLogo({ theme, d }) {
@@ -246,7 +246,7 @@ export default function AdvertiserLayout({ children }) {
                                 <div className={active ? d.navIconActive : `${d.navIconInactive} transition-colors`}>
                                     <Icon className="w-5 h-5" />
                                 </div>
-                                <span>{item.label}</span>
+                                <span>{t(item.tKey)}</span>
                             </Link>
                         );
                     })}
@@ -265,7 +265,7 @@ export default function AdvertiserLayout({ children }) {
                                 <div className={active ? d.navIconActive : `${d.navIconInactive} transition-colors`}>
                                     <Icon className="w-5 h-5" />
                                 </div>
-                                <span>{item.label}</span>
+                                <span>{t(item.tKey)}</span>
                             </Link>
                         );
                     })}

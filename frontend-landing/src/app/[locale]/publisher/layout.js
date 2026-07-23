@@ -18,19 +18,19 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 const NOISE_BG = "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2VGaWx0ZXIpIiBvcGFjaXR5PSIwLjAzIi8+PC9zdmc+";
 
 const navItems = [
-    { href: '/publisher', icon: LayoutDashboard, label: t('dashboard') },
-    { href: '/publisher/analytics', icon: BarChart2, label: t('analytics') },
-    { href: '/publisher/sites', icon: Globe, label: t('sites') },
-    { href: '/publisher/ad-codes', icon: Code2, label: t('adCodes') },
-    { href: '/publisher/statistics', icon: BarChart2, label: t('statistics') },
-    { href: '/publisher/payments', icon: Wallet, label: t('payments') },
-    { href: '/publisher/referrals', icon: Gift, label: t('referrals') },
-    { href: '/publisher/reports', icon: Flag, label: t('reportAd') },
+    { href: '/publisher', icon: LayoutDashboard, tKey: 'dashboard' },
+    { href: '/publisher/analytics', icon: BarChart2, tKey: 'analytics' },
+    { href: '/publisher/sites', icon: Globe, tKey: 'sites' },
+    { href: '/publisher/ad-codes', icon: Code2, tKey: 'adCodes' },
+    { href: '/publisher/statistics', icon: BarChart2, tKey: 'statistics' },
+    { href: '/publisher/payments', icon: Wallet, tKey: 'payments' },
+    { href: '/publisher/referrals', icon: Gift, tKey: 'referrals' },
+    { href: '/publisher/reports', icon: Flag, tKey: 'reportAd' },
 ];
 
 const accountItems = [
-    { href: '/publisher/settings', icon: Settings, label: t('settings') },
-    { href: '/publisher/support', icon: HelpCircle, label: t('support') },
+    { href: '/publisher/settings', icon: Settings, tKey: 'settings' },
+    { href: '/publisher/support', icon: HelpCircle, tKey: 'support' },
 ];
 
 function ThemeLogo({ theme, d }) {
@@ -203,7 +203,7 @@ export default function PublisherLayout({ children }) {
                                 <div className={active ? d.navIconActive : `${d.navIconInactive} transition-colors`}>
                                     <Icon className="w-5 h-5" />
                                 </div>
-                                <span>{item.label}</span>
+                                <span>{t(item.tKey)}</span>
                             </Link>
                         );
                     })}
@@ -222,7 +222,7 @@ export default function PublisherLayout({ children }) {
                                 <div className={active ? d.navIconActive : `${d.navIconInactive} transition-colors`}>
                                     <Icon className="w-5 h-5" />
                                 </div>
-                                <span>{item.label}</span>
+                                <span>{t(item.tKey)}</span>
                             </Link>
                         );
                     })}
