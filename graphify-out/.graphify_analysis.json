@@ -1,0 +1,1537 @@
+{
+  "communities": {
+    "0": [
+      "backend_src_controllers_advertiser_controller_js",
+      "backend_src_controllers_advertiser_priority_controller_js",
+      "backend_src_controllers_advertiser_settings_controller_js",
+      "backend_src_middleware_auth_js",
+      "backend_src_routes_advertiser_routes_js",
+      "backend_src_routes_publisher_routes_js",
+      "backend_src_services_priority_service_js",
+      "controllers_advertiser_controller_addfunds",
+      "controllers_advertiser_controller_createcampaign",
+      "controllers_advertiser_controller_deletecampaign",
+      "controllers_advertiser_controller_getbidrecommendation",
+      "controllers_advertiser_controller_getbilling",
+      "controllers_advertiser_controller_getcampaigns",
+      "controllers_advertiser_controller_getdashboard",
+      "controllers_advertiser_controller_getstats",
+      "controllers_advertiser_controller_pausecampaign",
+      "controllers_advertiser_controller_resumecampaign",
+      "controllers_advertiser_controller_triggerpushdelivery",
+      "controllers_advertiser_controller_updatecampaign",
+      "controllers_advertiser_priority_controller_getpriorityinfo",
+      "controllers_advertiser_priority_controller_gettierhistory",
+      "controllers_advertiser_settings_controller_changepassword",
+      "controllers_advertiser_settings_controller_createsupportticket",
+      "controllers_advertiser_settings_controller_generateapitoken",
+      "controllers_advertiser_settings_controller_getprofile",
+      "controllers_advertiser_settings_controller_getsupporttickets",
+      "controllers_advertiser_settings_controller_replytoticket",
+      "controllers_advertiser_settings_controller_updatebillinginfo",
+      "controllers_advertiser_settings_controller_updateprofile",
+      "middleware_auth_authenticate",
+      "middleware_auth_authorize",
+      "middleware_auth_getadvertisertier",
+      "middleware_auth_requireapiaccess",
+      "middleware_auth_requiregeoreports",
+      "middleware_auth_requireverified",
+      "services_priority_service_calculatetier",
+      "services_priority_service_getfullbenefitsmatrix",
+      "services_priority_service_getlivechatpriority",
+      "services_priority_service_getmaxcampaignsperday",
+      "services_priority_service_getsupportsla",
+      "services_priority_service_gettierbenefits",
+      "services_priority_service_gettierprogress",
+      "services_priority_service_hasaccountmanager",
+      "services_priority_service_hasapiaccess",
+      "services_priority_service_hascreditline",
+      "services_priority_service_hasdetailedgeoreports",
+      "services_priority_service_hasearlyaccess",
+      "services_priority_service_invalidateconfigcache",
+      "services_priority_service_loadtierconfig",
+      "services_priority_service_recalculatealltiers",
+      "services_priority_service_shouldautoapprove",
+      "services_priority_service_updatetier"
+    ],
+    "1": [
+      "backend_src_controllers_admin_adsterra_controller_js",
+      "backend_src_controllers_advertiser_billing_controller_js",
+      "backend_src_controllers_publisher_payments_controller_js",
+      "backend_src_middleware_maintenance_js",
+      "backend_src_middleware_recaptcha_js",
+      "backend_src_routes_auth_routes_js",
+      "backend_src_routes_webhooks_routes_js",
+      "backend_src_services_adsterra_sync_service_js",
+      "backend_src_services_backfill_service_js",
+      "backend_src_services_invoice_service_js",
+      "backend_src_services_payment_service_js",
+      "controllers_admin_adsterra_controller_getadsterrastats",
+      "controllers_admin_adsterra_controller_triggeradsterrasync",
+      "controllers_admin_settings_controller_getsetting",
+      "controllers_advertiser_billing_controller_addpaymentmethod",
+      "controllers_advertiser_billing_controller_configureautorecharge",
+      "controllers_advertiser_billing_controller_createdeposit",
+      "controllers_advertiser_billing_controller_deletepaymentmethod",
+      "controllers_advertiser_billing_controller_downloadinvoice",
+      "controllers_advertiser_billing_controller_getbillingoverview",
+      "controllers_advertiser_billing_controller_getinvoices",
+      "controllers_advertiser_billing_controller_validatecoupon",
+      "controllers_advertiser_billing_controller_validatecouponfordeposit",
+      "controllers_advertiser_billing_controller_verifypayment",
+      "controllers_publisher_payments_controller_addpaymentmethod",
+      "controllers_publisher_payments_controller_cancelwithdrawal",
+      "controllers_publisher_payments_controller_deletepaymentmethod",
+      "controllers_publisher_payments_controller_downloadinvoice",
+      "controllers_publisher_payments_controller_getpaymenthistory",
+      "controllers_publisher_payments_controller_getpaymentmethods",
+      "controllers_publisher_payments_controller_requestwithdrawal",
+      "controllers_publisher_payments_controller_updatepaymentmethod",
+      "frontend_landing_src_app_admin_users_page_js",
+      "middleware_maintenance_maintenancemiddleware",
+      "middleware_recaptcha_verifyrecaptcha",
+      "routes_webhooks_routes_fulfilldeposit",
+      "services_adsterra_sync_service_fetchadsterracountryrevenue",
+      "services_adsterra_sync_service_formatdate",
+      "services_adsterra_sync_service_getbackfillbreakdown",
+      "services_adsterra_sync_service_syncadsterrarevenue",
+      "services_backfill_service_buildsmartlinkurl",
+      "services_backfill_service_getbackfillad",
+      "services_invoice_service_generateinvoicehtml",
+      "services_payment_service_createdodosession",
+      "services_payment_service_createoxapayinvoice",
+      "services_payment_service_createvoletinvoice",
+      "services_payment_service_mockcheckouturl",
+      "users_page_formatdate",
+      "users_page_formatmoney",
+      "users_page_userspage"
+    ],
+    "2": [
+      "azure_azurelogin_azurelogin",
+      "azure_azureregister_azureregister",
+      "brutalist_brutalistlogin_brutalistlogin",
+      "brutalist_brutalistregister_brutalistregister",
+      "editorial_editoriallogin_editoriallogin",
+      "editorial_editorialregister_editorialregister",
+      "frontend_landing_src_components_themes_azure_azurelogin_js",
+      "frontend_landing_src_components_themes_azure_azureregister_js",
+      "frontend_landing_src_components_themes_brutalist_brutalistlogin_js",
+      "frontend_landing_src_components_themes_brutalist_brutalistregister_js",
+      "frontend_landing_src_components_themes_editorial_editoriallogin_js",
+      "frontend_landing_src_components_themes_editorial_editorialregister_js",
+      "frontend_landing_src_components_themes_luminous_luminouslogin_js",
+      "frontend_landing_src_components_themes_luminous_luminousregister_js",
+      "frontend_landing_src_components_themes_saas_saaslogin_js",
+      "frontend_landing_src_components_themes_saas_saasregister_js",
+      "frontend_landing_src_hooks_useauthforms_js",
+      "hooks_useauthforms_useforgotpasswordform",
+      "hooks_useauthforms_useloginform",
+      "hooks_useauthforms_useregisterform",
+      "hooks_useauthforms_useresetpasswordform",
+      "luminous_luminouslogin_luminouslogin",
+      "luminous_luminousregister_luminousregister",
+      "saas_saaslogin_saaslogin",
+      "saas_saasregister_saasregister"
+    ],
+    "3": [
+      "backend_src_controllers_admin_controller_js",
+      "backend_src_routes_admin_routes_js",
+      "backend_src_services_push_delivery_service_js",
+      "controllers_admin_controller_adjustuserbalance",
+      "controllers_admin_controller_adminupdatesite",
+      "controllers_admin_controller_adminverifyadstxt",
+      "controllers_admin_controller_adminverifysite",
+      "controllers_admin_controller_approvecampaign",
+      "controllers_admin_controller_approvesite",
+      "controllers_admin_controller_getauditlog",
+      "controllers_admin_controller_getcampaigns",
+      "controllers_admin_controller_getdashboard",
+      "controllers_admin_controller_getnotifications",
+      "controllers_admin_controller_getsites",
+      "controllers_admin_controller_getstats",
+      "controllers_admin_controller_getsystemreports",
+      "controllers_admin_controller_gettransactions",
+      "controllers_admin_controller_getuserdetail",
+      "controllers_admin_controller_getusers",
+      "controllers_admin_controller_rejectcampaign",
+      "controllers_admin_controller_rejectsite",
+      "controllers_admin_controller_updateuserstatus",
+      "controllers_admin_controller_writeaudit",
+      "services_push_delivery_service_enqueuepushcampaign"
+    ],
+    "4": [
+      "analytics_page_campaignanalyticspage",
+      "components_adformatselect_adformatselect",
+      "components_creativessection_creativessection",
+      "components_datatable_datatable",
+      "components_daterangepicker_daterangepicker",
+      "components_statscard_statscard",
+      "components_targetingsection_targetingsection",
+      "components_trafficestimator_getcompetitionlevel",
+      "components_trafficestimator_reachgauge",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_adformatselect_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_creativessection_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_targetingsection_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_trafficestimator_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_id_analytics_page_js",
+      "frontend_landing_src_app_locale_publisher_payments_page_js",
+      "frontend_landing_src_components_datatable_js",
+      "frontend_landing_src_components_daterangepicker_js",
+      "frontend_landing_src_components_statscard_js",
+      "lib_themeutils_getdashboardtheme",
+      "payments_page_publisherpayments",
+      "payments_page_toast"
+    ],
+    "5": [
+      "backend_src_controllers_ad_server_controller_js",
+      "backend_src_middleware_errorhandler_js",
+      "backend_src_server_js",
+      "backend_src_services_cron_service_js",
+      "backend_src_services_referral_commission_service_js",
+      "backend_src_services_vapid_service_js",
+      "controllers_ad_server_controller_getadscript",
+      "controllers_ad_server_controller_servead",
+      "controllers_ad_server_controller_trackimpression",
+      "middleware_errorhandler_errorhandler",
+      "services_cron_service_getpushdelivery",
+      "services_cron_service_initcronjobs",
+      "services_priority_service_getdeliveryweight",
+      "services_push_delivery_service_startpushworker",
+      "services_referral_commission_service_fetchreferral",
+      "services_referral_commission_service_flushcommissions",
+      "services_referral_commission_service_getbuffersize",
+      "services_referral_commission_service_recordcommission",
+      "services_vapid_service_getvapidkeys",
+      "services_vapid_service_initwebpush"
+    ],
+    "6": [
+      "ad_codes_page_publisheradcodespage",
+      "billing_page_advertiserbilling",
+      "billing_page_resolveerror",
+      "components_generalinfo_generalinfo",
+      "components_macrohelper_macrohelper",
+      "components_themerouter_themerouter",
+      "components_zonetargeting_zonetargeting",
+      "conversions_page_adminconversionspage",
+      "frontend_landing_src_app_admin_conversions_page_js",
+      "frontend_landing_src_app_locale_advertiser_billing_page_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_generalinfo_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_macrohelper_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_zonetargeting_js",
+      "frontend_landing_src_app_locale_publisher_ad_codes_page_js",
+      "frontend_landing_src_app_locale_publisher_reports_page_js",
+      "frontend_landing_src_app_locale_publisher_sites_page_js",
+      "frontend_landing_src_components_themerouter_js",
+      "hooks_usetheme_usetheme",
+      "reports_page_publisherreportspage",
+      "sites_page_publishersitespage"
+    ],
+    "7": [
+      "backend_src_controllers_2fa_controller_js",
+      "backend_src_controllers_auth_controller_js",
+      "backend_src_services_email_service_js",
+      "controllers_2fa_controller_disable2fa",
+      "controllers_2fa_controller_get2fastatus",
+      "controllers_2fa_controller_setup2fa",
+      "controllers_2fa_controller_verify2falogin",
+      "controllers_2fa_controller_verifysetup2fa",
+      "controllers_auth_controller_forgotpassword",
+      "controllers_auth_controller_generatetoken",
+      "controllers_auth_controller_getpublicsettings",
+      "controllers_auth_controller_login",
+      "controllers_auth_controller_register",
+      "controllers_auth_controller_resendverification",
+      "controllers_auth_controller_resetpassword",
+      "controllers_auth_controller_verifyemail",
+      "services_email_service_createtransporter",
+      "services_email_service_sendemail"
+    ],
+    "8": [
+      "backend_src_controllers_campaign_analytics_controller_js",
+      "backend_src_routes_serve_routes_js",
+      "backend_src_services_ip_reputation_service_js",
+      "backend_src_utils_devicedetection_js",
+      "controllers_campaign_analytics_controller_conversionpixel",
+      "controllers_campaign_analytics_controller_getcampaignanalytics",
+      "controllers_campaign_analytics_controller_getconversiontag",
+      "routes_serve_routes_runsmartcpmauction",
+      "services_ip_reputation_service_botuaguard",
+      "services_ip_reputation_service_computefraudscore",
+      "services_ip_reputation_service_getiphourlystats",
+      "services_ip_reputation_service_incrementclickcounter",
+      "services_ip_reputation_service_incrementipcounters",
+      "services_ip_reputation_service_statusfromscore",
+      "utils_devicedetection_detectbrowser",
+      "utils_devicedetection_detectdevice",
+      "utils_devicedetection_detectos",
+      "utils_devicedetection_getcountryfromip"
+    ],
+    "9": [
+      "frontend_landing_src_app_locale_advertiser_statistics_page_js",
+      "frontend_landing_src_app_locale_publisher_statistics_page_js",
+      "statistics_page_advertiserstatistics",
+      "statistics_page_animatednumber",
+      "statistics_page_barrow",
+      "statistics_page_columnvisibilitymenu",
+      "statistics_page_datetostr",
+      "statistics_page_daysago",
+      "statistics_page_formatstatstab",
+      "statistics_page_inpagepushtab",
+      "statistics_page_metriccard",
+      "statistics_page_popundertab",
+      "statistics_page_publisherstatistics",
+      "statistics_page_pushanalyticstab",
+      "statistics_page_pushstatstab",
+      "statistics_page_sparkbars",
+      "statistics_page_usenotify"
+    ],
+    "10": [
+      "backend_src_controllers_push_controller_js",
+      "backend_src_routes_push_routes_js",
+      "controllers_push_controller_getadvertiserpushstats",
+      "controllers_push_controller_getpublickey",
+      "controllers_push_controller_getpublisherpushoverview",
+      "controllers_push_controller_getpushinitscript",
+      "controllers_push_controller_getpushserviceworker",
+      "controllers_push_controller_getpushstats",
+      "controllers_push_controller_parsebrowser",
+      "controllers_push_controller_parsedevice",
+      "controllers_push_controller_parseos",
+      "controllers_push_controller_subscribe",
+      "controllers_push_controller_trackclick",
+      "controllers_push_controller_unsubscribe",
+      "services_vapid_service_getvapidpublickey"
+    ],
+    "11": [
+      "blog_page_blogpage",
+      "blog_page_catlabel",
+      "blog_page_catsection",
+      "blog_page_cc",
+      "blog_page_centercard",
+      "blog_page_cover",
+      "blog_page_gridcard",
+      "blog_page_isnew",
+      "blog_page_leftcard",
+      "blog_page_newbadge",
+      "blog_page_pill",
+      "blog_page_rightcard",
+      "blog_page_topstories",
+      "blog_page_viewmore",
+      "frontend_landing_src_app_locale_blog_page_js"
+    ],
+    "12": [
+      "backend_src_controllers_audience_controller_js",
+      "backend_src_services_audience_service_js",
+      "controllers_audience_controller_createaudience",
+      "controllers_audience_controller_deleteaudience",
+      "controllers_audience_controller_getadvertiser",
+      "controllers_audience_controller_getaudiencedetail",
+      "controllers_audience_controller_getaudiences",
+      "controllers_audience_controller_getaudiencesize",
+      "controllers_audience_controller_geteligiblecampaigns",
+      "controllers_audience_controller_updateaudience",
+      "services_audience_service_checkaudiencetargeting",
+      "services_audience_service_evaluateaudiencematch",
+      "services_audience_service_getaudiencesbyids",
+      "services_audience_service_invalidateaudiencecache"
+    ],
+    "13": [
+      "backend_src_controllers_advertiser_stats_controller_js",
+      "controllers_advertiser_stats_controller_builddatefilter",
+      "controllers_advertiser_stats_controller_buildfiltersql",
+      "controllers_advertiser_stats_controller_exportcsv",
+      "controllers_advertiser_stats_controller_getbrowserperformance",
+      "controllers_advertiser_stats_controller_getcampaignperformance",
+      "controllers_advertiser_stats_controller_getdeviceperformance",
+      "controllers_advertiser_stats_controller_getfilteroptions",
+      "controllers_advertiser_stats_controller_getgeographicperformance",
+      "controllers_advertiser_stats_controller_getinpagepushstats",
+      "controllers_advertiser_stats_controller_getosperformance",
+      "controllers_advertiser_stats_controller_getroianalysis",
+      "controllers_advertiser_stats_controller_getzoneperformance"
+    ],
+    "14": [
+      "backend_src_controllers_publisher_controller_js",
+      "controllers_publisher_controller_createsite",
+      "controllers_publisher_controller_deletesite",
+      "controllers_publisher_controller_getdashboard",
+      "controllers_publisher_controller_getorcreatezone",
+      "controllers_publisher_controller_getpayments",
+      "controllers_publisher_controller_getsites",
+      "controllers_publisher_controller_getstats",
+      "controllers_publisher_controller_requestwithdrawal",
+      "controllers_publisher_controller_updatesite",
+      "controllers_publisher_controller_verifyadstxt",
+      "controllers_publisher_controller_verifysite"
+    ],
+    "15": [
+      "components_themepagewrapper_azurefooter",
+      "components_themepagewrapper_azurenav",
+      "components_themepagewrapper_brutalistfooter",
+      "components_themepagewrapper_brutalistnav",
+      "components_themepagewrapper_editorialfooter",
+      "components_themepagewrapper_editorialnav",
+      "components_themepagewrapper_luminousfooter",
+      "components_themepagewrapper_luminousnav",
+      "components_themepagewrapper_saasfooter",
+      "components_themepagewrapper_saasnav",
+      "components_themepagewrapper_themepagewrapper",
+      "frontend_landing_src_components_themepagewrapper_js"
+    ],
+    "16": [
+      "backend_src_controllers_admin_support_controller_js",
+      "controllers_admin_support_controller_addinternalnote",
+      "controllers_admin_support_controller_createticket",
+      "controllers_admin_support_controller_getcannedresponses",
+      "controllers_admin_support_controller_getmytickets",
+      "controllers_admin_support_controller_getticket",
+      "controllers_admin_support_controller_gettickets",
+      "controllers_admin_support_controller_getticketstats",
+      "controllers_admin_support_controller_replyticket",
+      "controllers_admin_support_controller_updateticketpriority",
+      "controllers_admin_support_controller_updateticketstatus"
+    ],
+    "17": [
+      "backend_src_controllers_publisher_stats_controller_js",
+      "backend_src_services_yield_optimization_service_js",
+      "controllers_publisher_stats_controller_exportstats",
+      "controllers_publisher_stats_controller_getdevicebreakdown",
+      "controllers_publisher_stats_controller_getformatstats",
+      "controllers_publisher_stats_controller_getgeographicstats",
+      "controllers_publisher_stats_controller_getrevenuetrends",
+      "controllers_publisher_stats_controller_gettoppages",
+      "controllers_publisher_stats_controller_getyieldrecommendations",
+      "services_yield_optimization_service_yieldoptimizationservice",
+      "services_yield_optimization_service_yieldoptimizationservice_getrecommendations"
+    ],
+    "18": [
+      "frontend_landing_src_app_locale_blog_slug_blogpostclient_js",
+      "slug_blogpostclient_articleschema",
+      "slug_blogpostclient_blogpostclient",
+      "slug_blogpostclient_catcolor",
+      "slug_blogpostclient_extractheadings",
+      "slug_blogpostclient_injectids",
+      "slug_blogpostclient_readingprogress",
+      "slug_blogpostclient_relatedcard",
+      "slug_blogpostclient_sharesidebar",
+      "slug_blogpostclient_toc"
+    ],
+    "19": [
+      "backend_src_controllers_publisher_settings_controller_js",
+      "controllers_publisher_settings_controller_changepassword",
+      "controllers_publisher_settings_controller_createsupportticket",
+      "controllers_publisher_settings_controller_generateapitoken",
+      "controllers_publisher_settings_controller_getstatsoverview",
+      "controllers_publisher_settings_controller_getsupporttickets",
+      "controllers_publisher_settings_controller_replytoticket",
+      "controllers_publisher_settings_controller_updatepaymentsettings",
+      "controllers_publisher_settings_controller_updateprofile"
+    ],
+    "20": [
+      "frontend_landing_src_app_admin_support_page_js",
+      "frontend_landing_src_app_locale_advertiser_support_page_js",
+      "frontend_landing_src_app_locale_publisher_support_page_js",
+      "support_page_advertisersupport",
+      "support_page_publishersupport",
+      "support_page_slatimer",
+      "support_page_supportpage",
+      "support_page_ticketpanel",
+      "support_page_timeago"
+    ],
+    "21": [
+      "backend_src_controllers_admin_analytics_controller_js",
+      "controllers_admin_analytics_controller_exportrevenuecsv",
+      "controllers_admin_analytics_controller_getformatbreakdown",
+      "controllers_admin_analytics_controller_getgeobreakdown",
+      "controllers_admin_analytics_controller_getplatformhealth",
+      "controllers_admin_analytics_controller_getrevenuetimeline",
+      "controllers_admin_analytics_controller_gettopadvertisers",
+      "controllers_admin_analytics_controller_gettoppublishers"
+    ],
+    "22": [
+      "backend_src_controllers_admin_settings_controller_js",
+      "controllers_admin_settings_controller_bulkupdatesettings",
+      "controllers_admin_settings_controller_getsettings",
+      "controllers_admin_settings_controller_resetsetting",
+      "controllers_admin_settings_controller_seeddefaultsettings",
+      "controllers_admin_settings_controller_todbsetting",
+      "controllers_admin_settings_controller_updatesetting",
+      "services_priority_service_invalidateprioritycache"
+    ],
+    "23": [
+      "ad_quality_page_adminadqualitypage",
+      "ad_quality_page_fraudsignalstab",
+      "ad_quality_page_publisherreportstab",
+      "ad_quality_page_resolvemodal",
+      "ad_quality_page_scorebadge",
+      "ad_quality_page_statcard",
+      "ad_quality_page_statusbadge",
+      "frontend_landing_src_app_admin_ad_quality_page_js"
+    ],
+    "24": [
+      "adsterra_page_adsterrastatspage",
+      "adsterra_page_statcard",
+      "frontend_landing_src_app_admin_adsterra_page_js",
+      "frontend_landing_src_app_admin_traffic_page_js",
+      "traffic_page_admintrafficinsightspage",
+      "traffic_page_fmt",
+      "traffic_page_fmtint",
+      "traffic_page_kpicard"
+    ],
+    "25": [
+      "campaigns_page_campaignspage",
+      "campaigns_page_fmt",
+      "campaigns_page_fmtdate",
+      "campaigns_page_toast",
+      "frontend_landing_src_app_admin_campaigns_page_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_page_js",
+      "frontend_landing_src_hooks_useisverified_js",
+      "hooks_useisverified_useisverified"
+    ],
+    "26": [
+      "frontend_landing_src_app_locale_layout_js",
+      "frontend_landing_src_app_locale_not_found_js",
+      "frontend_landing_src_lib_themeutils_js",
+      "lib_themeutils_get404classes",
+      "lib_themeutils_getthemeclasses",
+      "locale_layout_generatestaticparams",
+      "locale_layout_localelayout",
+      "locale_not_found_notfound"
+    ],
+    "27": [
+      "frontend_landing_src_lib_wordpress_js",
+      "lib_wordpress_estimatereadtime",
+      "lib_wordpress_getcategories",
+      "lib_wordpress_getpostbyslug",
+      "lib_wordpress_getposts",
+      "lib_wordpress_getrelatedposts",
+      "lib_wordpress_normalizepost",
+      "lib_wordpress_striphtml"
+    ],
+    "28": [
+      "backend_src_controllers_admin_ad_quality_controller_js",
+      "controllers_admin_ad_quality_controller_getfraudsignals",
+      "controllers_admin_ad_quality_controller_getoverview",
+      "controllers_admin_ad_quality_controller_getpublisherreports",
+      "controllers_admin_ad_quality_controller_pausecampaignfromreport",
+      "controllers_admin_ad_quality_controller_pausefraudcampaign",
+      "controllers_admin_ad_quality_controller_updatereportstatus"
+    ],
+    "29": [
+      "backend_src_controllers_admin_coupons_controller_js",
+      "controllers_admin_coupons_controller_createcoupon",
+      "controllers_admin_coupons_controller_deletecoupon",
+      "controllers_admin_coupons_controller_getcoupon",
+      "controllers_admin_coupons_controller_getcoupons",
+      "controllers_admin_coupons_controller_getcouponusages",
+      "controllers_admin_coupons_controller_updatecoupon"
+    ],
+    "30": [
+      "backend_src_controllers_notification_controller_js",
+      "controllers_notification_controller_admincreatenotification",
+      "controllers_notification_controller_admindeletenotification",
+      "controllers_notification_controller_admingetnotifications",
+      "controllers_notification_controller_adminupdatenotification",
+      "controllers_notification_controller_getnotifications",
+      "controllers_notification_controller_markasread"
+    ],
+    "31": [
+      "frontend_landing_src_app_admin_geo_floors_page_js",
+      "geo_floors_page_admingeofloorpage",
+      "geo_floors_page_confirmdialog",
+      "geo_floors_page_floorrow",
+      "geo_floors_page_formatbadge",
+      "geo_floors_page_statchip",
+      "geo_floors_page_toast"
+    ],
+    "32": [
+      "frontend_landing_src_app_locale_advertiser_settings_page_js",
+      "frontend_landing_src_app_locale_publisher_settings_page_js",
+      "settings_page_advertisersettingspage",
+      "settings_page_publishersettingspage",
+      "settings_page_sectioncard",
+      "settings_page_sectionheader",
+      "settings_page_toast"
+    ],
+    "33": [
+      "components_countrydata_getcountriesbycontinent",
+      "components_countrydata_getcountrybycode",
+      "components_countrydata_getcountrycodesbycontinent",
+      "components_countryselect_countryitem",
+      "components_countryselect_countryselect",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_countrydata_js",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_countryselect_js"
+    ],
+    "34": [
+      "frontend_landing_src_app_admin_referrals_page_js",
+      "frontend_landing_src_app_locale_advertiser_referrals_page_js",
+      "frontend_landing_src_app_locale_publisher_referrals_page_js",
+      "referrals_page_adminreferralspage",
+      "referrals_page_advertiserreferralspage",
+      "referrals_page_publisherreferralspage",
+      "referrals_page_statusbadge"
+    ],
+    "35": [
+      "backend_src_controllers_admin_referral_controller_js",
+      "controllers_admin_referral_controller_approvereferralbonus",
+      "controllers_admin_referral_controller_getallreferrals",
+      "controllers_admin_referral_controller_getoverviewstats",
+      "controllers_admin_referral_controller_getsettings",
+      "controllers_admin_referral_controller_updatesettings"
+    ],
+    "36": [
+      "backend_src_controllers_advertiser_creatives_controller_js",
+      "controllers_advertiser_creatives_controller_addcreative",
+      "controllers_advertiser_creatives_controller_deletecreative",
+      "controllers_advertiser_creatives_controller_getallcreatives",
+      "controllers_advertiser_creatives_controller_getcreatives",
+      "controllers_advertiser_creatives_controller_updatecreativeweight"
+    ],
+    "37": [
+      "backend_src_services_moderation_service_js",
+      "services_moderation_service_moderationservice",
+      "services_moderation_service_moderationservice_analyzecampaign",
+      "services_moderation_service_moderationservice_checkkeywords",
+      "services_moderation_service_moderationservice_checksafebrowsing",
+      "services_moderation_service_moderationservice_constructor"
+    ],
+    "38": [
+      "backend_src_controllers_geo_floor_controller_js",
+      "controllers_geo_floor_controller_bulkupsertgeofloors",
+      "controllers_geo_floor_controller_deletegeofloor",
+      "controllers_geo_floor_controller_getfloorforcountryformat",
+      "controllers_geo_floor_controller_getgeofloors",
+      "controllers_geo_floor_controller_upsertgeofloor"
+    ],
+    "39": [
+      "components_loadingskeleton_cardskeleton",
+      "components_loadingskeleton_chartskeleton",
+      "components_loadingskeleton_dashboardskeleton",
+      "components_loadingskeleton_listskeleton",
+      "components_loadingskeleton_tableskeleton",
+      "frontend_landing_src_components_loadingskeleton_js"
+    ],
+    "40": [
+      "audiences_page_audiencecard",
+      "audiences_page_audiencespage",
+      "audiences_page_countrypicker",
+      "audiences_page_createeditmodal",
+      "audiences_page_rulerow",
+      "frontend_landing_src_app_locale_advertiser_audiences_page_js"
+    ],
+    "41": [
+      "blog_blogsearch_blogsearch",
+      "blog_blogsearch_cc",
+      "blog_blogsearch_cover",
+      "blog_blogsearch_gridcard",
+      "blog_blogsearch_pill",
+      "frontend_landing_src_components_blog_blogsearch_js"
+    ],
+    "42": [
+      "charts_index_areachart",
+      "charts_index_barchart",
+      "charts_index_donutchart",
+      "charts_index_linechart",
+      "charts_index_multilinechart",
+      "frontend_landing_src_components_charts_index_js"
+    ],
+    "43": [
+      "backend_prisma_enhanced_seed_js",
+      "prisma_enhanced_seed_main",
+      "prisma_enhanced_seed_random",
+      "prisma_enhanced_seed_randomdate",
+      "prisma_enhanced_seed_randomelement"
+    ],
+    "44": [
+      "backend_src_controllers_referral_controller_js",
+      "controllers_referral_controller_generatecode",
+      "controllers_referral_controller_getmyreferralinfo",
+      "controllers_referral_controller_getmyreferrals",
+      "controllers_referral_controller_getreferralstats"
+    ],
+    "45": [
+      "backend_src_controllers_tracking_controller_js",
+      "controllers_tracking_controller_getpostbacklogs",
+      "controllers_tracking_controller_gettrackinginfo",
+      "controllers_tracking_controller_regeneratetoken",
+      "controllers_tracking_controller_sendtestconversion"
+    ],
+    "46": [
+      "frontend_landing_src_app_locale_advertiser_tracking_page_js",
+      "tracking_page_buildgtmsnippet",
+      "tracking_page_logo_sources",
+      "tracking_page_trackerlogo",
+      "tracking_page_trackingpage"
+    ],
+    "47": [
+      "brutalist_brutalistlayout_brutalistfooter",
+      "brutalist_brutalistlayout_brutalistlayout",
+      "brutalist_brutalistlayout_brutalistnav",
+      "brutalist_brutalistlayout_faqitem",
+      "frontend_landing_src_components_themes_brutalist_brutalistlayout_js"
+    ],
+    "48": [
+      "backend_src_controllers_admin_conversions_controller_js",
+      "controllers_admin_conversions_controller_deletetestconversions",
+      "controllers_admin_conversions_controller_getconversionoverview",
+      "controllers_admin_conversions_controller_getpostbacklogs"
+    ],
+    "49": [
+      "backend_src_controllers_admin_payments_controller_js",
+      "controllers_admin_payments_controller_approvepayment",
+      "controllers_admin_payments_controller_getpayments",
+      "controllers_admin_payments_controller_rejectpayment"
+    ],
+    "50": [
+      "backend_src_controllers_postback_controller_js",
+      "backend_src_routes_postback_routes_js",
+      "controllers_postback_controller_handlepostback",
+      "controllers_postback_controller_handletestpostback"
+    ],
+    "51": [
+      "frontend_landing_bulk_translate_getpathsandvalues",
+      "frontend_landing_bulk_translate_js",
+      "frontend_landing_bulk_translate_main",
+      "frontend_landing_bulk_translate_setvalue"
+    ],
+    "52": [
+      "audit_page_auditpage",
+      "audit_page_fmtdate",
+      "audit_page_metabadge",
+      "frontend_landing_src_app_admin_audit_page_js"
+    ],
+    "53": [
+      "frontend_landing_src_app_admin_payments_page_js",
+      "payments_page_fmt",
+      "payments_page_fmtdate",
+      "payments_page_paymentspage"
+    ],
+    "54": [
+      "frontend_landing_src_app_admin_sites_page_js",
+      "sites_page_fmt",
+      "sites_page_fmtdate",
+      "sites_page_sitespage"
+    ],
+    "55": [
+      "frontend_landing_src_app_admin_health_page_js",
+      "health_page_healthcard",
+      "health_page_inforow",
+      "health_page_systemhealthpage"
+    ],
+    "56": [
+      "edit_page_editcampaignpage",
+      "edit_page_section",
+      "edit_page_togglebutton",
+      "frontend_landing_src_app_locale_advertiser_campaigns_id_edit_page_js"
+    ],
+    "57": [
+      "advertiser_layout_advertiserlayout",
+      "advertiser_layout_themelogo",
+      "advertiser_layout_tierbadge",
+      "frontend_landing_src_app_locale_advertiser_layout_js"
+    ],
+    "58": [
+      "components_budgetschedule_budgetschedule",
+      "components_budgetschedule_createdefaultschedule",
+      "components_budgetschedule_serializeschedule",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_components_budgetschedule_js"
+    ],
+    "59": [
+      "components_toast_toast",
+      "components_toast_toastprovider",
+      "components_toast_usetoast",
+      "frontend_landing_src_components_toast_js"
+    ],
+    "60": [
+      "admin_toast_toastcontainer",
+      "admin_toast_toastitem",
+      "admin_toast_usetoast",
+      "frontend_landing_src_components_admin_toast_js"
+    ],
+    "61": [
+      "backend_src_controllers_publisher_analytics_controller_js",
+      "controllers_publisher_analytics_controller_getrealtimedashboard",
+      "controllers_publisher_analytics_controller_getrevenuesummary"
+    ],
+    "62": [
+      "backend_src_controllers_publisher_reports_controller_js",
+      "controllers_publisher_reports_controller_createreport",
+      "controllers_publisher_reports_controller_getmyreports"
+    ],
+    "63": [
+      "frontend_landing_translate_themes_js",
+      "frontend_landing_translate_themes_main",
+      "frontend_landing_translate_themes_translateobj"
+    ],
+    "64": [
+      "admin_page_admindashboard",
+      "admin_page_customtooltip",
+      "frontend_landing_src_app_admin_page_js"
+    ],
+    "65": [
+      "coupons_page_admincouponspage",
+      "coupons_page_api",
+      "frontend_landing_src_app_admin_coupons_page_js"
+    ],
+    "66": [
+      "frontend_landing_src_app_admin_reports_page_js",
+      "reports_page_customtooltip",
+      "reports_page_reportspage"
+    ],
+    "67": [
+      "frontend_landing_src_app_admin_settings_page_js",
+      "settings_page_settingspage",
+      "settings_page_toggle"
+    ],
+    "68": [
+      "frontend_landing_src_app_locale_blog_slug_page_js",
+      "slug_page_blogpostpage",
+      "slug_page_generatemetadata"
+    ],
+    "69": [
+      "faq_layout_faqschema",
+      "faq_layout_layout",
+      "frontend_landing_src_app_locale_faq_layout_js"
+    ],
+    "70": [
+      "for_advertisers_layout_advertiserserviceschema",
+      "for_advertisers_layout_layout",
+      "frontend_landing_src_app_locale_for_advertisers_layout_js"
+    ],
+    "71": [
+      "for_publishers_layout_layout",
+      "for_publishers_layout_publisherserviceschema",
+      "frontend_landing_src_app_locale_for_publishers_layout_js"
+    ],
+    "72": [
+      "creatives_page_creativecard",
+      "creatives_page_creativelibrary",
+      "frontend_landing_src_app_locale_advertiser_creatives_page_js"
+    ],
+    "73": [
+      "frontend_landing_src_hooks_usetheme_js",
+      "hooks_usetheme_fetchthemeonce",
+      "hooks_usetheme_getinitialtheme"
+    ],
+    "74": [
+      "frontend_landing_src_app_locale_publisher_page_js",
+      "publisher_page_publisherdashboard",
+      "publisher_page_statsummarycard"
+    ],
+    "75": [
+      "frontend_landing_src_app_locale_publisher_layout_js",
+      "publisher_layout_publisherlayout",
+      "publisher_layout_themelogo"
+    ],
+    "76": [
+      "frontend_landing_src_app_locale_advertiser_campaigns_id_zones_page_js",
+      "zones_page_toast",
+      "zones_page_zoneoptimizationpage"
+    ],
+    "77": [
+      "advertiser_page_advertiserdashboard",
+      "advertiser_page_statsummarycard",
+      "frontend_landing_src_app_locale_advertiser_page_js"
+    ],
+    "78": [
+      "creatives_page_creativemanagerpage",
+      "creatives_page_weightbar",
+      "frontend_landing_src_app_locale_advertiser_campaigns_id_creatives_page_js"
+    ],
+    "79": [
+      "azure_azurelayout_advertiserlayout",
+      "azure_azurelayout_advfaq",
+      "frontend_landing_src_components_themes_azure_azurelayout_js"
+    ],
+    "80": [
+      "editorial_editoriallayout_editorialfaq",
+      "editorial_editoriallayout_editoriallayout",
+      "frontend_landing_src_components_themes_editorial_editoriallayout_js"
+    ],
+    "81": [
+      "frontend_landing_src_components_themes_luminous_luminouslayout_js",
+      "luminous_luminouslayout_pubfaq",
+      "luminous_luminouslayout_publisherlayout"
+    ],
+    "82": [
+      "frontend_landing_src_components_themes_saas_saaslayout_js",
+      "saas_saaslayout_saasfaq",
+      "saas_saaslayout_saaslayout"
+    ],
+    "83": [
+      "find_files_js",
+      "popreklam_find_files_walkdir"
+    ],
+    "84": [
+      "find_turkish_js",
+      "popreklam_find_turkish_walkdir"
+    ],
+    "85": [
+      "backend_prisma_seed_js",
+      "prisma_seed_main"
+    ],
+    "86": [
+      "backend_src_controllers_admin_export_controller_js",
+      "controllers_admin_export_controller_exportcampaignscsv"
+    ],
+    "87": [
+      "backend_src_controllers_admin_health_controller_js",
+      "controllers_admin_health_controller_getsystemhealth"
+    ],
+    "88": [
+      "backend_src_controllers_admin_traffic_controller_js",
+      "controllers_admin_traffic_controller_gettrafficinsights"
+    ],
+    "89": [
+      "backend_src_lib_prisma_js",
+      "lib_prisma_createprismaclient"
+    ],
+    "90": [
+      "frontend_landing_create_es_fr_js",
+      "frontend_landing_create_es_fr_main"
+    ],
+    "91": [
+      "frontend_landing_create_id_ar_js",
+      "frontend_landing_create_id_ar_main"
+    ],
+    "92": [
+      "frontend_landing_create_pt_de_js",
+      "frontend_landing_create_pt_de_main"
+    ],
+    "93": [
+      "frontend_landing_create_ru_json_js",
+      "frontend_landing_create_ru_json_main"
+    ],
+    "94": [
+      "frontend_landing_create_tr_json_js",
+      "frontend_landing_create_tr_json_main"
+    ],
+    "95": [
+      "frontend_landing_translate_panels_js",
+      "frontend_landing_translate_panels_replaceinfile"
+    ],
+    "96": [
+      "frontend_landing_translate_sites_js",
+      "frontend_landing_translate_sites_replaceinfile"
+    ],
+    "97": [
+      "app_layout_rootlayout",
+      "frontend_landing_src_app_layout_js"
+    ],
+    "98": [
+      "app_opengraph_image_image",
+      "frontend_landing_src_app_opengraph_image_js"
+    ],
+    "99": [
+      "app_robots_robots",
+      "frontend_landing_src_app_robots_js"
+    ],
+    "100": [
+      "app_sitemap_sitemap",
+      "frontend_landing_src_app_sitemap_js"
+    ],
+    "101": [
+      "admin_layout_adminlayout",
+      "frontend_landing_src_app_admin_layout_js"
+    ],
+    "102": [
+      "admin_loading_adminloading",
+      "frontend_landing_src_app_admin_loading_js"
+    ],
+    "103": [
+      "frontend_landing_src_app_admin_login_page_js",
+      "login_page_adminloginpage"
+    ],
+    "104": [
+      "frontend_landing_src_app_admin_notifications_page_js",
+      "notifications_page_adminnotificationspage"
+    ],
+    "105": [
+      "frontend_landing_src_app_locale_page_js",
+      "locale_page_homepage"
+    ],
+    "106": [
+      "ad_formats_layout_layout",
+      "frontend_landing_src_app_locale_ad_formats_layout_js"
+    ],
+    "107": [
+      "ad_formats_page_adformatspage",
+      "frontend_landing_src_app_locale_ad_formats_page_js"
+    ],
+    "108": [
+      "advertiser_loading_advertiserloading",
+      "frontend_landing_src_app_locale_advertiser_loading_js"
+    ],
+    "109": [
+      "anti_adblock_layout_layout",
+      "frontend_landing_src_app_locale_anti_adblock_layout_js"
+    ],
+    "110": [
+      "anti_adblock_page_antiadblockpage",
+      "frontend_landing_src_app_locale_anti_adblock_page_js"
+    ],
+    "111": [
+      "api_docs_layout_layout",
+      "frontend_landing_src_app_locale_api_docs_layout_js"
+    ],
+    "112": [
+      "api_docs_page_apidocspage",
+      "frontend_landing_src_app_locale_api_docs_page_js"
+    ],
+    "113": [
+      "blog_layout_layout",
+      "frontend_landing_src_app_locale_blog_layout_js"
+    ],
+    "114": [
+      "contact_layout_layout",
+      "frontend_landing_src_app_locale_contact_layout_js"
+    ],
+    "115": [
+      "contact_page_contactpage",
+      "frontend_landing_src_app_locale_contact_page_js"
+    ],
+    "116": [
+      "docs_layout_layout",
+      "frontend_landing_src_app_locale_docs_layout_js"
+    ],
+    "117": [
+      "docs_page_docspage",
+      "frontend_landing_src_app_locale_docs_page_js"
+    ],
+    "118": [
+      "faq_page_faqpage",
+      "frontend_landing_src_app_locale_faq_page_js"
+    ],
+    "119": [
+      "for_advertisers_page_foradvertiserspage",
+      "frontend_landing_src_app_locale_for_advertisers_page_js"
+    ],
+    "120": [
+      "for_publishers_page_forpublisherspage",
+      "frontend_landing_src_app_locale_for_publishers_page_js"
+    ],
+    "121": [
+      "forgot_password_page_forgotpasswordpage",
+      "frontend_landing_src_app_locale_forgot_password_page_js"
+    ],
+    "122": [
+      "frontend_landing_src_app_locale_how_it_works_layout_js",
+      "how_it_works_layout_layout"
+    ],
+    "123": [
+      "frontend_landing_src_app_locale_how_it_works_page_js",
+      "how_it_works_page_howitworkspage"
+    ],
+    "124": [
+      "frontend_landing_src_app_locale_login_layout_js",
+      "login_layout_layout"
+    ],
+    "125": [
+      "frontend_landing_src_app_locale_login_page_js",
+      "login_page_loginpage"
+    ],
+    "126": [
+      "frontend_landing_src_app_locale_privacy_layout_js",
+      "privacy_layout_layout"
+    ],
+    "127": [
+      "frontend_landing_src_app_locale_privacy_page_js",
+      "privacy_page_privacypage"
+    ],
+    "128": [
+      "frontend_landing_src_app_locale_publisher_loading_js",
+      "publisher_loading_publisherloading"
+    ],
+    "129": [
+      "frontend_landing_src_app_locale_register_layout_js",
+      "register_layout_layout"
+    ],
+    "130": [
+      "frontend_landing_src_app_locale_register_page_js",
+      "register_page_registerpage"
+    ],
+    "131": [
+      "frontend_landing_src_app_locale_reset_password_page_js",
+      "reset_password_page_resetpasswordpage"
+    ],
+    "132": [
+      "frontend_landing_src_app_locale_smart_link_layout_js",
+      "smart_link_layout_layout"
+    ],
+    "133": [
+      "frontend_landing_src_app_locale_smart_link_page_js",
+      "smart_link_page_smartlinkpage"
+    ],
+    "134": [
+      "frontend_landing_src_app_locale_status_layout_js",
+      "status_layout_layout"
+    ],
+    "135": [
+      "frontend_landing_src_app_locale_status_page_js",
+      "status_page_statuspage"
+    ],
+    "136": [
+      "frontend_landing_src_app_locale_terms_layout_js",
+      "terms_layout_layout"
+    ],
+    "137": [
+      "frontend_landing_src_app_locale_terms_page_js",
+      "terms_page_termspage"
+    ],
+    "138": [
+      "components_authnavbuttons_authnavbuttons",
+      "frontend_landing_src_components_authnavbuttons_js"
+    ],
+    "139": [
+      "components_confirmmodal_confirmmodal",
+      "frontend_landing_src_components_confirmmodal_js"
+    ],
+    "140": [
+      "components_cookieconsent_cookieconsent",
+      "frontend_landing_src_components_cookieconsent_js"
+    ],
+    "141": [
+      "components_emptystate_emptystate",
+      "frontend_landing_src_components_emptystate_js"
+    ],
+    "142": [
+      "components_languageswitcher_languageswitcher",
+      "frontend_landing_src_components_languageswitcher_js"
+    ],
+    "143": [
+      "components_livemap_livemap",
+      "frontend_landing_src_components_livemap_js"
+    ],
+    "144": [
+      "components_loadingspinner_loadingspinner",
+      "frontend_landing_src_components_loadingspinner_js"
+    ],
+    "145": [
+      "components_modal_modal",
+      "frontend_landing_src_components_modal_js"
+    ],
+    "146": [
+      "components_revenuecalculator_revenuecalculator",
+      "frontend_landing_src_components_revenuecalculator_js"
+    ],
+    "147": [
+      "frontend_landing_src_app_locale_advertiser_priority_page_js",
+      "priority_page_prioritypage"
+    ],
+    "148": [
+      "analytics_page_publisheranalyticspage",
+      "frontend_landing_src_app_locale_publisher_analytics_page_js"
+    ],
+    "149": [
+      "create_page_createcampaign",
+      "frontend_landing_src_app_locale_advertiser_campaigns_create_page_js"
+    ],
+    "150": [
+      "components_themeswitcher_themeswitcher",
+      "frontend_landing_src_components_themeswitcher_js"
+    ],
+    "151": [
+      "components_trustsection_trustsection",
+      "frontend_landing_src_components_trustsection_js"
+    ],
+    "152": [
+      "admin_badge_badge",
+      "frontend_landing_src_components_admin_badge_js"
+    ],
+    "153": [
+      "admin_confirmdialog_confirmdialog",
+      "frontend_landing_src_components_admin_confirmdialog_js"
+    ],
+    "154": [
+      "admin_emptystate_emptystate",
+      "frontend_landing_src_components_admin_emptystate_js"
+    ],
+    "155": [
+      "admin_slidepanel_slidepanel",
+      "frontend_landing_src_components_admin_slidepanel_js"
+    ],
+    "156": [
+      "admin_statcard_statcard",
+      "frontend_landing_src_components_admin_statcard_js"
+    ],
+    "157": [
+      "frontend_landing_src_lib_api_js",
+      "lib_api_apirequest"
+    ],
+    "158": [
+      "frontend_landing_src_lib_seo_js",
+      "lib_seo_generatepagemetadata"
+    ],
+    "159": [
+      "backend_public_ad_js"
+    ],
+    "160": [
+      "backend_src_config_database_js"
+    ],
+    "161": [
+      "backend_src_routes_ad_server_routes_js"
+    ],
+    "162": [
+      "backend_src_routes_ad_serving_routes_js"
+    ],
+    "163": [
+      "backend_src_utils_db_js"
+    ],
+    "164": [
+      "backend_src_utils_logger_js"
+    ],
+    "165": [
+      "backend_src_utils_redis_js"
+    ],
+    "166": [
+      "frontend_landing_eslint_config_mjs"
+    ],
+    "167": [
+      "frontend_landing_next_config_mjs"
+    ],
+    "168": [
+      "frontend_landing_patch_layouts_js"
+    ],
+    "169": [
+      "frontend_landing_postcss_config_mjs"
+    ],
+    "170": [
+      "frontend_landing_translate_data_1_js"
+    ],
+    "171": [
+      "frontend_landing_translate_data_2_js"
+    ],
+    "172": [
+      "frontend_landing_src_middleware_js"
+    ],
+    "173": [
+      "frontend_landing_src_i18n_request_js"
+    ],
+    "174": [
+      "frontend_landing_src_i18n_routing_js"
+    ]
+  },
+  "cohesion": {
+    "0": 0.07,
+    "1": 0.06,
+    "2": 0.08,
+    "3": 0.12,
+    "4": 0.1,
+    "5": 0.13,
+    "6": 0.1,
+    "7": 0.14,
+    "8": 0.16,
+    "9": 0.14,
+    "10": 0.26,
+    "11": 0.19,
+    "12": 0.26,
+    "13": 0.33,
+    "14": 0.17,
+    "15": 0.17,
+    "16": 0.18,
+    "17": 0.18,
+    "18": 0.24,
+    "19": 0.22,
+    "20": 0.31,
+    "21": 0.25,
+    "22": 0.39,
+    "23": 0.25,
+    "24": 0.32,
+    "25": 0.32,
+    "26": 0.29,
+    "27": 0.39,
+    "28": 0.29,
+    "29": 0.29,
+    "30": 0.29,
+    "31": 0.29,
+    "32": 0.29,
+    "33": 0.38,
+    "34": 0.29,
+    "35": 0.33,
+    "36": 0.33,
+    "37": 0.47,
+    "38": 0.33,
+    "39": 0.33,
+    "40": 0.33,
+    "41": 0.4,
+    "42": 0.33,
+    "43": 0.9,
+    "44": 0.5,
+    "45": 0.4,
+    "46": 0.6,
+    "47": 0.4,
+    "48": 0.5,
+    "49": 0.5,
+    "50": 0.67,
+    "51": 0.83,
+    "52": 0.5,
+    "53": 0.67,
+    "54": 0.67,
+    "55": 0.5,
+    "56": 0.5,
+    "57": 0.5,
+    "58": 0.5,
+    "59": 0.5,
+    "60": 0.5,
+    "61": 0.67,
+    "62": 0.67,
+    "63": 1.0,
+    "64": 0.67,
+    "65": 0.67,
+    "66": 0.67,
+    "67": 0.67,
+    "68": 0.67,
+    "69": 0.67,
+    "70": 0.67,
+    "71": 0.67,
+    "72": 0.67,
+    "73": 0.67,
+    "74": 0.67,
+    "75": 0.67,
+    "76": 0.67,
+    "77": 0.67,
+    "78": 0.67,
+    "79": 0.67,
+    "80": 0.67,
+    "81": 0.67,
+    "82": 0.67,
+    "83": 1.0,
+    "84": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0,
+    "88": 1.0,
+    "89": 1.0,
+    "90": 1.0,
+    "91": 1.0,
+    "92": 1.0,
+    "93": 1.0,
+    "94": 1.0,
+    "95": 1.0,
+    "96": 1.0,
+    "97": 1.0,
+    "98": 1.0,
+    "99": 1.0,
+    "100": 1.0,
+    "101": 1.0,
+    "102": 1.0,
+    "103": 1.0,
+    "104": 1.0,
+    "105": 1.0,
+    "106": 1.0,
+    "107": 1.0,
+    "108": 1.0,
+    "109": 1.0,
+    "110": 1.0,
+    "111": 1.0,
+    "112": 1.0,
+    "113": 1.0,
+    "114": 1.0,
+    "115": 1.0,
+    "116": 1.0,
+    "117": 1.0,
+    "118": 1.0,
+    "119": 1.0,
+    "120": 1.0,
+    "121": 1.0,
+    "122": 1.0,
+    "123": 1.0,
+    "124": 1.0,
+    "125": 1.0,
+    "126": 1.0,
+    "127": 1.0,
+    "128": 1.0,
+    "129": 1.0,
+    "130": 1.0,
+    "131": 1.0,
+    "132": 1.0,
+    "133": 1.0,
+    "134": 1.0,
+    "135": 1.0,
+    "136": 1.0,
+    "137": 1.0,
+    "138": 1.0,
+    "139": 1.0,
+    "140": 1.0,
+    "141": 1.0,
+    "142": 1.0,
+    "143": 1.0,
+    "144": 1.0,
+    "145": 1.0,
+    "146": 1.0,
+    "147": 1.0,
+    "148": 1.0,
+    "149": 1.0,
+    "150": 1.0,
+    "151": 1.0,
+    "152": 1.0,
+    "153": 1.0,
+    "154": 1.0,
+    "155": 1.0,
+    "156": 1.0,
+    "157": 1.0,
+    "158": 1.0,
+    "159": 1.0,
+    "160": 1.0,
+    "161": 1.0,
+    "162": 1.0,
+    "163": 1.0,
+    "164": 1.0,
+    "165": 1.0,
+    "166": 1.0,
+    "167": 1.0,
+    "168": 1.0,
+    "169": 1.0,
+    "170": 1.0,
+    "171": 1.0,
+    "172": 1.0,
+    "173": 1.0,
+    "174": 1.0
+  },
+  "gods": [
+    {
+      "id": "hooks_usetheme_usetheme",
+      "label": "useTheme()",
+      "degree": 46
+    },
+    {
+      "id": "lib_themeutils_getdashboardtheme",
+      "label": "getDashboardTheme()",
+      "degree": 43
+    },
+    {
+      "id": "controllers_admin_settings_controller_getsetting",
+      "label": "getSetting()",
+      "degree": 25
+    },
+    {
+      "id": "controllers_admin_controller_writeaudit",
+      "label": "writeAudit()",
+      "degree": 10
+    },
+    {
+      "id": "services_priority_service_gettierbenefits",
+      "label": "getTierBenefits()",
+      "degree": 10
+    },
+    {
+      "id": "controllers_advertiser_stats_controller_builddatefilter",
+      "label": "buildDateFilter()",
+      "degree": 9
+    },
+    {
+      "id": "services_priority_service_loadtierconfig",
+      "label": "loadTierConfig()",
+      "degree": 9
+    },
+    {
+      "id": "controllers_audience_controller_getadvertiser",
+      "label": "getAdvertiser()",
+      "degree": 8
+    },
+    {
+      "id": "controllers_advertiser_stats_controller_buildfiltersql",
+      "label": "buildFilterSQL()",
+      "degree": 7
+    },
+    {
+      "id": "services_adsterra_sync_service_syncadsterrarevenue",
+      "label": "syncAdsterraRevenue()",
+      "degree": 7
+    }
+  ],
+  "surprises": [
+    {
+      "source": "generateInvoiceHTML()",
+      "target": "formatMoney()",
+      "source_files": [
+        "backend/src/services/invoice.service.js",
+        "frontend-landing/src/app/admin/users/page.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "ThemePageWrapper()",
+      "target": "useTheme()",
+      "source_files": [
+        "frontend-landing/src/components/ThemePageWrapper.js",
+        "frontend-landing/src/hooks/useTheme.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities; peripheral node `ThemePageWrapper()` unexpectedly reaches hub `useTheme()`"
+    },
+    {
+      "source": "trackImpression()",
+      "target": "getSetting()",
+      "source_files": [
+        "backend/src/controllers/ad-server.controller.js",
+        "backend/src/controllers/admin-settings.controller.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "triggerAdsterraSync()",
+      "target": "syncAdsterraRevenue()",
+      "source_files": [
+        "backend/src/controllers/admin-adsterra.controller.js",
+        "backend/src/services/adsterra-sync.service.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; peripheral node `triggerAdsterraSync()` unexpectedly reaches hub `syncAdsterraRevenue()`"
+    },
+    {
+      "source": "verifyPayment()",
+      "target": "getSetting()",
+      "source_files": [
+        "backend/src/controllers/advertiser-billing.controller.js",
+        "backend/src/controllers/admin-settings.controller.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; peripheral node `verifyPayment()` unexpectedly reaches hub `getSetting()`"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `getSetting()` connect `Community 1` to `Community 8`, `Community 5`, `Community 22`, `Community 7`?",
+      "why": "High betweenness centrality (0.038) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `useTheme()` connect `Community 6` to `Community 4`, `Community 9`, `Community 15`, `Community 147`, `Community 20`, `Community 149`, `Community 148`, `Community 25`, `Community 26`, `Community 32`, `Community 33`, `Community 34`, `Community 40`, `Community 46`, `Community 55`, `Community 56`, `Community 57`, `Community 58`, `Community 72`, `Community 73`, `Community 74`, `Community 75`, `Community 76`, `Community 77`, `Community 78`?",
+      "why": "High betweenness centrality (0.023) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `authenticate()` connect `Community 0` to `Community 1`, `Community 10`, `Community 3`?",
+      "why": "High betweenness centrality (0.018) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 45 inferred relationships involving `useTheme()` (e.g. with `AdminConversionsPage()` and `SystemHealthPage()`) actually correct?",
+      "why": "`useTheme()` has 45 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 42 inferred relationships involving `getDashboardTheme()` (e.g. with `AdminConversionsPage()` and `SystemHealthPage()`) actually correct?",
+      "why": "`getDashboardTheme()` has 42 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 13 inferred relationships involving `getSetting()` (e.g. with `trackImpression()` and `createDeposit()`) actually correct?",
+      "why": "`getSetting()` has 13 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.07 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

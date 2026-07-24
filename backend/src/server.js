@@ -79,13 +79,15 @@ app.use(cors({
   credentials: true
 }));
 
-// Rate limiting — 3 tiers:
+import { getSetting } from './controllers/admin-settings.controller.js';
+
+// Rate limiting — 3 tiers (Dynamically configured via Admin Settings & cached in NodeCache):
 //   strictLimiter : auth + admin endpoints (login, register, admin actions)
 //   apiLimiter    : authenticated panel routes (publisher, advertiser)
 //   adLimiter     : public ad-serving (very high volume)
 const strictLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,  // 15 minutes
-  max: 100,                   // 100 req / 15 min — login, register, admin
+  max: async () => parseInt(await getSetting('rate_limit_strict_max', '100'), 10),
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
@@ -97,7 +99,7 @@ const strictLimiter = rateLimit({
 // 600 / 15 min = 40 req/min — comfortable for power users, still blocks abuse
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,  // 15 minutes
-  max: 600,                   // 600 req / 15 min per IP
+  max: async () => parseInt(await getSetting('rate_limit_api_max', '600'), 10),
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
@@ -107,7 +109,7 @@ const apiLimiter = rateLimit({
 
 const adLimiter = rateLimit({
   windowMs: 60 * 1000,   // 1 minute
-  max: 3000,             // 3000 req/min per IP for ad serving
+  max: async () => parseInt(await getSetting('rate_limit_ad_max', '3000'), 10),
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {

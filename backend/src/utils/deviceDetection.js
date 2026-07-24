@@ -46,6 +46,41 @@ export function detectOS(userAgent) {
 }
 
 /**
+ * Detect connection type from User-Agent and network hints.
+ * Returns: 'WIFI' | 'CELLULAR_2G' | 'CELLULAR_3G' | 'CELLULAR_4G' | 'CELLULAR_5G' | null
+ *
+ * Priority:
+ *  1. Network Information API hints sent via headers (future-proof)
+ *  2. UA keyword heuristics (e.g. "3gpp", "opera mini" implies mobile data)
+ *  3. Device type inference (MOBILE without WiFi hint → CELLULAR_4G guess)
+ */
+export function detectConnectionType(userAgent, networkHint) {
+    // If publisher JS forwarded navigator.connection.effectiveType, use it directly
+    if (networkHint) {
+        const hint = String(networkHint).toLowerCase();
+        if (hint === 'wifi' || hint === '802.11') return 'WIFI';
+        if (hint === 'slow-2g' || hint === '2g') return 'CELLULAR_2G';
+        if (hint === '3g') return 'CELLULAR_3G';
+        if (hint === '4g') return 'CELLULAR_4G';
+        if (hint === '5g') return 'CELLULAR_5G';
+    }
+
+    if (!userAgent) return null;
+    const ua = userAgent.toLowerCase();
+
+    // Known mobile-data UA hints
+    if (/3gpp|3g|gprs|edge|hsdpa|hsupa|wap|opera.mini/.test(ua)) return 'CELLULAR_3G';
+    if (/lte|4g/.test(ua)) return 'CELLULAR_4G';
+    if (/5g/.test(ua)) return 'CELLULAR_5G';
+
+    // Mobile UA without explicit WiFi = likely cellular (default guess)
+    if (/mobile|android|iphone|ipad/.test(ua)) return 'CELLULAR_4G';
+
+    // Desktop UA = WiFi / Broadband (best guess)
+    return 'WIFI';
+}
+
+/**
  * Get country from IP address
  * In production, use a real GeoIP service like MaxMind or ipapi
  */

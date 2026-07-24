@@ -49,21 +49,14 @@ enum CampaignStatus {
 }
 
 enum BiddingStrategy {
-  CPM       // Fixed bid per 1000 impressions
+  CPM // Fixed bid per 1000 impressions
   SMART_CPM // Dynamic RTB — system bids just enough to win, up to maxBid
   SMART_CPC // CPA-based auto-optimization (autoOptimize)
 }
 
 enum AdFormat {
   POPUNDER
-  POPUP
-  DIRECT_LINK
-  BANNER_300x250
-  BANNER_728x90
-  BANNER_468x60
-  BANNER_160x600
   IN_PAGE_PUSH
-  NATIVE
   PUSH_NOTIFICATION
 }
 
@@ -120,98 +113,98 @@ enum PaymentType {
 // ========== USER MANAGEMENT ==========
 
 model User {
-  id              String      @id @default(uuid())
-  email           String      @unique
-  passwordHash    String      @map("password_hash")
-  role            UserRole
-  status          UserStatus  @default(PENDING)
-  balance         Decimal     @default(0) @db.Decimal(10, 2)
-  pendingBalance  Decimal     @default(0) @map("pending_balance") @db.Decimal(10, 2)
-  createdAt          DateTime    @default(now()) @map("created_at")
-  updatedAt          DateTime    @updatedAt @map("updated_at")
-  lastLogin          DateTime?   @map("last_login")
-  resetToken         String?     @map("reset_token")
-  resetTokenExpiry   DateTime?   @map("reset_token_expiry")
-  verificationToken       String?   @unique @map("verification_token")
-  verificationTokenExpiry DateTime? @map("verification_token_expiry")
-  isVerified              Boolean   @default(false) @map("is_verified")
-  twoFactorSecret    String?     @map("two_factor_secret")
-  twoFactorEnabled   Boolean     @default(false) @map("two_factor_enabled")
-  twoFactorBackupCodes Json?     @map("two_factor_backup_codes")
-  referralCode       String?     @unique @map("referral_code")
-  referredBy         String?     @map("referred_by")
-  
+  id                      String     @id @default(uuid())
+  email                   String     @unique
+  passwordHash            String     @map("password_hash")
+  role                    UserRole
+  status                  UserStatus @default(PENDING)
+  balance                 Decimal    @default(0) @db.Decimal(10, 2)
+  pendingBalance          Decimal    @default(0) @map("pending_balance") @db.Decimal(10, 2)
+  createdAt               DateTime   @default(now()) @map("created_at")
+  updatedAt               DateTime   @updatedAt @map("updated_at")
+  lastLogin               DateTime?  @map("last_login")
+  resetToken              String?    @map("reset_token")
+  resetTokenExpiry        DateTime?  @map("reset_token_expiry")
+  verificationToken       String?    @unique @map("verification_token")
+  verificationTokenExpiry DateTime?  @map("verification_token_expiry")
+  isVerified              Boolean    @default(false) @map("is_verified")
+  twoFactorSecret         String?    @map("two_factor_secret")
+  twoFactorEnabled        Boolean    @default(false) @map("two_factor_enabled")
+  twoFactorBackupCodes    Json?      @map("two_factor_backup_codes")
+  referralCode            String?    @unique @map("referral_code")
+  referredBy              String?    @map("referred_by")
+
   // Relations
   publisher         Publisher?
   advertiser        Advertiser?
   transactions      Transaction[]
-  payments          Payment[]              @relation("UserPayments")
-  processedPayments Payment[]              @relation("ProcessedPayments")
+  payments          Payment[]           @relation("UserPayments")
+  processedPayments Payment[]           @relation("ProcessedPayments")
   paymentMethods    UserPaymentMethod[]
   invoices          Invoice[]
   supportTickets    SupportTicket[]
   ticketMessages    TicketMessage[]
-  auditLogs         AuditLog[]             @relation("AdminAuditLogs")
-  referrals         Referral[]             @relation("ReferrerReferrals")
-  referredByUser    Referral?              @relation("ReferredUserReferral")
+  auditLogs         AuditLog[]          @relation("AdminAuditLogs")
+  referrals         Referral[]          @relation("ReferrerReferrals")
+  referredByUser    Referral?           @relation("ReferredUserReferral")
   notificationReads NotificationRead[]
 
   @@map("users")
 }
 
 model Publisher {
-  id                      String        @id @default(uuid())
-  userId                  String        @unique @map("user_id")
-  companyName             String?       @map("company_name")
-  taxId                   String?       @map("tax_id")
-  paymentMethod           PaymentMethod @default(PAYPAL) @map("payment_method")
-  paymentDetails          Json?         @map("payment_details")
-  minPayout               Decimal       @default(50) @map("min_payout") @db.Decimal(10, 2)
-  totalRevenue            Decimal       @default(0) @map("total_revenue") @db.Decimal(10, 2)
-  totalPayout             Decimal       @default(0) @map("total_payout") @db.Decimal(10, 2)
-  preferredPaymentMethod  String?       @map("preferred_payment_method") // PAYPAL, BANK_TRANSFER
-  paymentEmail            String?       @map("payment_email") // For PayPal
-  bankDetails             Json?         @map("bank_details") // For bank transfers
-  createdAt               DateTime      @default(now()) @map("created_at")
-  
+  id                     String        @id @default(uuid())
+  userId                 String        @unique @map("user_id")
+  companyName            String?       @map("company_name")
+  taxId                  String?       @map("tax_id")
+  paymentMethod          PaymentMethod @default(PAYPAL) @map("payment_method")
+  paymentDetails         Json?         @map("payment_details")
+  minPayout              Decimal       @default(50) @map("min_payout") @db.Decimal(10, 2)
+  totalRevenue           Decimal       @default(0) @map("total_revenue") @db.Decimal(10, 2)
+  totalPayout            Decimal       @default(0) @map("total_payout") @db.Decimal(10, 2)
+  preferredPaymentMethod String?       @map("preferred_payment_method") // PAYPAL, BANK_TRANSFER
+  paymentEmail           String?       @map("payment_email") // For PayPal
+  bankDetails            Json?         @map("bank_details") // For bank transfers
+  createdAt              DateTime      @default(now()) @map("created_at")
+
   // Relations
-  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sites          Site[]
-  adReports      AdReport[]
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sites     Site[]
+  adReports AdReport[]
 
   @@map("publishers")
 }
 
 model Site {
-  id              String   @id @default(uuid())
-  publisherId     String   @map("publisher_id")
-  name            String
-  url             String
-  description     String?  @db.Text
-  category        String?
-  status          String    @default("PENDING") // ACTIVE, PAUSED, REJECTED, PENDING
-  rejectionReason String?   @map("rejection_reason") @db.Text
-  verificationToken String? @unique @map("verification_token")
-  verifiedAt      DateTime? @map("verified_at")
-  verificationMethod String? @map("verification_method") // META, FILE, DNS
-  adsTxtVerifiedAt DateTime? @map("ads_txt_verified_at")
-  createdAt       DateTime  @default(now()) @map("created_at")
-  
+  id                 String    @id @default(uuid())
+  publisherId        String    @map("publisher_id")
+  name               String
+  url                String
+  description        String?   @db.Text
+  category           String?
+  status             String    @default("PENDING") // ACTIVE, PAUSED, REJECTED, PENDING
+  rejectionReason    String?   @map("rejection_reason") @db.Text
+  verificationToken  String?   @unique @map("verification_token")
+  verifiedAt         DateTime? @map("verified_at")
+  verificationMethod String?   @map("verification_method") // META, FILE, DNS
+  adsTxtVerifiedAt   DateTime? @map("ads_txt_verified_at")
+  createdAt          DateTime  @default(now()) @map("created_at")
+
   // Relations
-  publisher   Publisher @relation(fields: [publisherId], references: [id], onDelete: Cascade)
-  zones       Zone[]
+  publisher         Publisher          @relation(fields: [publisherId], references: [id], onDelete: Cascade)
+  zones             Zone[]
   pushSubscriptions PushSubscription[]
 
   @@map("sites")
 }
 
 model Zone {
-  id          String   @id @default(uuid())
-  siteId      String   @map("site_id")
-  name        String
-  type        AdFormat @default(POPUNDER)
-  createdAt   DateTime @default(now()) @map("created_at")
-  
+  id        String   @id @default(uuid())
+  siteId    String   @map("site_id")
+  name      String
+  type      AdFormat @default(POPUNDER)
+  createdAt DateTime @default(now()) @map("created_at")
+
   // Relations
   site                Site                 @relation(fields: [siteId], references: [id], onDelete: Cascade)
   impressions         Impression[]
@@ -223,30 +216,30 @@ model Zone {
 // ========== ADVERTISER ==========
 
 model Advertiser {
-  id                 String        @id @default(uuid())
-  userId             String        @unique @map("user_id")
-  companyName        String?       @map("company_name")
-  taxId              String?       @map("tax_id")
-  billingAddress     String?       @map("billing_address") @db.Text
-  totalSpent         Decimal       @default(0) @map("total_spent") @db.Decimal(10, 2)
-  totalDeposit       Decimal       @default(0) @map("total_deposit") @db.Decimal(10, 2)
-  autoRecharge       Boolean       @default(false) @map("auto_recharge")
-  rechargeThreshold  Decimal?      @map("recharge_threshold") @db.Decimal(10, 2)
-  rechargeAmount     Decimal?      @map("recharge_amount") @db.Decimal(10, 2)
-  createdAt          DateTime      @default(now()) @map("created_at")
+  id                String   @id @default(uuid())
+  userId            String   @unique @map("user_id")
+  companyName       String?  @map("company_name")
+  taxId             String?  @map("tax_id")
+  billingAddress    String?  @map("billing_address") @db.Text
+  totalSpent        Decimal  @default(0) @map("total_spent") @db.Decimal(10, 2)
+  totalDeposit      Decimal  @default(0) @map("total_deposit") @db.Decimal(10, 2)
+  autoRecharge      Boolean  @default(false) @map("auto_recharge")
+  rechargeThreshold Decimal? @map("recharge_threshold") @db.Decimal(10, 2)
+  rechargeAmount    Decimal? @map("recharge_amount") @db.Decimal(10, 2)
+  createdAt         DateTime @default(now()) @map("created_at")
 
   // Priority System
-  tier               AdvertiserTier @default(STARTER)
-  monthlySpend       Decimal       @default(0) @map("monthly_spend") @db.Decimal(10, 2)
-  tierUpdatedAt      DateTime?     @map("tier_updated_at")
-  creditLineEnabled  Boolean       @default(false) @map("credit_line_enabled")
-  creditUsed         Decimal       @default(0) @map("credit_used") @db.Decimal(10, 2)
-  
+  tier              AdvertiserTier @default(STARTER)
+  monthlySpend      Decimal        @default(0) @map("monthly_spend") @db.Decimal(10, 2)
+  tierUpdatedAt     DateTime?      @map("tier_updated_at")
+  creditLineEnabled Boolean        @default(false) @map("credit_line_enabled")
+  creditUsed        Decimal        @default(0) @map("credit_used") @db.Decimal(10, 2)
+
   // Relations
-  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  campaigns     Campaign[]
-  tierHistory   AdvertiserTierHistory[]
-  audiences     Audience[]
+  user        User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaigns   Campaign[]
+  tierHistory AdvertiserTierHistory[]
+  audiences   Audience[]
 
   @@map("advertisers")
 }
@@ -266,7 +259,7 @@ model Audience {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
-  advertiser   Advertiser @relation(fields: [advertiserId], references: [id], onDelete: Cascade)
+  advertiser Advertiser @relation(fields: [advertiserId], references: [id], onDelete: Cascade)
 
   @@index([advertiserId])
   @@index([isActive])
@@ -274,15 +267,15 @@ model Audience {
 }
 
 model AdvertiserTierHistory {
-  id             String          @id @default(uuid())
-  advertiserId   String          @map("advertiser_id")
-  previousTier   AdvertiserTier  @map("previous_tier")
-  newTier        AdvertiserTier  @map("new_tier")
-  monthlySpend   Decimal         @map("monthly_spend") @db.Decimal(10, 2)
-  reason         String?         @db.Text
-  createdAt      DateTime        @default(now()) @map("created_at")
+  id           String         @id @default(uuid())
+  advertiserId String         @map("advertiser_id")
+  previousTier AdvertiserTier @map("previous_tier")
+  newTier      AdvertiserTier @map("new_tier")
+  monthlySpend Decimal        @map("monthly_spend") @db.Decimal(10, 2)
+  reason       String?        @db.Text
+  createdAt    DateTime       @default(now()) @map("created_at")
 
-  advertiser     Advertiser      @relation(fields: [advertiserId], references: [id], onDelete: Cascade)
+  advertiser Advertiser @relation(fields: [advertiserId], references: [id], onDelete: Cascade)
 
   @@index([advertiserId])
   @@index([createdAt])
@@ -290,48 +283,48 @@ model AdvertiserTierHistory {
 }
 
 model Campaign {
-  id               String          @id @default(uuid())
-  advertiserId     String          @map("advertiser_id")
-  name             String
-  targetUrl        String          @map("target_url") @db.Text
-  adFormat         AdFormat        @map("ad_format")
-  status           CampaignStatus  @default(PENDING_APPROVAL)
-  dailyBudget      Decimal?        @map("daily_budget") @db.Decimal(10, 2)
-  dailySpent       Decimal         @default(0) @map("daily_spent") @db.Decimal(10, 2)
-  totalBudget      Decimal         @map("total_budget") @db.Decimal(10, 2)
-  bidAmount        Decimal         @map("bid_amount") @db.Decimal(10, 4) // For CPM: fixed bid. For SmartCPM: max bid ceiling.
-  biddingStrategy  BiddingStrategy @default(CPM) @map("bidding_strategy")
-  smartCpmMaxBid   Decimal?        @map("smart_cpm_max_bid") @db.Decimal(10, 4) // SmartCPM max ceiling (mirrors bidAmount for SmartCPM)
-  cpaGoal          Decimal?        @map("cpa_goal") @db.Decimal(10, 2)
-  autoOptimize     Boolean         @default(false) @map("auto_optimize")
-  freqCap          Int             @default(3) @map("freq_cap")    // Max impressions per freqInterval hours
-  freqInterval     Int             @default(24) @map("freq_interval") // Hours
-  pacing           String?         @default("EVEN") // EVEN | ACCELERATED
-  postbackUrl      String?         @map("postback_url") @db.Text
-  postbackSecretToken String?      @map("postback_secret_token") @db.VarChar(64) // Per-campaign S2S security token
-  postbackGoals    Json?           @map("postback_goals")          // [{label, value}] goal definitions
-  schedule         Json?           // { enabled, timezone, hours: 7x24 boolean matrix }
-  cpmRate          Decimal         @default(2.0) @map("cpm_rate") @db.Decimal(10, 2)
-  totalSpent       Decimal         @default(0) @map("total_spent") @db.Decimal(10, 2)
-  totalImpressions Int             @default(0) @map("total_impressions")
-  totalClicks      Int             @default(0) @map("total_clicks")
-  dailyClicks      Int             @default(0) @map("daily_clicks")
-  totalConversions Int             @default(0) @map("total_conversions")
-  dailyClicksLimit Int?            @map("daily_clicks_limit")    // null = unlimited
-  totalClicksLimit Int?            @map("total_clicks_limit")   // null = unlimited
-  targeting        Json?           // GEO, Device, Browser, OS, Audience targeting + feedAudienceIds
-  rejectionReason  String?         @map("rejection_reason") @db.Text
-  adminNote        String?         @map("admin_note") @db.Text
+  id                  String          @id @default(uuid())
+  advertiserId        String          @map("advertiser_id")
+  name                String
+  targetUrl           String          @map("target_url") @db.Text
+  adFormat            AdFormat        @map("ad_format")
+  status              CampaignStatus  @default(PENDING_APPROVAL)
+  dailyBudget         Decimal?        @map("daily_budget") @db.Decimal(10, 2)
+  dailySpent          Decimal         @default(0) @map("daily_spent") @db.Decimal(10, 2)
+  totalBudget         Decimal         @map("total_budget") @db.Decimal(10, 2)
+  bidAmount           Decimal         @map("bid_amount") @db.Decimal(10, 4) // For CPM: fixed bid. For SmartCPM: max bid ceiling.
+  biddingStrategy     BiddingStrategy @default(CPM) @map("bidding_strategy")
+  smartCpmMaxBid      Decimal?        @map("smart_cpm_max_bid") @db.Decimal(10, 4) // SmartCPM max ceiling (mirrors bidAmount for SmartCPM)
+  cpaGoal             Decimal?        @map("cpa_goal") @db.Decimal(10, 2)
+  autoOptimize        Boolean         @default(false) @map("auto_optimize")
+  freqCap             Int             @default(3) @map("freq_cap") // Max impressions per freqInterval hours
+  freqInterval        Int             @default(24) @map("freq_interval") // Hours
+  pacing              String?         @default("EVEN") // EVEN | ACCELERATED
+  postbackUrl         String?         @map("postback_url") @db.Text
+  postbackSecretToken String?         @map("postback_secret_token") @db.VarChar(64) // Per-campaign S2S security token
+  postbackGoals       Json?           @map("postback_goals") // [{label, value}] goal definitions
+  schedule            Json? // { enabled, timezone, hours: 7x24 boolean matrix }
+  cpmRate             Decimal         @default(2.0) @map("cpm_rate") @db.Decimal(10, 2)
+  totalSpent          Decimal         @default(0) @map("total_spent") @db.Decimal(10, 2)
+  totalImpressions    Int             @default(0) @map("total_impressions")
+  totalClicks         Int             @default(0) @map("total_clicks")
+  dailyClicks         Int             @default(0) @map("daily_clicks")
+  totalConversions    Int             @default(0) @map("total_conversions")
+  dailyClicksLimit    Int?            @map("daily_clicks_limit") // null = unlimited
+  totalClicksLimit    Int?            @map("total_clicks_limit") // null = unlimited
+  targeting           Json? // GEO, Device, Browser, OS, Audience targeting + feedAudienceIds
+  rejectionReason     String?         @map("rejection_reason") @db.Text
+  adminNote           String?         @map("admin_note") @db.Text
   // Push Notification creative fields (only used when adFormat = PUSH_NOTIFICATION)
-  pushTitle        String?         @map("push_title") @db.VarChar(60)
-  pushBody         String?         @map("push_body") @db.VarChar(140)
-  pushIcon         String?         @map("push_icon") @db.Text // 192x192 icon URL (required for push)
-  pushImage        String?         @map("push_image") @db.Text // 720x480 large image URL (optional)
-  createdAt        DateTime        @default(now()) @map("created_at")
-  updatedAt        DateTime        @updatedAt @map("updated_at")
+  pushTitle           String?         @map("push_title") @db.VarChar(60)
+  pushBody            String?         @map("push_body") @db.VarChar(140)
+  pushIcon            String?         @map("push_icon") @db.Text // 192x192 icon URL (required for push)
+  pushImage           String?         @map("push_image") @db.Text // 720x480 large image URL (optional)
+  createdAt           DateTime        @default(now()) @map("created_at")
+  updatedAt           DateTime        @updatedAt @map("updated_at")
 
   // Relations
-  advertiser     Advertiser      @relation(fields: [advertiserId], references: [id], onDelete: Cascade)
+  advertiser     Advertiser     @relation(fields: [advertiserId], references: [id], onDelete: Cascade)
   creatives      Creative[]
   impressions    Impression[]
   conversions    Conversion[]
@@ -344,7 +337,7 @@ model Creative {
   id          String   @id @default(uuid())
   campaignId  String   @map("campaign_id")
   type        String   @default("IN_PAGE_PUSH") // IN_PAGE_PUSH | NATIVE | BANNER
-  label       String?  // A/B test variant label (e.g. "Version A", "Version B")
+  label       String? // A/B test variant label (e.g. "Version A", "Version B")
   weight      Int      @default(1) // A/B distribution weight (higher = more traffic)
   title       String?
   description String?  @db.Text
@@ -352,9 +345,9 @@ model Creative {
   imageUrl    String?  @map("image_url") @db.Text
   htmlCode    String?  @map("html_code") @db.Text
   createdAt   DateTime @default(now()) @map("created_at")
-  
+
   // Relations
-  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
 
   @@map("creatives")
 }
@@ -362,7 +355,7 @@ model Creative {
 model BackfillImpression {
   id               String   @id @default(uuid())
   zoneId           String   @map("zone_id")
-  source           String   // 'monetag' | 'adsterra'
+  source           String // 'monetag' | 'adsterra'
   format           String
   country          String?
   device           String?
@@ -381,30 +374,30 @@ model BackfillImpression {
 // ========== IMPRESSIONS & CLICKS ==========
 
 model Impression {
-  id               String    @id @default(uuid())
-  campaignId       String    @map("campaign_id")
-  zoneId           String    @map("zone_id")
+  id               String   @id @default(uuid())
+  campaignId       String   @map("campaign_id")
+  zoneId           String   @map("zone_id")
   ip               String
-  userAgent        String    @map("user_agent") @db.Text
+  userAgent        String   @map("user_agent") @db.Text
   country          String?
   city             String?
   device           String?
   browser          String?
   os               String?
-  clicked          Boolean   @default(false)
-  revenue          Decimal   @default(0) @db.Decimal(10, 4) // Advertiser Cost
-  cost             Decimal   @default(0) @db.Decimal(10, 4) // Publisher Share (Legacy naming)
-  publisherRevenue Decimal   @default(0) @map("publisher_revenue") @db.Decimal(10, 5)
-  systemProfit     Decimal   @default(0) @map("system_profit") @db.Decimal(10, 5)
+  clicked          Boolean  @default(false)
+  revenue          Decimal  @default(0) @db.Decimal(10, 4) // Advertiser Cost
+  cost             Decimal  @default(0) @db.Decimal(10, 4) // Publisher Share (Legacy naming)
+  publisherRevenue Decimal  @default(0) @map("publisher_revenue") @db.Decimal(10, 5)
+  systemProfit     Decimal  @default(0) @map("system_profit") @db.Decimal(10, 5)
   // Fraud Detection
-  fraudScore       Int       @default(0) @map("fraud_score")           // 0-100 composite risk score
-  trafficStatus    String    @default("CLEAN") @map("traffic_status")  // CLEAN | PENDING | INVALID
-  createdAt        DateTime  @default(now()) @map("created_at")
-  
+  fraudScore       Int      @default(0) @map("fraud_score") // 0-100 composite risk score
+  trafficStatus    String   @default("CLEAN") @map("traffic_status") // CLEAN | PENDING | INVALID
+  createdAt        DateTime @default(now()) @map("created_at")
+
   // Relations — Restrict campaign delete to protect impression/revenue history (soft-delete only)
-  campaign         Campaign  @relation(fields: [campaignId], references: [id], onDelete: Restrict)
-  zone             Zone      @relation(fields: [zoneId], references: [id], onDelete: Cascade)
-  conversion       Conversion?
+  campaign   Campaign    @relation(fields: [campaignId], references: [id], onDelete: Restrict)
+  zone       Zone        @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  conversion Conversion?
 
   @@index([campaignId])
   @@index([zoneId])
@@ -413,29 +406,29 @@ model Impression {
 }
 
 model Conversion {
-  id             String    @id @default(uuid())
-  impressionId   String?   @unique @map("impression_id")  // Nullable: S2S postbacks may not have impression
-  campaignId     String    @map("campaign_id")
+  id           String  @id @default(uuid())
+  impressionId String? @unique @map("impression_id") // Nullable: S2S postbacks may not have impression
+  campaignId   String  @map("campaign_id")
 
   // Tracking method
-  trackingMethod String    @default("PIXEL") @map("tracking_method") // PIXEL | S2S | TEST
+  trackingMethod String @default("PIXEL") @map("tracking_method") // PIXEL | S2S | TEST
 
   // Payout & Goal
-  payout         Decimal?  @db.Decimal(10, 2) @map("payout")  // Advertiser-reported conversion value
-  goal           String?   @db.VarChar(100)                    // Optional goal label (purchase, signup...)
-  status         String    @default("CONFIRMED") @map("status") // CONFIRMED | REJECTED | TEST
+  payout Decimal? @map("payout") @db.Decimal(10, 2) // Advertiser-reported conversion value
+  goal   String?  @db.VarChar(100) // Optional goal label (purchase, signup...)
+  status String   @default("CONFIRMED") @map("status") // CONFIRMED | REJECTED | TEST
 
   // Attribution
-  ip             String?
-  userAgent      String?   @map("user_agent") @db.Text
+  ip        String?
+  userAgent String? @map("user_agent") @db.Text
 
   // Raw postback data for audit
-  postbackRaw    Json?     @map("postback_raw")  // Full query params as received
+  postbackRaw Json? @map("postback_raw") // Full query params as received
 
-  createdAt      DateTime  @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  impression     Impression? @relation(fields: [impressionId], references: [id], onDelete: SetNull)
-  campaign       Campaign    @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  impression Impression? @relation(fields: [impressionId], references: [id], onDelete: SetNull)
+  campaign   Campaign    @relation(fields: [campaignId], references: [id], onDelete: Cascade)
 
   @@index([campaignId])
   @@index([trackingMethod])
@@ -448,11 +441,11 @@ model Conversion {
 // Every S2S postback request is logged here regardless of success/failure
 model PostbackLog {
   id         String   @id @default(uuid())
-  campaignId String?  @map("campaign_id")  // null if click_id not found
-  clickId    String?  @map("click_id")      // As received in request
-  rawQuery   String   @db.Text @map("raw_query")  // Full query string
+  campaignId String?  @map("campaign_id") // null if click_id not found
+  clickId    String?  @map("click_id") // As received in request
+  rawQuery   String   @map("raw_query") @db.Text // Full query string
   ip         String?  @db.VarChar(45)
-  status     String   @db.VarChar(30)  // SUCCESS | INVALID_CLICK_ID | DUPLICATE | REJECTED | NO_CLICK | RATE_LIMITED
+  status     String   @db.VarChar(30) // SUCCESS | INVALID_CLICK_ID | DUPLICATE | REJECTED | NO_CLICK | RATE_LIMITED
   errorMsg   String?  @map("error_msg") @db.VarChar(255)
   createdAt  DateTime @default(now()) @map("created_at")
 
@@ -468,7 +461,7 @@ model PostbackLog {
 model GeoFloor {
   id          String   @id @default(uuid())
   countryCode String   @map("country_code") @db.VarChar(2)
-  adFormat    String   @map("ad_format")    @db.VarChar(20)
+  adFormat    String   @map("ad_format") @db.VarChar(20)
   minBid      Decimal  @default(0) @map("min_bid") @db.Decimal(10, 4)
   updatedAt   DateTime @updatedAt @map("updated_at")
 
@@ -476,7 +469,6 @@ model GeoFloor {
   @@index([countryCode])
   @@map("geo_floors")
 }
-
 
 // ========== TRANSACTIONS ==========
 
@@ -487,12 +479,12 @@ model Transaction {
   status      TransactionStatus @default(PENDING)
   amount      Decimal           @db.Decimal(10, 2)
   description String?           @db.Text
-  metadata    Json?             // Payment info, reference IDs, etc.
+  metadata    Json? // Payment info, reference IDs, etc.
   createdAt   DateTime          @default(now()) @map("created_at")
   completedAt DateTime?         @map("completed_at")
-  
+
   // Relations
-  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([createdAt])
@@ -506,23 +498,23 @@ model Payment {
   userId          String        @map("user_id")
   type            PaymentType
   amount          Decimal       @db.Decimal(10, 2)
-  method          String        // PAYPAL, BANK_TRANSFER, STRIPE, MANUAL
+  method          String // PAYPAL, BANK_TRANSFER, STRIPE, MANUAL
   status          PaymentStatus @default(PENDING)
   transactionId   String?       @map("transaction_id") // External payment processor ID
-  details         Json?         // PayPal email, bank account details
+  details         Json? // PayPal email, bank account details
   rejectionReason String?       @map("rejection_reason") @db.Text
   processedBy     String?       @map("processed_by") // Admin who approved/rejected
   processedAt     DateTime?     @map("processed_at")
   couponId        String?       @map("coupon_id") // Applied promo coupon (if any)
   createdAt       DateTime      @default(now()) @map("created_at")
   updatedAt       DateTime      @updatedAt @map("updated_at")
-  
+
   // Relations
-  user       User      @relation("UserPayments", fields: [userId], references: [id], onDelete: Cascade)
-  processor  User?     @relation("ProcessedPayments", fields: [processedBy], references: [id])
-  coupon     Coupon?   @relation(fields: [couponId], references: [id], onDelete: SetNull)
-  invoice    Invoice?
-  
+  user      User     @relation("UserPayments", fields: [userId], references: [id], onDelete: Cascade)
+  processor User?    @relation("ProcessedPayments", fields: [processedBy], references: [id])
+  coupon    Coupon?  @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  invoice   Invoice?
+
   @@index([userId])
   @@index([status])
   @@index([createdAt])
@@ -532,39 +524,39 @@ model Payment {
 model UserPaymentMethod {
   id         String   @id @default(uuid())
   userId     String   @map("user_id")
-  type       String   // PAYPAL, BANK_TRANSFER, STRIPE
-  details    Json     // { email, accountName, accountNumber, bankName, etc }
+  type       String // PAYPAL, BANK_TRANSFER, STRIPE
+  details    Json // { email, accountName, accountNumber, bankName, etc }
   isDefault  Boolean  @default(false) @map("is_default")
   isVerified Boolean  @default(false) @map("is_verified")
   createdAt  DateTime @default(now()) @map("created_at")
-  
+
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   @@index([userId])
   @@map("user_payment_methods")
 }
 
 model Invoice {
-  id         String   @id @default(uuid())
-  userId     String   @map("user_id")
-  paymentId  String   @unique @map("payment_id")
-  invoiceNo  String   @unique @map("invoice_no") // INV-2026-01-0001
-  amount     Decimal  @db.Decimal(10, 2)
-  tax        Decimal  @default(0) @db.Decimal(10, 2)
-  total      Decimal  @db.Decimal(10, 2)
-  status     String   @default("PAID") // DRAFT, SENT, PAID
-  dueDate    DateTime @map("due_date")
-  paidAt     DateTime? @map("paid_at")
-  items      Json     // Line items array
-  notes      String?  @db.Text
-  pdfUrl     String?  @map("pdf_url") @db.Text
-  createdAt  DateTime @default(now()) @map("created_at")
-  
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  paymentId String    @unique @map("payment_id")
+  invoiceNo String    @unique @map("invoice_no") // INV-2026-01-0001
+  amount    Decimal   @db.Decimal(10, 2)
+  tax       Decimal   @default(0) @db.Decimal(10, 2)
+  total     Decimal   @db.Decimal(10, 2)
+  status    String    @default("PAID") // DRAFT, SENT, PAID
+  dueDate   DateTime  @map("due_date")
+  paidAt    DateTime? @map("paid_at")
+  items     Json // Line items array
+  notes     String?   @db.Text
+  pdfUrl    String?   @map("pdf_url") @db.Text
+  createdAt DateTime  @default(now()) @map("created_at")
+
   // Relations
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   payment Payment @relation(fields: [paymentId], references: [id], onDelete: Cascade)
-  
+
   @@index([userId])
   @@index([invoiceNo])
   @@map("invoices")
@@ -574,29 +566,29 @@ model Invoice {
 
 enum CouponType {
   PERCENTAGE // bonus = deposit * value/100, capped by maxBonus
-  FIXED      // bonus = value (flat amount)
+  FIXED // bonus = value (flat amount)
 }
 
 model Coupon {
-  id               String      @id @default(uuid())
-  code             String      @unique @db.VarChar(40)
-  description      String?     @db.Text
-  type             CouponType
-  value            Decimal     @db.Decimal(10, 2)  // Percentage (0-100) or fixed USD amount
-  minDeposit       Decimal?    @map("min_deposit") @db.Decimal(10, 2)  // Minimum deposit to qualify
-  maxBonus         Decimal?    @map("max_bonus") @db.Decimal(10, 2)   // Cap on bonus for PERCENTAGE type
-  maxUses          Int?        @map("max_uses")          // null = unlimited
-  maxUsesPerUser   Int         @default(1) @map("max_uses_per_user")
-  currentUses      Int         @default(0) @map("current_uses")
-  isActive         Boolean     @default(true) @map("is_active")
-  startDate        DateTime?   @map("start_date")
-  endDate          DateTime?   @map("end_date")
-  createdBy        String      @map("created_by") // Admin user ID
-  createdAt        DateTime    @default(now()) @map("created_at")
-  updatedAt        DateTime    @updatedAt @map("updated_at")
+  id             String     @id @default(uuid())
+  code           String     @unique @db.VarChar(40)
+  description    String?    @db.Text
+  type           CouponType
+  value          Decimal    @db.Decimal(10, 2) // Percentage (0-100) or fixed USD amount
+  minDeposit     Decimal?   @map("min_deposit") @db.Decimal(10, 2) // Minimum deposit to qualify
+  maxBonus       Decimal?   @map("max_bonus") @db.Decimal(10, 2) // Cap on bonus for PERCENTAGE type
+  maxUses        Int?       @map("max_uses") // null = unlimited
+  maxUsesPerUser Int        @default(1) @map("max_uses_per_user")
+  currentUses    Int        @default(0) @map("current_uses")
+  isActive       Boolean    @default(true) @map("is_active")
+  startDate      DateTime?  @map("start_date")
+  endDate        DateTime?  @map("end_date")
+  createdBy      String     @map("created_by") // Admin user ID
+  createdAt      DateTime   @default(now()) @map("created_at")
+  updatedAt      DateTime   @updatedAt @map("updated_at")
 
-  usages           CouponUsage[]
-  payments         Payment[]
+  usages   CouponUsage[]
+  payments Payment[]
 
   @@index([code])
   @@index([isActive])
@@ -607,12 +599,12 @@ model CouponUsage {
   id            String   @id @default(uuid())
   couponId      String   @map("coupon_id")
   userId        String   @map("user_id")
-  paymentId     String   @unique @map("payment_id")  // One usage per completed payment
+  paymentId     String   @unique @map("payment_id") // One usage per completed payment
   depositAmount Decimal  @map("deposit_amount") @db.Decimal(10, 2)
   bonusAmount   Decimal  @map("bonus_amount") @db.Decimal(10, 2)
   createdAt     DateTime @default(now()) @map("created_at")
 
-  coupon  Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  coupon Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
 
   @@index([couponId])
   @@index([userId])
@@ -627,13 +619,13 @@ model SupportTicket {
   userId       String    @map("user_id")
   subject      String
   category     String    @default("general") // billing, technical, campaign, account, general
-  priority     String    @default("MEDIUM")  // LOW, MEDIUM, HIGH, URGENT
-  status       String    @default("OPEN")    // OPEN, IN_PROGRESS, RESOLVED, CLOSED
+  priority     String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  status       String    @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED, CLOSED
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
   closedAt     DateTime? @map("closed_at")
-  dueAt        DateTime? @map("due_at")          // SLA deadline based on advertiser tier
-  slaSatisfied Boolean?  @map("sla_satisfied")   // null=open, true=met, false=breached
+  dueAt        DateTime? @map("due_at") // SLA deadline based on advertiser tier
+  slaSatisfied Boolean?  @map("sla_satisfied") // null=open, true=met, false=breached
 
   user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   messages TicketMessage[]
@@ -719,30 +711,30 @@ model Referral {
 // ========== PUSH NOTIFICATIONS ==========
 
 model PushSubscription {
-  id           String   @id @default(uuid())
-  siteId       String   @map("site_id")
-  endpoint     String   @db.Text
-  p256dh       String   @db.Text
-  auth         String   @db.Text
+  id       String @id @default(uuid())
+  siteId   String @map("site_id")
+  endpoint String @db.Text
+  p256dh   String @db.Text
+  auth     String @db.Text
 
   // Subscriber profile (for targeting)
-  ip           String?
-  country      String?  @db.Char(2)
-  device       String?  // mobile | desktop | tablet
-  os           String?
-  browser      String?
-  language     String?  @db.Char(10)
+  ip       String?
+  country  String? @db.Char(2)
+  device   String? // mobile | desktop | tablet
+  os       String?
+  browser  String?
+  language String? @db.Char(10)
 
   // Status
-  isActive     Boolean  @default(true) @map("is_active")
-  failCount    Int      @default(0) @map("fail_count")
+  isActive     Boolean   @default(true) @map("is_active")
+  failCount    Int       @default(0) @map("fail_count")
   lastPushedAt DateTime? @map("last_pushed_at")
 
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  site         Site           @relation(fields: [siteId], references: [id], onDelete: Cascade)
-  deliveries   PushDelivery[]
+  site       Site           @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  deliveries PushDelivery[]
 
   @@index([siteId])
   @@index([isActive])
@@ -751,19 +743,19 @@ model PushSubscription {
 }
 
 model PushDelivery {
-  id             String             @id @default(uuid())
-  campaignId     String             @map("campaign_id")
-  subscriptionId String             @map("subscription_id")
+  id             String @id @default(uuid())
+  campaignId     String @map("campaign_id")
+  subscriptionId String @map("subscription_id")
 
-  status         PushDeliveryStatus @default(PENDING)
-  sentAt         DateTime?          @map("sent_at")
-  clickedAt      DateTime?          @map("clicked_at")
-  revenue        Decimal?           @db.Decimal(10, 4)
+  status    PushDeliveryStatus @default(PENDING)
+  sentAt    DateTime?          @map("sent_at")
+  clickedAt DateTime?          @map("clicked_at")
+  revenue   Decimal?           @db.Decimal(10, 4)
 
-  createdAt      DateTime           @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  campaign      Campaign         @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  subscription  PushSubscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  campaign     Campaign         @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  subscription PushSubscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 
   @@index([campaignId])
   @@index([subscriptionId])
@@ -779,12 +771,12 @@ model Notification {
   title       String    @db.VarChar(255)
   message     String    @db.Text
   type        String    @default("INFO") // INFO, WARNING, SUCCESS
-  targetGroup String    @default("ALL")  // ALL, ADVERTISER, PUBLISHER
+  targetGroup String    @default("ALL") // ALL, ADVERTISER, PUBLISHER
   status      String    @default("ACTIVE") // ACTIVE, INACTIVE
   expiresAt   DateTime? @map("expires_at")
   createdAt   DateTime  @default(now()) @map("created_at")
 
-  reads       NotificationRead[]
+  reads NotificationRead[]
 
   @@index([targetGroup])
   @@index([status])
@@ -793,10 +785,10 @@ model Notification {
 }
 
 model NotificationRead {
-  id             String       @id @default(uuid())
-  userId         String       @map("user_id")
-  notificationId String       @map("notification_id")
-  readAt         DateTime     @default(now()) @map("read_at")
+  id             String   @id @default(uuid())
+  userId         String   @map("user_id")
+  notificationId String   @map("notification_id")
+  readAt         DateTime @default(now()) @map("read_at")
 
   user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   notification Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
@@ -809,10 +801,10 @@ model NotificationRead {
 // ========== AD QUALITY / REPORTS ==========
 
 enum AdReportReason {
-  MISLEADING    // Misleading or false content
+  MISLEADING // Misleading or false content
   INAPPROPRIATE // Inappropriate / adult content on non-adult site
-  MALWARE       // Malware / phishing / suspicious link
-  SPAM          // Spam or overly repetitive
+  MALWARE // Malware / phishing / suspicious link
+  SPAM // Spam or overly repetitive
   OTHER
 }
 
@@ -823,18 +815,18 @@ enum AdReportStatus {
 }
 
 model AdReport {
-  id            String          @id @default(uuid())
-  publisherId   String          @map("publisher_id")
-  zoneId        String?         @map("zone_id")       // Which zone served the offending ad
-  campaignId    String?         @map("campaign_id")   // Resolved automatically from last impression on zone
-  reason        AdReportReason
-  description   String?         @db.Text
-  status        AdReportStatus  @default(OPEN)
-  adminNote     String?         @map("admin_note") @db.Text
-  resolvedAt    DateTime?       @map("resolved_at")
-  createdAt     DateTime        @default(now()) @map("created_at")
+  id          String         @id @default(uuid())
+  publisherId String         @map("publisher_id")
+  zoneId      String?        @map("zone_id") // Which zone served the offending ad
+  campaignId  String?        @map("campaign_id") // Resolved automatically from last impression on zone
+  reason      AdReportReason
+  description String?        @db.Text
+  status      AdReportStatus @default(OPEN)
+  adminNote   String?        @map("admin_note") @db.Text
+  resolvedAt  DateTime?      @map("resolved_at")
+  createdAt   DateTime       @default(now()) @map("created_at")
 
-  publisher  Publisher  @relation(fields: [publisherId], references: [id], onDelete: Cascade)
+  publisher Publisher @relation(fields: [publisherId], references: [id], onDelete: Cascade)
 
   @@index([publisherId])
   @@index([status])

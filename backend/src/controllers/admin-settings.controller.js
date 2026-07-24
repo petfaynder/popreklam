@@ -59,6 +59,11 @@ const DEFAULT_SETTINGS = [
     { key: 'recaptcha_site_key', value: '', type: 'string', group: 'security', label: 'Google reCAPTCHA Site Key' },
     { key: 'recaptcha_secret_key', value: '', type: 'password', group: 'security', label: 'Google reCAPTCHA Secret Key' },
 
+    // Rate Limiting (Security & Performance)
+    { key: 'rate_limit_strict_max', value: '100', type: 'number', group: 'security', label: 'Auth & Admin Rate Limit (Req / 15 Min)', description: 'Limit per IP for login, register, and admin endpoints (default 100)' },
+    { key: 'rate_limit_api_max', value: '600', type: 'number', group: 'security', label: 'Dashboard API Rate Limit (Req / 15 Min)', description: 'Limit per IP for publisher & advertiser panel routes (default 600)' },
+    { key: 'rate_limit_ad_max', value: '3000', type: 'number', group: 'security', label: 'Ad Serving Rate Limit (Req / 1 Min)', description: 'Limit per IP for public ad-serving endpoints (default 3000)' },
+
     // Ad Networks (Third-Party Backfill — Adsterra SmartLink)
     // SmartLink works on ANY publisher domain without domain registration.
     // Get your SmartLink from: Adsterra dashboard → SmartLinks → Copy URL

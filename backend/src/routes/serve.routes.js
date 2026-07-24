@@ -1,6 +1,6 @@
 import express from 'express';
 import prisma from '../lib/prisma.js';
-import { getCountryFromIP, detectDevice, detectBrowser, detectOS } from '../utils/deviceDetection.js';
+import { getCountryFromIP, detectDevice, detectBrowser, detectOS, detectConnectionType } from '../utils/deviceDetection.js';
 import { getBackfillAd } from '../services/backfill.service.js';
 import { getSetting } from '../controllers/admin-settings.controller.js';
 import NodeCache from 'node-cache';
@@ -94,6 +94,7 @@ router.post('/impression', botUaGuard, async (req, res) => {
         const device = detectDevice(ua);
         const browser = detectBrowser(ua);
         const os = detectOS(ua);
+        const connectionType = detectConnectionType(ua, req.headers['x-connection-type']);
 
         // ── 2.5 Multi-Signal Fraud Scoring ───────────────────────────────────
         const maxImpressionsPerIp = Number(await getSetting('max_impressions_per_ip', 50));
@@ -267,6 +268,22 @@ router.post('/impression', botUaGuard, async (req, res) => {
             // Click Limit checks
             if (campaign.totalClicksLimit && campaign.totalClicks >= campaign.totalClicksLimit) continue;
             if (campaign.dailyClicksLimit && campaign.dailyClicks >= campaign.dailyClicksLimit) continue;
+
+            // ── Granular Targeting: Connection Type ───────────────────────────
+            const connTargets = targeting.connectionType;
+            if (Array.isArray(connTargets) && connTargets.length > 0 && connectionType) {
+                if (!connTargets.includes(connectionType)) continue;
+            }
+
+            // ── Granular Targeting: Block VPN / Proxy ─────────────────────────
+            if (targeting.blockProxy && fraudResult.reasons?.includes('VPN_PROXY')) {
+                continue;
+            }
+
+            // ── Granular Targeting: ISP / Carrier ─────────────────────────────
+            const carrierTargets = targeting.carriers;
+            // NOTE: Real carrier detection requires MaxMind ISP DB.
+            // For now this field is stored but only enforced when ISP data is available.
 
             // ── Audience Targeting ────────────────────────────────────────────
             // Only run audience check if campaign has audience targeting configured
