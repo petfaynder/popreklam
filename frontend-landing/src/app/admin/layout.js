@@ -2,7 +2,7 @@
 import '../globals.css';
 
 import { useEffect, useState, useCallback } from 'react';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { authAPI, adminAPI } from '@/lib/api';
 import { ToastContainer } from '@/components/admin/Toast';
