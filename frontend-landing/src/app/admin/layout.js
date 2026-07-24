@@ -9,7 +9,7 @@ import { ToastContainer } from '@/components/admin/Toast';
 import {
     LayoutDashboard, Users, Globe, Megaphone, CreditCard, BarChart2,
     MessageSquare, Settings, Shield, FileText, LogOut, ArrowLeft,
-    Bell, Zap, AlertTriangle, ChevronRight, Gift, ShoppingCart
+    Bell, Zap, AlertTriangle, ChevronRight, Gift, ShoppingCart, Activity
 } from 'lucide-react';
 
 const NAV_GROUPS = [
@@ -52,6 +52,7 @@ const NAV_GROUPS = [
     {
         label: 'System',
         items: [
+            { name: 'System Health', href: '/admin/health', icon: Activity },
             { name: 'Settings', href: '/admin/settings', icon: Settings },
         ]
     },
