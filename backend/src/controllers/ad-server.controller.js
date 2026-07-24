@@ -1,9 +1,55 @@
 import prisma from '../lib/prisma.js';
+import NodeCache from 'node-cache';
 import { getSetting } from './admin-settings.controller.js';
 import { getDeliveryWeight } from '../services/priority.service.js';
 import { recordCommission } from '../services/referral-commission.service.js';
 
 // ================ AD SERVING LOGIC ================
+
+// Pre-allocated 1x1 transparent GIF — avoids Buffer.from() on every trackImpression call
+const TRANSPARENT_1X1_GIF = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
+
+// Campaign cache: keyed by adFormat, 30-second TTL.
+// Prevents fetching all active campaigns from DB on every single ad request.
+// At 3000 req/min, this reduces DB campaign queries from 3000/min to ~2/min per format.
+const campaignCache = new NodeCache({ stdTTL: 30, checkperiod: 15, maxKeys: 50 });
+
+// Zone cache: keyed by zoneId, 60-second TTL.
+// Zone data changes rarely; caching avoids a DB read on every serve + track call.
+const zoneCache = new NodeCache({ stdTTL: 60, checkperiod: 30, maxKeys: 10000 });
+
+/**
+ * Fetch active campaigns for a given ad format, with 30s cache.
+ */
+async function getCampaignsForFormat(adFormat) {
+    const cacheKey = `campaigns_${adFormat}`;
+    let campaigns = campaignCache.get(cacheKey);
+    if (campaigns !== undefined) return campaigns;
+
+    campaigns = await prisma.campaign.findMany({
+        where: { status: 'ACTIVE', adFormat },
+        include: { advertiser: true, creatives: true }
+    });
+    campaignCache.set(cacheKey, campaigns);
+    return campaigns;
+}
+
+/**
+ * Fetch zone with site+publisher info, with 60s cache.
+ */
+async function getZoneWithPublisher(zoneId) {
+    let zone = zoneCache.get(zoneId);
+    if (zone !== undefined) return zone;
+
+    zone = await prisma.zone.findUnique({
+        where: { id: zoneId },
+        include: {
+            site: { include: { publisher: { include: { user: true } } } }
+        }
+    });
+    zoneCache.set(zoneId, zone);
+    return zone;
+}
 
 // 1. SERVE AD
 export const serveAd = async (req, res) => {
@@ -15,33 +61,16 @@ export const serveAd = async (req, res) => {
             return res.status(400).json({ error: 'Missing zoneId' });
         }
 
-        // 1. Validate Zone & Site
-        const zone = await prisma.zone.findUnique({
-            where: { id: zoneId },
-            include: {
-                site: {
-                    include: { publisher: { include: { user: true } } }
-                }
-            }
-        });
+        // 1. Validate Zone & Site (cached)
+        const zone = await getZoneWithPublisher(zoneId);
 
         // FIXED: don't check status 'APPROVED' — schema Site.status uses 'ACTIVE'
         if (!zone || !zone.site || zone.site.status !== 'ACTIVE') {
             return res.status(404).json({ error: 'Invalid or inactive zone/site' });
         }
 
-        // 2. Find Candidate Campaigns
-        // FIXED: fetch all active + JS filter (prisma.campaign.fields is not valid API)
-        const allCampaigns = await prisma.campaign.findMany({
-            where: {
-                status: 'ACTIVE',
-                adFormat: zone.type,
-            },
-            include: {
-                advertiser: true,
-                creatives: true
-            }
-        });
+        // 2. Find Candidate Campaigns (cached — 30s TTL)
+        const allCampaigns = await getCampaignsForFormat(zone.type);
 
         // JS budget and traffic type filter
         const siteCategory = zone.site?.category === 'Adult' ? 'ADULT' : 'MAINSTREAM';
@@ -167,78 +196,70 @@ export const trackImpression = async (req, res) => {
         const revenue = cost * revShare;
         const profit = cost - revenue;
 
-        // 3. Record Impression
-        await prisma.impression.create({
-            data: {
-                campaignId,
-                zoneId,
-                ip: typeof ip === 'string' ? ip : 'unknown',
-                userAgent: req.headers['user-agent'] || 'unknown',
-                revenue: cost,        // Advertiser pays this
-                cost: revenue,        // Publisher gets this (Legacy naming kept for schema compat)
-                publisherRevenue: revenue,
-                systemProfit: profit,
-                clicked: false
-            }
-        });
+        // 3-6. Record impression + update campaign/advertiser/publisher in a SINGLE batch transaction.
+        // This reduces DB round-trips from 5 sequential writes to 1, freeing connection pool slots.
+        const zone = await getZoneWithPublisher(zoneId);
+        const publisherExists = zone && zone.site && zone.site.publisher;
 
-        // Let's re-align with schema comments:
-        // revenue = Advertiser pays this
-        // cost = We pay this to publisher
-        // publisherRevenue = explicitly added field for clarity
-        // systemProfit = explicitly added field
+        const txOps = [
+            // 3. Record Impression
+            prisma.impression.create({
+                data: {
+                    campaignId,
+                    zoneId,
+                    ip: typeof ip === 'string' ? ip : 'unknown',
+                    userAgent: req.headers['user-agent'] || 'unknown',
+                    revenue: cost,        // Advertiser pays this
+                    cost: revenue,        // Publisher gets this (Legacy naming kept for schema compat)
+                    publisherRevenue: revenue,
+                    systemProfit: profit,
+                    clicked: false
+                }
+            }),
+            // 4. Update Campaign Stats (Total + Daily)
+            prisma.campaign.update({
+                where: { id: campaignId },
+                data: {
+                    totalSpent: { increment: cost },
+                    dailySpent: { increment: cost },
+                    totalImpressions: { increment: 1 }
+                }
+            }),
+            // 5. Update Advertiser Spent
+            prisma.advertiser.update({
+                where: { id: campaign.advertiserId },
+                data: { totalSpent: { increment: cost } },
+                select: { userId: true },
+            }),
+        ];
 
-        // 4. Update Campaign Stats (Total + Daily)
-        await prisma.campaign.update({
-            where: { id: campaignId },
-            data: {
-                totalSpent: { increment: cost },
-                dailySpent: { increment: cost },
-                totalImpressions: { increment: 1 }
-            }
-        });
+        // 6. Update Publisher Revenue (only if publisher exists in zone)
+        if (publisherExists) {
+            txOps.push(
+                prisma.publisher.update({
+                    where: { id: zone.site.publisher.id },
+                    data: { totalRevenue: { increment: revenue } }
+                }),
+                prisma.user.update({
+                    where: { id: zone.site.publisher.userId },
+                    data: { balance: { increment: revenue } }
+                })
+            );
+        }
 
-        // 5. Update Advertiser Spent
-        const updatedAdvertiser = await prisma.advertiser.update({
-            where: { id: campaign.advertiserId },
-            data: { totalSpent: { increment: cost } },
-            select: { userId: true },
-        });
+        const txResults = await prisma.$transaction(txOps);
 
         // 5b. Referral Commission (buffered — non-blocking)
         // Fire-and-forget: never let a commission error break ad serving
+        const updatedAdvertiser = txResults[2]; // advertiser.update result
         recordCommission(updatedAdvertiser.userId, cost).catch(() => { });
 
-        // 6. Update Publisher Revenue
-        // First find publisher via zone -> site
-        const zone = await prisma.zone.findUnique({
-            where: { id: zoneId },
-            include: { site: { include: { publisher: true } } }
-        });
-
-        if (zone && zone.site && zone.site.publisher) {
-            await prisma.publisher.update({
-                where: { id: zone.site.publisher.id },
-                data: {
-                    totalRevenue: { increment: revenue }
-                }
-            });
-
-            await prisma.user.update({
-                where: { id: zone.site.publisher.userId },
-                data: {
-                    balance: { increment: revenue }
-                }
-            });
-        }
-
-        // Return 1x1 pixel
-        const img = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
+        // Return 1x1 pixel (pre-allocated, not re-created per request)
         res.writeHead(200, {
             'Content-Type': 'image/gif',
-            'Content-Length': img.length
+            'Content-Length': TRANSPARENT_1X1_GIF.length
         });
-        res.end(img);
+        res.end(TRANSPARENT_1X1_GIF);
 
     } catch (error) {
         console.error('Track impression error:', error);

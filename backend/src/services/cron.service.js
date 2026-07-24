@@ -132,55 +132,79 @@ export const initCronJobs = () => {
     cron.schedule('0 * * * *', async () => {
         console.log('📧 Checking Advertiser Balances & Campaigns...');
         try {
-            // Find advertisers with balance < 10
-            const lowBalanceUsers = await prisma.user.findMany({
-                where: {
-                    role: 'ADVERTISER',
-                    balance: { lt: 10, gt: 0 }
-                },
-                select: { email: true, balance: true }
-            });
+            // ── Low Balance Emails (cursor-based pagination: 500 per batch) ──
+            let cursor = undefined;
+            let totalAlerts = 0;
+            while (true) {
+                const batch = await prisma.user.findMany({
+                    where: {
+                        role: 'ADVERTISER',
+                        balance: { lt: 10, gt: 0 }
+                    },
+                    select: { id: true, email: true, balance: true },
+                    take: 500,
+                    ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
+                    orderBy: { id: 'asc' }
+                });
 
-            for (const user of lowBalanceUsers) {
-                const html = `
-                    <h2>Low Balance Alert</h2>
-                    <p>Hi ${user.email},</p>
-                    <p>Your MrPop.io advertising balance is running low ($${Number(user.balance).toFixed(2)}).</p>
-                    <p>Please log in and add funds to avoid campaign interruption.</p>
-                `;
-                await sendEmail(user.email, 'Action Required: Low Ad Balance', html);
+                if (batch.length === 0) break;
+                cursor = batch[batch.length - 1].id;
+
+                for (const user of batch) {
+                    const html = `
+                        <h2>Low Balance Alert</h2>
+                        <p>Hi ${user.email},</p>
+                        <p>Your MrPop.io advertising balance is running low ($${Number(user.balance).toFixed(2)}).</p>
+                        <p>Please log in and add funds to avoid campaign interruption.</p>
+                    `;
+                    await sendEmail(user.email, 'Action Required: Low Ad Balance', html);
+                    totalAlerts++;
+                }
             }
 
-            // Find all active campaigns and check against total budget
-            const pausedCampaigns = await prisma.campaign.findMany({
-                where: { status: 'ACTIVE' },
-                include: {
-                    advertiser: {
-                        include: { user: true }  // Campaign → Advertiser → User
+            // ── Campaign Budget Check (cursor-based pagination: 500 per batch) ──
+            cursor = undefined;
+            let totalPaused = 0;
+            while (true) {
+                const batch = await prisma.campaign.findMany({
+                    where: { status: 'ACTIVE' },
+                    include: {
+                        advertiser: {
+                            include: { user: true }
+                        }
+                    },
+                    take: 500,
+                    ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
+                    orderBy: { id: 'asc' }
+                });
+
+                if (batch.length === 0) break;
+                cursor = batch[batch.length - 1].id;
+
+                for (const camp of batch) {
+                    if (Number(camp.totalSpent) >= Number(camp.totalBudget)) {
+                        await prisma.campaign.update({
+                            where: { id: camp.id },
+                            data: { status: 'PAUSED' }
+                        });
+                        totalPaused++;
+
+                        const advertiserUser = camp.advertiser?.user;
+                        if (advertiserUser?.email) {
+                            const html = `
+                                <h2>Campaign Paused</h2>
+                                <p>Hi ${advertiserUser.email},</p>
+                                <p>Your campaign "<b>${camp.name}</b>" has reached its total budget and has been automatically paused.</p>
+                                <p>Please log in to add funds or increase the campaign budget.</p>
+                            `;
+                            await sendEmail(advertiserUser.email, `Campaign Paused: ${camp.name}`, html);
+                        }
                     }
                 }
-            });
+            }
 
-            for (const camp of pausedCampaigns) {
-                if (Number(camp.totalSpent) >= Number(camp.totalBudget)) {
-                    // Auto-pause the campaign
-                    await prisma.campaign.update({
-                        where: { id: camp.id },
-                        data: { status: 'PAUSED' }
-                    });
-
-                    // Email the advertiser's user
-                    const advertiserUser = camp.advertiser?.user;
-                    if (advertiserUser?.email) {
-                        const html = `
-                            <h2>Campaign Paused</h2>
-                            <p>Hi ${advertiserUser.email},</p>
-                            <p>Your campaign "<b>${camp.name}</b>" has reached its total budget and has been automatically paused.</p>
-                            <p>Please log in to add funds or increase the campaign budget.</p>
-                        `;
-                        await sendEmail(advertiserUser.email, `Campaign Paused: ${camp.name}`, html);
-                    }
-                }
+            if (totalAlerts > 0 || totalPaused > 0) {
+                console.log(`📧 Alerts sent: ${totalAlerts}, Campaigns paused: ${totalPaused}`);
             }
         } catch (error) {
             console.error('❌ Low Balance Alert Failed:', error);
@@ -252,21 +276,30 @@ export const initCronJobs = () => {
                     _count: { id: true }
                 });
 
-                // Get conversions per zone in same period
-                const conversions = await prisma.conversion.findMany({
+                // Get conversions per zone in same period (use groupBy instead of fetching all rows)
+                const conversionStats = await prisma.conversion.groupBy({
+                    by: ['impressionId'],
                     where: {
                         impression: {
                             campaignId: campaign.id,
                             createdAt: { gte: since }
                         }
                     },
-                    include: { impression: { select: { zoneId: true } } }
+                    _count: { id: true }
                 });
 
+                // Resolve impressionId → zoneId for conversion counting
+                const impressionIds = conversionStats.map(c => c.impressionId).filter(Boolean);
+                const impressions = impressionIds.length > 0 ? await prisma.impression.findMany({
+                    where: { id: { in: impressionIds } },
+                    select: { id: true, zoneId: true }
+                }) : [];
+                const impZoneMap = new Map(impressions.map(i => [i.id, i.zoneId]));
+
                 const conversionsByZone = {};
-                for (const conv of conversions) {
-                    const zId = conv.impression.zoneId;
-                    conversionsByZone[zId] = (conversionsByZone[zId] || 0) + 1;
+                for (const cs of conversionStats) {
+                    const zId = impZoneMap.get(cs.impressionId);
+                    if (zId) conversionsByZone[zId] = (conversionsByZone[zId] || 0) + cs._count.id;
                 }
 
                 const targeting = campaign.targeting || {};
@@ -316,86 +349,96 @@ export const initCronJobs = () => {
     // JOB 6: Publisher Auto-Payout (1st & 15th of every month at 09:00 UTC)
     // Automatically generates withdrawal requests for eligible publishers
     // who have reached the minimum payout threshold.
+    // Uses cursor-based pagination to process ALL eligible publishers
+    // without loading them all into memory at once.
     // ============================================
     cron.schedule('0 9 1,15 * *', async () => {
         console.log('💸 Running Publisher Auto-Payout...');
         try {
             const globalMinPayout = 50; // $50 minimum default
-
-            // Find all publisher users with balance >= min payout
-            const eligibleUsers = await prisma.user.findMany({
-                where: {
-                    role: 'PUBLISHER',
-                    balance: { gte: globalMinPayout }
-                },
-                include: {
-                    publisher: true,
-                    paymentMethods: { where: { isDefault: true }, take: 1 }
-                }
-            });
-
+            let cursor = undefined;
             let processed = 0;
 
-            for (const user of eligibleUsers) {
-                const publisher = user.publisher;
-                if (!publisher) continue;
-
-                const availableBalance = Number(user.balance);
-                const threshold = Math.max(globalMinPayout, Number(publisher.minPayout || 0));
-
-                if (availableBalance < threshold) continue;
-
-                // Check if there's already a PENDING withdrawal in progress
-                const existingPending = await prisma.payment.findFirst({
+            while (true) {
+                // Fetch 500 eligible publishers at a time (cursor-based pagination)
+                const batch = await prisma.user.findMany({
                     where: {
-                        userId: user.id,
-                        type: 'WITHDRAWAL',
-                        status: 'PENDING'
-                    }
+                        role: 'PUBLISHER',
+                        balance: { gte: globalMinPayout }
+                    },
+                    include: {
+                        publisher: true,
+                        paymentMethods: { where: { isDefault: true }, take: 1 }
+                    },
+                    take: 500,
+                    ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
+                    orderBy: { id: 'asc' }
                 });
 
-                if (existingPending) {
-                    console.log(`[AutoPayout] Skipping ${user.email} — already has a pending withdrawal.`);
-                    continue;
+                if (batch.length === 0) break;
+                cursor = batch[batch.length - 1].id;
+
+                for (const user of batch) {
+                    const publisher = user.publisher;
+                    if (!publisher) continue;
+
+                    const availableBalance = Number(user.balance);
+                    const threshold = Math.max(globalMinPayout, Number(publisher.minPayout || 0));
+
+                    if (availableBalance < threshold) continue;
+
+                    // Check if there's already a PENDING withdrawal in progress
+                    const existingPending = await prisma.payment.findFirst({
+                        where: {
+                            userId: user.id,
+                            type: 'WITHDRAWAL',
+                            status: 'PENDING'
+                        }
+                    });
+
+                    if (existingPending) {
+                        console.log(`[AutoPayout] Skipping ${user.email} — already has a pending withdrawal.`);
+                        continue;
+                    }
+
+                    // Determine best payment method
+                    const paymentMethod = user.paymentMethods?.[0] || null;
+
+                    // Create auto withdrawal payment record
+                    await prisma.payment.create({
+                        data: {
+                            userId: user.id,
+                            type: 'WITHDRAWAL',
+                            amount: availableBalance,
+                            method: paymentMethod?.type || 'PAYPAL',
+                            status: 'PENDING',
+                            details: paymentMethod?.details || {},
+                            notes: 'Auto-generated by monthly payout system'
+                        }
+                    });
+
+                    // Move balance to pending
+                    await prisma.user.update({
+                        where: { id: user.id },
+                        data: {
+                            balance: { decrement: availableBalance },
+                            pendingBalance: { increment: availableBalance }
+                        }
+                    });
+
+                    processed++;
+                    console.log(`[AutoPayout] Created payout request for ${user.email}: $${availableBalance.toFixed(2)}`);
+
+                    // Email the publisher
+                    const html = `
+                        <h2>Auto-Payout Request Created</h2>
+                        <p>Hello,</p>
+                        <p>Your earnings of <b>$${availableBalance.toFixed(2)}</b> have been automatically queued for payout.</p>
+                        <p>Our team will process your payment shortly. You can track the status in your publisher dashboard.</p>
+                        <p>Thank you for publishing with us!</p>
+                    `;
+                    await sendEmail(user.email, 'Your Payout is Being Processed', html).catch(() => { });
                 }
-
-                // Determine best payment method
-                const paymentMethod = user.paymentMethods?.[0] || null;
-
-                // Create auto withdrawal payment record
-                await prisma.payment.create({
-                    data: {
-                        userId: user.id,
-                        type: 'WITHDRAWAL',
-                        amount: availableBalance,
-                        method: paymentMethod?.type || 'PAYPAL',
-                        status: 'PENDING',
-                        details: paymentMethod?.details || {},
-                        notes: 'Auto-generated by monthly payout system'
-                    }
-                });
-
-                // Move balance to pending
-                await prisma.user.update({
-                    where: { id: user.id },
-                    data: {
-                        balance: { decrement: availableBalance },
-                        pendingBalance: { increment: availableBalance }
-                    }
-                });
-
-                processed++;
-                console.log(`[AutoPayout] Created payout request for ${user.email}: $${availableBalance.toFixed(2)}`);
-
-                // Email the publisher
-                const html = `
-                    <h2>Auto-Payout Request Created</h2>
-                    <p>Hello,</p>
-                    <p>Your earnings of <b>$${availableBalance.toFixed(2)}</b> have been automatically queued for payout.</p>
-                    <p>Our team will process your payment shortly. You can track the status in your publisher dashboard.</p>
-                    <p>Thank you for publishing with us!</p>
-                `;
-                await sendEmail(user.email, 'Your Payout is Being Processed', html).catch(() => { });
             }
 
             console.log(`✅ Auto-Payout complete. Processed ${processed} publishers.`);

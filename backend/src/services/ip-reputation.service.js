@@ -21,11 +21,13 @@ import prisma from '../lib/prisma.js';
 
 // ── Caches ────────────────────────────────────────────────────────────────────
 // IP reputation results: 1 hour TTL (reduced to 10 min for PENDING so audit can reassess quickly)
-const reputationCache = new NodeCache({ stdTTL: 3600, checkperiod: 120 });
+// maxKeys caps memory under extreme traffic (200k unique IPs)
+const reputationCache = new NodeCache({ stdTTL: 3600, checkperiod: 120, maxKeys: 200000 });
 
 // Short-term rolling counters for the current request window (in-memory, fast)
 // Key: `cnt_imp_<ip>`  or `cnt_clk_<ip>` — value: integer count in last hour
-const rollingCounters = new NodeCache({ stdTTL: 3600, checkperiod: 60 });
+// maxKeys: 200k = 100k unique IPs × 2 keys each (imp + clk)
+const rollingCounters = new NodeCache({ stdTTL: 3600, checkperiod: 60, maxKeys: 200000 });
 
 // ── Known high-risk prefix lists ───────────────────────────────────────────────
 // TOR exit nodes — real production would query torproject.org/exit-addresses daily

@@ -19,7 +19,8 @@ import NodeCache from 'node-cache';
 import prisma from '../lib/prisma.js';
 
 // Shared cache instance — 60s TTL for audience rules, 300s for match results
-const audienceCache = new NodeCache({ stdTTL: 60, checkperiod: 30 });
+// maxKeys prevents unbounded memory growth from unique IP×audience combinations
+const audienceCache = new NodeCache({ stdTTL: 60, checkperiod: 30, maxKeys: 100000 });
 
 /**
  * Fetch multiple audiences by IDs (with 60s cache).

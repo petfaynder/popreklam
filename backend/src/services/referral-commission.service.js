@@ -13,22 +13,26 @@
  */
 
 import prisma from '../lib/prisma.js';
+import NodeCache from 'node-cache';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
-const FLUSH_THRESHOLD = 500;   // Flush when buffer reaches this many entries
-const REFERRER_TTL_MS  = 10 * 60 * 1000; // Cache referrer lookups for 10 min
+const FLUSH_THRESHOLD    = 500;   // Flush when buffer reaches this many entries
+const REFERRER_TTL_SEC   = 600;   // Cache referrer lookups for 10 min
+const MAX_FLUSH_RETRIES  = 3;     // Drop entry after this many consecutive flush failures
 
 // ── In-memory stores ──────────────────────────────────────────────────────────
 
 /**
- * referrerCache: advertiserId → { referralId, referrerId, commissionRate, expiresAt }
- * Avoids hitting DB on every single impression.
+ * referrerCache: advertiserId → { referralId, referrerId, commissionRate }
+ * Uses NodeCache with automatic TTL eviction — prevents unbounded Map growth.
+ * maxKeys caps the cache at 50k entries to bound memory even under extreme load.
  */
-const referrerCache = new Map();
+const referrerCache = new NodeCache({ stdTTL: REFERRER_TTL_SEC, checkperiod: 120, maxKeys: 50000 });
 
 /**
- * pendingFlush: referralId → { referrerId, earned }
+ * pendingFlush: referralId → { referrerId, earned, retries }
  * Accumulates earned amounts per referral record until flush.
+ * retries field tracks consecutive DB failures — entries are dropped after MAX_FLUSH_RETRIES.
  */
 const pendingFlush = new Map();
 
@@ -42,10 +46,7 @@ let totalBuffered = 0; // Total impression-level entries buffered since last flu
  */
 async function fetchReferral(advertiserUserId) {
     const cached = referrerCache.get(advertiserUserId);
-    if (cached) {
-        if (Date.now() < cached.expiresAt) return cached;
-        referrerCache.delete(advertiserUserId);
-    }
+    if (cached !== undefined) return cached; // NodeCache handles TTL automatically
 
     // Only ADVERTISER-type referrals matter here
     // NOTE: referredId is a direct scalar field on Referral (maps to referred_id column)
@@ -63,11 +64,8 @@ async function fetchReferral(advertiserUserId) {
     });
 
     if (!referral) {
-        // Cache negative result too (null) to avoid repeated DB hits
-        referrerCache.set(advertiserUserId, {
-            referralId: null,
-            expiresAt: Date.now() + REFERRER_TTL_MS,
-        });
+        // Cache negative result too (null marker) to avoid repeated DB hits
+        referrerCache.set(advertiserUserId, { referralId: null });
         return null;
     }
 
@@ -75,7 +73,6 @@ async function fetchReferral(advertiserUserId) {
         referralId: referral.id,
         referrerId: referral.referrerId,
         commissionRate: Number(referral.commissionRate),
-        expiresAt: Date.now() + REFERRER_TTL_MS,
     };
     referrerCache.set(advertiserUserId, entry);
     return entry;
@@ -104,6 +101,7 @@ export async function recordCommission(advertiserUserId, cost) {
             pendingFlush.set(referral.referralId, {
                 referrerId: referral.referrerId,
                 earned: commission,
+                retries: 0,
             });
         }
 
@@ -141,7 +139,7 @@ export async function flushCommissions() {
     let flushed = 0;
     let totalEarned = 0;
 
-    for (const [referralId, { referrerId, earned }] of snapshot) {
+    for (const [referralId, { referrerId, earned, retries = 0 }] of snapshot) {
         // Round to 2 decimal places — matches DB Decimal(10,2) for totalEarned
         const roundedEarned = Math.round(earned * 100) / 100;
         if (roundedEarned <= 0) continue;
@@ -174,13 +172,20 @@ export async function flushCommissions() {
             flushed++;
             totalEarned += roundedEarned;
         } catch (err) {
-            console.error(`[ReferralCommission] Failed to flush referralId=${referralId}:`, err.message);
-            // Re-queue failed entries so they aren't lost
-            const existing = pendingFlush.get(referralId);
-            if (existing) {
-                existing.earned += roundedEarned;
+            const newRetries = retries + 1;
+            if (newRetries >= MAX_FLUSH_RETRIES) {
+                // Drop the entry after max retries to prevent unbounded memory growth
+                console.error(`[ReferralCommission] DROPPED referralId=${referralId} after ${MAX_FLUSH_RETRIES} retries ($${roundedEarned}):`, err.message);
             } else {
-                pendingFlush.set(referralId, { referrerId, earned: roundedEarned });
+                console.error(`[ReferralCommission] Failed to flush referralId=${referralId} (retry ${newRetries}/${MAX_FLUSH_RETRIES}):`, err.message);
+                // Re-queue with incremented retry counter
+                const existing = pendingFlush.get(referralId);
+                if (existing) {
+                    existing.earned += roundedEarned;
+                    existing.retries = Math.max(existing.retries, newRetries);
+                } else {
+                    pendingFlush.set(referralId, { referrerId, earned: roundedEarned, retries: newRetries });
+                }
             }
         }
     }

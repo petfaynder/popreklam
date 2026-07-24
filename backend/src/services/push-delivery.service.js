@@ -1,48 +1,11 @@
 import { Queue, Worker } from 'bullmq';
-import Redis from 'ioredis';
 import webpush from 'web-push';
 import prisma from '../lib/prisma.js';
+import redisConnection, { isRedisAvailable } from '../utils/redis.js';
 
 
-// ── Redis Connection ────────────────────────────────────────────────────────
-let redisAvailable = false;
-let pushRedisErrorLogged = false;
-
-const redisConnection = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
-    maxRetriesPerRequest: null, // Required by BullMQ
-    enableReadyCheck: false,
-    lazyConnect: true,
-    retryStrategy(times) {
-        if (times > 3) {
-            if (!pushRedisErrorLogged) {
-                console.warn('⚠️  [PushDelivery] Redis unavailable — push notifications disabled. Start Redis to enable.');
-                pushRedisErrorLogged = true;
-            }
-            return null; // Stop retrying — no more logs
-        }
-        return Math.min(times * 1000, 3000);
-    },
-});
-
-redisConnection.on('connect', () => {
-    redisAvailable = true;
-    pushRedisErrorLogged = false;
-    console.log('✅ [PushDelivery] Redis connected — push notifications enabled.');
-});
-
-redisConnection.on('error', (err) => {
-    redisAvailable = false;
-    // Only log once — retryStrategy handles the silence after max retries
-    if (!pushRedisErrorLogged && err.code === 'ECONNREFUSED') {
-        // Will be logged by retryStrategy after 3 attempts
-    } else if (err.code !== 'ECONNREFUSED') {
-        console.error('[PushDelivery] Redis error:', err.message);
-    }
-});
-
-// ── Queue (only created if Redis becomes available) ─────────────────────────
-// We create the Queue object upfront since BullMQ requires it,
-// but all enqueue calls are guarded by redisAvailable check.
+// ── Queue (uses shared Redis connection from utils/redis.js) ────────────────
+// All enqueue calls are guarded by isRedisAvailable() check.
 export const pushQueue = new Queue('push-delivery', {
     connection: redisConnection,
     defaultJobOptions: {
@@ -139,7 +102,7 @@ export const startPushWorker = () => {
  * Uses targeting rules: country, device, subscription age.
  */
 export const enqueuePushCampaign = async (campaign) => {
-    if (!redisAvailable) return 0; // Redis not running — skip silently
+    if (!isRedisAvailable()) return 0; // Redis not running — skip silently
 
     const targeting = campaign.targeting || {};
     const freqCap = Number(campaign.freqCap || 3);

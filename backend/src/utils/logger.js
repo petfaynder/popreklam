@@ -32,9 +32,20 @@ export const logger = winston.createLogger({
                 logFormat
             )
         }),
-        // File transports
-        new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-        new winston.transports.File({ filename: 'logs/combined.log' })
+        // File transports — with rotation to prevent unbounded disk growth
+        new winston.transports.File({
+            filename: 'logs/error.log',
+            level: 'error',
+            maxsize: 10 * 1024 * 1024,   // 10 MB per file
+            maxFiles: 5,                  // Keep 5 rotated files (50 MB max)
+            tailable: true
+        }),
+        new winston.transports.File({
+            filename: 'logs/combined.log',
+            maxsize: 20 * 1024 * 1024,   // 20 MB per file
+            maxFiles: 10,                 // Keep 10 rotated files (200 MB max)
+            tailable: true
+        })
     ]
 });
 
