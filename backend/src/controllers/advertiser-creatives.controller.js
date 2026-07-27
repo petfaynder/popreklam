@@ -16,11 +16,23 @@ export const getCreatives = async (req, res) => {
 
         if (!campaign) return res.status(404).json({ message: 'Campaign not found' });
 
-        // NOTE: The Impression model does not have a creativeId column, so
-        // per-creative impression stats are not tracked at the DB level.
-        // We return aggregate campaign stats and distribute evenly by weight.
+        // Per-creative impression stats using the creativeId column
+        const creativeImpressionCounts = await prisma.impression.groupBy({
+            by: ['creativeId'],
+            where: { campaignId, creativeId: { not: null } },
+            _count: { id: true },
+            _sum: { revenue: true },
+        });
+
+        const countMap = {};
+        const spentMap = {};
+        for (const row of creativeImpressionCounts) {
+            countMap[row.creativeId] = row._count.id;
+            spentMap[row.creativeId] = Number(row._sum.revenue || 0);
+        }
+
+        const hasRealData = creativeImpressionCounts.length > 0;
         const totalImpressions = campaign.totalImpressions || 0;
-        const totalCreatives = campaign.creatives.length || 1;
         const totalWeight = campaign.creatives.reduce((s, c) => s + (c.weight || 1), 0) || 1;
 
         const creatives = campaign.creatives.map(c => {
@@ -30,8 +42,9 @@ export const getCreatives = async (req, res) => {
                 weight: c.weight,
                 label: c.label,
                 stats: {
-                    impressions: Math.round(totalImpressions * share),
-                    spent: Number(campaign.totalSpent || 0) * share
+                    // Use real data if available, otherwise fall back to weight-based estimation
+                    impressions: hasRealData ? (countMap[c.id] || 0) : Math.round(totalImpressions * share),
+                    spent: hasRealData ? (spentMap[c.id] || 0) : Number(campaign.totalSpent || 0) * share,
                 }
             };
         });

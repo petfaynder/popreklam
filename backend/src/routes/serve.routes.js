@@ -476,6 +476,14 @@ router.post('/impression', botUaGuard, async (req, res) => {
                 if (rand <= 0) { creative = c; break; }
             }
             if (!creative) creative = creatives[creatives.length - 1]; // fallback
+
+            // Record which creative was shown (fire-and-forget for A/B analytics)
+            if (creative?.id) {
+                prisma.impression.update({
+                    where: { id: impression.id },
+                    data: { creativeId: creative.id }
+                }).catch(() => {});
+            }
         }
 
         return res.json({
@@ -632,10 +640,12 @@ router.get('/script/:zoneId', async (req, res) => {
         // ── IN-PAGE PUSH ──────────────────────────────────────
         } else if (fmt === 'IN_PAGE_PUSH') {
             var c = ad.creative || {};
-            var ttl = c.title || 'New Notification';
-            var dsc = c.description || 'Click to learn more';
-            var ico = c.iconUrl || '';
-            var img = c.imageUrl || '';
+            var _esc = function(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+            var _escAttr = function(s) { return String(s || '').replace(/"/g, '&quot;'); };
+            var ttl = _esc(c.title || 'New Notification');
+            var dsc = _esc(c.description || 'Click to learn more');
+            var ico = _escAttr(c.iconUrl || '');
+            var img = _escAttr(c.imageUrl || '');
 
             var el = document.createElement('div');
             el.setAttribute('style', [

@@ -347,7 +347,8 @@ model Creative {
   createdAt   DateTime @default(now()) @map("created_at")
 
   // Relations
-  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  campaign    Campaign     @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  impressions Impression[]
 
   @@map("creatives")
 }
@@ -392,11 +393,13 @@ model Impression {
   // Fraud Detection
   fraudScore       Int      @default(0) @map("fraud_score") // 0-100 composite risk score
   trafficStatus    String   @default("CLEAN") @map("traffic_status") // CLEAN | PENDING | INVALID
+  creativeId       String?  @map("creative_id") // Which creative was shown (for A/B testing)
   createdAt        DateTime @default(now()) @map("created_at")
 
   // Relations — Restrict campaign delete to protect impression/revenue history (soft-delete only)
   campaign   Campaign    @relation(fields: [campaignId], references: [id], onDelete: Restrict)
   zone       Zone        @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  creative   Creative?   @relation(fields: [creativeId], references: [id], onDelete: SetNull)
   conversion Conversion?
 
   @@index([campaignId])
@@ -503,6 +506,7 @@ model Payment {
   transactionId   String?       @map("transaction_id") // External payment processor ID
   details         Json? // PayPal email, bank account details
   rejectionReason String?       @map("rejection_reason") @db.Text
+  notes           String?       @map("notes") @db.Text // Internal notes (auto-payout, admin remarks)
   processedBy     String?       @map("processed_by") // Admin who approved/rejected
   processedAt     DateTime?     @map("processed_at")
   couponId        String?       @map("coupon_id") // Applied promo coupon (if any)

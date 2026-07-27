@@ -155,6 +155,13 @@ export default function CreateCampaign() {
                 feedAudienceIds: formData.feedAudienceIds || [],
                 dailyClicksLimit: formData.dailyClicksLimit ? parseInt(formData.dailyClicksLimit) : undefined,
                 totalClicksLimit: formData.totalClicksLimit ? parseInt(formData.totalClicksLimit) : undefined,
+                // Push Notification campaign-level fields (used by push-delivery.service.js)
+                ...(formData.adFormat === 'PUSH_NOTIFICATION' && {
+                    pushTitle: formData.creativeTitle || undefined,
+                    pushBody: formData.creativeDesc || undefined,
+                    pushIcon: formData.creativeIcon || undefined,
+                    pushImage: formData.creativeImage || undefined,
+                }),
                 // If A/B variants exist, send array; otherwise single creative
                 creatives: formData.creativeVariants && formData.creativeVariants.length > 1
                     ? formData.creativeVariants.map(v => ({

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Image as ImageIcon, Type, Link as LinkIcon, UploadCloud, Eye, Smartphone, Monitor, Plus, Trash2, FlaskConical, GripVertical } from 'lucide-react';
+import { Image as ImageIcon, Type, Link as LinkIcon, Eye, Smartphone, Monitor, Plus, Trash2, FlaskConical } from 'lucide-react';
 import { getDashboardTheme } from '@/lib/themeUtils';
 import useTheme from '@/hooks/useTheme';
 
@@ -303,11 +303,11 @@ export default function CreativesSection({ formData, updateField, setFormData })
                         </div>
                     </div>
 
-                    {/* Upload helper */}
-                    <div className={`p-4 rounded-xl border border-dashed text-center cursor-pointer transition-colors ${d.isDark ? 'border-white/10 hover:bg-white/5' : 'border-gray-300 hover:bg-gray-50'}`}>
-                        <UploadCloud className={`w-8 h-8 mx-auto mb-2 ${d.muted}`} />
-                        <p className={`text-sm font-medium ${d.text}`}>Upload Assets</p>
-                        <p className={`text-xs ${d.muted}`}>Drag & drop or click to browse</p>
+                    {/* Asset info note */}
+                    <div className={`p-4 rounded-xl border text-center ${d.isDark ? 'border-white/10 bg-white/[0.02]' : 'border-gray-200 bg-gray-50'}`}>
+                        <LinkIcon className={`w-6 h-6 mx-auto mb-2 ${d.muted}`} />
+                        <p className={`text-sm font-medium ${d.text}`}>Paste Asset URLs Above</p>
+                        <p className={`text-xs ${d.muted}`}>Use direct links to your hosted images (PNG, JPG, WebP)</p>
                     </div>
                 </div>
 

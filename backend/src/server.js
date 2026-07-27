@@ -117,7 +117,7 @@ const adLimiter = rateLimit({
   }
 });
 
-// Mount webhooks BEFORE global json parsing so Stripe gets the raw body buffer
+// Mount webhooks BEFORE global json parsing so Dodo/OxaPay can access the raw body buffer
 app.use('/api/webhooks', webhooksRoutes);
 
 // Body parsing

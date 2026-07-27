@@ -501,7 +501,9 @@ export const updateCampaign = async (req, res) => {
             // Audience
             audienceInclude, audienceExclude, feedAudienceIds,
             // Click Limits
-            dailyClicksLimit, totalClicksLimit
+            dailyClicksLimit, totalClicksLimit,
+            // Push Notification creative fields
+            pushTitle, pushBody, pushIcon, pushImage
         } = req.body;
         const userId = req.user.id;
 
@@ -614,6 +616,13 @@ export const updateCampaign = async (req, res) => {
                 targeting: finalTargeting,
                 dailyClicksLimit: dailyClicksLimit !== undefined ? (dailyClicksLimit ? parseInt(dailyClicksLimit) : null) : undefined,
                 totalClicksLimit: totalClicksLimit !== undefined ? (totalClicksLimit ? parseInt(totalClicksLimit) : null) : undefined,
+                // Push Notification creative fields
+                ...(campaign.adFormat === 'PUSH_NOTIFICATION' && {
+                    pushTitle: pushTitle !== undefined ? (pushTitle || null) : undefined,
+                    pushBody: pushBody !== undefined ? (pushBody || null) : undefined,
+                    pushIcon: pushIcon !== undefined ? (pushIcon || null) : undefined,
+                    pushImage: pushImage !== undefined ? (pushImage || null) : undefined,
+                }),
             }
         });
 
