@@ -10,7 +10,6 @@ dotenv.config();
 
 // Import routes
 import authRoutes from './routes/auth.routes.js';
-import adServerRoutes from './routes/ad-server.routes.js';
 import publisherRoutes from './routes/publisher.routes.js';
 import advertiserRoutes from './routes/advertiser.routes.js';
 import adminRoutes from './routes/admin.routes.js';
@@ -147,7 +146,6 @@ app.use('/api/auth', strictLimiter, maintenanceMiddleware, authRoutes);     // l
 app.use('/api/publisher', apiLimiter, maintenanceMiddleware, publisherRoutes);   // dashboard — relaxed
 app.use('/api/advertiser', apiLimiter, maintenanceMiddleware, advertiserRoutes); // dashboard — relaxed
 app.use('/api/admin', strictLimiter, adminRoutes);                          // admin — strict
-app.use('/api/ads', adLimiter, adServerRoutes);    // Public ad serving — high limit
 app.use('/api/serve', adLimiter, serveRoutes);     // Public ad serving — high limit
 app.use('/api/push', apiLimiter, pushRoutes);      // Push notification endpoints
 app.use('/api/postback', adLimiter, postbackRoutes); // S2S Postback — open to all advertiser servers

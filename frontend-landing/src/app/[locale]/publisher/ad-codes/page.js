@@ -131,7 +131,7 @@ export default function PublisherAdCodesPage() {
     var s = document.createElement('script');
     s.type = 'text/javascript';
     s.async = true;
-    s.src = '${API_URL}/api/ads/script/${zoneId}';
+    s.src = '${API_URL}/api/serve/script/${zoneId}';
     s.setAttribute('data-zone-id', '${zoneId}');
     var x = document.getElementsByTagName('script')[0];
     x.parentNode.insertBefore(s, x);
